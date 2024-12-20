@@ -125,8 +125,17 @@
           "baseComponent": "DistributionVisualization",
           "instruction": "Drag the slider such that the vertical line intersects the curve at the highest location.",
           "parameters": {
-            "parameters": {"xi": 0, "alpha": 1, "omega": 0, "nu": 10}, 
+            "data": {"xi": 0, "omega": 1, "nu": 2, "alpha": 10}, 
             "showPDF": true
+          },
+          "response": []
+        }, 
+        "trial2": {
+          "baseComponent": "DistributionVisualization",
+          "instruction": "Drag the slider such that the vertical line intersects the curve at the highest location.",
+          "parameters": {
+            "data": {"xi": 1, "omega": 1, "nu": 2, "alpha": 1}, 
+            "showPDF": false
           },
           "response": []
         }
@@ -138,7 +147,8 @@
             "consent",
             {
               "components": [
-                "trial1"
+                "trial1", 
+                "trial2"
               ], 
               "order": "random"
             }, 

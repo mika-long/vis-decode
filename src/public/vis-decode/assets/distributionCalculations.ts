@@ -1,5 +1,5 @@
 // import {dt, pt} from 'lib-r-math.js';  
-import { studentTPDF } from "./customT";
+import { studentTPDF, studentTCDF } from "./customT";
 
 export interface DistributionData { 
     x_vals: number[]; 
@@ -39,7 +39,7 @@ export function skewTPDF(x: number, params: DistributionParams): number {
     const tPart = (1/omega) * studentTPDF(z, nu);
 
     // Then calculate the cumulative t-distribution part for the skewness 
-    const Ft = studentTPDF(alpha * z * Math.sqrt((nu + 1) / (nu + z * z)), nu + 1); 
+    const Ft = studentTCDF(alpha * z * Math.sqrt((nu + 1) / (nu + z * z)), nu + 1); 
 
     return 2 * tPart * Ft; 
 }
