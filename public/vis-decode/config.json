@@ -128,14 +128,36 @@
             "data": {"xi": 0, "omega": 1, "nu": 2, "alpha": 10}, 
             "showPDF": true
           },
-          "response": []
+          "response": [
+            {
+              "id": "q-slider",
+                "prompt": "Drag the slider",
+                "location": "belowStimulus",
+                "required": true,
+                "type": "slider",
+                "options": [
+                  {
+                    "label": "Bad",
+                    "value": 0
+                  },
+                  {
+                    "label": "OK",
+                    "value": 50
+                  },
+                  {
+                    "label": "Good",
+                    "value": 100
+                  }
+                ]
+            }
+          ]
         }, 
         "trial2": {
           "baseComponent": "DistributionVisualization",
           "instruction": "Drag the slider such that the vertical line intersects the curve at the highest location.",
           "parameters": {
-            "data": {"xi": 1, "omega": 1, "nu": 2, "alpha": 1}, 
-            "showPDF": false
+            "data": {"xi": 1, "omega": 1, "nu": 2, "alpha": 10}, 
+            "showPDF": true
           },
           "response": []
         }
