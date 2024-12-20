@@ -33,6 +33,59 @@ function studentTPDF(x: number, v: number): number {
   return normTerm * mainTerm;
 }
 
+function beta(a: number, b:number): number {
+  return gamma(a) * gamma(b) / gamma(a + b);
+}
+
+function incompleteBeta(x:number, a:number, b:number): number {
+  if (x <= 0) return 0;
+  if (x >= 1) return beta(a, b);
+  
+  const fpmin = 1e-30;
+  let m = 1;
+  let qab = a + b;
+  let qap = a + 1;
+  let qam = a - 1;
+  let c = 1;
+  let d = 1 - qab * x / qap;
+  
+  if (Math.abs(d) < fpmin) d = fpmin;
+  d = 1 / d;
+  let h = d;
+  
+  for (m = 1; m <= 100; m++) {
+      let m2 = 2 * m;
+      let aa = m * (b - m) * x / ((qam + m2) * (a + m2));
+      d = 1 + aa * d;
+      if (Math.abs(d) < fpmin) d = fpmin;
+      c = 1 + aa / c;
+      if (Math.abs(c) < fpmin) c = fpmin;
+      d = 1 / d;
+      h *= d * c;
+      
+      aa = -(a + m) * (qab + m) * x / ((a + m2) * (qap + m2));
+      d = 1 + aa * d;
+      if (Math.abs(d) < fpmin) d = fpmin;
+      c = 1 + aa / c;
+      if (Math.abs(c) < fpmin) c = fpmin;
+      d = 1 / d;
+      const del = d * c;
+      h *= del;
+      
+      if (Math.abs(del - 1) < 3e-7) break;
+  }
+  
+  return h * Math.pow(x, a) * Math.pow(1-x, b) / a;
+}
+
+function regualizedBeta(x: number, a: number, b: number): number {
+  return incompleteBeta(x, a, b) / beta(a, b);
+}
+
+function studentTCDF(x:number, v: number): number {
+  return 1 - 1 / 2 * regualizedBeta(v / (v + x * x), v / 2, 1 / 2);
+}
+
 // /**
 //  * Example usage and tests
 //  */
@@ -62,4 +115,4 @@ function studentTPDF(x: number, v: number): number {
 
 // Export the function and test runner
 // export { studentTPDF, runTests };
-export { studentTPDF };
+export { studentTPDF, studentTCDF };
