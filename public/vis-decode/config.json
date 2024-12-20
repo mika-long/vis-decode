@@ -22,13 +22,44 @@
     },
     "importedLibraries": [],
     "baseComponents": {
-      "DistributionVisualization": {
+      "PDF-Median": {
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
+        "instruction": "Click on the curve such that a vertical line throught the point splits the area under the curve into two equal parts.",
         "nextButtonLocation": "sidebar",
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
           "showPDF": true
+        }
+      }, 
+      "PDF-Mode": {
+        "type": "react-component", 
+        "path": "vis-decode/assets/Test.tsx", 
+        "instruction": "Click on the highest point of the curve.",
+        "nextButtonLocation": "sidebar",
+        "parameters": {
+          "data": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
+          "showPDF": true
+        }
+      }, 
+      "CDF-Median": {
+        "type": "react-component", 
+        "path": "vis-decode/assets/Test.tsx", 
+        "instruction": "Click on the curve that interects with the horizontal line where y = 0.5",
+        "nextButtonLocation": "sidebar",
+        "parameters": {
+          "data": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
+          "showPDF": false
+        }
+      },
+      "CDF-Mode": {
+        "type": "react-component", 
+        "path": "vis-decode/assets/Test.tsx", 
+        "instruction": "Click on the curve that has the steepest tangent slope.",
+        "nextButtonLocation": "sidebar",
+        "parameters": {
+          "data": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
+          "showPDF": false
         }
       }
     },
@@ -122,42 +153,30 @@
             ]
         }, 
         "trial1": {
-          "baseComponent": "DistributionVisualization",
-          "instruction": "Drag the slider such that the vertical line intersects the curve at the highest location.",
+          "baseComponent": "PDF-Median",
           "parameters": {
-            "data": {"xi": 0, "omega": 1, "nu": 2, "alpha": 10}, 
-            "showPDF": true
+            "data": {"xi": 0, "omega": 1, "nu": 2, "alpha": 10}
           },
-          "response": [
-            {
-              "id": "q-slider",
-                "prompt": "Drag the slider",
-                "location": "belowStimulus",
-                "required": true,
-                "type": "slider",
-                "options": [
-                  {
-                    "label": "Bad",
-                    "value": 0
-                  },
-                  {
-                    "label": "OK",
-                    "value": 50
-                  },
-                  {
-                    "label": "Good",
-                    "value": 100
-                  }
-                ]
-            }
-          ]
+          "response": []
         }, 
         "trial2": {
-          "baseComponent": "DistributionVisualization",
-          "instruction": "Drag the slider such that the vertical line intersects the curve at the highest location.",
+          "baseComponent": "PDF-Mode",
           "parameters": {
-            "data": {"xi": 1, "omega": 1, "nu": 2, "alpha": 10}, 
-            "showPDF": true
+            "data": {"xi": 2, "omega": 3, "nu": 2, "alpha": -2} 
+          },
+          "response": []
+        }, 
+        "trial3": {
+          "baseComponent": "CDF-Mode",
+          "parameters": {
+            "data": {"xi": 1, "omega": 1, "nu": 2, "alpha": -20} 
+          },
+          "response": []
+        }, 
+        "trial4": {
+          "baseComponent": "CDF-Median",
+          "parameters": {
+            "data": {"xi": 1, "omega": 10, "nu": 2, "alpha": 1} 
           },
           "response": []
         }
@@ -170,7 +189,9 @@
             {
               "components": [
                 "trial1", 
-                "trial2"
+                "trial2", 
+                "trial3",
+                "trial4"
               ], 
               "order": "random"
             }, 

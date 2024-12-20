@@ -40,22 +40,34 @@ function Test({ parameters }: StimulusParams<any>) {
 
     // Create scales
     const xScale = d3.scaleLinear()
-      .domain([0, distributionData.x_vals.length - 1])
+      .domain([distributionData.x_vals[0], distributionData.x_vals[distributionData.x_vals.length - 1]])
       .range([0, width]);
 
-    const yValues = showPDF ? distributionData.pdf_vals : distributionData.cdf_vals;
     const yScale = d3.scaleLinear()
       .domain([0, 1])
       .range([height, 0]);
 
-    // Create line generator
-    const line = d3.line<number>()
-      .x((d, i) => xScale(i))
-      .y((d: number) => yScale(d));
+    const yValues = showPDF ? distributionData.pdf_vals : distributionData.cdf_vals;
 
-    // Add the line path
-    svg.append('path')
-      .datum(yValues)
+    // Create array of [x,y] points
+    const points = distributionData.x_vals.map((x, i) => ({
+      x: x,
+      y: yValues[i]
+    }));
+
+    // Create line generator using actual x values
+    const line = d3.line<{ x: number, y: number }>()
+      .x(d => xScale(d.x))
+      .y(d => yScale(d.y))
+
+    // // Create line generator
+    // const line = d3.line<number>()
+    //   .x((d, i) => xScale(i))
+    //   .y((d: number) => yScale(d));
+
+     // Add the line path with points array
+     svg.append('path')
+      .datum(points)
       .attr('fill', 'none')
       .attr('stroke', 'steelblue')
       .attr('stroke-width', 2)
@@ -92,8 +104,8 @@ function Test({ parameters }: StimulusParams<any>) {
 
   return (
     <div className="p-4">
-      <h3 className="font-bold mb-4">Distribution Parameters:</h3>
-      <p>xi: {data.xi}  omega: {data.omega}  nu: {data.nu}  alpha: {data.alpha}  Showing {showPDF ? 'PDF' : 'CDF'} values</p>
+      {/* <h3 className="font-bold mb-4">Distribution Parameters:</h3>
+      <p>xi: {data.xi}  omega: {data.omega}  nu: {data.nu}  alpha: {data.alpha}  Showing {showPDF ? 'PDF' : 'CDF'} values</p> */}
 
       <div className="mt-4">
         <svg ref={svgRef} className="bg-white rounded-lg shadow-lg"></svg>
