@@ -83,7 +83,10 @@ function regualizedBeta(x: number, a: number, b: number): number {
 }
 
 function studentTCDF(x:number, v: number): number {
-  return 1 - 1 / 2 * regualizedBeta(v / (v + x * x), v / 2, 1 / 2);
+  if (x < 0) {
+    return 0.5 * regualizedBeta(v / (v + x * x), v / 2, 1 / 2);
+  }
+  return 1 - 0.5 * regualizedBeta(v / (v + x * x), v / 2, 1 / 2);
 }
 
 // /**
