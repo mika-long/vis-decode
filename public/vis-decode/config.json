@@ -35,7 +35,7 @@
           {
             "id": "location", 
             "prompt": "The location of your click", 
-            "required": true, 
+            "required": false, 
             "location": "sidebar",
             "type": "iframe"
           }
@@ -92,7 +92,7 @@
           {
             "id": "location", 
             "prompt": "The location of your click", 
-            "required": true, 
+            "required": false, 
             "location": "sidebar",
             "type": "iframe"
           }
@@ -191,30 +191,42 @@
         "trial1": {
           "baseComponent": "PDF-Median",
           "parameters": {
+            "data": {"xi": 0, "omega": 1, "nu": 2, "alpha": 10}, 
+            "taskid": "trial1"
+          }, 
+          "meta": {
             "data": {"xi": 0, "omega": 1, "nu": 2, "alpha": 10}
-          },
-          "response": []
+          }
         }, 
         "trial2": {
           "baseComponent": "PDF-Mode",
           "parameters": {
-            "data": {"xi": 2, "omega": 3, "nu": 2, "alpha": -2} 
+            "data": {"xi": 2, "omega": 3, "nu": 2, "alpha": -2}, 
+            "taskid": "trial2" 
           },
-          "response": []
+          "meta": {
+            "data": {"xi": 2, "omega": 3, "nu": 2, "alpha": -2}
+          }
         }, 
         "trial3": {
           "baseComponent": "CDF-Mode",
           "parameters": {
-            "data": {"xi": 1, "omega": 1, "nu": 2, "alpha": -20} 
+            "data": {"xi": 1, "omega": 1, "nu": 2, "alpha": -20}, 
+            "taskid": "trial3" 
           },
-          "response": []
+          "meta": {
+            "data": {"xi": 1, "omega": 1, "nu": 2, "alpha": -20}
+          }
         }, 
         "trial4": {
           "baseComponent": "CDF-Median",
           "parameters": {
-            "data": {"xi": 1, "omega": 10, "nu": 2, "alpha": 1} 
+            "data": {"xi": 1, "omega": 10, "nu": 2, "alpha": 1}, 
+            "taskid": "trial4"
           },
-          "response": []
+          "meta": {
+            "data": {"xi": 1, "omega": 10, "nu": 2, "alpha": 1} 
+          }
         }
     },
     "sequence": {
