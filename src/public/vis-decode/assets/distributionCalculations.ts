@@ -1,4 +1,3 @@
-// import {dt, pt} from 'lib-r-math.js';  
 import { studentTPDF, studentTCDF } from "./customT";
 
 export interface DistributionData { 

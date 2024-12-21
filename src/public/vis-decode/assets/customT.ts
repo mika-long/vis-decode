@@ -33,9 +33,23 @@ function studentTPDF(x: number, v: number): number {
   return normTerm * mainTerm;
 }
 
+/**
+ * Calculates the Beta function, given parameters a and b 
+ * @param {number} a 
+ * @param {number} b 
+ * @returns {number} 
+ */
 function beta(a: number, b:number): number {
   return (gamma(a) * gamma(b)) / gamma(a + b);
 }
+
+/**
+ * Calculates the incompleteBeta function 
+ * @param {number} x 
+ * @param {number} a 
+ * @param {number} b 
+ * @returns {number}
+ */
 
 function incompleteBeta(x:number, a:number, b:number): number {
   if (x <= 0) return 0;
@@ -78,10 +92,23 @@ function incompleteBeta(x:number, a:number, b:number): number {
   return h * Math.pow(x, a) * Math.pow(1-x, b) / a;
 }
 
+/**
+ * Calculates the regularized Beta function
+ * @param {number} x 
+ * @param {number} a 
+ * @param {number} b 
+ * @returns {number}
+ */
 function regualizedBeta(x: number, a: number, b: number): number {
   return incompleteBeta(x, a, b) / beta(a, b);
 }
 
+/**
+ * Calculates the CDF of the student t distribution, using its closed form solution
+ * @param {number} x 
+ * @param {number} v - Degree of Freedom 
+ * @returns {number}
+ */
 function studentTCDF(x:number, v: number): number {
   if (x < 0) {
     return 0.5 * regualizedBeta(v / (v + x * x), v / 2, 1 / 2);
@@ -89,33 +116,4 @@ function studentTCDF(x:number, v: number): number {
   return 1 - 0.5 * regualizedBeta(v / (v + x * x), v / 2, 1 / 2);
 }
 
-// /**
-//  * Example usage and tests
-//  */
-// function runTests(): void {
-//   // Test case 1: Standard values
-//   console.log('PDF at x=0, v=1 (Cauchy distribution):', studentTPDF(0, 1));
-//   console.log('PDF at x=0, v=2:', studentTPDF(0, 2));
-
-//   // Test case 2: Various x values with v=3
-//   const xValues = [-2, -1, 0, 1, 2];
-//   console.log('\nPDF values for v=3:');
-//   xValues.forEach(x => {
-//     console.log(`x=${x}: ${studentTPDF(x, 3)}`);
-//   });
-
-//   // Test case 3: Error handling
-//   try {
-//     studentTPDF(0, -1);
-//   } catch (error) {
-//     if (error instanceof Error) {
-//         console.log('\nError test:', error.message);
-//     } else {
-//         console.log('\nError test:', String(error));
-//     }
-//   }
-// }
-
-// Export the function and test runner
-// export { studentTPDF, runTests };
 export { studentTPDF, studentTCDF };

@@ -30,7 +30,16 @@
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
           "showPDF": true
-        }
+        }, 
+        "response": [
+          {
+            "id": "location", 
+            "prompt": "The location of your click", 
+            "required": true, 
+            "location": "sidebar",
+            "type": "iframe"
+          }
+        ]
       }, 
       "PDF-Mode": {
         "type": "react-component", 
