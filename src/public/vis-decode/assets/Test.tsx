@@ -1,8 +1,8 @@
 import * as d3 from 'd3';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { initializeTrrack, Registry } from '@trrack/core';
 import { StimulusParams } from '../../../store/types';
 import { generateDistributionData } from './distributionCalculations';
-import { initializeTrrack, Registry } from '@trrack/core';
 
 const chartSettings = {
   marginBottom: 40,
@@ -20,7 +20,7 @@ interface Point {
 
 function Test({ parameters, setAnswer }: StimulusParams<any>) {
   const svgRef = useRef<SVGSVGElement>(null);
-  const { data, showPDF, taskid } = parameters;  // Extract taskid from parameters
+  const { data, showPDF, taskid } = parameters;
   const [currentPoint, setCurrentPoint] = useState<Point | null>(null);
 
   // Store scales in a ref so we can access them in click handler
@@ -37,30 +37,30 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
   }, [data]);
 
   const { actions, trrack } = useMemo(() => {
-    const reg = Registry.create(); 
+    const reg = Registry.create();
 
     const clickAction = reg.register('click', (state, click: {clickX:number, clickY: number}) => {
-      state.clickX = click.clickX; 
-      state.clickY = click.clickY; 
-      return state; 
-    }); 
+      state.clickX = click.clickX;
+      state.clickY = click.clickY;
+      return state;
+    });
 
     const trrackInst = initializeTrrack({
-      registry: reg, 
+      registry: reg,
       initialState: { clickX: 0, clickY: 0 }
-    }); 
+    });
 
     return {
       actions: {
         clickAction
-      }, 
+      },
       trrack: trrackInst
-    }; 
-  }, []); 
+    };
+  }, []);
 
   const drawChart = useCallback(() => {
     console.log('Drawing chart');
-    
+
     if (!distributionData || !svgRef.current) {
       console.log('Cannot draw chart - missing:', {
         distributionData: !!distributionData,
@@ -84,7 +84,7 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
 
     // Create scales
     const xScale = d3.scaleLinear()
-      .domain([distributionData.x_vals[0], distributionData.x_vals[distributionData.x_vals.length - 1]])
+      .domain([distributionData.xVals[0], distributionData.xVals[distributionData.xVals.length - 1]])
       .range([0, width]);
 
     const yScale = d3.scaleLinear()
@@ -95,18 +95,18 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
     scalesRef.current = { xScale, yScale };
     console.log('Scales created:', scalesRef.current);
 
-    const yValues = showPDF ? distributionData.pdf_vals : distributionData.cdf_vals;
+    const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
 
     // Create array of [x,y] points for the line
-    const linePoints = distributionData.x_vals.map((x, i) => ({
+    const linePoints = distributionData.xVals.map((x, i) => ({
       x: x,
       y: yValues[i]
     }));
 
     // Create line generator
     const line = d3.line<{ x: number, y: number }>()
-      .x(d => xScale(d.x))
-      .y(d => yScale(d.y));
+      .x((d) => xScale(d.x))
+      .y((d) => yScale(d.y));
 
     // Add the line path
     svg.append('path')
@@ -129,6 +129,7 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
       .attr('y', 35)
       .attr('fill', 'black')
       .attr('text-anchor', 'middle')
+      .style("font-size", "15px")
       .text('X Values');
 
     // Add Y axis
@@ -140,7 +141,8 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
       .attr('x', -height / 2)
       .attr('fill', 'black')
       .attr('text-anchor', 'middle')
-      .text("Probability");
+      .style("font-size", "15px")
+      .text('Probability');
 
     console.log('Chart drawing completed');
   }, [distributionData, showPDF]);
@@ -148,7 +150,7 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
   // find closest point on the line to the clicked position
   const findClosestPoint = useCallback((clickX: number, clickY: number) => {
     console.log('Finding closest point for:', { clickX, clickY });
-    
+
     if (!distributionData || !scalesRef.current.xScale || !scalesRef.current.yScale) {
       console.log('Missing required data:', {
         distributionData: !!distributionData,
@@ -159,7 +161,7 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
     }
 
     const { xScale, yScale } = scalesRef.current;
-    const yValues = showPDF ? distributionData.pdf_vals : distributionData.cdf_vals;
+    const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
 
     // convert click coordinates to data space
     const dataX = xScale.invert(clickX);
@@ -168,9 +170,9 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
     console.log('Converted to data space:', { dataX, dataY });
 
     // Find closest x value in the data
-    const index = d3.bisector(d => d).left(distributionData.x_vals, dataX);
-    const x0 = distributionData.x_vals[index - 1];
-    const x1 = distributionData.x_vals[index];
+    const index = d3.bisector(d => d).left(distributionData.xVals, dataX);
+    const x0 = distributionData.xVals[index - 1];
+    const x1 = distributionData.xVals[index];
 
     if (!x0 || !x1) {
       console.log('Could not find bracketing x values');
@@ -179,7 +181,7 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
 
     const closest = Math.abs(dataX - x0) < Math.abs(dataX - x1) ? index - 1 : index;
     const closestPoint = {
-      x: distributionData.x_vals[closest],
+      x: distributionData.xVals[closest],
       y: yValues[closest]
     };
 
@@ -190,14 +192,14 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
   // Effect for updating the current point
   useEffect(() => {
     console.log('Point update effect triggered', currentPoint);
-    
+
     if (!svgRef.current || !scalesRef.current.xScale || !scalesRef.current.yScale) {
       console.log('Missing refs for point update');
       return;
     }
 
     const { xScale, yScale } = scalesRef.current;
-    
+
     // Remove any existing points
     d3.select(svgRef.current)
       .select('.points-group')
@@ -219,55 +221,53 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
 
   const handleClick = useCallback((e: React.MouseEvent) => {
     console.log('Click event triggered');
-    console.log('Current taskid:', taskid);
-  
+
     if (!svgRef.current || !distributionData) {
       console.log('Missing required refs');
       return;
     }
-  
+
     const svg = svgRef.current;
     const rect = svg.getBoundingClientRect();
-    
+
     // Calculate click coordinates relative to the chart area
     const clickX = e.clientX - rect.left - chartSettings.marginLeft;
     const clickY = e.clientY - rect.top - chartSettings.marginTop;
     console.log('Click coordinates:', { clickX, clickY });
-  
+
     const closestPoint = findClosestPoint(clickX, clickY);
     console.log('Closest point found:', closestPoint);
-  
+
     if (closestPoint) {
       const { xScale, yScale } = scalesRef.current;
       if (!xScale || !yScale) {
         console.log('Scales not available');
         return;
       }
-      
+
       const lineY = yScale(closestPoint.y);
       const distance = Math.abs(clickY - lineY);
       console.log('Distance from line:', distance);
-      
+
       if (distance <= 5) {
         // Track in provenance
-        trrack.apply('Clicked', actions.clickAction({ 
-          clickX: closestPoint.x, 
-          clickY: closestPoint.y 
+        trrack.apply('Clicked', actions.clickAction({
+          clickX: closestPoint.x,
+          clickY: closestPoint.y
         }));
-  
+
         // Update visual point
         setCurrentPoint(closestPoint);
-  
+
         // Use setAnswer prop instead of postMessage
         setAnswer({
-          status: true,  // Indicates a valid answer
-          provenanceGraph: trrack.graph.backend,  // Include provenance data
+          status: true, // Indicates a valid answer
+          provenanceGraph: trrack.graph.backend, // Include provenance data
           answers: {
-            [taskid]: closestPoint.x  // Use taskid from parameters
+            [taskid]: { x: closestPoint.x, y: closestPoint.y, },
           }
         });
       } else {
-        console.log('Click too far from line:', distance);
         // Optionally set status to false if click is invalid
         setAnswer({
           status: false,
@@ -275,7 +275,6 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
         });
       }
     } else {
-      console.log('No valid closest point found');
       setAnswer({
         status: false,
         answers: {}
@@ -292,9 +291,9 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
   return (
     <div className="p-4">
       <div className="mt-4">
-        <svg 
-          ref={svgRef} 
-          onClick={handleClick} 
+        <svg
+          ref={svgRef}
+          onClick={handleClick}
           className="bg-white rounded-lg shadow-lg"
         />
       </div>
@@ -307,7 +306,7 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
             answers: {}
           });
         }}
-        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
+        className="mt-4 px-4 py-2 rounded">
           Clear Point
       </button>
     </div>

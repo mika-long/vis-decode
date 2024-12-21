@@ -34,20 +34,20 @@ function studentTPDF(x: number, v: number): number {
 }
 
 /**
- * Calculates the Beta function, given parameters a and b 
- * @param {number} a 
- * @param {number} b 
- * @returns {number} 
+ * Calculates the Beta function, given parameters a and b
+ * @param {number} a
+ * @param {number} b
+ * @returns {number}
  */
 function beta(a: number, b:number): number {
   return (gamma(a) * gamma(b)) / gamma(a + b);
 }
 
 /**
- * Calculates the incompleteBeta function 
- * @param {number} x 
- * @param {number} a 
- * @param {number} b 
+ * Calculates the incompleteBeta function
+ * @param {number} x
+ * @param {number} a
+ * @param {number} b
  * @returns {number}
  */
 
@@ -89,14 +89,14 @@ function incompleteBeta(x:number, a:number, b:number): number {
     if (Math.abs(del - 1) < 3e-7) break;
   }
 
-  return h * Math.pow(x, a) * Math.pow(1-x, b) / a;
+  return h * (x ** a) * ((1 - x) ** b) / a;
 }
 
 /**
  * Calculates the regularized Beta function
- * @param {number} x 
- * @param {number} a 
- * @param {number} b 
+ * @param {number} x
+ * @param {number} a
+ * @param {number} b
  * @returns {number}
  */
 function regualizedBeta(x: number, a: number, b: number): number {
@@ -105,8 +105,8 @@ function regualizedBeta(x: number, a: number, b: number): number {
 
 /**
  * Calculates the CDF of the student t distribution, using its closed form solution
- * @param {number} x 
- * @param {number} v - Degree of Freedom 
+ * @param {number} x
+ * @param {number} v - Degree of Freedom
  * @returns {number}
  */
 function studentTCDF(x:number, v: number): number {

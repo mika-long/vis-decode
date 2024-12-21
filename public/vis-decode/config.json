@@ -29,7 +29,8 @@
         "nextButtonLocation": "sidebar",
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
-          "showPDF": true
+          "showPDF": true, 
+          "taskid": "location"
         }, 
         "response": [
           {
@@ -49,7 +50,8 @@
         "nextButtonLocation": "sidebar",
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
-          "showPDF": true
+          "showPDF": true, 
+          "taskid": "location"
         }, 
         "response": [
           {
@@ -69,7 +71,8 @@
         "nextButtonLocation": "sidebar",
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
-          "showPDF": false
+          "showPDF": false, 
+          "taskid": "location"
         },
         "response": [
           {
@@ -89,7 +92,8 @@
         "nextButtonLocation": "sidebar",
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
-          "showPDF": false
+          "showPDF": false,
+          "taskid": "location"
         }, 
         "response": [
           {
@@ -122,10 +126,10 @@
         "consent": {
             "type": "markdown",
             "path": "vis-decode/assets/consent.md",
-            "nextButtonText": "Agree",
+            "nextButtonText": "Next",
             "response": [
               {
-                "id": "accept",
+                "id": "consentApproval",
                 "prompt": "Do you consent to the study and wish to continue?",
                 "required": true,
                 "location": "belowStimulus",
@@ -136,6 +140,16 @@
                 ]
               }
             ]
+        },
+        "training_instruction": {
+            "type": "markdown",
+            "path": "vis-decode/assets/training.md",
+            "response": []
+        },
+        "testing_instruction": {
+            "type": "markdown",
+            "path": "vis-decode/assets/testing.md",
+            "response": []
         },
         "survey": {
             "type": "markdown",
@@ -195,8 +209,7 @@
         "trial1": {
           "baseComponent": "PDF-Median",
           "parameters": {
-            "data": {"xi": 0, "omega": 1, "nu": 2, "alpha": 10}, 
-            "taskid": "location"
+            "data": {"xi": 0, "omega": 1, "nu": 2, "alpha": 10}
           }, 
           "meta": {
             "data": {"xi": 0, "omega": 1, "nu": 2, "alpha": 10}
@@ -205,8 +218,7 @@
         "trial2": {
           "baseComponent": "PDF-Mode",
           "parameters": {
-            "data": {"xi": 2, "omega": 3, "nu": 2, "alpha": -2}, 
-            "taskid": "location" 
+            "data": {"xi": 2, "omega": 3, "nu": 2, "alpha": -2}
           },
           "meta": {
             "data": {"xi": 2, "omega": 3, "nu": 2, "alpha": -2}
@@ -215,8 +227,7 @@
         "trial3": {
           "baseComponent": "CDF-Mode",
           "parameters": {
-            "data": {"xi": 1, "omega": 1, "nu": 2, "alpha": -20}, 
-            "taskid": "location" 
+            "data": {"xi": 1, "omega": 1, "nu": 2, "alpha": -20}
           },
           "meta": {
             "data": {"xi": 1, "omega": 1, "nu": 2, "alpha": -20}
@@ -225,28 +236,71 @@
         "trial4": {
           "baseComponent": "CDF-Median",
           "parameters": {
-            "data": {"xi": 1, "omega": 10, "nu": 2, "alpha": 1}, 
-            "taskid": "location"
+            "data": {"xi": 1, "omega": 10, "nu": 2, "alpha": 1}
           },
           "meta": {
             "data": {"xi": 1, "omega": 10, "nu": 2, "alpha": 1} 
           }
+        }, 
+        "train1": {
+          "baseComponent": "PDF-Median"
+        }, 
+        "train2": {
+          "baseComponent": "PDF-Median"
+        }, 
+        "train3": {
+          "baseComponent": "PDF-Median"
+        }, 
+        "train4": {
+          "baseComponent": "PDF-Median"
         }
     },
     "sequence": {
         "order": "fixed",
         "components": [
             "introduction",
-            "consent",
+            {
+              "components": ["consent"], 
+              "skip": [{
+                "name": "consent", 
+                "check": "response", 
+                "responseId": "consentApproval", 
+                "value": "Decline", 
+                "to": "end", 
+                "comparison": "equal"
+              }], 
+              "order": "fixed"
+            }, 
             {
               "components": [
-                "trial1", 
-                "trial2", 
-                "trial3",
-                "trial4"
-              ], 
-              "order": "random"
+                "training_instruction", 
+                {
+                  "components": [
+                    "train1", 
+                    "train2", 
+                    "train3", 
+                    "train4"
+                  ], 
+                  "order": "random"
+                }
+              ],
+              "order": "fixed"
             }, 
+            {
+              "components": [
+                "testing_instruction", 
+                {
+                  "components": [
+                    "trial1", 
+                    "trial2", 
+                    "trial3",
+                    "trial4"
+                  ], 
+                  "order": "random"
+                }
+              ], 
+              "order": "fixed"
+            },
             "survey"
         ]
     }
