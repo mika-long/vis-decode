@@ -49,7 +49,16 @@
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
           "showPDF": true
-        }
+        }, 
+        "response": [
+          {
+            "id": "location", 
+            "prompt": "The location of your click", 
+            "required": true, 
+            "location": "sidebar",
+            "type": "iframe"
+          }
+        ]
       }, 
       "CDF-Median": {
         "type": "react-component", 
@@ -59,7 +68,16 @@
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
           "showPDF": false
-        }
+        },
+        "response": [
+          {
+            "id": "location", 
+            "prompt": "The location of your click", 
+            "required": true, 
+            "location": "sidebar",
+            "type": "iframe"
+          }
+        ]
       },
       "CDF-Mode": {
         "type": "react-component", 
@@ -69,7 +87,16 @@
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
           "showPDF": false
-        }
+        }, 
+        "response": [
+          {
+            "id": "location", 
+            "prompt": "The location of your click", 
+            "required": true, 
+            "location": "sidebar",
+            "type": "iframe"
+          }
+        ]
       }
     },
     "components": {
