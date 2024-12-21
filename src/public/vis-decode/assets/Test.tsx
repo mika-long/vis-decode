@@ -219,19 +219,17 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
 
   const handleClick = useCallback((e: React.MouseEvent) => {
     console.log('Click event triggered');
-    console.log('Current taskid:', taskid);  // Add this to verify taskid
+    console.log('Current taskid:', taskid);
   
     if (!svgRef.current || !distributionData) {
-      console.log('Missing required refs:', {
-        svgRef: !!svgRef.current,
-        distributionData: !!distributionData
-      });
+      console.log('Missing required refs');
       return;
     }
   
     const svg = svgRef.current;
     const rect = svg.getBoundingClientRect();
     
+    // Calculate click coordinates relative to the chart area
     const clickX = e.clientX - rect.left - chartSettings.marginLeft;
     const clickY = e.clientY - rect.top - chartSettings.marginTop;
     console.log('Click coordinates:', { clickX, clickY });
@@ -249,37 +247,41 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
       const lineY = yScale(closestPoint.y);
       const distance = Math.abs(clickY - lineY);
       console.log('Distance from line:', distance);
-  
+      
       if (distance <= 5) {
-        console.log('Click accepted, preparing to set answer');
-        
-        // Track the click in provenance
+        // Track in provenance
         trrack.apply('Clicked', actions.clickAction({ 
           clickX: closestPoint.x, 
           clickY: closestPoint.y 
         }));
   
-        const answerPayload = {
-          status: true,
-          provenanceGraph: trrack.graph.backend,
-          answers: {
-            [taskid]: closestPoint.x
-          }
-        };
-  
-        console.log('Setting answer with payload:', answerPayload);
-        setAnswer(answerPayload);
-        console.log('Answer has been set');
-  
         // Update visual point
         setCurrentPoint(closestPoint);
+  
+        // Use setAnswer prop instead of postMessage
+        setAnswer({
+          status: true,  // Indicates a valid answer
+          provenanceGraph: trrack.graph.backend,  // Include provenance data
+          answers: {
+            [taskid]: closestPoint.x  // Use taskid from parameters
+          }
+        });
       } else {
-        console.log('Click rejected - too far from line:', distance);
+        console.log('Click too far from line:', distance);
+        // Optionally set status to false if click is invalid
+        setAnswer({
+          status: false,
+          answers: {}
+        });
       }
     } else {
       console.log('No valid closest point found');
+      setAnswer({
+        status: false,
+        answers: {}
+      });
     }
-  }, [distributionData, actions, setAnswer, trrack, findClosestPoint, taskid]);
+  }, [distributionData, actions, trrack, findClosestPoint, taskid, setAnswer]);
 
   // Effect to draw initial chart
   useEffect(() => {
@@ -297,7 +299,14 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
         />
       </div>
       <button
-        onClick={() => setCurrentPoint(null)}
+        onClick={() => {
+          setCurrentPoint(null);
+          // Clear answer when point is cleared
+          setAnswer({
+            status: false,
+            answers: {}
+          });
+        }}
         className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
           Clear Point
       </button>

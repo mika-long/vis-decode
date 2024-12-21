@@ -35,7 +35,7 @@
           {
             "id": "location", 
             "prompt": "The location of your click", 
-            "required": false, 
+            "required": true, 
             "location": "sidebar",
             "type": "iframe"
           }
@@ -92,9 +92,9 @@
           {
             "id": "location", 
             "prompt": "The location of your click", 
-            "required": false, 
+            "required": true, 
             "location": "sidebar",
-            "type": "iframe"
+            "type": "iframe" 
           }
         ]
       }
@@ -192,7 +192,7 @@
           "baseComponent": "PDF-Median",
           "parameters": {
             "data": {"xi": 0, "omega": 1, "nu": 2, "alpha": 10}, 
-            "taskid": "trial1"
+            "taskid": "location"
           }, 
           "meta": {
             "data": {"xi": 0, "omega": 1, "nu": 2, "alpha": 10}
@@ -202,7 +202,7 @@
           "baseComponent": "PDF-Mode",
           "parameters": {
             "data": {"xi": 2, "omega": 3, "nu": 2, "alpha": -2}, 
-            "taskid": "trial2" 
+            "taskid": "location" 
           },
           "meta": {
             "data": {"xi": 2, "omega": 3, "nu": 2, "alpha": -2}
@@ -212,7 +212,7 @@
           "baseComponent": "CDF-Mode",
           "parameters": {
             "data": {"xi": 1, "omega": 1, "nu": 2, "alpha": -20}, 
-            "taskid": "trial3" 
+            "taskid": "location" 
           },
           "meta": {
             "data": {"xi": 1, "omega": 1, "nu": 2, "alpha": -20}
@@ -222,7 +222,7 @@
           "baseComponent": "CDF-Median",
           "parameters": {
             "data": {"xi": 1, "omega": 10, "nu": 2, "alpha": 1}, 
-            "taskid": "trial4"
+            "taskid": "location"
           },
           "meta": {
             "data": {"xi": 1, "omega": 10, "nu": 2, "alpha": 1} 
