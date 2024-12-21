@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { StimulusParams } from '../../../store/types';
 import { generateDistributionData } from './distributionCalculations';
 
@@ -8,15 +8,31 @@ const chartSettings = {
   marginLeft: 40,
   marginTop: 15,
   marginRight: 15,
-  height: 400,
+  height: 450, // in terms of asepct ratio, we could have 1:1, 4:3, 16:9
   width: 600,
 };
 
-function Test({ parameters }: StimulusParams<any>) {
-  const svgRef = useRef(null);
-  const { data, showPDF } = parameters;
+interface Point {
+  x: number,
+  y: number
+}
 
-  // Generate distribution data
+function Test({ parameters, setAnswer }: StimulusParams<any>) {
+  const svgRef = useRef<SVGSVGElement>(null);
+  // extract the parameters
+  const { data, showPDF } = parameters;
+  const [points, setPoints] = useState<Point[]>([]);
+
+  // Store scales in a ref so we can access them in click handler
+  const scalesRef = useRef<{
+    xScale: d3.ScaleLinear<number, number> | null;
+    yScale: d3.ScaleLinear<number, number> | null;
+  }>({
+    xScale: null,
+    yScale: null
+  });
+
+  // Generate distribution data using parameters
   const distributionData = useMemo(() => {
     return generateDistributionData(data);
   }, [data]);
@@ -27,16 +43,15 @@ function Test({ parameters }: StimulusParams<any>) {
     // Clear previous content
     d3.select(svgRef.current).selectAll('*').remove();
 
-    const margin = { top: 20, right: 20, bottom: 40, left: 50 };
-    const width = chartSettings.width - margin.left - margin.right;
-    const height = chartSettings.height - margin.top - margin.bottom;
+    const width = chartSettings.width - chartSettings.marginLeft - chartSettings.marginRight;
+    const height = chartSettings.height - chartSettings.marginTop - chartSettings.marginBottom;
 
     // Create SVG
     const svg = d3.select(svgRef.current)
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
+      .attr('width', width + chartSettings.marginLeft + chartSettings.marginRight)
+      .attr('height', height + chartSettings.marginTop + chartSettings.marginBottom)
       .append('g')
-      .attr('transform', `translate(${margin.left},${margin.top})`);
+      .attr('transform', `translate(${chartSettings.marginLeft},${chartSettings.marginTop})`);
 
     // Create scales
     const xScale = d3.scaleLinear()
@@ -46,6 +61,9 @@ function Test({ parameters }: StimulusParams<any>) {
     const yScale = d3.scaleLinear()
       .domain([0, 1])
       .range([height, 0]);
+
+    // Store scales for click handler
+    scalesRef.current = { xScale, yScale };
 
     const yValues = showPDF ? distributionData.pdf_vals : distributionData.cdf_vals;
 
@@ -60,18 +78,22 @@ function Test({ parameters }: StimulusParams<any>) {
       .x(d => xScale(d.x))
       .y(d => yScale(d.y))
 
-    // // Create line generator
-    // const line = d3.line<number>()
-    //   .x((d, i) => xScale(i))
-    //   .y((d: number) => yScale(d));
-
      // Add the line path with points array
-     svg.append('path')
+    svg.append('path')
       .datum(points)
       .attr('fill', 'none')
       .attr('stroke', 'steelblue')
       .attr('stroke-width', 2)
       .attr('d', line);
+
+    // Add the clicked points
+    points.forEach(point => {
+      svg.append('circle')
+        .attr('cx', xScale(point.x))
+        .attr('cy', yScale(point.y))
+        .attr('r', 4)
+        .attr('fill', 'red')
+    })
 
     // Add X axis
     svg.append('g')
@@ -93,9 +115,59 @@ function Test({ parameters }: StimulusParams<any>) {
       .attr('x', -height / 2)
       .attr('fill', 'black')
       .attr('text-anchor', 'middle')
-      .text(showPDF ? 'PDF Values' : 'CDF Values');
+      // .text(showPDF ? 'PDF Values' : 'CDF Values');
+      .text("Probability");
 
+  }, [distributionData, showPDF, points]);
+
+  // find closetst point on the line to the clicked position
+  const findClosestPoint = useCallback((clickX:number, clickY:number) => {
+    if (!distributionData || !scalesRef.current.xScale || !scalesRef.current.yScale ) return null;
+
+    const { xScale, yScale } = scalesRef.current;
+    const yValues = showPDF ? distributionData.pdf_vals : distributionData.cdf_vals;
+
+    // convert click coordinates to data space
+    const dataX = xScale.invert(clickX);
+    const dataY = yScale.invert(clickY);
+
+    // Find closest x value in the data
+    const index = d3.bisector(d => d).left(distributionData.x_vals, dataX);
+    const x0 = distributionData.x_vals[index - 1];
+    const x1 = distributionData.x_vals[index];
+
+    if (!x0 || !x1) return null;
+
+    const closest = Math.abs(dataX - x0) < Math.abs(dataX - x1) ? index - 1: index;
+
+    return {
+      x: distributionData.x_vals[closest],
+      y: yValues[closest]
+    };
   }, [distributionData, showPDF]);
+
+  const handleClick = useCallback((e: React.MouseEvent<SVGSVGElement>) => {
+    if (!svgRef.current || !distributionData) return;
+
+    const svg = svgRef.current;
+    const rect = svg.getBoundingClientRect();
+
+    // Get click position relative to the chart area
+    const clickX = e.clientX - rect.left - chartSettings.marginLeft;
+    const clickY = e.clientY - rect.top - chartSettings.marginTop;
+
+    const closestPoint = findClosestPoint(clickX, clickY);
+    if (closestPoint) {
+      // Check if click is close enough to the line (in pixel space)
+      const { xScale, yScale } = scalesRef.current;
+      const lineY = scalesRef.current.yScale!(closestPoint.y);
+      const distance = Math.abs(clickY - lineY);
+
+      if (distance <= 5) {
+        setPoints(prevPoints => [...prevPoints, closestPoint]);
+      }
+    }
+  }, [distributionData, findClosestPoint]);
 
   // Effect to draw chart
   useEffect(() => {
@@ -104,12 +176,14 @@ function Test({ parameters }: StimulusParams<any>) {
 
   return (
     <div className="p-4">
-      {/* <h3 className="font-bold mb-4">Distribution Parameters:</h3>
-      <p>xi: {data.xi}  omega: {data.omega}  nu: {data.nu}  alpha: {data.alpha}  Showing {showPDF ? 'PDF' : 'CDF'} values</p> */}
-
       <div className="mt-4">
-        <svg ref={svgRef} className="bg-white rounded-lg shadow-lg"></svg>
+        <svg ref={svgRef} onClick={handleClick} className="bg-white rounded-lg shadow-lg"></svg>
       </div>
+      <button
+        onClick={() => setPoints([])}
+        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
+          Clear Points
+        </button>
     </div>
   );
 }
