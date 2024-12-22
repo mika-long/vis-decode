@@ -22,6 +22,25 @@
     },
     "importedLibraries": [],
     "baseComponents": {
+      "card": {
+        "type": "react-component", 
+        "path": "vis-decode/assets/cardCalibration.tsx", 
+        "instruction": "Drag it till it looks the same",
+        "nextButtonLocation": "sidebar", 
+        "parameters": {
+          "taskid": "calibration"
+        },
+        "response": [
+          {
+            "id": "calibration", 
+            "prompt": "The size of the card",
+            "required": true, 
+            "location": "sidebar",
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      },
       "PDF-Median": {
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
@@ -140,6 +159,9 @@
                 ]
               }
             ]
+        },
+        "calibration": {
+          "baseComponent": "card"
         },
         "training_instruction": {
             "type": "markdown",
@@ -271,6 +293,7 @@
               }], 
               "order": "fixed"
             }, 
+            "calibration", 
             {
               "components": [
                 "training_instruction", 
