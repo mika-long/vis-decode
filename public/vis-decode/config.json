@@ -44,10 +44,12 @@
       "blind-spot": {
         "type": "react-component",
         "path": "vis-decode/assets/distanceCalibration.tsx",
-        "instruction": "Press the space bar",
+        "instruction": "Now we will quickly measure how far away you are sitting.",
         "nextButtonLocation": "sidebar", 
         "parameters": {
-          "taskid": "dist-calibration"
+          "taskid": "dist-calibration", 
+          "pixelsPerMM": "{{answers.calibration.pixelsPerMM}}", 
+          "blindspotAngle": 13.5
         }, 
         "response": [
           {
