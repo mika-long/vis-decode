@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { StimulusParams } from '../../../store/types';
-import { square } from 'mathjs';
 
 interface ViewingDistanceCalibrationProps extends StimulusParams<any> {
     pixelsPerMM?: number;
@@ -15,14 +14,16 @@ const ViewingDistanceCalibration: React.FC<ViewingDistanceCalibrationProps> = ({
 }) => {
     const ballRef = useRef<HTMLDivElement>(null);
     const squareRef = useRef<HTMLDivElement>(null);
+    const animationFrameRef = useRef<number | null>(null);
     const { taskid } = parameters;
 
+    // States
     const [ballPositions, setBallPositions] = useState<number[]>([]);
     const [isTracking, setIsTracking] = useState(false);
     const [viewingDistance, setViewingDistance] = useState<number | null>(null);
-    const animationFrameRef = useRef<number | null>(null);
+    const [clickCount, setClickCount] = useState<number>(5); // Track remaining measurements
 
-    // Degrees to Radians conversion
+    // Utility functions
     const degToRadians = (degrees: number) => {
         return (degrees * Math.PI) / 180;
     };
@@ -30,11 +31,6 @@ const ViewingDistanceCalibration: React.FC<ViewingDistanceCalibrationProps> = ({
     // Calculate viewing distance function
     const calculateViewingDistance = (positions: number[]) => {
         if (!positions.length || !pixelsPerMM || !squareRef.current) return;
-
-        // Cancel any ongoing animation
-        if (animationFrameRef.current) {
-            cancelAnimationFrame(animationFrameRef.current);
-        }
 
         // Calculate average ball disappearance position
         const avgBallPos = positions.reduce((a, b) => a + b, 0) / positions.length;
@@ -52,7 +48,7 @@ const ViewingDistanceCalibration: React.FC<ViewingDistanceCalibrationProps> = ({
         setViewingDistance(viewDistance);
         setIsTracking(false);
 
-        // set answer
+        // Set answer
         setAnswer({
             status: true,
             answers: {
@@ -65,48 +61,85 @@ const ViewingDistanceCalibration: React.FC<ViewingDistanceCalibrationProps> = ({
         });
     };
 
-    // Blindspot Measurement
+    // Animation control functions
     const startBlindspotTracking = () => {
         if (!ballRef.current || !squareRef.current || !pixelsPerMM) return;
 
         setIsTracking(true);
-        setBallPositions([]);
+        setClickCount(5); // Reset click counter
 
         const animateBall = () => {
-            if (!ballRef.current || !squareRef.current) return;
+            if (!ballRef.current) return;
 
-            // Move ball left
+            // Move ball left and reset when it goes too far
             const currentLeft = parseInt(ballRef.current.style.left || '0');
             const newLeft = currentLeft - 2;
-            ballRef.current.style.left = `${newLeft}px`;
-
-            const ballRect = ballRef.current.getBoundingClientRect();
-            const squareRect = squareRef.current.getBoundingClientRect();
-
-            // if ball disappears behind square, record position
-            if (ballRect.right <= squareRect.left) {
-                setBallPositions(prev => {
-                    const newPositions = [...prev, ballRect.left];
-                    // stop tracking after a few measurements
-                    if (newPositions.length >= 5) {
-                        calculateViewingDistance(newPositions);
-                        return newPositions;
-                    }
-                    return newPositions;
-                });
+            
+            if (newLeft < -30) {  // Reset position when ball goes off screen
+                ballRef.current.style.left = '300px';
             } else {
-                animationFrameRef.current = requestAnimationFrame(animateBall);
+                ballRef.current.style.left = `${newLeft}px`;
             }
+
+            animationFrameRef.current = requestAnimationFrame(animateBall);
         };
 
         animationFrameRef.current = requestAnimationFrame(animateBall);
     };
+
+    const stopTracking = () => {
+        if (animationFrameRef.current) {
+            cancelAnimationFrame(animationFrameRef.current);
+        }
+        setIsTracking(false);
+    };
+
+    // Handle spacebar press
+    useEffect(() => {
+        const handleKeyPress = (event: KeyboardEvent) => {
+            if (event.code === 'Space') {
+                event.preventDefault();
+                
+                if (!isTracking) {
+                    startBlindspotTracking();
+                } else {
+                    // Record position
+                    if (ballRef.current) {
+                        const ballRect = ballRef.current.getBoundingClientRect();
+                        setBallPositions(prev => {
+                            const newPositions = [...prev, ballRect.left];
+                            setClickCount(prevCount => {
+                                const newCount = prevCount - 1;
+                                if (newCount <= 0) {
+                                    stopTracking();
+                                    calculateViewingDistance(newPositions);
+                                }
+                                return newCount;
+                            });
+                            return newPositions;
+                        });
+                    }
+                }
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyPress);
+        return () => window.removeEventListener('keydown', handleKeyPress);
+    }, [isTracking]);
 
     // Reset state when pixelsPerMM changes
     useEffect(() => {
         setViewingDistance(null);
         setIsTracking(false);
         setBallPositions([]);
+        setClickCount(5);
+        
+        return () => {
+            setViewingDistance(null);
+            setIsTracking(false);
+            setBallPositions([]);
+            setClickCount(5);
+        };
     }, [pixelsPerMM]);
 
     // Cleanup animation frame on unmount
@@ -140,6 +173,7 @@ const ViewingDistanceCalibration: React.FC<ViewingDistanceCalibrationProps> = ({
                         width: '30px',
                         height: '30px',
                         backgroundColor: 'red',
+                        borderRadius: '50%',
                         top: '35px',
                         left: '300px'
                     }}
@@ -156,17 +190,18 @@ const ViewingDistanceCalibration: React.FC<ViewingDistanceCalibrationProps> = ({
                     }}
                 />
             </div>
-            <button
-                onClick={startBlindspotTracking}
-                disabled={isTracking || !pixelsPerMM}
-            >
-                Start Blindspot Tracking
-            </button>
+
+            <div className="instructions" style={{ marginBottom: '20px' }}>
+                <p>Press spacebar to start the animation.</p>
+                <p>Press spacebar again when the red ball disappears.</p>
+                <p>Remaining measurements: {clickCount}</p>
+            </div>
 
             {viewingDistance && (
                 <div className="results">
                     <h3>Viewing Distance Results</h3>
                     <p>Estimated Viewing Distance: {(viewingDistance / 10).toFixed(1)} cm</p>
+                    <p>Number of measurements: {ballPositions.length}</p>
                 </div>
             )}
         </div>
