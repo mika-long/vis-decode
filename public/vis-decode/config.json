@@ -41,6 +41,25 @@
           }
         ]
       },
+      "blind-spot": {
+        "type": "react-component",
+        "path": "vis-decode/assets/distanceCalibration.tsx",
+        "instruction": "Press the space bar",
+        "nextButtonLocation": "sidebar", 
+        "parameters": {
+          "taskid": "dist-calibration"
+        }, 
+        "response": [
+          {
+            "id": "dist-calibration",
+            "prompt": "Distance Calibration results",
+            "required": true, 
+            "location": "sidebar",
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      },
       "PDF-Median": {
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
@@ -160,8 +179,16 @@
               }
             ]
         },
+        "calibration-intro": {
+          "type": "markdown", 
+          "path": "vis-decode/assets/calibration_intro.md", 
+          "response": []
+        },
         "calibration": {
           "baseComponent": "card"
+        },
+        "distance calibration": {
+          "baseComponent": "blind-spot"
         },
         "training_instruction": {
             "type": "markdown",
@@ -293,7 +320,9 @@
               }], 
               "order": "fixed"
             }, 
+            "calibration-intro", 
             "calibration", 
+            "distance calibration",
             {
               "components": [
                 "training_instruction", 
