@@ -47,39 +47,10 @@ const VirtualChinrestCalibration: React.FC<VirtualChinrestCalibrationProps> = ({
     setAnswer({
       status: true,
       answers: {
-        // [taskid]: [
-        //   {
-        //     id: 'widthPx', 
-        //     value: itemWidthPx
-        //   }, 
-        //   {
-        //     id: 'heightPx', 
-        //     value: calculateHeight(itemWidthPx)
-        //   }, 
-        //   {
-        //     id: 'widthMM', 
-        //     value: itemWidthMM
-        //   }, 
-        //   {
-        //     id: 'heightMM', 
-        //     value: itemHeightMM
-        //   }, 
-        //   {
-        //     id: 'pixelsPerMM', 
-        //     value: pxPerMM
-        //   }
-        // ]
         [taskid]: {
           id: "pixelsPerMM", 
           value: pxPerMM
         }
-        // {
-        //   widthPx: itemWidthPx,
-        //   heightPx: calculateHeight(itemWidthPx),
-        //   widthMM: itemWidthMM,
-        //   heightMM: itemHeightMM,
-        //   pixelsPerMM: pxPerMM
-        // }
       }
     });
 
