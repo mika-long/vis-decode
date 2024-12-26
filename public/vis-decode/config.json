@@ -48,7 +48,6 @@
         "nextButtonLocation": "sidebar", 
         "parameters": {
           "taskid": "dist-calibration", 
-          "pixelsPerMM": "{{answers.calibration.pixelsPerMM}}", 
           "blindspotAngle": 13.5
         }, 
         "response": [

@@ -1,12 +1,23 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { StimulusParams } from '../../../store/types';
+import { useStoreSelector } from '../../../store/store';
+
+interface CalibrationItem {
+  id: string, 
+  value: number;
+}
 
 const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters, setAnswer }) => {
     const ballRef = useRef<HTMLDivElement>(null);
     const squareRef = useRef<HTMLDivElement>(null);
     const animationFrameRef = useRef<number | null>(null);
-    const { taskid, pixelsPerMM = null, blindspotAngle = 13.5 } = parameters;
-  
+    const { taskid, pixelsPerMM = 3, blindspotAngle = 13.5 } = parameters;
+
+    const ans = useStoreSelector((state) => state.answers);
+    console.log(ans);
+    const calibrationData = ans.calibration_3.answer; 
+    // console.log("calibration data", calibrationData.calibration[4].value);
+    
     // States
     const [ballPositions, setBallPositions] = useState<number[]>([]);
     const [isTracking, setIsTracking] = useState(false);
@@ -45,6 +56,7 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
   
     // Reset ball to starting position
     const resetBall = () => {
+      console.log("resetBall() called");
       if (ballRef.current) {
         ballRef.current.style.left = '740px';
       }
@@ -53,9 +65,11 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
     // Animation control functions
     const startBlindspotTracking = () => {
       if (!ballRef.current || !squareRef.current || !pixelsPerMM) return;
+      
+      console.log("startBlindspotTracking() function activating")
   
       setIsTracking(true);
-      resetBall(); // Reset ball position before starting
+      // resetBall(); // Reset ball position before starting
   
       const animateBall = () => {
         if (!ballRef.current) return;
@@ -71,6 +85,7 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
     };
   
     const stopTracking = () => {
+      console.log("stopTracking() function activated");
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
@@ -91,7 +106,9 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
               const ballRect = ballRef.current.getBoundingClientRect();
               setBallPositions(prev => {
                 const newPositions = [...prev, ballRect.left];
+                console.log("newPositions before setClickCount()", newPositions);
                 setClickCount(prevCount => {
+                  console.log("setClickCount() called in useEffect()");
                   const newCount = prevCount - 1;
                   if (newCount <= 0) {
                     stopTracking();
@@ -99,10 +116,13 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
                   }
                   return newCount;
                 });
+                console.log("newPositions after setClickCount()", newPositions);
                 return newPositions;
               });
               stopTracking(); // Stop the animation
+              console.log("... in useEffect()"); 
               resetBall(); // Reset the ball position immediately
+              console.log("... in useEffect()"); 
             }
           }
         }
@@ -111,13 +131,18 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
       window.addEventListener('keydown', handleKeyPress);
       return () => window.removeEventListener('keydown', handleKeyPress);
     }, [isTracking]);
+
+    // const storeState = useStoreSelector((state) => state);
+    // console.log(storeState.answers.calibration_3.answer.calibration.pixelsPerMM);
   
     // Reset state when pixelsPerMM changes
     useEffect(() => {
+      // console.log("Full store state: ", storeState); 
       setViewingDistance(null);
       setIsTracking(false);
       setBallPositions([]);
       setClickCount(5);
+      console.log("setClickCount to 5 when pixelsPerMM changes");
       resetBall();
   
       return () => {
@@ -125,8 +150,9 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
         setIsTracking(false);
         setBallPositions([]);
         setClickCount(5);
+        console.log("setClickCount to 5 when pixelsPerMM changes in the return ()");
       };
-    }, [pixelsPerMM]);
+    }, []);
   
     // Cleanup animation frame on unmount
     useEffect(() => {
@@ -157,7 +183,6 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
             position: 'relative',
             width: '900px',
             height: '100px',
-            margin: '20px auto',
             backgroundColor: '#ffffff',
           }}
         >
@@ -169,9 +194,9 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
               height: '30px',
               backgroundColor: 'rgb(255, 0, 0)',
               borderRadius: '30px',
-              top: '50%',
+              // top: '50%',
               left: '740px',
-              transform: 'translateY(-50%)'
+              // transform: 'translateY(-50%)'
             }}
           />
           <div
@@ -181,9 +206,9 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
               width: '30px',
               height: '30px',
               backgroundColor: 'rgb(0, 0, 0)',
-              top: '50%',
+              // top: '50%',
               left: '870px',
-              transform: 'translateY(-50%)'
+              // transform: 'translateY(-50%)'
             }}
           />
         </div>
