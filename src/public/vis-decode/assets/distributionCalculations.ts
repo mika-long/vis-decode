@@ -57,7 +57,7 @@ export function skewTPDF(x: number, params: DistributionParams): number {
 
 export function generateDistributionData(
   params: DistributionParams,
-  nPoints: number = 999,
+  nPoints: number = 1001,
   range: [number, number] = [-5, 5],
 ): DistributionData {
   const [min, max] = range;
