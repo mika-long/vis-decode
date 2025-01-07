@@ -1,5 +1,7 @@
 import { studentTPDF, studentTCDF } from './customT';
 
+type IntegrandFunction = (x: number) => number;
+
 export interface DistributionData {
   xVals: number[];
   pdfVals: number[];
@@ -36,6 +38,71 @@ export function generateRandomParams(): DistributionParams {
   };
 }
 
+// Gauss-Kronrod
+function gaussKronrod(f: IntegrandFunction, a:number, b:number, tolerance = 1e-8) {
+  // 7-15 point Gauss-Kronrod quadrature
+  const xgk = [
+    0.991455371120813,  0.949107912342759,  0.864864423359769,
+    0.741531185599394,  0.586087235467691,  0.405845151377397,
+    0.207784955007898,  0.000000000000000, -0.207784955007898,
+    -0.405845151377397, -0.586087235467691, -0.741531185599394,
+    -0.864864423359769, -0.949107912342759, -0.991455371120813
+  ];
+  const wgk = [
+    0.022935322010529, 0.063092092629979, 0.104790010322250,
+    0.140653259715525, 0.169004726639267, 0.190350578064785,
+    0.204432940075298, 0.209482141084728, 0.204432940075298,
+    0.190350578064785, 0.169004726639267, 0.140653259715525,
+    0.104790010322250, 0.063092092629979, 0.022935322010529
+  ];
+  
+  const mid = (a + b) / 2;
+  const scale = (b - a) / 2;
+  
+  let result = 0;
+  for (let i = 0; i < xgk.length; i++) {
+    const x = mid + scale * xgk[i];
+    result += wgk[i] * f(x);
+  }
+  
+  return scale * result;
+}
+
+function adaptiveSimpsons(f:IntegrandFunction, a:number, b:number, tolerance = 1e-8, maxDepth = 50) {
+  function simpson(a:number, b:number) {
+    const c = (a + b) / 2;
+    const h = (b - a) / 6;
+    return h * (f(a) + 4 * f(c) + f(b));
+  }
+
+  function adapt(a:number, b:number, fa:number, fb:number, fc:number, depth:number):number {
+    const c = (a + b) / 2;
+    const h = (b - a) / 12;
+    const d = (a + c) / 2;
+    const e = (c + b) / 2;
+    const fd = f(d);
+    const fe = f(e);
+    
+    const left = h * (fa + 4 * fd + fc);
+    const right = h * (fc + 4 * fe + fb);
+    const whole = simpson(a, b);
+    
+    if (depth >= maxDepth) {
+      return left + right;
+    }
+    
+    if (Math.abs((left + right) - whole) <= tolerance) {
+      return left + right;
+    }
+    
+    return adapt(a, c, fa, fc, fd, depth + 1) + 
+           adapt(c, b, fc, fb, fe, depth + 1);
+  }
+
+  const c = (a + b) / 2;
+  return adapt(a, b, f(a), f(b), f(c), 0);
+}
+
 // Skew-t PDF according to Azzalini (2014)
 export function skewTPDF(x: number, params: DistributionParams): number {
   const { xi, omega, nu, alpha } = params;
@@ -55,6 +122,15 @@ export function skewTPDF(x: number, params: DistributionParams): number {
   return 2 * tPart * Ft;
 }
 
+function skewTCDF(x: number, params: DistributionParams): number {
+  // Create a functino that captures parameters and calls skewTPDF
+  const pdf: IntegrandFunction = (t:number) => skewTPDF(t, params);
+  // Choose reasonable lowerbound 
+  const lowerBound = -100;
+  // return gaussKronrod(pdf, -1000, x);
+  return adaptiveSimpsons(pdf, -1000, x);
+}
+
 export function generateDistributionData(
   params: DistributionParams,
   nPoints: number = 1001,
@@ -71,22 +147,26 @@ export function generateDistributionData(
   // Calculate PDF values using libRmath
   const pdfVals = xVals.map((x) => skewTPDF(x, params));
 
-  // Calculate CDF values using numerical integration (trapezoidal rule)
-  const cdfVals: number[] = [0];
-  let sum = 0;
+  // Calculate CDF
+  const cdfVals = xVals.map((x) => skewTCDF(x, params));
 
-  for (let i = 1; i < xVals.length; i += 1) {
-    const dx = xVals[i] - xVals[i - 1];
-    const trapezoid = (pdfVals[i] + pdfVals[i - 1]) * dx / 2;
-    sum += trapezoid;
-    cdfVals.push(sum);
-  }
+  // // Calculate CDF values using numerical integration (trapezoidal rule)
+  // const cdfVals: number[] = [0];
+  // let sum = 0;
 
-  // Normalize CDF
-  const maxCDF = cdfVals[cdfVals.length - 1];
-  const normalizedCDF = cdfVals.map((v) => v / maxCDF);
+  // for (let i = 1; i < xVals.length; i += 1) {
+  //   const dx = xVals[i] - xVals[i - 1];
+  //   const trapezoid = (pdfVals[i] + pdfVals[i - 1]) * dx / 2;
+  //   sum += trapezoid;
+  //   cdfVals.push(sum);
+  // }
 
-  return { xVals, pdfVals, cdfVals: normalizedCDF };
+  // // Normalize CDF
+  // const maxCDF = cdfVals[cdfVals.length - 1];
+  // const normalizedCDF = cdfVals.map((v) => v / maxCDF);
+
+  // return { xVals, pdfVals, cdfVals: normalizedCDF };
+  return { xVals, pdfVals, cdfVals };
 }
 
 export function findDistributionValue(
