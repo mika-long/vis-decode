@@ -268,10 +268,10 @@
         "trial2": {
           "baseComponent": "PDF-Mode",
           "parameters": {
-            "data": {"xi": 5, "omega": 10, "nu": 3, "alpha": 5}
+            "data": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
           },
           "meta": {
-            "data": {"xi": 5, "omega": 10, "nu": 3, "alpha": 5}
+            "data": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
           }
         }, 
         "trial3": {

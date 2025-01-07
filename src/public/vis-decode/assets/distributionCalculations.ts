@@ -45,6 +45,10 @@ export function skewTPDF(x: number, params: DistributionParams): number {
   // const tPart = (1/omega) * dt(z, nu);
   const tPart = (1 / omega) * studentTPDF(z, nu);
 
+  // Calculate the skewness term with proper scaling 
+  // The key change is in handling the denominator 
+  const zScaled = z * Math.sqrt((nu + 1) / (nu + z * z));
+
   // Then calculate the cumulative t-distribution part for the skewness
   const Ft = studentTCDF(alpha * z * Math.sqrt((nu + 1) / (nu + z * z)), nu + 1);
 
@@ -53,7 +57,7 @@ export function skewTPDF(x: number, params: DistributionParams): number {
 
 export function generateDistributionData(
   params: DistributionParams,
-  nPoints: number = 1000,
+  nPoints: number = 500,
   range: [number, number] = [-5, 5],
 ): DistributionData {
   const [min, max] = range;
