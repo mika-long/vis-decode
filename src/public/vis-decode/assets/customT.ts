@@ -1,4 +1,7 @@
-import { gamma } from 'mathjs';
+import { gamma, lgamma } from 'mathjs';
+
+// Constants needed for the calculation
+const pi = Math.PI;
 
 /**
  * Calculates the PDF of Student's t-distribution
@@ -13,24 +16,21 @@ function studentTPDF(x: number, v: number): number {
     throw new Error('Degrees of freedom must be positive');
   }
 
-  // Constants needed for the calculation
-  const pi = Math.PI;
-
   // Calculate gamma functions and ensure they return numbers
-  const gammaNum = gamma((v + 1) / 2);
-  const gammaDen = gamma(v / 2);
+  const lgammaNum = lgamma((v + 1) / 2);
+  const lgammaDen = lgamma(v / 2);
 
-  // Calculate the normalization term
-  const normTerm = gammaNum / (Math.sqrt(v * pi) * gammaDen);
+  // Calculate the log of normalization term
+  const lnormTerm = lgammaNum - (0.5 * Math.log(v * pi)) - lgammaDen;
 
-  // Calculate the main term
+  // Calculate the log main term
   const xSquared = x * x;
   const base = 1 + (xSquared / v);
   const exponent = -(v + 1) / 2;
-  const mainTerm = base ** exponent;
+  const lmainTerm = exponent * Math.log1p(xSquared / v);
 
-  // Combine terms for final result
-  return normTerm * mainTerm;
+  // Combine logs and exponentiate 
+  return Math.exp(lnormTerm + lmainTerm);
 }
 
 /**
