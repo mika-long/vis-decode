@@ -264,7 +264,9 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
           status: true, // Indicates a valid answer
           provenanceGraph: trrack.graph.backend, // Include provenance data
           answers: {
-            [taskid]: { x: closestPoint.x, y: closestPoint.y, },
+            // [taskid]: { x: closestPoint.x, y: closestPoint.y, },
+            "location-x": closestPoint.x, 
+            "location-y": closestPoint.y
           }
         });
       } else {

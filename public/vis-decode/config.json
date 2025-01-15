@@ -88,10 +88,17 @@
         }, 
         "response": [
           {
-            "id": "location", 
-            "prompt": "The location of your click", 
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
             "required": true, 
             "location": "sidebar",
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }
@@ -109,10 +116,17 @@
         }, 
         "response": [
           {
-            "id": "location", 
-            "prompt": "The location of your click", 
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
             "required": true, 
             "location": "sidebar",
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }
@@ -130,10 +144,17 @@
         },
         "response": [
           {
-            "id": "location", 
-            "prompt": "The location of your click", 
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
             "required": true, 
             "location": "sidebar",
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }
@@ -151,12 +172,19 @@
         }, 
         "response": [
           {
-            "id": "location", 
-            "prompt": "The location of your click", 
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
             "required": true, 
             "location": "sidebar",
             "type": "iframe", 
-            "hidden": true 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
           }
         ]
       }

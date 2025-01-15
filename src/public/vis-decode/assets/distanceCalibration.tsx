@@ -15,8 +15,8 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
 
     const ans = useStoreSelector((state) => state.answers);
     const pixelsPerMM = Number(ans.calibration_3.answer?.pixelsPerMM); 
-    console.log(ans); 
-    console.log(pixelsPerMM);
+    // console.log(ans); 
+    // console.log(pixelsPerMM);
     
     // States
     const [ballPositions, setBallPositions] = useState<number[]>([]);
@@ -100,7 +100,7 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
           }
         });
       }
-    }, [viewingDistance, setAnswer]);
+    }, [viewingDistance, ballPositions, setAnswer]);
     
     useEffect(() => {
       const handleKeyPress = (event: KeyboardEvent) => {
