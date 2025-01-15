@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { StimulusParams } from '../../../store/types';
 import cardImage from './card.png'; 
+import { id } from 'vega';
 
 interface VirtualChinrestCalibrationProps extends StimulusParams<any> {
   itemWidthMM?: number;
@@ -47,10 +48,7 @@ const VirtualChinrestCalibration: React.FC<VirtualChinrestCalibrationProps> = ({
     setAnswer({
       status: true,
       answers: {
-        [taskid]: {
-          id: "pixelsPerMM", 
-          value: pxPerMM
-        }
+        [taskid]: pxPerMM, 
       }
     });
 

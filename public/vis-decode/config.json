@@ -28,11 +28,11 @@
         "instruction": "Drag the slider until the image is the same size as a credit ard held up to the screen. \n You can use any card this is the same size as a credit card, like a membership card or driver's license. \n If you do not have access to a real card, you can use a ruler to measure the image width to 3.37 inches or 85.6mm. \n Once you are finished, click 'Next'.",
         "nextButtonLocation": "sidebar", 
         "parameters": {
-          "taskid": "calibration"
+          "taskid": "pixelsPerMM"
         },
         "response": [
           {
-            "id": "calibration", 
+            "id": "pixelsPerMM", 
             "prompt": "Calibration results",
             "required": true, 
             "location": "sidebar",
@@ -47,15 +47,30 @@
         "instruction": "Now we will quickly measure how far away you are sitting.",
         "nextButtonLocation": "sidebar", 
         "parameters": {
-          "taskid": "dist-calibration", 
+          "taskid1": "dist-calibration-MM", 
+          "taskid2": "dist-calibration-CM",
           "blindspotAngle": 13.5
         }, 
         "response": [
           {
-            "id": "dist-calibration",
-            "prompt": "Distance Calibration results",
+            "id": "dist-calibration-MM",
+            "prompt": "Distance Calibration results in MM",
             "required": true, 
             "location": "sidebar",
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "dist-calibration-CM",
+            "prompt": "Distance Calibration results in CM",
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "ball-positions",
+            "prompt": "Position of balls in pixels",
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }
@@ -296,13 +311,13 @@
           "baseComponent": "PDF-Median"
         }, 
         "train2": {
-          "baseComponent": "PDF-Median"
+          "baseComponent": "PDF-Mode"
         }, 
         "train3": {
-          "baseComponent": "PDF-Median"
+          "baseComponent": "CDF-Median"
         }, 
         "train4": {
-          "baseComponent": "PDF-Median"
+          "baseComponent": "CDF-Mode"
         }
     },
     "sequence": {

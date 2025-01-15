@@ -11,11 +11,12 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
     const ballRef = useRef<HTMLDivElement>(null);
     const squareRef = useRef<HTMLDivElement>(null);
     const animationFrameRef = useRef<number | null>(null);
-    const { taskid, blindspotAngle = 13.5 } = parameters;
+    const { taskid1, taskid2, blindspotAngle } = parameters;
 
     const ans = useStoreSelector((state) => state.answers);
-    const pixelsPerMM = Number(ans.calibration_3.answer.calibration?.value); 
-    // console.log("pixels per MM", pixelsPerMM);
+    const pixelsPerMM = Number(ans.calibration_3.answer?.pixelsPerMM); 
+    console.log(ans); 
+    console.log(pixelsPerMM);
     
     // States
     const [ballPositions, setBallPositions] = useState<number[]>([]);
@@ -41,16 +42,13 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
       setViewingDistance(viewDistance);
       setIsTracking(false);
   
-      setAnswer({
-        status: true,
-        answers: {
-          [taskid]: {
-            distanceMM: viewDistance,
-            distanceCM: viewDistance / 10,
-            ballPositions: positions
-          }
-        }
-      });
+      // setAnswer({
+      //   status: true,
+      //   answers: {
+      //     [taskid1]: viewDistance, 
+      //     [taskid2]: viewDistance / 10
+      //   }
+      // });
     };
   
     // Reset ball to starting position
@@ -90,49 +88,20 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
       }
       setIsTracking(false);
     };
-  
-    // Handle spacebar press
-    // useEffect(() => {
-    //   const handleKeyPress = (event: KeyboardEvent) => {
-    //     if (event.code === 'Space') {
-    //       event.preventDefault();
-  
-    //       if (!isTracking) {
-    //         startBlindspotTracking();
-    //       } else {
-    //         // Record position and stop
-    //         if (ballRef.current) {
-    //           const ballRect = ballRef.current.getBoundingClientRect();
-    //           setBallPositions(prev => {
-    //             const newPositions = [...prev, ballRect.left];
-    //             console.log("newPositions before setClickCount()", newPositions);
-    //             setClickCount(prevCount => {
-    //               console.log("setClickCount() called in useEffect()");
-    //               console.log("prevCount", prevCount); 
-    //               const newCount = prevCount - 1;
-    //               // const newCount = ballPositions.length; 
-    //               if (newCount <= 0) {
-    //                 stopTracking();
-    //                 calculateViewingDistance(newPositions);
-    //               }
-    //               return newCount;
-    //             });
-    //             console.log("newPositions after setClickCount()", newPositions);
-    //             return newPositions;
-    //           });
-    //           stopTracking(); // Stop the animation
-    //           console.log("... in useEffect()"); 
-    //           resetBall(); // Reset the ball position immediately
-    //           console.log("... in useEffect()"); 
-    //         }
-    //       }
-    //     }
-    //   };
-  
-    //   window.addEventListener('keydown', handleKeyPress);
-    //   return () => window.removeEventListener('keydown', handleKeyPress);
-    // }, [isTracking]);
-  
+
+    useEffect(() => {
+      if (viewingDistance !== null && ballPositions.length === 5) {
+        setAnswer({
+          status: true,
+          answers: {
+            "dist-calibration-MM": viewingDistance, 
+            "dist-calibration-CM": viewingDistance / 10,
+            "ball-positions": JSON.stringify(ballPositions)
+          }
+        });
+      }
+    }, [viewingDistance, setAnswer]);
+    
     useEffect(() => {
       const handleKeyPress = (event: KeyboardEvent) => {
         if (event.code === 'Space') {

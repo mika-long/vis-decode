@@ -1,7 +1,7 @@
-# Trial begins after this page 
+# Experiment Begins 
 
-Good job on finishing the training trials! 
+Excellent work completing the training! 
 
-Now, you will start the actual testing trials. 
+You are now ready to begin the actual experiment. During these trials, your performance **will impact** your bonus payment. 
 
-Remember that your performance on the trials **will impact** your final bonus payment. 
+Please take your time and perform each task to the best of your ability. 
