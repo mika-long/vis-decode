@@ -1,0 +1,403 @@
+{
+    "$schema": "https://raw.githubusercontent.com/reVISit-studies/study/main/src/parser/StudyConfigSchema.json",
+    "studyMetadata": {
+        "title": "Visual Decoding Operators",
+        "version": "pilot",
+        "authors": [
+            "Sheng Long"
+        ],
+        "date": "2024-12-18",
+        "description": "A study designed to elicit responses from participants",
+        "organizations": [
+            "Northwestern University"
+        ]
+    },
+    "uiConfig": {
+        "contactEmail": "contact@revisit.dev",
+        "helpTextPath": "vis-decode/assets/help.md",
+        "logoPath": "revisitAssets/revisitLogoSquare.svg",
+        "withProgressBar": true,
+        "autoDownloadStudy": false,
+        "sidebar": true
+    },
+    "importedLibraries": [],
+    "baseComponents": {
+      "card": {
+        "type": "react-component", 
+        "path": "vis-decode/assets/cardCalibration.tsx", 
+        "instruction": "Drag the slider until the image is the same size as a credit ard held up to the screen. \n You can use any card this is the same size as a credit card, like a membership card or driver's license. \n If you do not have access to a real card, you can use a ruler to measure the image width to 3.37 inches or 85.6mm. \n Once you are finished, click 'Next'.",
+        "nextButtonLocation": "sidebar", 
+        "parameters": {
+          "taskid": "pixelsPerMM"
+        },
+        "response": [
+          {
+            "id": "pixelsPerMM", 
+            "prompt": "Calibration results",
+            "required": true, 
+            "location": "sidebar",
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      },
+      "blind-spot": {
+        "type": "react-component",
+        "path": "vis-decode/assets/distanceCalibration.tsx",
+        "instruction": "Now we will quickly measure how far away you are sitting.",
+        "nextButtonLocation": "sidebar", 
+        "parameters": {
+          "taskid1": "dist-calibration-MM", 
+          "taskid2": "dist-calibration-CM",
+          "blindspotAngle": 13.5
+        }, 
+        "response": [
+          {
+            "id": "dist-calibration-MM",
+            "prompt": "Distance Calibration results in MM",
+            "required": true, 
+            "location": "sidebar",
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "dist-calibration-CM",
+            "prompt": "Distance Calibration results in CM",
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "ball-positions",
+            "prompt": "Position of balls in pixels",
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      },
+      "PDF-Median": {
+        "type": "react-component", 
+        "path": "vis-decode/assets/Test.tsx", 
+        "instruction": "Click on the curve such that a vertical line throught the point splits the area under the curve into two equal parts.",
+        "nextButtonLocation": "sidebar",
+        "parameters": {
+          "data": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
+          "showPDF": true, 
+          "taskid": "location"
+        }, 
+        "response": [
+          {
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
+            "required": true, 
+            "location": "sidebar",
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      }, 
+      "PDF-Mode": {
+        "type": "react-component", 
+        "path": "vis-decode/assets/Test.tsx", 
+        "instruction": "Click on the highest point of the curve.",
+        "nextButtonLocation": "sidebar",
+        "parameters": {
+          "data": {"xi": 0, "omega": 1, "nu": 13, "alpha": 0}, 
+          "showPDF": true, 
+          "taskid": "location"
+        }, 
+        "response": [
+          {
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
+            "required": true, 
+            "location": "sidebar",
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      }, 
+      "CDF-Median": {
+        "type": "react-component", 
+        "path": "vis-decode/assets/Test.tsx", 
+        "instruction": "Click on the curve that interects with the horizontal line where y = 0.5",
+        "nextButtonLocation": "sidebar",
+        "parameters": {
+          "data": {"xi": 0, "omega": 1, "nu": 12, "alpha": 0}, 
+          "showPDF": false, 
+          "taskid": "location"
+        },
+        "response": [
+          {
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
+            "required": true, 
+            "location": "sidebar",
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      },
+      "CDF-Mode": {
+        "type": "react-component", 
+        "path": "vis-decode/assets/Test.tsx", 
+        "instruction": "Click on the curve that has the steepest tangent slope.",
+        "nextButtonLocation": "sidebar",
+        "parameters": {
+          "data": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}, 
+          "showPDF": false,
+          "taskid": "location"
+        }, 
+        "response": [
+          {
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
+            "required": true, 
+            "location": "sidebar",
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      }
+    },
+    "components": {
+        "introduction": {
+            "type": "markdown",
+            "path": "vis-decode/assets/introduction.md",
+            "response": [
+                {
+                "id": "prolificId",
+                "prompt": "Please enter your Prolific ID (without any spaces):",
+                "required": true,
+                "location": "belowStimulus",
+                "type": "shortText",
+                "placeholder": "Prolific ID",
+                "paramCapture": "PROLIFIC_ID"
+                }
+            ]
+        },
+        "consent": {
+            "type": "markdown",
+            "path": "vis-decode/assets/consent.md",
+            "nextButtonText": "Next",
+            "response": [
+              {
+                "id": "consentApproval",
+                "prompt": "Do you consent to the study and wish to continue?",
+                "required": true,
+                "location": "belowStimulus",
+                "type": "radio",
+                "options": [
+                  "Decline",
+                  "Accept"
+                ]
+              }
+            ]
+        },
+        "calibration-intro": {
+          "type": "markdown", 
+          "path": "vis-decode/assets/calibration_intro.md", 
+          "response": []
+        },
+        "calibration": {
+          "baseComponent": "card"
+        },
+        "distance calibration": {
+          "baseComponent": "blind-spot"
+        },
+        "training_instruction": {
+            "type": "markdown",
+            "path": "vis-decode/assets/training.md",
+            "response": []
+        },
+        "testing_instruction": {
+            "type": "markdown",
+            "path": "vis-decode/assets/testing.md",
+            "response": []
+        },
+        "survey": {
+            "type": "markdown",
+            "path": "vis-decode/assets/survey.md",
+            "response": [
+            {
+                "id": "age", 
+                "prompt": "What is your age?", 
+                "required": true,
+                "location": "belowStimulus",
+                "type": "shortText",
+                "placeholder": "Enter your age here."
+              },
+            {
+                "id": "gender",
+                "prompt": "What is your gender?",
+                "required": true,
+                "location": "belowStimulus",
+                "type": "dropdown",
+                "placeholder": "Please choose your gender",
+                "options": ["Male", "Female", "Binary", "Non-binary", "Other"]
+            }, 
+            {
+                "id": "strategy", 
+                "prompt": "What strategy did you use to decode the visualizations?",
+                "required": false, 
+                "location": "belowStimulus",
+                "type": "longText",
+                "placeholder": "Enter your answer here."
+            }, 
+              {
+                "id": "surveyExperience",
+                "prompt": "Did you experience any problems with our tool?",
+                "required": false,
+                "location": "belowStimulus",
+                "type": "longText",
+                "placeholder": "Enter your answer here."
+              },
+              {
+                "id": "surveyRenderIssues",
+                "prompt": "Did anything not render or display properly?",
+                "required": false,
+                "location": "belowStimulus",
+                "type": "longText",
+                "placeholder": "Enter your answer here"
+              },
+              {
+                "id": "surveyOtherIssues",
+                "prompt": "Any other issues or anything you would like to tell us?",
+                "required": false,
+                "location": "belowStimulus",
+                "type": "longText",
+                "placeholder": "Enter your answer here"
+              }
+            ]
+        }, 
+        "trial1": {
+          "baseComponent": "PDF-Median",
+          "parameters": {
+            "data": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
+          }, 
+          "meta": {
+            "data": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
+          }
+        }, 
+        "trial2": {
+          "baseComponent": "PDF-Mode",
+          "parameters": {
+            "data": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
+          },
+          "meta": {
+            "data": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
+          }
+        }, 
+        "trial3": {
+          "baseComponent": "CDF-Mode",
+          "parameters": {
+            "data": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
+          },
+          "meta": {
+            "data": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
+          }
+        }, 
+        "trial4": {
+          "baseComponent": "CDF-Median",
+          "parameters": {
+            "data": {"xi": 1, "omega": 10, "nu": 3, "alpha": 1}
+          },
+          "meta": {
+            "data": {"xi": 1, "omega": 10, "nu": 3, "alpha": 1} 
+          }
+        }, 
+        "train1": {
+          "baseComponent": "PDF-Median"
+        }, 
+        "train2": {
+          "baseComponent": "PDF-Mode"
+        }, 
+        "train3": {
+          "baseComponent": "CDF-Median"
+        }, 
+        "train4": {
+          "baseComponent": "CDF-Mode"
+        }
+    },
+    "sequence": {
+        "order": "fixed",
+        "components": [
+            "introduction",
+            {
+              "components": ["consent"], 
+              "skip": [{
+                "name": "consent", 
+                "check": "response", 
+                "responseId": "consentApproval", 
+                "value": "Decline", 
+                "to": "end", 
+                "comparison": "equal"
+              }], 
+              "order": "fixed"
+            }, 
+            "calibration-intro", 
+            "calibration", 
+            "distance calibration",
+            {
+              "components": [
+                "training_instruction", 
+                {
+                  "components": [
+                    "train1", 
+                    "train2", 
+                    "train3", 
+                    "train4"
+                  ], 
+                  "order": "random"
+                }
+              ],
+              "order": "fixed"
+            }, 
+            {
+              "components": [
+                "testing_instruction", 
+                {
+                  "components": [
+                    "trial1", 
+                    "trial2", 
+                    "trial3",
+                    "trial4"
+                  ], 
+                  "order": "random"
+                }
+              ], 
+              "order": "fixed"
+            },
+            "survey"
+        ]
+    }
+}
