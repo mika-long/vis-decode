@@ -35,7 +35,6 @@
             "id": "pixelsPerMM", 
             "prompt": "Calibration results",
             "required": true, 
-            "location": "sidebar",
             "type": "iframe", 
             "hidden": true
           }
@@ -56,7 +55,6 @@
             "id": "dist-calibration-MM",
             "prompt": "Distance Calibration results in MM",
             "required": true, 
-            "location": "belowStimulus",
             "type": "iframe", 
             "hidden": true
           }, 
