@@ -18,7 +18,7 @@
         "logoPath": "revisitAssets/revisitLogoSquare.svg",
         "withProgressBar": true,
         "autoDownloadStudy": false,
-        "sidebar": true
+        "sidebar": false
     },
     "importedLibraries": [],
     "baseComponents": {
@@ -26,7 +26,7 @@
         "type": "react-component", 
         "path": "vis-decode/assets/cardCalibration.tsx", 
         "instruction": "Drag the slider until the image is the same size as a credit ard held up to the screen. \n You can use any card this is the same size as a credit card, like a membership card or driver's license. \n If you do not have access to a real card, you can use a ruler to measure the image width to 3.37 inches or 85.6mm. \n Once you are finished, click 'Next'.",
-        "nextButtonLocation": "sidebar", 
+        "nextButtonLocation": "belowStimulus", 
         "parameters": {
           "taskid": "pixelsPerMM"
         },
@@ -45,7 +45,7 @@
         "type": "react-component",
         "path": "vis-decode/assets/distanceCalibration.tsx",
         "instruction": "Now we will quickly measure how far away you are sitting.",
-        "nextButtonLocation": "sidebar", 
+        "nextButtonLocation": "belowStimulus", 
         "parameters": {
           "taskid1": "dist-calibration-MM", 
           "taskid2": "dist-calibration-CM",
@@ -56,7 +56,7 @@
             "id": "dist-calibration-MM",
             "prompt": "Distance Calibration results in MM",
             "required": true, 
-            "location": "sidebar",
+            "location": "belowStimulus",
             "type": "iframe", 
             "hidden": true
           }, 
@@ -79,8 +79,8 @@
       "PDF-Median": {
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
-        "instruction": "Click on the curve such that a vertical line throught the point splits the area under the curve into two equal parts.",
-        "nextButtonLocation": "sidebar",
+        "instruction": "Click on the curve such that a vertical line through the point splits the area under the curve into two equal parts.",
+        "nextButtonLocation": "belowStimulus",
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
           "showPDF": true, 
@@ -91,7 +91,7 @@
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
             "required": true, 
-            "location": "sidebar",
+            "location": "belowStimulus",
             "type": "iframe", 
             "hidden": true
           }, 
@@ -108,7 +108,7 @@
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
         "instruction": "Click on the highest point of the curve.",
-        "nextButtonLocation": "sidebar",
+        "nextButtonLocation": "belowStimulus",
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 13, "alpha": 0}, 
           "showPDF": true, 
@@ -136,7 +136,7 @@
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
         "instruction": "Click on the curve that interects with the horizontal line where y = 0.5",
-        "nextButtonLocation": "sidebar",
+        "nextButtonLocation": "belowStimulus",
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 12, "alpha": 0}, 
           "showPDF": false, 
@@ -164,7 +164,7 @@
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
         "instruction": "Click on the curve that has the steepest tangent slope.",
-        "nextButtonLocation": "sidebar",
+        "nextButtonLocation": "belowStimulus",
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}, 
           "showPDF": false,
