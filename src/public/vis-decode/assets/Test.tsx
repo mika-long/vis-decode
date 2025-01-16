@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { initializeTrrack, Registry } from '@trrack/core';
 import { StimulusParams } from '../../../store/types';
@@ -29,7 +30,7 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
     yScale: d3.ScaleLinear<number, number> | null;
   }>({
     xScale: null,
-    yScale: null
+    yScale: null,
   });
 
   const distributionData = useMemo(() => {
@@ -47,14 +48,14 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
 
     const trrackInst = initializeTrrack({
       registry: reg,
-      initialState: { clickX: 0, clickY: 0 }
+      initialState: { clickX: 0, clickY: 0 },
     });
 
     return {
       actions: {
-        clickAction
+        clickAction,
       },
-      trrack: trrackInst
+      trrack: trrackInst,
     };
   }, []);
 
@@ -265,7 +266,7 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
           provenanceGraph: trrack.graph.backend, // Include provenance data
           answers: {
             // [taskid]: { x: closestPoint.x, y: closestPoint.y, },
-            "location-x": closestPoint.x, 
+            "location-x": closestPoint.x,
             "location-y": closestPoint.y
           }
         });
