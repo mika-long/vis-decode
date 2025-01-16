@@ -22,6 +22,7 @@ import { deepCopy } from '../../utils/deepCopy';
 import { getNewParticipant } from '../../utils/nextParticipant';
 import { useStorageEngine } from '../../storage/storageEngineHooks';
 import { addPathToComponentBlock } from '../../utils/getSequenceFlatMap';
+import { useIsAnalysis } from '../../store/hooks/useIsAnalysis';
 
 // eslint-disable-next-line react/display-name
 function InfoHover({ text }: { text: string }) {
@@ -45,6 +46,8 @@ export default function AppAside() {
 
   const { storageEngine } = useStorageEngine();
 
+  const isAnalysis = useIsAnalysis();
+
   const fullOrder = useMemo(() => {
     let r = deepCopy(studyConfig.sequence) as ComponentBlockWithOrderPath;
     r = addPathToComponentBlock(r, 'root') as ComponentBlockWithOrderPath;
@@ -54,22 +57,28 @@ export default function AppAside() {
 
   const [activeTab, setActiveTab] = useState<string | null>('participant');
 
+  const nextParticipantDisabled = useMemo(() => activeTab === 'allTrials' || isAnalysis, [activeTab, isAnalysis]);
+
   return (
     <AppShell.Aside p="0">
-      <AppShell.Section>
-        <Flex direction="row" p="sm" justify="space-between" pb="xs">
+      <AppShell.Section
+        p="md"
+      >
+        <Flex direction="row" justify="space-between">
           <Text size="md" fw={700} pt={3}>
             Study Browser
           </Text>
-          <Button
-            variant="light"
-            leftSection={<IconUserPlus size={14} />}
-            onClick={() => getNewParticipant(storageEngine, studyConfig, metadata, studyHref)}
-            size="xs"
-            disabled={activeTab === 'allTrials'}
-          >
-            Next Participant
-          </Button>
+          <Tooltip label="Go to the sequence of the next participant in the experiment. Sequences can be different between participants due to randomization, etc." w={280} multiline disabled={nextParticipantDisabled}>
+            <Button
+              variant="light"
+              leftSection={<IconUserPlus size={14} />}
+              onClick={() => getNewParticipant(storageEngine, studyConfig, metadata, studyHref)}
+              size="xs"
+              disabled={nextParticipantDisabled}
+            >
+              Next Participant
+            </Button>
+          </Tooltip>
           <CloseButton
             onClick={() => dispatch(toggleStudyBrowser())}
             mt={1}
@@ -77,7 +86,11 @@ export default function AppAside() {
         </Flex>
       </AppShell.Section>
 
-      <AppShell.Section grow component={ScrollArea} p="xs" pt={0}>
+      <AppShell.Section
+        grow
+        component={ScrollArea}
+        p="md"
+      >
         <Tabs value={activeTab} onChange={setActiveTab}>
           <Box style={{
             position: 'sticky',
@@ -91,7 +104,7 @@ export default function AppAside() {
                 Participant View
                 <InfoHover text="The Participants View shows items just as a participants would see them, considering randomization, omissions, etc. You can navigate between multiple participants using the next participant button." />
               </Tabs.Tab>
-              <Tabs.Tab value="allTrials">
+              <Tabs.Tab value="allTrials" disabled={isAnalysis}>
                 All Trials View
                 <InfoHover text="The All Trials View shows all items in the order defined in the config." />
               </Tabs.Tab>
