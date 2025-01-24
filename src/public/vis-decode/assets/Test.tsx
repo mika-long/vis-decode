@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Container, Button } from '@mantine/core';
 import { initializeTrrack, Registry } from '@trrack/core';
 import { StimulusParams } from '../../../store/types';
 import { generateDistributionData } from './distributionCalculations';
@@ -60,7 +61,6 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
   }, []);
 
   const drawChart = useCallback(() => {
-    console.log('Drawing chart');
 
     if (!distributionData || !svgRef.current) {
       console.log('Cannot draw chart - missing:', {
@@ -94,7 +94,6 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
 
     // Store scales for click handler
     scalesRef.current = { xScale, yScale };
-    console.log('Scales created:', scalesRef.current);
 
     const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
 
@@ -145,13 +144,10 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
       .style("font-size", "15px")
       .text('Probability');
 
-    console.log('Chart drawing completed');
   }, [distributionData, showPDF]);
 
   // find closest point on the line to the clicked position
   const findClosestPoint = useCallback((clickX: number, clickY: number) => {
-    console.log('Finding closest point for:', { clickX, clickY });
-
     if (!distributionData || !scalesRef.current.xScale || !scalesRef.current.yScale) {
       console.log('Missing required data:', {
         distributionData: !!distributionData,
@@ -167,8 +163,6 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
     // convert click coordinates to data space
     const dataX = xScale.invert(clickX);
     const dataY = yScale.invert(clickY);
-
-    console.log('Converted to data space:', { dataX, dataY });
 
     // Find closest x value in the data
     const index = d3.bisector(d => d).left(distributionData.xVals, dataX);
@@ -292,27 +286,48 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
   }, [drawChart]);
 
   return (
-    <div className="p-4">
+    <Container p="md">
       <div className="mt-4">
         <svg
           ref={svgRef}
           onClick={handleClick}
           className="bg-white rounded-lg shadow-lg"
         />
+        <Button
+          onClick={() => {
+            setCurrentPoint(null);
+            // Clear answer when point is cleared
+            setAnswer({
+              status: false,
+              answers: {}
+            });
+          }}
+          mt="md">
+            Clear Point
+          </Button>
       </div>
-      <button
-        onClick={() => {
-          setCurrentPoint(null);
-          // Clear answer when point is cleared
-          setAnswer({
-            status: false,
-            answers: {}
-          });
-        }}
-        className="mt-4 px-4 py-2 rounded">
-          Clear Point
-      </button>
-    </div>
+    </Container>
+    // <div className="p-4">
+    //   <div className="mt-4">
+    //     <svg
+    //       ref={svgRef}
+    //       onClick={handleClick}
+    //       className="bg-white rounded-lg shadow-lg"
+    //     />
+    //   </div>
+    //   <button
+    //     onClick={() => {
+    //       setCurrentPoint(null);
+    //       // Clear answer when point is cleared
+    //       setAnswer({
+    //         status: false,
+    //         answers: {}
+    //       });
+    //     }}
+    //     className="mt-4 px-4 py-2 rounded">
+    //       Clear Point
+    //   </button>
+    // </div>
   );
 }
 
