@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Stack, List, Text, Center, Container } from '@mantine/core';
 import { StimulusParams } from '../../../store/types';
 import { useStoreSelector } from '../../../store/store';
 
@@ -15,8 +16,6 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
 
     const ans = useStoreSelector((state) => state.answers);
     const pixelsPerMM = Number(ans.calibration_3.answer?.pixelsPerMM); 
-    // console.log(ans); 
-    // console.log(pixelsPerMM);
     
     // States
     const [ballPositions, setBallPositions] = useState<number[]>([]);
@@ -167,16 +166,22 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
     }
   
     return (
-      <div className="viewing-distance-calibration">
-        <div className="instructions" style={{ marginBottom: '20px' }}>
-          <ol>
-            <li>Put your left hand on the <b>space bar</b>.</li>
-            <li>Cover your right eye with your right hand.</li>
-            <li>Using your left eye, focus on the black square. Keep your focus on the black square.</li>
-            <li>The <span style={{color: "red", fontWeight: "bold"}}>red ball</span> will disappear as it moves from right to left. Press the space bar as soon as the ball disappears.</li>
-          </ol>
-        <p style={{textAlign: "center"}}>Press the space bar when you are ready to begin.</p>
-        </div>
+      <Container size="md">
+        <Stack gap="md">
+          <Text>Now we will quickly measure how far away you are sitting. </Text>
+          <Stack gap="xs">
+            <List>
+              <List.Item>Put your left hand on the <b>space bar</b>.</List.Item>
+              <List.Item>Cover your right eye with your right hand.</List.Item>
+              <List.Item>Using your left eye, focus on the black square. Keep your focus on the black square.</List.Item>
+              <List.Item>The <span style={{color: "red", fontWeight: "bold"}}>red ball</span> will disappear as it moves from right to left. 
+              Press the space bar as soon as the ball disappears.</List.Item>
+            </List>
+            <Text ta="center">
+              Press the space bar when you are ready to begin.
+            </Text>
+        </Stack>
+
         <div
           style={{
             position: 'relative',
@@ -185,43 +190,41 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
             backgroundColor: '#ffffff',
           }}
         >
-          <div
-            ref={ballRef}
-            style={{
-              position: 'absolute',
-              width: '30px',
-              height: '30px',
-              backgroundColor: 'rgb(255, 0, 0)',
-              borderRadius: '30px',
-              // top: '50%',
-              left: '740px',
-              // transform: 'translateY(-50%)'
-            }}
-          />
-          <div
-            ref={squareRef}
-            style={{
-              position: 'absolute',
-              width: '30px',
-              height: '30px',
-              backgroundColor: 'rgb(0, 0, 0)',
-              // top: '50%',
-              left: '870px',
-              // transform: 'translateY(-50%)'
-            }}
-          />
-        </div>
-
-        <p style={{textAlign: "center"}}>Remaining measurements: {5 - ballPositions.length}</p>
-  
-        {viewingDistance && (
-          <div className="results">
-            <h3>Viewing Distance Results</h3>
-            <p>Estimated Viewing Distance: {(viewingDistance / 10).toFixed(1)} cm</p>
-            <p>Number of measurements: {ballPositions.length}</p>
-          </div>
-        )}
+        <div
+          ref={ballRef}
+          style={{
+            position: 'absolute',
+            width: '30px',
+            height: '30px',
+            backgroundColor: 'rgb(255, 0, 0)',
+            borderRadius: '30px',
+            left: '740px',
+          }}
+        />
+        <div
+          ref={squareRef}
+          style={{
+            position: 'absolute',
+            width: '30px',
+            height: '30px',
+            backgroundColor: 'rgb(0, 0, 0)',
+            left: '870px',
+          }}
+        />
       </div>
+      <Text ta="center">
+        Remaining measurements: {5 - ballPositions.length}
+      </Text>
+
+      {viewingDistance && (
+        <Stack gap="xs">
+          <Text fw={700} size="lg">Viewing Distance Results</Text>
+          <Text>Estimated Viewing Distance: {(viewingDistance / 10).toFixed(1)} cm</Text>
+          <Text>Number of measurements: {ballPositions.length}</Text>
+        </Stack>
+      )}
+      </Stack>
+      </Container>
     );
   };
 
