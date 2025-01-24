@@ -25,7 +25,6 @@
       "card": {
         "type": "react-component", 
         "path": "vis-decode/assets/cardCalibration.tsx", 
-        // "instruction": "Drag the slider until the image is the same size as a credit ard held up to the screen. \n You can use any card this is the same size as a credit card, like a membership card or driver's license. \n If you do not have access to a real card, you can use a ruler to measure the image width to 3.37 inches or 85.6mm. \n Once you are finished, click 'Next'.",
         "nextButtonLocation": "belowStimulus", 
         "parameters": {
           "taskid": "pixelsPerMM"
