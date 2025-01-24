@@ -184,6 +184,12 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
     return closestPoint;
   }, [distributionData, showPDF]);
 
+  // Effect to draw initial chart
+  useEffect(() => {
+    console.log('Initial chart draw effect triggered');
+    drawChart();
+  }, [drawChart]);
+
   // Effect for updating the current point
   useEffect(() => {
     console.log('Point update effect triggered', currentPoint);
@@ -278,12 +284,6 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
       });
     }
   }, [distributionData, actions, trrack, findClosestPoint, taskid, setAnswer]);
-
-  // Effect to draw initial chart
-  useEffect(() => {
-    console.log('Initial chart draw effect triggered');
-    drawChart();
-  }, [drawChart]);
 
   return (
     <Container p="md">

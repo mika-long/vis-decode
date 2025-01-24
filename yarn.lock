@@ -3915,7 +3915,7 @@ levn@^0.4.1:
 
 lib-r-math.js@^2.0.2:
   version "2.0.2"
-  resolved "https://registry.npmjs.org/lib-r-math.js/-/lib-r-math.js-2.0.2.tgz"
+  resolved "https://registry.yarnpkg.com/lib-r-math.js/-/lib-r-math.js-2.0.2.tgz#80844362b6d9f7cb9743c265b080ccf272598b87"
   integrity sha512-IpCXYJbvqcXRfO5NmnVKRdMgRoXoTH4oAUaiN8PFuKw4dzFYW2OZ5jAtLVO1qPGxOpOhYpCU82HrK+iXP0wLtw==
   dependencies:
     "@mangos/debug" "0.0.9-rc5"
