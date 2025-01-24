@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Slider, Button, Container, Stack, Text, Center } from '@mantine/core';
 import { StimulusParams } from '../../../store/types';
-import cardImage from './card.png'; 
+// import cardImage from './card.png'; 
+import cardImage from './costco_card.png';
 // import { id } from 'vega';
 
 interface VirtualChinrestCalibrationProps extends StimulusParams<any> {
@@ -75,15 +76,10 @@ const VirtualChinrestCalibration: React.FC<VirtualChinrestCalibrationProps> = ({
     // Container component from Mantine that centers content and provides max-width
     <Container size="md">
       <Stack gap="lg">
-        <Text size="md" ta={Center}>
-        Drag the slider until the image is the same size as a credit ard held up to the screen.
-
-        You can use any card this is the same size as a credit card, like a membership card or driver's license. 
-
-        If you do not have access to a real card, you can use a ruler to measure the image width to 3.37 inches or 85.6mm. 
-        
-        Once you are finished, click 'Confirm Size' and then 'Next'.
-        </Text>
+        <Text size="md" > Drag the slider until the image is the same size as a credit card held up to the screen.</Text>
+        <Text size="md" > You can use any card this is the same size as a credit card, like a membership card or driver's license.</Text>
+        <Text size="md" > If you do not have access to a real card, you can use a ruler to measure the image width to 3.37 inches or 85.6mm. </Text>
+        <Text size="md" > Once you are finished, click 'Confirm Size' and then 'Next'. </Text>
       <Button
           onClick={handleCalibrationComplete}
           size='lg'

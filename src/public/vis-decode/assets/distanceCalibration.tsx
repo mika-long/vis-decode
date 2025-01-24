@@ -40,14 +40,6 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
   
       setViewingDistance(viewDistance);
       setIsTracking(false);
-  
-      // setAnswer({
-      //   status: true,
-      //   answers: {
-      //     [taskid1]: viewDistance, 
-      //     [taskid2]: viewDistance / 10
-      //   }
-      // });
     };
   
     // Reset ball to starting position
@@ -60,12 +52,8 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
   
     // Animation control functions
     const startBlindspotTracking = () => {
-      if (!ballRef.current || !squareRef.current || !pixelsPerMM) return;
-      
-      console.log("startBlindspotTracking() function activating")
-  
+      if (!ballRef.current || !squareRef.current || !pixelsPerMM || ballPositions.length >= 5) return;
       setIsTracking(true);
-      // resetBall(); // Reset ball position before starting
   
       const animateBall = () => {
         if (!ballRef.current) return;
@@ -81,7 +69,6 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
     };
   
     const stopTracking = () => {
-      console.log("stopTracking() function activated");
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
@@ -140,7 +127,6 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
       setIsTracking(false);
       setBallPositions([]);
       setClickCount(5);
-      console.log("setClickCount to 5 when pixelsPerMM changes");
       resetBall();
   
       return () => {
@@ -148,7 +134,6 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
         setIsTracking(false);
         setBallPositions([]);
         setClickCount(5);
-        console.log("setClickCount to 5 when pixelsPerMM changes in the return ()");
       };
     }, []);
   
@@ -178,7 +163,10 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
               Press the space bar as soon as the ball disappears.</List.Item>
             </List>
             <Text ta="center">
-              Press the space bar when you are ready to begin.
+              {ballPositions.length >= 5
+                ? "All measurements completed!"
+                : "Press the space bar when you are ready to begin."
+              }
             </Text>
         </Stack>
 

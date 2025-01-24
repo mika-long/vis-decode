@@ -72,7 +72,7 @@
           }
         ]
       },
-      "PDF-Median": {
+      "PDF-Median-Test": {
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
         "instruction": "Click on the curve such that a vertical line through the point splits the area under the curve into two equal parts.",
@@ -100,7 +100,7 @@
           }
         ]
       }, 
-      "PDF-Mode": {
+      "PDF-Mode-Test": {
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
         "instruction": "Click on the highest point of the curve.",
@@ -128,7 +128,7 @@
           }
         ]
       }, 
-      "CDF-Median": {
+      "CDF-Median-Test": {
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
         "instruction": "Click on the curve that interects with the horizontal line where y = 0.5",
@@ -156,7 +156,119 @@
           }
         ]
       },
-      "CDF-Mode": {
+      "CDF-Mode-Test": {
+        "type": "react-component", 
+        "path": "vis-decode/assets/Test.tsx", 
+        "instruction": "Click on the curve that has the steepest tangent slope.",
+        "nextButtonLocation": "belowStimulus",
+        "parameters": {
+          "data": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}, 
+          "showPDF": false,
+          "taskid": "location"
+        }, 
+        "response": [
+          {
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
+            "required": true, 
+            "location": "sidebar",
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      },
+      "PDF-Median-Train": {
+        "type": "react-component", 
+        "path": "vis-decode/assets/Test.tsx", 
+        "instruction": "Click on the curve such that a vertical line through the point splits the area under the curve into two equal parts.",
+        "nextButtonLocation": "belowStimulus",
+        "parameters": {
+          "data": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
+          "showPDF": true, 
+          "taskid": "location"
+        }, 
+        "response": [
+          {
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
+            "required": true, 
+            "location": "belowStimulus",
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      }, 
+      "PDF-Mode-Train": {
+        "type": "react-component", 
+        "path": "vis-decode/assets/Test.tsx", 
+        "instruction": "Click on the highest point of the curve.",
+        "nextButtonLocation": "belowStimulus",
+        "parameters": {
+          "data": {"xi": 0, "omega": 1, "nu": 13, "alpha": 0}, 
+          "showPDF": true, 
+          "taskid": "location"
+        }, 
+        "response": [
+          {
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
+            "required": true, 
+            "location": "sidebar",
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      }, 
+      "CDF-Median-Train": {
+        "type": "react-component", 
+        "path": "vis-decode/assets/Test.tsx", 
+        "instruction": "Click on the curve that interects with the horizontal line where y = 0.5",
+        "nextButtonLocation": "belowStimulus",
+        "parameters": {
+          "data": {"xi": 0, "omega": 1, "nu": 12, "alpha": 0}, 
+          "showPDF": false, 
+          "taskid": "location"
+        },
+        "response": [
+          {
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
+            "required": true, 
+            "location": "sidebar",
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      },
+      "CDF-Mode-Train": {
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
         "instruction": "Click on the curve that has the steepest tangent slope.",
@@ -297,7 +409,19 @@
               }
             ]
         }, 
-        "trial1": {
+        "task1_train_1": {
+          "baseComponent": "PDF-Median-Train"
+        }, 
+        "task2_train_1": {
+          "baseComponent": "PDF-Median-Train"
+        }, 
+        "task3_train_1": {
+          "baseComponent": "PDF-Median-Train"
+        }, 
+        "task4_train_1": {
+          "baseComponent": "PDF-Median-Train"
+        },
+        "task1_test_1": {
           "baseComponent": "PDF-Median",
           "parameters": {
             "data": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
@@ -306,7 +430,7 @@
             "data": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
           }
         }, 
-        "trial2": {
+        "task2_test_1": {
           "baseComponent": "PDF-Mode",
           "parameters": {
             "data": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
@@ -315,7 +439,7 @@
             "data": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
           }
         }, 
-        "trial3": {
+        "task3_test_1": {
           "baseComponent": "CDF-Mode",
           "parameters": {
             "data": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
@@ -324,7 +448,7 @@
             "data": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
           }
         }, 
-        "trial4": {
+        "task4_test_1": {
           "baseComponent": "CDF-Median",
           "parameters": {
             "data": {"xi": 1, "omega": 10, "nu": 3, "alpha": 1}
@@ -332,18 +456,6 @@
           "meta": {
             "data": {"xi": 1, "omega": 10, "nu": 3, "alpha": 1} 
           }
-        }, 
-        "train1": {
-          "baseComponent": "PDF-Median"
-        }, 
-        "train2": {
-          "baseComponent": "PDF-Mode"
-        }, 
-        "train3": {
-          "baseComponent": "CDF-Median"
-        }, 
-        "train4": {
-          "baseComponent": "CDF-Mode"
         }
     },
     "sequence": {
