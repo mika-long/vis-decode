@@ -192,7 +192,8 @@
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
           "showPDF": true, 
-          "taskid": "location"
+          "taskid": "location", 
+          "training": true
         }, 
         "response": [
           {
@@ -220,7 +221,8 @@
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 13, "alpha": 0}, 
           "showPDF": true, 
-          "taskid": "location"
+          "taskid": "location", 
+          "training": true
         }, 
         "response": [
           {
@@ -248,7 +250,8 @@
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 12, "alpha": 0}, 
           "showPDF": false, 
-          "taskid": "location"
+          "taskid": "location", 
+          "training": true
         },
         "response": [
           {
@@ -276,7 +279,8 @@
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}, 
           "showPDF": false,
-          "taskid": "location"
+          "taskid": "location", 
+          "training": true
         }, 
         "response": [
           {
@@ -422,7 +426,7 @@
           "baseComponent": "PDF-Median-Train"
         },
         "task1_test_1": {
-          "baseComponent": "PDF-Median",
+          "baseComponent": "PDF-Median-Test",
           "parameters": {
             "data": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
           }, 
@@ -431,7 +435,7 @@
           }
         }, 
         "task2_test_1": {
-          "baseComponent": "PDF-Mode",
+          "baseComponent": "PDF-Mode-Test",
           "parameters": {
             "data": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
           },
@@ -440,7 +444,7 @@
           }
         }, 
         "task3_test_1": {
-          "baseComponent": "CDF-Mode",
+          "baseComponent": "CDF-Mode-Test",
           "parameters": {
             "data": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
           },
@@ -449,7 +453,7 @@
           }
         }, 
         "task4_test_1": {
-          "baseComponent": "CDF-Median",
+          "baseComponent": "CDF-Median-Test",
           "parameters": {
             "data": {"xi": 1, "omega": 10, "nu": 3, "alpha": 1}
           },
@@ -479,34 +483,57 @@
             "distance calibration",
             {
               "components": [
-                "training_instruction", 
                 {
                   "components": [
-                    "train1", 
-                    "train2", 
-                    "train3", 
-                    "train4"
+                    "task1_train_1",
+                    {
+                      "components": [
+                        "task1_test_1"
+                      ],
+                      "order": "random"
+                    }
                   ], 
-                  "order": "random"
+                  "order": "fixed"
+                }, 
+                {
+                  "components": [
+                    "task2_train_1",
+                    {
+                      "components": [
+                        "task2_test_1"
+                      ],
+                      "order": "random"
+                    }
+                  ], 
+                  "order": "fixed"
+                }, 
+                {
+                  "components": [
+                    "task3_train_1",
+                    {
+                      "components": [
+                        "task3_test_1"
+                      ],
+                      "order": "random"
+                    }
+                  ], 
+                  "order": "fixed"
+                }, 
+                {
+                  "components": [
+                    "task4_train_1",
+                    {
+                      "components": [
+                        "task4_test_1"
+                      ],
+                      "order": "random"
+                    }
+                  ], 
+                  "order": "fixed"
                 }
               ],
               "order": "fixed"
             }, 
-            {
-              "components": [
-                "testing_instruction", 
-                {
-                  "components": [
-                    "trial1", 
-                    "trial2", 
-                    "trial3",
-                    "trial4"
-                  ], 
-                  "order": "random"
-                }
-              ], 
-              "order": "fixed"
-            },
             "survey"
         ]
     }
