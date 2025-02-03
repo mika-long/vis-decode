@@ -21,11 +21,13 @@ interface Point {
 }
 
 function Test({ parameters, setAnswer }: StimulusParams<any>) {
-  const svgRef = useRef<SVGSVGElement>(null);
-  const { data, showPDF, taskid } = parameters;
+  const { data, showPDF, taskid, training } = parameters;
+  
   const [currentPoint, setCurrentPoint] = useState<Point | null>(null);
-
-  // Store scales in a ref so we can access them in click handler
+  const [mousePos, setMousePos] = useState<{ x: number, y: number } | null>(null);
+  const [isNearCurve, setIsNearCurve] = useState(false);
+  
+  const svgRef = useRef<SVGSVGElement>(null);
   const scalesRef = useRef<{
     xScale: d3.ScaleLinear<number, number> | null;
     yScale: d3.ScaleLinear<number, number> | null;
@@ -285,6 +287,30 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
     }
   }, [distributionData, actions, trrack, findClosestPoint, taskid, setAnswer]);
 
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (!svgRef.current) return;
+
+    const svg = svgRef.current;
+    const rect = svg.getBoundingClientRect();
+    const x = e.clientX - rect.left; 
+    const y = e.clientY - rect.top;
+
+    // Check if mouse is near the curve 
+    const isNear = distributionData.xVals.some((xVal, index) => {
+      const distance = Math.sqrt(
+        Math.pow(xVal - x, 2) + Math.pow(distributionData.pdfVals[index] - y, 2)
+      );
+      return distance < 10;
+    });
+
+    setMousePos({ x, y });
+    setIsNearCurve(isNear);
+  }, [distributionData]);
+
+  const handleMouseLeave = useCallback(() => {
+    setIsNearCurve(false);
+  }, []);
+
   return (
     <Container p="md">
       <div className="mt-4">
@@ -292,11 +318,13 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
           ref={svgRef}
           onClick={handleClick}
           className="bg-white rounded-lg shadow-lg"
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
         />
         <Button
           onClick={() => {
-            setCurrentPoint(null);
             // Clear answer when point is cleared
+            setCurrentPoint(null);
             setAnswer({
               status: false,
               answers: {}
@@ -307,27 +335,6 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
           </Button>
       </div>
     </Container>
-    // <div className="p-4">
-    //   <div className="mt-4">
-    //     <svg
-    //       ref={svgRef}
-    //       onClick={handleClick}
-    //       className="bg-white rounded-lg shadow-lg"
-    //     />
-    //   </div>
-    //   <button
-    //     onClick={() => {
-    //       setCurrentPoint(null);
-    //       // Clear answer when point is cleared
-    //       setAnswer({
-    //         status: false,
-    //         answers: {}
-    //       });
-    //     }}
-    //     className="mt-4 px-4 py-2 rounded">
-    //       Clear Point
-    //   </button>
-    // </div>
   );
 }
 

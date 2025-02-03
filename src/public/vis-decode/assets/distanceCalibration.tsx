@@ -8,6 +8,11 @@ interface CalibrationItem {
   value: number;
 }
 
+// Utility functions
+const degToRadians = (degrees: number) => {
+  return (degrees * Math.PI) / 180;
+};
+
 const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters, setAnswer }) => {
     const ballRef = useRef<HTMLDivElement>(null);
     const squareRef = useRef<HTMLDivElement>(null);
@@ -22,11 +27,6 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
     const [isTracking, setIsTracking] = useState(false);
     const [viewingDistance, setViewingDistance] = useState<number | null>(null);
     const [clickCount, setClickCount] = useState<number>(5);
-  
-    // Utility functions
-    const degToRadians = (degrees: number) => {
-      return (degrees * Math.PI) / 180;
-    };
   
     // Calculate viewing distance function
     const calculateViewingDistance = (positions: number[]) => {
@@ -44,7 +44,6 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
   
     // Reset ball to starting position
     const resetBall = () => {
-      console.log("resetBall() called");
       if (ballRef.current) {
         ballRef.current.style.left = '740px';
       }
@@ -122,7 +121,6 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
 
     // Reset state when pixelsPerMM changes
     useEffect(() => {
-      // console.log("Full store state: ", storeState); 
       setViewingDistance(null);
       setIsTracking(false);
       setBallPositions([]);
@@ -148,72 +146,72 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
   
     if (!pixelsPerMM) {
       return <div>Please complete card calibration first.</div>;
-    }
+    } else {
+      return (
+        <Container size="md">
+          <Stack gap="md">
+            <Text>Now we will quickly measure how far away you are sitting. </Text>
+            <Stack gap="xs">
+              <List>
+                <List.Item>Put your left hand on the <b>space bar</b>.</List.Item>
+                <List.Item>Cover your right eye with your right hand.</List.Item>
+                <List.Item>Using your left eye, focus on the black square. Keep your focus on the black square.</List.Item>
+                <List.Item>The <span style={{color: "red", fontWeight: "bold"}}>red ball</span> will disappear as it moves from right to left. 
+                Press the space bar as soon as the ball disappears.</List.Item>
+              </List>
+              <Text ta="center">
+                {ballPositions.length >= 5
+                  ? "All measurements completed!"
+                  : "Press the space bar when you are ready to begin."
+                }
+              </Text>
+          </Stack>
   
-    return (
-      <Container size="md">
-        <Stack gap="md">
-          <Text>Now we will quickly measure how far away you are sitting. </Text>
+          <div
+            style={{
+              position: 'relative',
+              width: '900px',
+              height: '100px',
+              backgroundColor: '#ffffff',
+            }}
+          >
+          <div
+            ref={ballRef}
+            style={{
+              position: 'absolute',
+              width: '30px',
+              height: '30px',
+              backgroundColor: 'rgb(255, 0, 0)',
+              borderRadius: '30px',
+              left: '740px',
+            }}
+          />
+          <div
+            ref={squareRef}
+            style={{
+              position: 'absolute',
+              width: '30px',
+              height: '30px',
+              backgroundColor: 'rgb(0, 0, 0)',
+              left: '870px',
+            }}
+          />
+        </div>
+        <Text ta="center">
+          Remaining measurements: {5 - ballPositions.length}
+        </Text>
+  
+        {viewingDistance && (
           <Stack gap="xs">
-            <List>
-              <List.Item>Put your left hand on the <b>space bar</b>.</List.Item>
-              <List.Item>Cover your right eye with your right hand.</List.Item>
-              <List.Item>Using your left eye, focus on the black square. Keep your focus on the black square.</List.Item>
-              <List.Item>The <span style={{color: "red", fontWeight: "bold"}}>red ball</span> will disappear as it moves from right to left. 
-              Press the space bar as soon as the ball disappears.</List.Item>
-            </List>
-            <Text ta="center">
-              {ballPositions.length >= 5
-                ? "All measurements completed!"
-                : "Press the space bar when you are ready to begin."
-              }
-            </Text>
+            <Text fw={700} size="lg">Viewing Distance Results</Text>
+            <Text>Estimated Viewing Distance: {(viewingDistance / 10).toFixed(1)} cm</Text>
+            <Text>Number of measurements: {ballPositions.length}</Text>
+          </Stack>
+        )}
         </Stack>
-
-        <div
-          style={{
-            position: 'relative',
-            width: '900px',
-            height: '100px',
-            backgroundColor: '#ffffff',
-          }}
-        >
-        <div
-          ref={ballRef}
-          style={{
-            position: 'absolute',
-            width: '30px',
-            height: '30px',
-            backgroundColor: 'rgb(255, 0, 0)',
-            borderRadius: '30px',
-            left: '740px',
-          }}
-        />
-        <div
-          ref={squareRef}
-          style={{
-            position: 'absolute',
-            width: '30px',
-            height: '30px',
-            backgroundColor: 'rgb(0, 0, 0)',
-            left: '870px',
-          }}
-        />
-      </div>
-      <Text ta="center">
-        Remaining measurements: {5 - ballPositions.length}
-      </Text>
-
-      {viewingDistance && (
-        <Stack gap="xs">
-          <Text fw={700} size="lg">Viewing Distance Results</Text>
-          <Text>Estimated Viewing Distance: {(viewingDistance / 10).toFixed(1)} cm</Text>
-          <Text>Number of measurements: {ballPositions.length}</Text>
-        </Stack>
-      )}
-      </Stack>
-      </Container>
-    );
+        </Container>
+      );
+    }
   };
 
 export default ViewingDistanceCalibration;

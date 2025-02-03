@@ -1,4 +1,5 @@
 import { studentTPDF, studentTCDF } from './customT';
+// import libR from 'lib-r-math.js';
 
 type IntegrandFunction = (x: number) => number;
 
@@ -109,8 +110,8 @@ export function skewTPDF(x: number, params: DistributionParams): number {
   const z = (x - xi) / omega; // normalized value x
 
   // First calculate the t-distribution part
-  // const tPart = (1/omega) * dt(z, nu);
-  const tPart = (1 / omega) * studentTPDF(z, nu);
+  const tPart = (1 / omega) * studentTPDF(z, nu); // custom code 
+  // const tPart = (1 / omega) * libR.dt(z, nu); // libR code 
 
   // Calculate the skewness term with proper scaling 
   // The key change is in handling the denominator 
@@ -118,6 +119,7 @@ export function skewTPDF(x: number, params: DistributionParams): number {
 
   // Then calculate the cumulative t-distribution part for the skewness
   const Ft = studentTCDF(alpha * z * Math.sqrt((nu + 1) / (nu + z * z)), nu + 1);
+  // const Ft = libR.pt(alpha * z * Math.sqrt((nu + 1) / (nu + z * z)), nu + 1); // libR
 
   return 2 * tPart * Ft;
 }
@@ -150,6 +152,9 @@ export function generateDistributionData(
   // Calculate CDF
   const cdfVals = xVals.map((x) => skewTCDF(x, params));
 
+  return { xVals, pdfVals, cdfVals };
+}
+
   // // Calculate CDF values using numerical integration (trapezoidal rule)
   // const cdfVals: number[] = [0];
   // let sum = 0;
@@ -166,8 +171,6 @@ export function generateDistributionData(
   // const normalizedCDF = cdfVals.map((v) => v / maxCDF);
 
   // return { xVals, pdfVals, cdfVals: normalizedCDF };
-  return { xVals, pdfVals, cdfVals };
-}
 
 export function findDistributionValue(
   data: DistributionData,
