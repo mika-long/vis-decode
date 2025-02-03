@@ -8,6 +8,7 @@ export interface DistributionData {
   pdfVals: number[];
   cdfVals: number[];
 }
+
 /**
  * Parameters for the skew-t distribution
  * @param {number} xi - location parameter
