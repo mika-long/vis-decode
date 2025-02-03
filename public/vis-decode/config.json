@@ -148,7 +148,8 @@
             "calibration-intro", 
             "calibration", 
             "distance calibration",
-            "survey"
+            "testing_instruction",
+            "training_instruction"
         ]
     }
 }

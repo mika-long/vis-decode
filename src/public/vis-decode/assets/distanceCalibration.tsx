@@ -59,7 +59,13 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
 
       const currentLeft = parseInt(ballRef.current.style.left || '740');
       const newLeft = currentLeft - 2; // Move left by decreasing left value
-      ballRef.current.style.left = `${newLeft}px`;
+
+      // add looping effect 
+      if (newLeft <= 0) {
+        ballRef.current.style.left = '740px';
+      } else {
+        ballRef.current.style.left = `${newLeft}px`;
+      }
 
       animationFrameRef.current = requestAnimationFrame(animateBall);
     };
