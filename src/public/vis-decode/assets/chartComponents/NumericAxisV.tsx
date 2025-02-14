@@ -1,6 +1,5 @@
 import * as d3 from 'd3';
 import { useMemo } from 'react';
-import { XOFFSET } from 'vega-lite/build/src/channel';
 
 interface NumericAxisVProps {
 	domain: [number, number]; // data domain
