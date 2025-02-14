@@ -39,7 +39,7 @@
           }
         ]
       },
-      "blind-spot": {
+      "ball": {
         "type": "react-component",
         "path": "vis-decode/assets/distanceCalibration.tsx",
         "nextButtonLocation": "belowStimulus", 
@@ -116,7 +116,7 @@
           "baseComponent": "card"
         },
         "distance calibration": {
-          "baseComponent": "blind-spot"
+          "baseComponent": "ball"
         },
         "training_instruction": {
             "type": "markdown",
