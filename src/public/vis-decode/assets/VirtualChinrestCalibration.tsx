@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Slider, Button, Container, Stack, Text, Center } from '@mantine/core';
 import { StimulusParams } from '../../../store/types';
-// import cardImage from './card.png'; 
 import cardImage from './costco_card.png';
 // import { id } from 'vega';
 
@@ -16,12 +15,15 @@ const VirtualChinrestCalibration: React.FC<VirtualChinrestCalibrationProps> = ({
   itemWidthMM = 85.6,  // Standard credit card width
   itemHeightMM = 53.98 // Standard credit card height
 }) => {
+  // Set states 
   const [itemWidthPx, setItemWidthPx] = useState(300);
   const [pixelsPerMM, setPixelsPerMM] = useState<number | null>(null);
   const [isCalibrationComplete, setIsCalibrationComplete] = useState(false);
   const [sliderRange, setSliderRange] = useState({ min: 100, max: 500 });
-  const containerRef = useRef<HTMLDivElement>(null);
   const { taskid } = parameters; 
+  // Set references 
+  const containerRef = useRef<HTMLDivElement>(null);
+  
 
   // Aspect ratio of the item
   const aspectRatio = itemHeightMM / itemWidthMM;
