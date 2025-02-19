@@ -1,8 +1,6 @@
-import { useMemo } from "react";
+import { useMemo, useEffect, useRef } from "react";
 import * as d3 from "d3";
 import { Line } from "./chartComponents/Line";
-import { NumericAxisH } from "./chartComponents/NumericAxisH";
-import { NumericAxisV } from "./chartComponents/NumericAxisV";
 
 interface PlotProps {
   // Data 
@@ -13,10 +11,18 @@ interface PlotProps {
   margin?: { top: number; right: number; bottom: number; left: number};
   strokeColor?: string;
   strokeWidth?: number; 
-  curved?: boolean; 
   // Optional domain overrides 
   xDomain?: [number, number];
   yDomain?: [number, number];
+  // interactivty 
+  onClick?: (event: React.MouseEvent, scales: {
+    xScale: d3.ScaleLinear<number, number>, 
+    yScale: d3.ScaleLinear<number, number> 
+  }) => void; 
+  onMouseMove?: (event: React.MouseEvent, scales: {
+    xScale: d3.ScaleLinear<number, number>, 
+    yScale: d3.ScaleLinear<number, number>
+  }) => void;
 }
 
 export function Plot({
@@ -27,29 +33,58 @@ export function Plot({
   strokeColor = "#2563eb",
   strokeWidth = 2, 
   xDomain, 
-  yDomain
+  yDomain,
+  onClick, 
+  onMouseMove
 }: PlotProps) {
-  // Calculate domains if not provided 
-  const calculatedXDomain = xDomain || [
-    d3.min(data, d => d.x) || 0, 
-    d3.max(data, d => d.x) || 0
-  ];
-  const calculatedYDomain = yDomain || [
-    d3.min(data, d => d.y) || 0,
-    d3.max(data, d => d.y) || 0
-  ];
+  // Refs 
+  const xAxisRef = useRef<SVGGElement>(null);
+  const yAxisRef = useRef<SVGGElement>(null);
 
-  // Create scales 
-  const xScale = d3.scaleLinear()
+  const { xScale, yScale } = useMemo(() => {
+    // Calculate domains if not provided 
+    const calculatedXDomain = xDomain || [
+      d3.min(data, d => d.x) || 0, 
+      d3.max(data, d => d.x) || 0
+    ];
+    const calculatedYDomain = yDomain || [
+      d3.min(data, d => d.y) || 0,
+      d3.max(data, d => d.y) || 0
+    ];
+    // Create scales 
+    const xScale = d3.scaleLinear()
     .domain(calculatedXDomain)
     .range([margin.left, width - margin.right])
 
   const yScale = d3.scaleLinear()
     .domain(calculatedYDomain)
     .range([height - margin.bottom, margin.top]);
+    
+    return { xScale, yScale };
 
+  }, [data, xDomain, yDomain, margin, width, height]);
+
+  // Draw D3 axes 
+  useEffect(() => {
+    if (xAxisRef.current) {
+      d3.select(xAxisRef.current)
+        .call(d3.axisBottom(xScale))
+        .attr("transform", `translate(0,${height - margin.bottom})`);
+    }
+    if (yAxisRef.current) {
+      d3.select(yAxisRef.current)
+        .call(d3.axisLeft(yScale))
+        .attr("transform", `translate(${margin.left},0)`);
+    }
+  }, [xScale, yScale, margin, height]);
+  
   return (
-    <svg width={width} height={height}>
+    <svg 
+      width={width} 
+      height={height}
+      onClick={(e) => onClick?.(e, { xScale, yScale })}
+      onMouseMove={(e) => onMouseMove?.(e, { xScale ,yScale })}
+    >
       <Line 
         data={data}
         xScale={xScale}
@@ -57,14 +92,8 @@ export function Plot({
         strokeColor={strokeColor}
         strokeWidth={strokeWidth}
       />
-      <NumericAxisH 
-        domain={calculatedXDomain}
-        range={[margin.left, width - margin.right]}
-      />
-      <NumericAxisV 
-        domain={calculatedYDomain}
-        range={[height - margin.bottom, margin.top]}
-      />
+      <g ref={xAxisRef} />
+      <g ref={yAxisRef} />
     </svg>
   )
 
