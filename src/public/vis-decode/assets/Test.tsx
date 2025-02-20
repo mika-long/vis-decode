@@ -107,7 +107,9 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
     const pt = new DOMPoint();
     pt.x = event.clientX;
     pt.y = event.clientY;
-    const svgPoint = pt.matrixTransform(svg.getScreenCTM()?.inverse());
+    const ctm = svg.getScreenCTM()?.inverse();
+    if (!ctm) return;
+    const svgPoint = pt.matrixTransform(ctm);
 
     const closestPoint = findClosestPoint(svgPoint.x, svgPoint.y, xScale, yScale);
     if (!closestPoint) return;
@@ -152,7 +154,9 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
     const pt = new DOMPoint();
     pt.x = event.clientX;
     pt.y = event.clientY;
-    const svgPoint = pt.matrixTransform(svg.getScreenCTM()?.inverse());
+    const ctm = svg.getScreenCTM()?.inverse();
+    if (!ctm) return;
+    const svgPoint = pt.matrixTransform(ctm);
 
     // proximity check
     const closestPoint = findClosestPoint(svgPoint.x, svgPoint.y, xScale, yScale);
@@ -183,16 +187,16 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
           onClick={handlePlotClick}
           onMouseMove={handlePlotMouseMove}
           // Optional: additional feedback for current point
-          additionalElements={
-            currentPoint && (
-              <circle
-                cx={xScale(currentPoint.x)}
-                cy={yScale(currentPoint.y)}
-                r='4'
-                fill='red'
-              />
-            )
-          }
+          // additionalElements={
+          //   currentPoint && (
+          //     <circle
+          //       cx={xScale(currentPoint.x)}
+          //       cy={yScale(currentPoint.y)}
+          //       r='4'
+          //       fill='red'
+          //     />
+          //   )
+          // }
         />
         <Button
           onClick={handleClearPoint} mt="md">
