@@ -40,7 +40,8 @@ export function GuideLines({
         y2={height - margin.bottom}
         stroke="#666"
         strokeWidth={1}
-        strokeDasharray="4"
+        strokeDasharray="10"
+        data-source="Guidelines"
       />
     );
   }

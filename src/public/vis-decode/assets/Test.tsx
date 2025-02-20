@@ -289,26 +289,26 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
           onMouseMove={handlePlotMouseMove}
           onMouseLeave={handleMouseLeave}
           cursor={cursor}
-          selectedPoint={selectedPoint}
-        />
-        {xScale && yScale && (
-          <GuideLines
-            xScale={xScale}
-            yScale={yScale}
-            width={chartSettings.width}
-            height={chartSettings.height}
-            margin={{
-              top: chartSettings.marginTop,
-              right: chartSettings.marginRight,
-              left: chartSettings.marginLeft,
-              bottom: chartSettings.marginBottom,
-            }}
-            sliderValue={sliderValue}
-            taskType={taskType}
-            training={training}
-            distributionData={distributionData}
-          />
-        )}
+          selectedPoint={selectedPoint}>
+            {xScale && yScale && (
+              <GuideLines
+                xScale={xScale}
+                yScale={yScale}
+                width={chartSettings.width}
+                height={chartSettings.height}
+                margin={{
+                  top: chartSettings.marginTop,
+                  right: chartSettings.marginRight,
+                  left: chartSettings.marginLeft,
+                  bottom: chartSettings.marginBottom,
+                }}
+                sliderValue={sliderValue}
+                taskType={taskType}
+                training={training}
+                distributionData={distributionData}
+              />
+            )}
+          </Plot>
         <Button
           onClick={handleClearPoint}
           mt="md"

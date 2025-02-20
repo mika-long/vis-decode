@@ -34,6 +34,7 @@ interface PlotProps {
   // Visual elements
   cursor?: {x: number; y:number; isNearCurve: boolean} | null;
   selectedPoint?: {x: number; y:number} | null;
+  children?: React.ReactNode; 
 }
 
 export function Plot({
@@ -53,6 +54,7 @@ export function Plot({
   onMouseLeave,
   cursor,
   selectedPoint,
+  children
 }: PlotProps) {
   // Refs
   const xAxisRef = useRef<SVGGElement>(null);
@@ -134,6 +136,7 @@ export function Plot({
       {renderAxisLabels()}
       {cursor && <Cursor position={{ x: cursor.x, y: cursor.y }} isNearCurve={cursor.isNearCurve} />}
       {selectedPoint && <ClickMarker point={selectedPoint} xScale={xScale} yScale={yScale} />}
+      {children}
     </svg>
   );
 }

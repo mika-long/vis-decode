@@ -15,8 +15,9 @@ export default function ClickMarker({ point, xScale, yScale }: ClickMarkerProps)
         r={4}
         fill="#ff0000"
         pointerEvents="none"
+        data-source="ClickMarker"
       />
-      <line
+      {/* <line
         x1={xScale.range()[0]}
         x2={xScale.range()[1]}
         y1={yScale(point.y)}
@@ -26,7 +27,7 @@ export default function ClickMarker({ point, xScale, yScale }: ClickMarkerProps)
         strokeDasharray="4"
         opacity={0.5}
         pointerEvents="none"
-      />
+      /> */}
     </>
   );
 }
