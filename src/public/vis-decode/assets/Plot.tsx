@@ -11,6 +11,10 @@ interface PlotProps {
   margin?: { top: number; right: number; bottom: number; left: number};
   strokeColor?: string;
   strokeWidth?: number;
+  axisLabels?: {
+    x?: string;
+    y?: string;
+  }
   // Optional domain overrides
   xDomain?: [number, number];
   yDomain?: [number, number];
@@ -33,6 +37,7 @@ export function Plot({
   margin = { top: 20, right: 20, bottom: 40, left: 40 },
   strokeColor = "#2563eb",
   strokeWidth = 2,
+  axisLabels,
   xDomain,
   yDomain,
   onClick,
@@ -66,6 +71,25 @@ export function Plot({
 
   }, [data, xDomain, yDomain, margin, width, height]);
 
+  // Axis labels 
+  const renderAxisLabels = () => {
+    if (!axisLabels) return null;
+    return(
+      <>
+      { axisLabels.x && (
+        <text x = {width/2} y={height - 5} textAnchor="middle" className="axis-label">
+          {axisLabels.x}
+        </text>
+      )}
+      { axisLabels.y && (
+        <text x = {-height/2} y = {15} textAnchor="middle" transform="rotate(-90)" className="axis-label">
+          {axisLabels.y}
+        </text>
+      )}
+      </>
+    );
+  };
+
   // Draw D3 axes
   useEffect(() => {
     if (xAxisRef.current) {
@@ -96,6 +120,7 @@ export function Plot({
       />
       <g ref={xAxisRef} />
       <g ref={yAxisRef} />
+      {renderAxisLabels()}
       {additionalElements}
     </svg>
   )
