@@ -8,9 +8,9 @@ interface GuideLinesProps {
   width: number;
   height: number;
   margin: { top: number; right: number; bottom: number; left: number };
-  sliderValue?: number;
   taskType: TaskType;
   training: boolean;
+  selectedPoint: {x: number; y: number} | null;
   distributionData?: {
     xVals: number[];
     pdfVals: number[];
@@ -24,41 +24,28 @@ export function GuideLines({
   width,
   height,
   margin,
-  sliderValue,
   taskType,
   training,
+  selectedPoint,
   distributionData,
 }: GuideLinesProps) {
   if (!training || !distributionData) return null;
-  // Always render vertical line for PDF_MEDIAN
-  if (taskType === TaskType.PDF_MEDIAN && sliderValue !== undefined) {
-    return (
-      <line
-        x1={xScale(sliderValue)}
-        x2={xScale(sliderValue)}
-        y1={margin.top}
-        y2={height - margin.bottom}
-        stroke="#666"
-        strokeWidth={1}
-        strokeDasharray="10"
-        data-source="Guidelines"
-      />
-    );
-  }
+
   switch (taskType) {
-    // case TaskType.PDF_MEDIAN: {
-    //   return (
-    //     <line
-    //       x1={xScale(sliderValue ?? 0)}
-    //       x2={xScale(sliderValue ?? 0)}
-    //       y1={margin.top}
-    //       y2={height - margin.bottom}
-    //       stroke="#666"
-    //       strokeWidth={1}
-    //       strokeDasharray="4"
-    //     />
-    //   );
-    // }
+    case TaskType.PDF_MEDIAN: {
+      if (!selectedPoint) return null;
+      return (
+        <line
+          x1={xScale(selectedPoint.x)}
+          x2={xScale(selectedPoint.x)}
+          y1={margin.top}
+          y2={height - margin.bottom}
+          stroke="#666"
+          strokeWidth={1}
+          strokeDasharray="4"
+        />
+      );
+    }
     case TaskType.PDF_MODE: {
       const maxY = Math.max(...distributionData.pdfVals);
       return (
@@ -87,9 +74,10 @@ export function GuideLines({
       );
     }
     case TaskType.CDF_MODE: {
-      if (sliderValue === undefined) return null;
+      if (!selectedPoint) return null;
+
       // Calculate tangent line at the given x-value
-      const index = d3.bisector((d) => d).left(distributionData.xVals, sliderValue);
+      const index = d3.bisector((d) => d).left(distributionData.xVals, selectedPoint.x);
       if (index < 1 || index >= distributionData.xVals.length) return null;
 
       const x0 = distributionData.xVals[index - 1];
@@ -98,12 +86,13 @@ export function GuideLines({
       const y1 = distributionData.cdfVals[index];
 
       const slope = (y1 - y0) / (x1 - x0);
-      const y = distributionData.cdfVals[index - 1];
+      // const y = distributionData.cdfVals[index - 1];
+      const y = selectedPoint.y;
 
       // Draw tangent line extending a bit in both directions
       const extendX = 1; // Extend line by 1 unit in both directions
-      const xStart = sliderValue - extendX;
-      const xEnd = sliderValue + extendX;
+      const xStart = selectedPoint.x - extendX;
+      const xEnd = selectedPoint.x + extendX;
       const yStart = y - (slope * extendX);
       const yEnd = y + (slope * extendX);
 

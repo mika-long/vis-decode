@@ -1,14 +1,14 @@
 /* eslint-disable no-shadow */
 import * as d3 from 'd3';
 import { useCallback, useMemo, useState } from 'react';
-import { Container, Button, Slider } from '@mantine/core';
+import { Container, Button } from '@mantine/core';
 import { initializeTrrack, Registry } from '@trrack/core';
 import { StimulusParams } from '../../../store/types';
 import { generateDistributionData } from './distributionCalculations';
 import { Plot } from './Plot';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { GuideLines } from './chartComponents/Guidelines';
-import { TaskType } from './TaskTypes';
+// import { TaskType } from './TaskTypes';
 
 const chartSettings = {
   marginBottom: 40,
@@ -35,8 +35,6 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
   const {
     data, showPDF, training, taskType,
   } = parameters;
-  const hasSlider = taskType === TaskType.PDF_MEDIAN || taskType === TaskType.CDF_MODE;
-  const [sliderValue, setSliderValue] = useState<number | undefined>();
   const [cursor, setCursor] = useState<CursorState | null>(null);
   const [selectedPoint, setSelectedPoint] = useState<Point | null>(null);
 
@@ -135,38 +133,38 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
     return closestPoint;
   }, [distributionData, showPDF]);
 
-  // Update slider handler to set both slider value and selected point
-  const handleSliderChange = useCallback((value: number) => {
-    setSliderValue(value);
-    if (!distributionData) return;
+  // // Update slider handler to set both slider value and selected point
+  // const handleSliderChange = useCallback((value: number) => {
+  //   setSliderValue(value);
+  //   if (!distributionData) return;
 
-    // Find the closest point on the line for the given x value
-    const index = d3.bisector((d) => d).left(distributionData.xVals, value);
-    const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
+  //   // Find the closest point on the line for the given x value
+  //   const index = d3.bisector((d) => d).left(distributionData.xVals, value);
+  //   const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
 
-    if (index >= 0 && index < distributionData.xVals.length) {
-      const point = {
-        x: distributionData.xVals[index],
-        y: yValues[index],
-      };
-      setSelectedPoint(point);
+  //   if (index >= 0 && index < distributionData.xVals.length) {
+  //     const point = {
+  //       x: distributionData.xVals[index],
+  //       y: yValues[index],
+  //     };
+  //     setSelectedPoint(point);
 
-      // Update provenance and answer
-      trrack.apply('Slider moved', actions.clickAction({
-        clickX: point.x,
-        clickY: point.y,
-      }));
+  //     // Update provenance and answer
+  //     trrack.apply('Slider moved', actions.clickAction({
+  //       clickX: point.x,
+  //       clickY: point.y,
+  //     }));
 
-      setAnswer({
-        status: true,
-        provenanceGraph: trrack.graph.backend,
-        answers: {
-          'location-x': point.x,
-          'location-y': point.y,
-        },
-      });
-    }
-  }, [distributionData, showPDF, actions, trrack, setAnswer]);
+  //     setAnswer({
+  //       status: true,
+  //       provenanceGraph: trrack.graph.backend,
+  //       answers: {
+  //         'location-x': point.x,
+  //         'location-y': point.y,
+  //       },
+  //     });
+  //   }
+  // }, [distributionData, showPDF, actions, trrack, setAnswer]);
 
   // Mouse move handler
   const handlePlotMouseMove = useCallback((
@@ -255,27 +253,28 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
     });
   }, [setAnswer]);
 
+  // slider related code
+  // {training && hasSlider && (
+  //   <div style={{ width: chartSettings.width, marginBottom: '2em' }}>
+  //     <Slider
+  //       value={sliderValue}
+  //       onChange={handleSliderChange}
+  //       min={distributionData?.xVals[0]}
+  //       max={distributionData?.xVals[distributionData.xVals.length - 1]}
+  //       step={0.1}
+  //       label={(value) => value.toFixed(2)}
+  //       className="mb-4"
+  //       styles={{
+  //         root: { width: '100%' },
+  //         track: { width: '100%' },
+  //       }}
+  //     />
+  //   </div>
+  // )}
+
   return (
     <Container p="md">
       <div className="mt-4">
-        {/* optional slider */}
-        {training && hasSlider && (
-          <div style={{ width: chartSettings.width, marginBottom: '2em' }}>
-            <Slider
-              value={sliderValue}
-              onChange={handleSliderChange}
-              min={distributionData?.xVals[0]}
-              max={distributionData?.xVals[distributionData.xVals.length - 1]}
-              step={0.1}
-              label={(value) => value.toFixed(2)}
-              className="mb-4"
-              styles={{
-                root: { width: '100%' },
-                track: { width: '100%' },
-              }}
-            />
-          </div>
-        )}
         <Plot
           data={linePoints}
           width={chartSettings.width}
@@ -306,9 +305,9 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
                 left: chartSettings.marginLeft,
                 bottom: chartSettings.marginBottom,
               }}
-              sliderValue={sliderValue}
               taskType={taskType}
               training={training}
+              selectedPoint={selectedPoint}
               distributionData={distributionData}
             />
           )}
