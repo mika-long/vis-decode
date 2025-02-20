@@ -30,20 +30,34 @@ export function GuideLines({
   distributionData,
 }: GuideLinesProps) {
   if (!training || !distributionData) return null;
+   // Always render vertical line for PDF_MEDIAN
+   if (taskType === TaskType.PDF_MEDIAN && sliderValue !== undefined) {
+    return (
+      <line
+        x1={xScale(sliderValue)}
+        x2={xScale(sliderValue)}
+        y1={margin.top}
+        y2={height - margin.bottom}
+        stroke="#666"
+        strokeWidth={1}
+        strokeDasharray="4"
+      />
+    );
+  }
   switch (taskType) {
-    case TaskType.PDF_MEDIAN: {
-      return (
-        <line
-          x1={xScale(sliderValue ?? 0)}
-          x2={xScale(sliderValue ?? 0)}
-          y1={margin.top}
-          y2={height - margin.bottom}
-          stroke="#666"
-          strokeWidth={1}
-          strokeDasharray="4"
-        />
-      );
-    }
+    // case TaskType.PDF_MEDIAN: {
+    //   return (
+    //     <line
+    //       x1={xScale(sliderValue ?? 0)}
+    //       x2={xScale(sliderValue ?? 0)}
+    //       y1={margin.top}
+    //       y2={height - margin.bottom}
+    //       stroke="#666"
+    //       strokeWidth={1}
+    //       strokeDasharray="4"
+    //     />
+    //   );
+    // }
     case TaskType.PDF_MODE: {
       const maxY = Math.max(...distributionData.pdfVals);
       return (

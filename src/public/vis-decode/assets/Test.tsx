@@ -33,13 +33,7 @@ interface CursorState {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Test({ parameters, setAnswer }: StimulusParams<any>) {
   const { data, showPDF, training, taskType } = parameters;
-  // console.log(taskType);
-  // console.log(typeof taskType);
-  // // console.log(taskTypeEnum);
-  // console.log(typeof taskTypeEnum);
-  // console.log(typeof TaskType);
-  console.log(taskType === TaskType.CDF_MODE);
-  console.log("cdf_mode" === TaskType.CDF_MODE);
+  const hasSlider = (taskType === TaskType.PDF_MEDIAN || taskType === TaskType.CDF_MODE ) ? true : false;
   const [sliderValue, setSliderValue] = useState<number | undefined>();
   const [cursor, setCursor] = useState<CursorState | null>(null);
   const [selectedPoint, setSelectedPoint] = useState<Point | null>(null);
@@ -91,7 +85,7 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
     const yDomain = showPDF
       ? [0, d3.max(distributionData.pdfVals) || 0]
       : [0, d3.max(distributionData.cdfVals) || 0];
-    
+
     const calculatedYDomain = [0, 1];
     const xScale = d3.scaleLinear()
       .domain(calculatedXDomain)
@@ -139,12 +133,46 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
     return closestPoint;
   }, [distributionData, showPDF]);
 
+  // Update slider handler to set both slider value and selected point
+  const handleSliderChange = useCallback((value: number) => {
+    setSliderValue(value);
+    if (!distributionData) return;
+
+    // Find the closest point on the line for the given x value
+    const index = d3.bisector((d) => d).left(distributionData.xVals, value);
+    const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
+    
+    if (index >= 0 && index < distributionData.xVals.length) {
+      const point = {
+        x: distributionData.xVals[index],
+        y: yValues[index]
+      };
+      setSelectedPoint(point);
+      
+      // Update provenance and answer
+      trrack.apply('Slider moved', actions.clickAction({
+        clickX: point.x,
+        clickY: point.y,
+      }));
+      
+      setAnswer({
+        status: true,
+        provenanceGraph: trrack.graph.backend,
+        answers: {
+          'location-x': point.x,
+          'location-y': point.y,
+        },
+      });
+    }
+  }, [distributionData, showPDF, actions, trrack, setAnswer]);
+  
   // Mouse move handler
   const handlePlotMouseMove = useCallback((
     event: React.MouseEvent,
     { xScale, yScale }: { xScale: d3.ScaleLinear<number, number>, yScale: d3.ScaleLinear<number, number> },
   ) => {
     if (!distributionData) return;
+    if (training) return;
 
     const svg = event.currentTarget as SVGSVGElement;
     const pt = new DOMPoint();
@@ -229,11 +257,11 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
     <Container p="md">
       <div className="mt-4">
         {/* optional slider */}
-        {training && (taskType === TaskType.PDF_MEDIAN || taskType === TaskType.CDF_MODE) && (
-          <div style={{ width: chartSettings.width }}>
+        {training && hasSlider && (
+          <div style={{ width: chartSettings.width, marginBottom: '2em' }}>
             <Slider
               value={sliderValue}
-              onChange={setSliderValue}
+              onChange={handleSliderChange}
               min={distributionData?.xVals[0]}
               max={distributionData?.xVals[distributionData.xVals.length - 1]}
               step={0.1}
