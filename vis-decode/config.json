@@ -44,8 +44,6 @@
         "path": "vis-decode/assets/distanceCalibration.tsx",
         "nextButtonLocation": "belowStimulus", 
         "parameters": {
-          "taskid1": "dist-calibration-MM", 
-          "taskid2": "dist-calibration-CM",
           "blindspotAngle": 13.5
         }, 
         "response": [
@@ -66,6 +64,234 @@
           {
             "id": "ball-positions",
             "prompt": "Position of balls in pixels",
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      },
+      "PDF-Median-Test": {
+        "type": "react-component", 
+        "path": "vis-decode/assets/Test.tsx", 
+        "instruction": "Click on the curve such that a vertical line through the point splits the area under the curve into two equal parts.",
+        "nextButtonLocation": "belowStimulus",
+        "parameters": {
+          "data": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
+          "showPDF": true, 
+          "taskid": "location"
+        }, 
+        "response": [
+          {
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
+            "required": true, 
+            "location": "belowStimulus",
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      },
+      "PDF-Mode-Test": {
+        "type": "react-component", 
+        "path": "vis-decode/assets/Test.tsx", 
+        "instruction": "Click on the highest point of the curve.",
+        "nextButtonLocation": "belowStimulus",
+        "parameters": {
+          "data": {"xi": 0, "omega": 1, "nu": 13, "alpha": 0}, 
+          "showPDF": true, 
+          "taskid": "location"
+        }, 
+        "response": [
+          {
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
+            "required": true, 
+            "location": "sidebar",
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      }, 
+      "CDF-Median-Test": {
+        "type": "react-component", 
+        "path": "vis-decode/assets/Test.tsx", 
+        "instruction": "Click on the curve that interects with the horizontal line where y = 0.5",
+        "nextButtonLocation": "belowStimulus",
+        "parameters": {
+          "data": {"xi": 0, "omega": 1, "nu": 12, "alpha": 0}, 
+          "showPDF": false, 
+          "taskid": "location"
+        },
+        "response": [
+          {
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
+            "required": true, 
+            "location": "sidebar",
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      },
+      "CDF-Mode-Test": {
+        "type": "react-component", 
+        "path": "vis-decode/assets/Test.tsx", 
+        "instruction": "Click on the curve that has the steepest tangent slope.",
+        "nextButtonLocation": "belowStimulus",
+        "parameters": {
+          "data": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}, 
+          "showPDF": false,
+          "taskid": "location"
+        }, 
+        "response": [
+          {
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
+            "required": true, 
+            "location": "sidebar",
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      },
+      "PDF-Median-Train": {
+        "type": "react-component", 
+        "path": "vis-decode/assets/Test.tsx", 
+        "instruction": "Click on the curve such that a vertical line through the point splits the area under the curve into two equal parts.",
+        "nextButtonLocation": "belowStimulus",
+        "parameters": {
+          "data": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
+          "showPDF": true, 
+          "taskid": "location", 
+          "training": true
+        }, 
+        "response": [
+          {
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
+            "required": true, 
+            "location": "belowStimulus",
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      }, 
+      "PDF-Mode-Train": {
+        "type": "react-component", 
+        "path": "vis-decode/assets/Test.tsx", 
+        "instruction": "Click on the highest point of the curve.",
+        "nextButtonLocation": "belowStimulus",
+        "parameters": {
+          "data": {"xi": 0, "omega": 1, "nu": 13, "alpha": 0}, 
+          "showPDF": true, 
+          "taskid": "location", 
+          "training": true
+        }, 
+        "response": [
+          {
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
+            "required": true, 
+            "location": "sidebar",
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      }, 
+      "CDF-Median-Train": {
+        "type": "react-component", 
+        "path": "vis-decode/assets/Test.tsx", 
+        "instruction": "Click on the curve that interects with the horizontal line where y = 0.5",
+        "nextButtonLocation": "belowStimulus",
+        "parameters": {
+          "data": {"xi": 0, "omega": 1, "nu": 12, "alpha": 0}, 
+          "showPDF": false, 
+          "taskid": "location", 
+          "training": true
+        },
+        "response": [
+          {
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
+            "required": true, 
+            "location": "sidebar",
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      },
+      "CDF-Mode-Train": {
+        "type": "react-component", 
+        "path": "vis-decode/assets/Test.tsx", 
+        "instruction": "Click on the curve that has the steepest tangent slope.",
+        "nextButtonLocation": "belowStimulus",
+        "parameters": {
+          "data": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}, 
+          "showPDF": false,
+          "taskid": "location", 
+          "training": true
+        }, 
+        "response": [
+          {
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
+            "required": true, 
+            "location": "sidebar",
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
@@ -127,6 +353,54 @@
             "type": "markdown",
             "path": "vis-decode/assets/testing.md",
             "response": []
+        },
+        "task1_train_1": {
+          "baseComponent": "PDF-Median-Train"
+        }, 
+        "task2_train_1": {
+          "baseComponent": "PDF-Median-Train"
+        }, 
+        "task3_train_1": {
+          "baseComponent": "PDF-Median-Train"
+        }, 
+        "task4_train_1": {
+          "baseComponent": "PDF-Median-Train"
+        },
+        "task1_test_1": {
+          "baseComponent": "PDF-Median-Test",
+          "parameters": {
+            "data": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
+          }, 
+          "meta": {
+            "data": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
+          }
+        }, 
+        "task2_test_1": {
+          "baseComponent": "PDF-Mode-Test",
+          "parameters": {
+            "data": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
+          },
+          "meta": {
+            "data": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
+          }
+        }, 
+        "task3_test_1": {
+          "baseComponent": "CDF-Mode-Test",
+          "parameters": {
+            "data": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
+          },
+          "meta": {
+            "data": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
+          }
+        }, 
+        "task4_test_1": {
+          "baseComponent": "CDF-Median-Test",
+          "parameters": {
+            "data": {"xi": 1, "omega": 10, "nu": 3, "alpha": 1}
+          },
+          "meta": {
+            "data": {"xi": 1, "omega": 10, "nu": 3, "alpha": 1} 
+          }
         }
     },
     "sequence": {
@@ -148,8 +422,16 @@
             "calibration-intro", 
             "calibration", 
             "distance calibration",
+            "training_instruction",
+            "task1_train_1",
+            "task2_train_1",
+            "task3_train_1",
+            "task4_train_1",
             "testing_instruction",
-            "training_instruction"
+            "task1_test_1",
+            "task2_test_1",
+            "task3_test_1",
+            "task4_test_1"
         ]
     }
 }
