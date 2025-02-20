@@ -113,36 +113,6 @@ export function Plot({
     );
   };
 
-  // Render cursor
-  const renderCursor = () => {
-    if (!cursor) return null;
-    return (
-      <circle
-        cx={cursor.x}
-        cy={cursor.y}
-        r={cursor.isNearCurve ? 1 : 10}
-        fill="none"
-        stroke="#666"
-        strokeWidth={1}
-        pointerEvents="none"
-      />
-    );
-  };
-
-  // // Render selected point and guide line
-  // const renderSelectedPoint = () => {
-  //   if (!selectedPoint) return null;
-  //   return (
-  //     <circle
-  //       cx={xScale(selectedPoint.x)}
-  //       cy={yScale(selectedPoint.y)}
-  //       r={4}
-  //       fill="#2563eb"
-  //       pointerEvents="none"
-  //     />
-  //   );
-  // };
-
   return (
     <svg
       width={width}
