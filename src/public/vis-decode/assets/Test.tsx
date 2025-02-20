@@ -6,7 +6,7 @@ import { StimulusParams } from '../../../store/types';
 import { generateDistributionData } from './distributionCalculations';
 import { Plot } from './Plot';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { GuideLines } from './Guidelines';
+import { GuideLines } from './chartComponents/Guidelines';
 import { TaskType } from './TaskTypes';
 
 const chartSettings = {

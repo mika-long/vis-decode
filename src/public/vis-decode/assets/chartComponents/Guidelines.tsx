@@ -1,6 +1,6 @@
 import React from 'react';
 import * as d3 from 'd3';
-import { TaskType } from './TaskTypes';
+import { TaskType } from '../TaskTypes';
 
 interface GuideLinesProps {
   xScale: d3.ScaleLinear<number, number>;
@@ -34,8 +34,8 @@ export function GuideLines({
     case TaskType.PDF_MEDIAN: {
       return (
         <line
-          x1={xScale(sliderValue)}
-          x2={xScale(sliderValue)}
+          x1={xScale(sliderValue ?? 0)}
+          x2={xScale(sliderValue ?? 0)}
           y1={margin.top}
           y2={height - margin.bottom}
           stroke="#666"
