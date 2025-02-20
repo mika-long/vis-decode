@@ -78,7 +78,8 @@
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
           "showPDF": true, 
-          "taskid": "location"
+          "taskid": "location", 
+          "taskType": "PDF_MEDIAN"
         }, 
         "response": [
           {
@@ -106,7 +107,8 @@
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 13, "alpha": 0}, 
           "showPDF": true, 
-          "taskid": "location"
+          "taskid": "location",
+          "taskType": "PDF_MODE"
         }, 
         "response": [
           {
@@ -134,7 +136,8 @@
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 12, "alpha": 0}, 
           "showPDF": false, 
-          "taskid": "location"
+          "taskid": "location",
+          "taskType": "CDF_MEDIAN"
         },
         "response": [
           {
@@ -162,7 +165,8 @@
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}, 
           "showPDF": false,
-          "taskid": "location"
+          "taskid": "location",
+          "taskType": "CDF_MODE"
         }, 
         "response": [
           {
@@ -191,7 +195,8 @@
           "data": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
           "showPDF": true, 
           "taskid": "location", 
-          "training": true
+          "training": true,
+          "taskType": "PDF_MEDIAN"
         }, 
         "response": [
           {
@@ -220,7 +225,8 @@
           "data": {"xi": 0, "omega": 1, "nu": 13, "alpha": 0}, 
           "showPDF": true, 
           "taskid": "location", 
-          "training": true
+          "training": true,
+          "taskType": "PDF_MODE"
         }, 
         "response": [
           {
@@ -249,7 +255,8 @@
           "data": {"xi": 0, "omega": 1, "nu": 12, "alpha": 0}, 
           "showPDF": false, 
           "taskid": "location", 
-          "training": true
+          "training": true,
+          "taskType": "CDF_MEDIAN"
         },
         "response": [
           {
@@ -278,7 +285,8 @@
           "data": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}, 
           "showPDF": false,
           "taskid": "location", 
-          "training": true
+          "training": true,
+          "taskType": "CDF_MODE"
         }, 
         "response": [
           {

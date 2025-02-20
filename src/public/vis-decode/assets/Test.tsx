@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import * as d3 from 'd3';
 import { useCallback, useMemo, useState } from 'react';
 import { Container, Button, Slider } from '@mantine/core';
@@ -30,13 +31,8 @@ interface CursorState {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-interface TestProps extends StimulusParams<any> {
-  taskType: TaskType;
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function Test({ parameters, setAnswer, taskType }: TestProps) {
-  const { data, showPDF, training } = parameters;
+function Test({ parameters, setAnswer }: StimulusParams<any>) {
+  const { data, showPDF, training, taskType } = parameters;
   const [sliderValue, setSliderValue] = useState<number | undefined>();
   const [cursor, setCursor] = useState<CursorState | null>(null);
   const [selectedPoint, setSelectedPoint] = useState<Point | null>(null);
@@ -74,6 +70,29 @@ function Test({ parameters, setAnswer, taskType }: TestProps) {
       x,
       y: yValues[i],
     }));
+  }, [distributionData, showPDF]);
+
+  // Create scales outside of Plot component so they can be shared
+  const { xScale, yScale } = useMemo(() => {
+    if (!distributionData) return { xScale: null, yScale: null };
+
+    const xDomain = [
+      d3.min(distributionData.xVals) || 0,
+      d3.max(distributionData.xVals) || 0,
+    ];
+    const yDomain = showPDF
+      ? [0, d3.max(distributionData.pdfVals) || 0]
+      : [0, d3.max(distributionData.cdfVals) || 0];
+
+    const xScale = d3.scaleLinear()
+      .domain(xDomain)
+      .range([chartSettings.marginLeft, chartSettings.width - chartSettings.marginRight]);
+
+    const yScale = d3.scaleLinear()
+      .domain(yDomain)
+      .range([chartSettings.height - chartSettings.marginBottom, chartSettings.marginTop]);
+
+    return { xScale, yScale };
   }, [distributionData, showPDF]);
 
   // Interaction logic
@@ -234,6 +253,24 @@ function Test({ parameters, setAnswer, taskType }: TestProps) {
           cursor={cursor}
           selectedPoint={selectedPoint}
         />
+        {xScale && yScale && (
+          <GuideLines
+            xScale={xScale}
+            yScale={yScale}
+            width={chartSettings.width}
+            height={chartSettings.height}
+            margin={{
+              top: chartSettings.marginTop,
+              right: chartSettings.marginRight,
+              left: chartSettings.marginLeft,
+              bottom: chartSettings.marginBottom,
+            }}
+            sliderValue={sliderValue}
+            taskType={taskType}
+            training={training}
+            distributionData={distributionData}
+          />
+        )}
         <Button
           onClick={handleClearPoint}
           mt="md"
