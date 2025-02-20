@@ -12,10 +12,11 @@ export default function Cursor({ position, isNearCurve }: CursorProps) {
     <circle
       cx={position.x}
       cy={position.y}
-      r={isNearCurve ? 1 : 10}
-      fill="none"
-      stroke="#666"
+      r={isNearCurve ? 2 : 20}
+      fill={isNearCurve ? '#2563eb' : '#666'}
+      stroke={isNearCurve ? '#2563eb' : '#666'} // Blue when near curve
       strokeWidth={1}
+      opacity={0.8}
       pointerEvents="none"
     />
   );

@@ -2,6 +2,8 @@
 import { useMemo, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { Line } from './chartComponents/Line';
+import Cursor from './chartComponents/Cursor';
+import ClickMarker from './chartComponents/ClickMarker';
 
 interface PlotProps {
   // Data
@@ -127,19 +129,19 @@ export function Plot({
     );
   };
 
-  // Render selected point and guide line
-  const renderSelectedPoint = () => {
-    if (!selectedPoint) return null;
-    return (
-      <circle
-        cx={xScale(selectedPoint.x)}
-        cy={yScale(selectedPoint.y)}
-        r={4}
-        fill="#2563eb"
-        pointerEvents="none"
-      />
-    );
-  };
+  // // Render selected point and guide line
+  // const renderSelectedPoint = () => {
+  //   if (!selectedPoint) return null;
+  //   return (
+  //     <circle
+  //       cx={xScale(selectedPoint.x)}
+  //       cy={yScale(selectedPoint.y)}
+  //       r={4}
+  //       fill="#2563eb"
+  //       pointerEvents="none"
+  //     />
+  //   );
+  // };
 
   return (
     <svg
@@ -148,6 +150,7 @@ export function Plot({
       onClick={(e) => onClick?.(e, { xScale, yScale })}
       onMouseMove={(e) => onMouseMove?.(e, { xScale, yScale })}
       onMouseLeave={onMouseLeave}
+      style={{ cursor: 'none' }} // Hide system cursor
     >
       <Line
         data={data}
@@ -159,8 +162,8 @@ export function Plot({
       <g ref={xAxisRef} />
       <g ref={yAxisRef} />
       {renderAxisLabels()}
-      {renderCursor()}
-      {renderSelectedPoint()}
+      {cursor && <Cursor position={{ x: cursor.x, y: cursor.y }} isNearCurve={cursor.isNearCurve} />}
+      {selectedPoint && <ClickMarker point={selectedPoint} xScale={xScale} yScale={yScale} />}
     </svg>
   );
 }

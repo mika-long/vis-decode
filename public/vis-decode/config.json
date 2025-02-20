@@ -24,7 +24,7 @@
     "baseComponents": {
       "card": {
         "type": "react-component", 
-        "path": "vis-decode/assets/cardCalibration.tsx", 
+        "path": "vis-decode/assets/ViewingDistanceCalibration.tsx", 
         "nextButtonLocation": "belowStimulus", 
         "parameters": {
           "taskid": "pixelsPerMM"
@@ -41,7 +41,7 @@
       },
       "ball": {
         "type": "react-component",
-        "path": "vis-decode/assets/distanceCalibration.tsx",
+        "path": "vis-decode/assets/VirtualChinrestCalibration.tsx",
         "nextButtonLocation": "belowStimulus", 
         "parameters": {
           "blindspotAngle": 13.5
@@ -185,7 +185,7 @@
       "PDF-Median-Train": {
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
-        "instruction": "Click on the curve such that a vertical line through the point splits the area under the curve into two equal parts.",
+        "instruction": "Find the vertical line that divides the total area under the curve into two equal halves. To do this: 1. Look at the curve and estimate where this dividing line might be 2. Click on the x-axis at that point 3. A vertical line will appear showing whether your guess splits the area evenly 4. Adjust your guess until the areas on both sides are equal",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
@@ -215,7 +215,7 @@
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
         "instruction": "Click on the highest point of the curve.",
-        "nextButtonLocation": "belowStimulus",
+        "nextButtonLocation": "aboveStimulus",
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 13, "alpha": 0}, 
           "showPDF": true, 
@@ -243,8 +243,8 @@
       "CDF-Median-Train": {
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
-        "instruction": "Click on the curve that interects with the horizontal line where y = 0.5",
-        "nextButtonLocation": "belowStimulus",
+        "instruction": "Find the point where the curve crosses the horizontal line y = 0.5. Click on the intersection point where the curve meets this line.",
+        "nextButtonLocation": "aboveStimulus",
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 12, "alpha": 0}, 
           "showPDF": false, 
@@ -358,13 +358,13 @@
           "baseComponent": "PDF-Median-Train"
         }, 
         "task2_train_1": {
-          "baseComponent": "PDF-Median-Train"
+          "baseComponent": "PDF-Mode-Train"
         }, 
         "task3_train_1": {
-          "baseComponent": "PDF-Median-Train"
+          "baseComponent": "CDF-Median-Train"
         }, 
         "task4_train_1": {
-          "baseComponent": "PDF-Median-Train"
+          "baseComponent": "CDF-Mode-Train"
         },
         "task1_test_1": {
           "baseComponent": "PDF-Median-Test",
@@ -420,8 +420,8 @@
               "order": "fixed"
             }, 
             "calibration-intro", 
-            "calibration", 
             "distance calibration",
+            "calibration", 
             "training_instruction",
             "task1_train_1",
             "task2_train_1",
