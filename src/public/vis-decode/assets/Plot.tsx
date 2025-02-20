@@ -21,6 +21,7 @@ interface PlotProps {
   // Optional domain overrides
   xDomain?: [number, number];
   yDomain?: [number, number];
+  isTraining?: boolean;
   // interaction handlers
   onClick?: (event: React.MouseEvent, scales: {
     xScale: d3.ScaleLinear<number, number>,
@@ -46,6 +47,7 @@ export function Plot({
   },
   strokeColor = '#2563eb',
   strokeWidth = 2,
+  isTraining = true,
   axisLabels,
   xDomain,
   yDomain,
@@ -54,7 +56,7 @@ export function Plot({
   onMouseLeave,
   cursor,
   selectedPoint,
-  children
+  children, 
 }: PlotProps) {
   // Refs
   const xAxisRef = useRef<SVGGElement>(null);
@@ -122,7 +124,7 @@ export function Plot({
       onClick={(e) => onClick?.(e, { xScale, yScale })}
       onMouseMove={(e) => onMouseMove?.(e, { xScale, yScale })}
       onMouseLeave={onMouseLeave}
-      style={{ cursor: 'none' }} // Hide system cursor
+      style={{ cursor: isTraining ? 'default' : 'none' }} // Hide system cursor
     >
       <Line
         data={data}

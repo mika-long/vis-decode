@@ -141,20 +141,20 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
     // Find the closest point on the line for the given x value
     const index = d3.bisector((d) => d).left(distributionData.xVals, value);
     const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
-    
+
     if (index >= 0 && index < distributionData.xVals.length) {
       const point = {
         x: distributionData.xVals[index],
         y: yValues[index]
       };
       setSelectedPoint(point);
-      
+
       // Update provenance and answer
       trrack.apply('Slider moved', actions.clickAction({
         clickX: point.x,
         clickY: point.y,
       }));
-      
+
       setAnswer({
         status: true,
         provenanceGraph: trrack.graph.backend,
@@ -165,7 +165,7 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
       });
     }
   }, [distributionData, showPDF, actions, trrack, setAnswer]);
-  
+
   // Mouse move handler
   const handlePlotMouseMove = useCallback((
     event: React.MouseEvent,
@@ -289,7 +289,9 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
           onMouseMove={handlePlotMouseMove}
           onMouseLeave={handleMouseLeave}
           cursor={cursor}
-          selectedPoint={selectedPoint}>
+          selectedPoint={selectedPoint}
+          isTraining={training}
+        >
             {xScale && yScale && (
               <GuideLines
                 xScale={xScale}
