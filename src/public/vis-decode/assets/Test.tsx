@@ -93,6 +93,11 @@ function Test({ parameters, setAnswer, taskType }: TestProps) {
 
     // Find closest x value in the data
     const index = d3.bisector((d) => d).left(distributionData.xVals, dataX);
+    const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
+    // handle edge cases
+    if (index === 0) return { x: distributionData.xVals[0], y: yValues[0] };
+    if (index >= distributionData.xVals.length) return { x: distributionData.xVals[distributionData.xVals.length - 1], y: yValues[yValues.length - 1] };
+    // non-edge case
     const x0 = distributionData.xVals[index - 1];
     const x1 = distributionData.xVals[index];
 

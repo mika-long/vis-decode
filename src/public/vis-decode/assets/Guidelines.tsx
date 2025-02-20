@@ -27,7 +27,7 @@ export function GuideLines({
   sliderValue,
   taskType,
   training,
-  distributionData
+  distributionData,
 }: GuideLinesProps) {
   if (!training || !distributionData) return null;
   switch (taskType) {
@@ -75,7 +75,7 @@ export function GuideLines({
       if (sliderValue === undefined) return null;
       // Calculate tangent line at the given x-value
       const index = d3.bisector((d) => d).left(distributionData.xVals, sliderValue);
-      if (index <= 0 || index >= distributionData.xVals.length) return null;
+      if (index < 1 || index >= distributionData.xVals.length) return null;
 
       const x0 = distributionData.xVals[index - 1];
       const x1 = distributionData.xVals[index];

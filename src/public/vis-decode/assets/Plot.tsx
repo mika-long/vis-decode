@@ -98,12 +98,12 @@ export function Plot({
     return (
       <>
         { axisLabels.x && (
-        <text x={width / 2} y={height - 5} textAnchor="middle" className="axis-label">
+        <text x={width / 2} y={height - 5} textAnchor="middle" style={{ fontSize: '12px', fill: '#666' }}>
           {axisLabels.x}
         </text>
         )}
         { axisLabels.y && (
-          <text x={-height / 2} y={15} textAnchor="middle" transform="rotate(-90)" className="axis-label">
+          <text x={-height / 2} y={15} textAnchor="middle" transform="rotate(-90)" style={{ fontSize: '12px', fill: '#666' }}>
             {axisLabels.y}
           </text>
         )}

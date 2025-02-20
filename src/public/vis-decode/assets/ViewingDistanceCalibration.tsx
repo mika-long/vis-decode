@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-closing-tag-location */
+/* eslint-disable react/jsx-one-expression-per-line */
 import React, { useState, useRef, useEffect } from 'react';
 import {
   Stack, List, Text, Container,
@@ -13,7 +15,7 @@ export default function ViewingDistanceCalibration({ parameters, setAnswer }: St
   const ballRef = useRef<HTMLDivElement>(null);
   const squareRef = useRef<HTMLDivElement>(null);
   const animationFrameRef = useRef<number | null>(null);
-  const { taskid1, taskid2, blindspotAngle } = parameters;
+  const { blindspotAngle } = parameters;
 
   const ans = useStoreSelector((state) => state.answers);
   const pixelsPerMM = Number(ans.calibration_3.answer?.pixelsPerMM);
@@ -22,6 +24,7 @@ export default function ViewingDistanceCalibration({ parameters, setAnswer }: St
   const [ballPositions, setBallPositions] = useState<number[]>([]);
   const [isTracking, setIsTracking] = useState(false);
   const [viewingDistance, setViewingDistance] = useState<number | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [clickCount, setClickCount] = useState<number>(5);
 
   // Calculate viewing distance function
@@ -154,7 +157,7 @@ export default function ViewingDistanceCalibration({ parameters, setAnswer }: St
             <List.Item>Put your left hand on the <b>space bar</b>.</List.Item>
             <List.Item>Cover your right eye with your right hand.</List.Item>
             <List.Item>Using your left eye, focus on the black square. Keep your focus on the black square.</List.Item>
-            <List.Item>The <span style={{color: "red", fontWeight: "bold"}}>red ball</span> will disappear as it moves from right to left.
+            <List.Item>The <span style={{ color: 'red', fontWeight: 'bold' }}>red ball</span> will disappear as it moves from right to left.
             Press the space bar as soon as the ball disappears.</List.Item>
           </List>
           <Text ta="center">
@@ -171,27 +174,27 @@ export default function ViewingDistanceCalibration({ parameters, setAnswer }: St
             backgroundColor: '#ffffff',
           }}
         >
-        <div
-          ref={ballRef}
-          style={{
-            position: 'absolute',
-            width: '30px',
-            height: '30px',
-            backgroundColor: 'rgb(255, 0, 0)',
-            borderRadius: '30px',
-            left: '740px',
-          }}
-        />
-        <div
-          ref={squareRef}
-          style={{
-            position: 'absolute',
-            width: '30px',
-            height: '30px',
-            backgroundColor: 'rgb(0, 0, 0)',
-            left: '870px',
-          }}
-        />
+          <div
+            ref={ballRef}
+            style={{
+              position: 'absolute',
+              width: '30px',
+              height: '30px',
+              backgroundColor: 'rgb(255, 0, 0)',
+              borderRadius: '30px',
+              left: '740px',
+            }}
+          />
+          <div
+            ref={squareRef}
+            style={{
+              position: 'absolute',
+              width: '30px',
+              height: '30px',
+              backgroundColor: 'rgb(0, 0, 0)',
+              left: '870px',
+            }}
+          />
         </div>
         <Text ta="center">
           Remaining measurements: {5 - ballPositions.length}
