@@ -73,7 +73,7 @@
       "PDF-Median-Test": {
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
-        "instruction": "Click on the curve such that a vertical line through the point splits the area under the curve into two equal parts.",
+        "instruction": "Find and click on a point along the curve where a vertical line through that point would divide the total area under the curve into two equal regions. In other words, find the x-coordinate where the area to the left equals the area to the right.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -103,7 +103,7 @@
       "PDF-Mode-Test": {
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
-        "instruction": "Click on the highest point of the curve.",
+        "instruction": "Click on the maximum point of the curve - the point where the y-value is greatest. This will be where the curve reaches its highest position on the graph.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -133,7 +133,7 @@
       "CDF-Median-Test": {
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
-        "instruction": "Click on the curve that interects with the horizontal line where y = 0.5",
+        "instruction": "Click on the point where the curve crosses the horizontal line y = 0.5. This is the point where the curve intersects with y = 0.5.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -163,7 +163,7 @@
       "CDF-Mode-Test": {
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
-        "instruction": "Click on the curve that has the steepest tangent slope.",
+        "instruction": "Click on the point of the curve where its slope (rate of change) is the steepest --- this is where the tangent line has the largest absolute value for its slope.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
