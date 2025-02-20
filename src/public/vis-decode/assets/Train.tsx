@@ -29,7 +29,7 @@ function Train({ parameters, setAnswer }: StimulusParams<any>) {
   const [currentPoint, setCurrentPoint] = useState<Point | null>(null);
   const [isNearCurve, setIsNearCurve] = useState(false);
 
-  // Provenance related 
+  // Provenance related
   const { actions, trrack } = useMemo(() => {
     const reg = Registry.create();
 
@@ -51,9 +51,9 @@ function Train({ parameters, setAnswer }: StimulusParams<any>) {
       trrack: trrackInst,
     };
   }, []);
-  // data generation 
+  // data generation
   const distributionData = useMemo(() => generateDistributionData(data), [data]);
-  // generate line poiunts 
+  // generate line poiunts
   const linePoints = useMemo(() => {
     if (!distributionData) return [];
 
@@ -109,7 +109,7 @@ function Train({ parameters, setAnswer }: StimulusParams<any>) {
 
     const closestPoint = findClosestPoint(svgPoint.x, svgPoint.y, xScale, yScale);
     if (!closestPoint) return;
-    // Check proximity to line 
+    // Check proximity to line
     const lineY = yScale(closestPoint.y);
     const distance = Math.abs(svgPoint.y - lineY);
     if (distance <= 5) {

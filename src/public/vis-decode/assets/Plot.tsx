@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import { useMemo, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { Line } from './chartComponents/Line';
@@ -18,7 +19,7 @@ interface PlotProps {
   // Optional domain overrides
   xDomain?: [number, number];
   yDomain?: [number, number];
-  // interactivty
+  // interaction handlers
   onClick?: (event: React.MouseEvent, scales: {
     xScale: d3.ScaleLinear<number, number>,
     yScale: d3.ScaleLinear<number, number>
@@ -27,7 +28,10 @@ interface PlotProps {
     xScale: d3.ScaleLinear<number, number>,
     yScale: d3.ScaleLinear<number, number>
   }) => void;
-  additionalElements?: React.ReactNode;
+  onMouseLeave?: () => void;
+  // Visual elements
+  cursor?: {x: number; y:number; isNearCurve: boolean} | null;
+  selectedPoint?: {x: number; y:number} | null;
 }
 
 export function Plot({
@@ -44,7 +48,9 @@ export function Plot({
   yDomain,
   onClick,
   onMouseMove,
-  additionalElements,
+  onMouseLeave,
+  cursor,
+  selectedPoint,
 }: PlotProps) {
   // Refs
   const xAxisRef = useRef<SVGGElement>(null);
@@ -72,6 +78,20 @@ export function Plot({
     return { xScale, yScale };
   }, [data, xDomain, yDomain, margin, width, height]);
 
+  // Draw D3 axes
+  useEffect(() => {
+    if (xAxisRef.current) {
+      d3.select(xAxisRef.current)
+        .call(d3.axisBottom(xScale))
+        .attr('transform', `translate(0,${height - margin.bottom})`);
+    }
+    if (yAxisRef.current) {
+      d3.select(yAxisRef.current)
+        .call(d3.axisLeft(yScale))
+        .attr('transform', `translate(${margin.left},0)`);
+    }
+  }, [xScale, yScale, margin, height]);
+
   // Axis labels
   const renderAxisLabels = () => {
     if (!axisLabels) return null;
@@ -91,19 +111,35 @@ export function Plot({
     );
   };
 
-  // Draw D3 axes
-  useEffect(() => {
-    if (xAxisRef.current) {
-      d3.select(xAxisRef.current)
-        .call(d3.axisBottom(xScale))
-        .attr('transform', `translate(0,${height - margin.bottom})`);
-    }
-    if (yAxisRef.current) {
-      d3.select(yAxisRef.current)
-        .call(d3.axisLeft(yScale))
-        .attr('transform', `translate(${margin.left},0)`);
-    }
-  }, [xScale, yScale, margin, height]);
+  // Render cursor
+  const renderCursor = () => {
+    if (!cursor) return null;
+    return (
+      <circle
+        cx={cursor.x}
+        cy={cursor.y}
+        r={cursor.isNearCurve ? 1 : 10}
+        fill="none"
+        stroke="#666"
+        strokeWidth={1}
+        pointerEvents="none"
+      />
+    );
+  };
+
+  // Render selected point and guide line
+  const renderSelectedPoint = () => {
+    if (!selectedPoint) return null;
+    return (
+      <circle
+        cx={xScale(selectedPoint.x)}
+        cy={yScale(selectedPoint.y)}
+        r={4}
+        fill="#2563eb"
+        pointerEvents="none"
+      />
+    );
+  };
 
   return (
     <svg
@@ -111,6 +147,7 @@ export function Plot({
       height={height}
       onClick={(e) => onClick?.(e, { xScale, yScale })}
       onMouseMove={(e) => onMouseMove?.(e, { xScale, yScale })}
+      onMouseLeave={onMouseLeave}
     >
       <Line
         data={data}
@@ -122,7 +159,8 @@ export function Plot({
       <g ref={xAxisRef} />
       <g ref={yAxisRef} />
       {renderAxisLabels()}
-      {additionalElements}
+      {renderCursor()}
+      {renderSelectedPoint()}
     </svg>
   );
 }

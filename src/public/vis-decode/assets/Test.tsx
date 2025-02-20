@@ -29,7 +29,7 @@ interface TestProps extends StimulusParams<any> {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Test({ parameters, setAnswer, taskType }: TestProps) {
-  const { data, showPDF, taskid, training, } = parameters;
+  const { data, showPDF, taskid, training } = parameters;
   const [sliderValue, setSliderValue] = useState<number | undefined>();
   const [currentPoint, setCurrentPoint] = useState<Point | null>(null);
   const [isNearCurve, setIsNearCurve] = useState(false);
