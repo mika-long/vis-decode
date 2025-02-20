@@ -1,11 +1,12 @@
 import * as d3 from 'd3';
-
 import { useCallback, useMemo, useState } from 'react';
 import { Container, Button } from '@mantine/core';
 import { initializeTrrack, Registry } from '@trrack/core';
 import { StimulusParams } from '../../../store/types';
 import { generateDistributionData } from './distributionCalculations';
 import { Plot } from './Plot';
+import { GuideLines } from './Guidelines';
+import { TaskType } from './TaskTypes';
 
 const chartSettings = {
   marginBottom: 40,
@@ -21,9 +22,15 @@ interface Point {
   y: number
 }
 
-function Test({ parameters, setAnswer }: StimulusParams<any>) {
-  const { data, showPDF, taskid, training } = parameters;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+interface TestProps extends StimulusParams<any> {
+  taskType: TaskType;
+}
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function Test({ parameters, setAnswer }: StimulusParams<any>) {
+  const { data, showPDF, taskid, training, } = parameters;
+  const [sliderValue, setSliderValue] = useState<number | undefined>();
   const [currentPoint, setCurrentPoint] = useState<Point | null>(null);
   const [isNearCurve, setIsNearCurve] = useState(false);
 
@@ -51,9 +58,7 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
   }, []);
 
   // data generation
-  const distributionData = useMemo(() => {
-    return generateDistributionData(data);
-  }, [data]);
+  const distributionData = useMemo(() => generateDistributionData(data), [data]);
 
   // generate line points
   const linePoints = useMemo(() => {
@@ -62,7 +67,7 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
     const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
     return distributionData.xVals.map((x, i) => ({
       x: x,
-      y: yValues[i]
+      y: yValues[i],
     }));
   }, [distributionData, showPDF]);
 
@@ -167,9 +172,9 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
     setCurrentPoint(null);
     setAnswer({
       status: false,
-      answers: {}
-    })
-  }, [setAnswer])
+      answers: {},
+    });
+  }, [setAnswer]);
 
   return (
     <Container p="md">
@@ -182,26 +187,17 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
             top: chartSettings.marginTop,
             right: chartSettings.marginRight,
             left: chartSettings.marginLeft,
-            bottom: chartSettings.marginBottom
+            bottom: chartSettings.marginBottom,
           }}
           onClick={handlePlotClick}
           onMouseMove={handlePlotMouseMove}
-          // Optional: additional feedback for current point
-          // additionalElements={
-          //   currentPoint && (
-          //     <circle
-          //       cx={xScale(currentPoint.x)}
-          //       cy={yScale(currentPoint.y)}
-          //       r='4'
-          //       fill='red'
-          //     />
-          //   )
-          // }
         />
         <Button
-          onClick={handleClearPoint} mt="md">
-            Clear Point
-          </Button>
+          onClick={handleClearPoint}
+          mt="md"
+        >
+          Clear Point
+        </Button>
       </div>
     </Container>
   );
