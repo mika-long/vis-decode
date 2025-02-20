@@ -5,6 +5,7 @@ import { initializeTrrack, Registry } from '@trrack/core';
 import { StimulusParams } from '../../../store/types';
 import { generateDistributionData } from './distributionCalculations';
 import { Plot } from './Plot';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { GuideLines } from './Guidelines';
 import { TaskType } from './TaskTypes';
 
@@ -22,6 +23,12 @@ interface Point {
   y: number
 }
 
+interface CursorState {
+  x: number;
+  y: number;
+  isNearCurve: boolean;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 interface TestProps extends StimulusParams<any> {
   taskType: TaskType;
@@ -29,12 +36,12 @@ interface TestProps extends StimulusParams<any> {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Test({ parameters, setAnswer, taskType }: TestProps) {
-  const { data, showPDF, taskid, training } = parameters;
+  const { data, showPDF, training } = parameters;
   const [sliderValue, setSliderValue] = useState<number | undefined>();
-  const [currentPoint, setCurrentPoint] = useState<Point | null>(null);
-  const [isNearCurve, setIsNearCurve] = useState(false);
+  const [cursor, setCursor] = useState<CursorState | null>(null);
+  const [selectedPoint, setSelectedPoint] = useState<Point | null>(null);
 
-  // track actions
+  // Provenance related
   const { actions, trrack } = useMemo(() => {
     const reg = Registry.create();
 
@@ -50,9 +57,7 @@ function Test({ parameters, setAnswer, taskType }: TestProps) {
     });
 
     return {
-      actions: {
-        clickAction,
-      },
+      actions: { clickAction },
       trrack: trrackInst,
     };
   }, []);
@@ -66,7 +71,7 @@ function Test({ parameters, setAnswer, taskType }: TestProps) {
 
     const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
     return distributionData.xVals.map((x, i) => ({
-      x: x,
+      x,
       y: yValues[i],
     }));
   }, [distributionData, showPDF]);
@@ -83,10 +88,11 @@ function Test({ parameters, setAnswer, taskType }: TestProps) {
 
     // convert pixel click coordinates to data space
     const dataX = xScale.invert(clickX);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const dataY = yScale.invert(clickY);
 
     // Find closest x value in the data
-    const index = d3.bisector(d => d).left(distributionData.xVals, dataX);
+    const index = d3.bisector((d) => d).left(distributionData.xVals, dataX);
     const x0 = distributionData.xVals[index - 1];
     const x1 = distributionData.xVals[index];
 
@@ -95,58 +101,10 @@ function Test({ parameters, setAnswer, taskType }: TestProps) {
     const closest = Math.abs(dataX - x0) < Math.abs(dataX - x1) ? index - 1 : index;
     const closestPoint = {
       x: distributionData.xVals[closest],
-      y: (showPDF ? distributionData.pdfVals : distributionData.cdfVals)[closest]
+      y: (showPDF ? distributionData.pdfVals : distributionData.cdfVals)[closest],
     };
     return closestPoint;
   }, [distributionData, showPDF]);
-
-  // Click handler using Plot's scales
-  const handlePlotClick = useCallback((
-    event: React.MouseEvent,
-    { xScale, yScale }: { xScale: d3.ScaleLinear<number, number>, yScale: d3.ScaleLinear<number, number> }
-  ) => {
-    if (!distributionData) return;
-
-    // Get svg coordinates
-    const svg = event.currentTarget as SVGSVGElement;
-    const pt = new DOMPoint();
-    pt.x = event.clientX;
-    pt.y = event.clientY;
-    const ctm = svg.getScreenCTM()?.inverse();
-    if (!ctm) return;
-    const svgPoint = pt.matrixTransform(ctm);
-
-    const closestPoint = findClosestPoint(svgPoint.x, svgPoint.y, xScale, yScale);
-    if (!closestPoint) return;
-
-    // Check proximity to line
-    const lineY = yScale(closestPoint.y);
-    const distance = Math.abs(svgPoint.y - lineY);
-
-    if (distance <= 5) {
-      // update point
-      setCurrentPoint(closestPoint);
-      // Track in provenance
-      trrack.apply('Clicked', actions.clickAction({
-        clickX: closestPoint.x,
-        clickY: closestPoint.y
-      }));
-      // trrack and setAnswer logic
-      setAnswer({
-        status: true,
-        provenanceGraph: trrack.graph.backend, // Include provenance data
-        answers: {
-          'location-x': closestPoint.x,
-          'location-y': closestPoint.y,
-        },
-      });
-    } else {
-      setAnswer({
-        status: false,
-        answers: {},
-      });
-    }
-  }, [distributionData, actions, trrack, findClosestPoint, setAnswer]);
 
   // Mouse move handler
   const handlePlotMouseMove = useCallback((
@@ -165,11 +123,69 @@ function Test({ parameters, setAnswer, taskType }: TestProps) {
 
     // proximity check
     const closestPoint = findClosestPoint(svgPoint.x, svgPoint.y, xScale, yScale);
-    setIsNearCurve(!!closestPoint && Math.abs(svgPoint.y - yScale(closestPoint.y)) <= 5);
+    if (!closestPoint) return;
+
+    const isNear = Math.abs(svgPoint.y - yScale(closestPoint.y)) <= 5;
+    setCursor({
+      x: svgPoint.x,
+      y: svgPoint.y,
+      isNearCurve: isNear,
+    });
   }, [distributionData, findClosestPoint]);
 
+  // Click handler using Plot's scales
+  const handlePlotClick = useCallback((
+    event: React.MouseEvent,
+    { xScale, yScale }: { xScale: d3.ScaleLinear<number, number>, yScale: d3.ScaleLinear<number, number> },
+  ) => {
+    if (!distributionData) return;
+
+    // Get svg coordinates
+    const svg = event.currentTarget as SVGSVGElement;
+    const pt = new DOMPoint();
+    pt.x = event.clientX;
+    pt.y = event.clientY;
+    const ctm = svg.getScreenCTM()?.inverse();
+    if (!ctm) return;
+    const svgPoint = pt.matrixTransform(ctm);
+
+    const closestPoint = findClosestPoint(svgPoint.x, svgPoint.y, xScale, yScale);
+    if (!closestPoint) return;
+
+    // Check proximity to line
+    const distance = Math.abs(svgPoint.y - yScale(closestPoint.y));
+    if (distance <= 5) {
+      // update point
+      setSelectedPoint(closestPoint);
+      // Track in provenance
+      trrack.apply('Clicked', actions.clickAction({
+        clickX: closestPoint.x,
+        clickY: closestPoint.y,
+      }));
+      // trrack and setAnswer logic
+      setAnswer({
+        status: true,
+        provenanceGraph: trrack.graph.backend, // Include provenance data
+        answers: {
+          'location-x': closestPoint.x,
+          'location-y': closestPoint.y,
+        },
+      });
+    } else {
+      setAnswer({
+        status: false,
+        answers: {},
+      });
+    }
+  }, [distributionData, actions, trrack, findClosestPoint, setAnswer]);
+
+  // Handle mouse leave
+  const handleMouseLeave = useCallback(() => {
+    setCursor(null);
+  }, []);
+
   const handleClearPoint = useCallback(() => {
-    setCurrentPoint(null);
+    setSelectedPoint(null);
     setAnswer({
       status: false,
       answers: {},
@@ -209,6 +225,9 @@ function Test({ parameters, setAnswer, taskType }: TestProps) {
           }}
           onClick={handlePlotClick}
           onMouseMove={handlePlotMouseMove}
+          onMouseLeave={handleMouseLeave}
+          cursor={cursor}
+          selectedPoint={selectedPoint}
         />
         <Button
           onClick={handleClearPoint}
