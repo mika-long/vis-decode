@@ -1,19 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Stack, List, Text, Center, Container } from '@mantine/core';
+import {
+  Stack, List, Text, Container,
+} from '@mantine/core';
 import { StimulusParams } from '../../../store/types';
 import { useStoreSelector } from '../../../store/store';
 
-interface CalibrationItem {
-  id: string,
-  value: number;
-}
-
 // Utility functions
-const degToRadians = (degrees: number) => {
-  return (degrees * Math.PI) / 180;
-};
+const degToRadians = (degrees: number) => (degrees * Math.PI) / 180;
 
-const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters, setAnswer }) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function ViewingDistanceCalibration({ parameters, setAnswer }: StimulusParams<any>) {
   const ballRef = useRef<HTMLDivElement>(null);
   const squareRef = useRef<HTMLDivElement>(null);
   const animationFrameRef = useRef<number | null>(null);
@@ -57,10 +53,10 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
     const animateBall = () => {
       if (!ballRef.current) return;
 
-      const currentLeft = parseInt(ballRef.current.style.left || '740');
+      const currentLeft = parseInt(ballRef.current.style.left || '740', 10);
       const newLeft = currentLeft - 2; // Move left by decreasing left value
 
-      // add looping effect 
+      // add looping effect
       if (newLeft <= 0) {
         ballRef.current.style.left = '740px';
       } else {
@@ -85,10 +81,10 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
       setAnswer({
         status: true,
         answers: {
-          "dist-calibration-MM": viewingDistance,
-          "dist-calibration-CM": viewingDistance / 10,
-          "ball-positions": JSON.stringify(ballPositions)
-        }
+          'dist-calibration-MM': viewingDistance,
+          'dist-calibration-CM': viewingDistance / 10,
+          'ball-positions': JSON.stringify(ballPositions),
+        },
       });
     }
   }, [viewingDistance, ballPositions, setAnswer]);
@@ -100,23 +96,21 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
 
         if (!isTracking) {
           startBlindspotTracking();
-        } else {
-          if (ballRef.current) {
-            stopTracking();
-            const ballRect = ballRef.current.getBoundingClientRect();
-            const newPosition = ballRect.left;
+        } else if (ballRef.current) {
+          stopTracking();
+          const ballRect = ballRef.current.getBoundingClientRect();
+          const newPosition = ballRect.left;
 
-            setBallPositions(prev => {
-              const newPositions = [...prev, newPosition];
-              if (newPositions.length >= 5) {
-                calculateViewingDistance(newPositions);
-              }
-              return newPositions;
-            });
+          setBallPositions((prev) => {
+            const newPositions = [...prev, newPosition];
+            if (newPositions.length >= 5) {
+              calculateViewingDistance(newPositions);
+            }
+            return newPositions;
+          });
 
-            setClickCount(prev => prev - 1);
-            resetBall();
-          }
+          setClickCount((prev) => prev - 1);
+          resetBall();
         }
       }
     };
@@ -142,37 +136,33 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
   }, []);
 
   // Cleanup animation frame on unmount
-  useEffect(() => {
-    return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
-    };
+  useEffect(() => () => {
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+    }
   }, []);
 
   if (!pixelsPerMM) {
     return <div>Please complete card calibration first.</div>;
-  } else {
-    return (
-      <Container size="md">
-        <Stack gap="md">
-          <Text>Now we will quickly measure how far away you are sitting. </Text>
-          <Stack gap="xs">
-            <List>
-              <List.Item>Put your left hand on the <b>space bar</b>.</List.Item>
-              <List.Item>Cover your right eye with your right hand.</List.Item>
-              <List.Item>Using your left eye, focus on the black square. Keep your focus on the black square.</List.Item>
-              <List.Item>The <span style={{color: "red", fontWeight: "bold"}}>red ball</span> will disappear as it moves from right to left.
-              Press the space bar as soon as the ball disappears.</List.Item>
-            </List>
-            <Text ta="center">
-              {ballPositions.length >= 5
-                ? "All measurements completed!"
-                : "Press the space bar when you are ready to begin."
-              }
-            </Text>
+  }
+  return (
+    <Container size="md">
+      <Stack gap="md">
+        <Text>Now we will quickly measure how far away you are sitting. </Text>
+        <Stack gap="xs">
+          <List>
+            <List.Item>Put your left hand on the <b>space bar</b>.</List.Item>
+            <List.Item>Cover your right eye with your right hand.</List.Item>
+            <List.Item>Using your left eye, focus on the black square. Keep your focus on the black square.</List.Item>
+            <List.Item>The <span style={{color: "red", fontWeight: "bold"}}>red ball</span> will disappear as it moves from right to left.
+            Press the space bar as soon as the ball disappears.</List.Item>
+          </List>
+          <Text ta="center">
+            {ballPositions.length >= 5
+              ? 'All measurements completed!'
+              : 'Press the space bar when you are ready to begin.'}
+          </Text>
         </Stack>
-
         <div
           style={{
             position: 'relative',
@@ -202,22 +192,19 @@ const ViewingDistanceCalibration: React.FC<StimulusParams<any>> = ({ parameters,
             left: '870px',
           }}
         />
-      </div>
-      <Text ta="center">
-        Remaining measurements: {5 - ballPositions.length}
-      </Text>
+        </div>
+        <Text ta="center">
+          Remaining measurements: {5 - ballPositions.length}
+        </Text>
 
-      {viewingDistance && (
-        <Stack gap="xs">
-          <Text fw={700} size="lg">Viewing Distance Results</Text>
-          <Text>Estimated Viewing Distance: {(viewingDistance / 10).toFixed(1)} cm</Text>
-          <Text>Number of measurements: {ballPositions.length}</Text>
-        </Stack>
-      )}
+        {viewingDistance && (
+          <Stack gap="xs">
+            <Text fw={700} size="lg">Viewing Distance Results</Text>
+            <Text>Estimated Viewing Distance: {(viewingDistance / 10).toFixed(1)} cm</Text>
+            <Text>Number of measurements: {ballPositions.length}</Text>
+          </Stack>
+        )}
       </Stack>
-      </Container>
-    );
-  }
-};
-
-export default ViewingDistanceCalibration;
+    </Container>
+  );
+}
