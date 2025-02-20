@@ -24,7 +24,7 @@
     "baseComponents": {
       "card": {
         "type": "react-component", 
-        "path": "vis-decode/assets/ViewingDistanceCalibration.tsx", 
+        "path": "vis-decode/assets/VirtualChinrestCalibration.tsx", 
         "nextButtonLocation": "belowStimulus", 
         "parameters": {
           "taskid": "pixelsPerMM"
@@ -41,7 +41,7 @@
       },
       "ball": {
         "type": "react-component",
-        "path": "vis-decode/assets/VirtualChinrestCalibration.tsx",
+        "path": "vis-decode/assets/ViewingDistanceCalibration.tsx",
         "nextButtonLocation": "belowStimulus", 
         "parameters": {
           "blindspotAngle": 13.5
@@ -550,8 +550,8 @@
               "order": "fixed"
             }, 
             "calibration-intro", 
-            "distance calibration",
             "calibration", 
+            "distance calibration",
             "training_instruction",
             "task1_train_1",
             "task1_train_2",
