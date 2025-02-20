@@ -13,7 +13,7 @@ export default function ClickMarker({ point, xScale, yScale }: ClickMarkerProps)
         cx={xScale(point.x)}
         cy={yScale(point.y)}
         r={4}
-        fill="#2563eb"
+        fill="#ff0000"
         pointerEvents="none"
       />
       <line

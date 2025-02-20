@@ -74,12 +74,13 @@
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
         "instruction": "Click on the curve such that a vertical line through the point splits the area under the curve into two equal parts.",
+        "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
           "showPDF": true, 
           "taskid": "location", 
-          "taskType": "PDF_MEDIAN"
+          "taskType": "pdf_median"
         }, 
         "response": [
           {
@@ -103,12 +104,13 @@
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
         "instruction": "Click on the highest point of the curve.",
+        "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 13, "alpha": 0}, 
           "showPDF": true, 
           "taskid": "location",
-          "taskType": "PDF_MODE"
+          "taskType": "pdf_mode"
         }, 
         "response": [
           {
@@ -132,12 +134,13 @@
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
         "instruction": "Click on the curve that interects with the horizontal line where y = 0.5",
+        "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 12, "alpha": 0}, 
           "showPDF": false, 
           "taskid": "location",
-          "taskType": "CDF_MEDIAN"
+          "taskType": "cdf_median"
         },
         "response": [
           {
@@ -161,12 +164,13 @@
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
         "instruction": "Click on the curve that has the steepest tangent slope.",
+        "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}, 
           "showPDF": false,
           "taskid": "location",
-          "taskType": "CDF_MODE"
+          "taskType": "cdf_mode"
         }, 
         "response": [
           {
@@ -190,13 +194,14 @@
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
         "instruction": "Find the vertical line that divides the total area under the curve into two equal halves. To do this: 1. Look at the curve and estimate where this dividing line might be 2. Click on the x-axis at that point 3. A vertical line will appear showing whether your guess splits the area evenly 4. Adjust your guess until the areas on both sides are equal",
+        "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
           "showPDF": true, 
           "taskid": "location", 
           "training": true,
-          "taskType": "PDF_MEDIAN"
+          "taskType": "pdf_median"
         }, 
         "response": [
           {
@@ -220,13 +225,14 @@
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
         "instruction": "Click on the highest point of the curve.",
+        "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "aboveStimulus",
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 13, "alpha": 0}, 
           "showPDF": true, 
           "taskid": "location", 
           "training": true,
-          "taskType": "PDF_MODE"
+          "taskType": "pdf_mode"
         }, 
         "response": [
           {
@@ -250,13 +256,14 @@
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
         "instruction": "Find the point where the curve crosses the horizontal line y = 0.5. Click on the intersection point where the curve meets this line.",
+        "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "aboveStimulus",
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 12, "alpha": 0}, 
           "showPDF": false, 
           "taskid": "location", 
           "training": true,
-          "taskType": "CDF_MEDIAN"
+          "taskType": "cdf_median"
         },
         "response": [
           {
@@ -280,13 +287,14 @@
         "type": "react-component", 
         "path": "vis-decode/assets/Test.tsx", 
         "instruction": "Click on the curve that has the steepest tangent slope.",
+        "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}, 
           "showPDF": false,
           "taskid": "location", 
           "training": true,
-          "taskType": "CDF_MODE"
+          "taskType": "cdf_mode"
         }, 
         "response": [
           {

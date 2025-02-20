@@ -33,6 +33,13 @@ interface CursorState {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Test({ parameters, setAnswer }: StimulusParams<any>) {
   const { data, showPDF, training, taskType } = parameters;
+  // console.log(taskType);
+  // console.log(typeof taskType);
+  // // console.log(taskTypeEnum);
+  // console.log(typeof taskTypeEnum);
+  // console.log(typeof TaskType);
+  console.log(taskType === TaskType.CDF_MODE);
+  console.log("cdf_mode" === TaskType.CDF_MODE);
   const [sliderValue, setSliderValue] = useState<number | undefined>();
   const [cursor, setCursor] = useState<CursorState | null>(null);
   const [selectedPoint, setSelectedPoint] = useState<Point | null>(null);
@@ -76,20 +83,22 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
   const { xScale, yScale } = useMemo(() => {
     if (!distributionData) return { xScale: null, yScale: null };
 
-    const xDomain = [
+    const calculatedXDomain = [
       d3.min(distributionData.xVals) || 0,
       d3.max(distributionData.xVals) || 0,
     ];
+    // Fixed y-domain to [0,1] by default
     const yDomain = showPDF
       ? [0, d3.max(distributionData.pdfVals) || 0]
       : [0, d3.max(distributionData.cdfVals) || 0];
-
+    
+    const calculatedYDomain = [0, 1];
     const xScale = d3.scaleLinear()
-      .domain(xDomain)
+      .domain(calculatedXDomain)
       .range([chartSettings.marginLeft, chartSettings.width - chartSettings.marginRight]);
 
     const yScale = d3.scaleLinear()
-      .domain(yDomain)
+      .domain(calculatedYDomain)
       .range([chartSettings.height - chartSettings.marginBottom, chartSettings.marginTop]);
 
     return { xScale, yScale };
@@ -149,7 +158,7 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
     const closestPoint = findClosestPoint(svgPoint.x, svgPoint.y, xScale, yScale);
     if (!closestPoint) return;
 
-    const isNear = Math.abs(svgPoint.y - yScale(closestPoint.y)) <= 5;
+    const isNear = Math.abs(svgPoint.y - yScale(closestPoint.y)) <= 10;
     setCursor({
       x: svgPoint.x,
       y: svgPoint.y,
@@ -247,6 +256,7 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
             left: chartSettings.marginLeft,
             bottom: chartSettings.marginBottom,
           }}
+          yDomain={[0, 1]}
           onClick={handlePlotClick}
           onMouseMove={handlePlotMouseMove}
           onMouseLeave={handleMouseLeave}
