@@ -20,6 +20,7 @@ interface GuideLinesProps {
 
 export function GuideLines({
   xScale,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   yScale,
   width,
   height,
@@ -30,6 +31,15 @@ export function GuideLines({
   distributionData,
 }: GuideLinesProps) {
   if (!training || !distributionData) return null;
+
+  // Create task-specific scales for PDF and CDF
+  const pdfYScale = d3.scaleLinear()
+    .domain([0, Math.max(...distributionData.pdfVals)])
+    .range([height - margin.bottom, margin.top]);
+
+  const cdfYScale = d3.scaleLinear()
+    .domain([0, 1])
+    .range([height - margin.bottom, margin.top]);
 
   switch (taskType) {
     case TaskType.PDF_MEDIAN: {
@@ -48,12 +58,18 @@ export function GuideLines({
     }
     case TaskType.PDF_MODE: {
       const maxY = Math.max(...distributionData.pdfVals);
+      // something is a bit wrong with the yscale here ...
+      console.log(maxY);
+      console.log(pdfYScale(maxY));
+      console.log(yScale(maxY));
       return (
         <line
           x1={margin.left}
           x2={width - margin.right}
-          y1={yScale(maxY)}
-          y2={yScale(maxY)}
+          // y1={pdfYScale(maxY)}
+          // y2={pdfYScale(maxY)}
+          y1={maxY}
+          y2={maxY}
           stroke="#666"
           strokeWidth={1}
           strokeDasharray="4"
@@ -65,8 +81,8 @@ export function GuideLines({
         <line
           x1={margin.left}
           x2={width - margin.right}
-          y1={yScale(0.5)}
-          y2={yScale(0.5)}
+          y1={cdfYScale(0.5)}
+          y2={cdfYScale(0.5)}
           stroke="#666"
           strokeWidth={1}
           strokeDasharray="4"
@@ -99,9 +115,9 @@ export function GuideLines({
       return (
         <line
           x1={xScale(xStart)}
-          y1={yScale(yStart)}
+          y1={cdfYScale(yStart)}
           x2={xScale(xEnd)}
-          y2={yScale(yEnd)}
+          y2={cdfYScale(yEnd)}
           stroke="#666"
           strokeWidth={1}
         />

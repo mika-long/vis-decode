@@ -84,7 +84,8 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
     // Fixed y-domain to [0,1] by default
     const calculatedYDomain = showPDF
       ? [0, d3.max(distributionData.pdfVals) || 0]
-      : [0, d3.max(distributionData.cdfVals) || 0];
+      // : [0, d3.max(distributionData.cdfVals) || 0];
+      : [0, 1]; // CDF is always [0, 1]
 
     // const calculatedYDomain = [0, 1];
     const xScale = d3.scaleLinear()
@@ -192,7 +193,7 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
       y: svgPoint.y,
       isNearCurve: isNear,
     });
-  }, [distributionData, findClosestPoint]);
+  }, [distributionData, findClosestPoint, training]);
 
   // Click handler using Plot's scales
   const handlePlotClick = useCallback((

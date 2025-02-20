@@ -47,7 +47,7 @@ export function Plot({
   },
   strokeColor = '#2563eb',
   strokeWidth = 2,
-  isTraining = true,
+  isTraining,
   axisLabels,
   xDomain,
   yDomain,
