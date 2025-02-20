@@ -35,7 +35,7 @@ interface PlotProps {
   // Visual elements
   cursor?: {x: number; y:number; isNearCurve: boolean} | null;
   selectedPoint?: {x: number; y:number} | null;
-  children?: React.ReactNode; 
+  children?: React.ReactNode;
 }
 
 export function Plot({
@@ -56,7 +56,7 @@ export function Plot({
   onMouseLeave,
   cursor,
   selectedPoint,
-  children, 
+  children,
 }: PlotProps) {
   // Refs
   const xAxisRef = useRef<SVGGElement>(null);

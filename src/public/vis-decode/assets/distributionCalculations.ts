@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { studentTPDF, studentTCDF } from './customT';
 // import libR from 'lib-r-math.js';
 
@@ -44,29 +46,29 @@ export function generateRandomParams(): DistributionParams {
 function gaussKronrod(f: IntegrandFunction, a:number, b:number, tolerance = 1e-8) {
   // 7-15 point Gauss-Kronrod quadrature
   const xgk = [
-    0.991455371120813,  0.949107912342759,  0.864864423359769,
-    0.741531185599394,  0.586087235467691,  0.405845151377397,
-    0.207784955007898,  0.000000000000000, -0.207784955007898,
+    0.991455371120813, 0.949107912342759, 0.864864423359769,
+    0.741531185599394, 0.586087235467691, 0.405845151377397,
+    0.207784955007898, 0.000000000000000, -0.207784955007898,
     -0.405845151377397, -0.586087235467691, -0.741531185599394,
-    -0.864864423359769, -0.949107912342759, -0.991455371120813
+    -0.864864423359769, -0.949107912342759, -0.991455371120813,
   ];
   const wgk = [
     0.022935322010529, 0.063092092629979, 0.104790010322250,
     0.140653259715525, 0.169004726639267, 0.190350578064785,
     0.204432940075298, 0.209482141084728, 0.204432940075298,
     0.190350578064785, 0.169004726639267, 0.140653259715525,
-    0.104790010322250, 0.063092092629979, 0.022935322010529
+    0.104790010322250, 0.063092092629979, 0.022935322010529,
   ];
-  
+
   const mid = (a + b) / 2;
   const scale = (b - a) / 2;
-  
+
   let result = 0;
-  for (let i = 0; i < xgk.length; i++) {
+  for (let i = 0; i < xgk.length; i += 1) {
     const x = mid + scale * xgk[i];
     result += wgk[i] * f(x);
   }
-  
+
   return scale * result;
 }
 
@@ -84,21 +86,20 @@ function adaptiveSimpsons(f:IntegrandFunction, a:number, b:number, tolerance = 1
     const e = (c + b) / 2;
     const fd = f(d);
     const fe = f(e);
-    
+
     const left = h * (fa + 4 * fd + fc);
     const right = h * (fc + 4 * fe + fb);
     const whole = simpson(a, b);
-    
+
     if (depth >= maxDepth) {
       return left + right;
     }
-    
+
     if (Math.abs((left + right) - whole) <= tolerance) {
       return left + right;
     }
-    
-    return adapt(a, c, fa, fc, fd, depth + 1) + 
-           adapt(c, b, fc, fb, fe, depth + 1);
+
+    return adapt(a, c, fa, fc, fd, depth + 1) + adapt(c, b, fc, fb, fe, depth + 1);
   }
 
   const c = (a + b) / 2;
@@ -107,15 +108,20 @@ function adaptiveSimpsons(f:IntegrandFunction, a:number, b:number, tolerance = 1
 
 // Skew-t PDF according to Azzalini (2014)
 export function skewTPDF(x: number, params: DistributionParams): number {
-  const { xi, omega, nu, alpha } = params;
+  const {
+    xi,
+    omega,
+    nu,
+    alpha,
+  } = params;
   const z = (x - xi) / omega; // normalized value x
 
   // First calculate the t-distribution part
-  const tPart = (1 / omega) * studentTPDF(z, nu); // custom code 
-  // const tPart = (1 / omega) * libR.dt(z, nu); // libR code 
+  const tPart = (1 / omega) * studentTPDF(z, nu); // custom code
+  // const tPart = (1 / omega) * libR.dt(z, nu); // libR code
 
-  // Calculate the skewness term with proper scaling 
-  // The key change is in handling the denominator 
+  // Calculate the skewness term with proper scaling
+  // The key change is in handling the denominator
   const zScaled = z * Math.sqrt((nu + 1) / (nu + z * z));
 
   // Then calculate the cumulative t-distribution part for the skewness
@@ -128,7 +134,7 @@ export function skewTPDF(x: number, params: DistributionParams): number {
 function skewTCDF(x: number, params: DistributionParams): number {
   // Create a functino that captures parameters and calls skewTPDF
   const pdf: IntegrandFunction = (t:number) => skewTPDF(t, params);
-  // Choose reasonable lowerbound 
+  // Choose reasonable lowerbound
   const lowerBound = -100;
   // return gaussKronrod(pdf, -1000, x);
   return adaptiveSimpsons(pdf, -1000, x);
@@ -156,29 +162,12 @@ export function generateDistributionData(
   return { xVals, pdfVals, cdfVals };
 }
 
-  // // Calculate CDF values using numerical integration (trapezoidal rule)
-  // const cdfVals: number[] = [0];
-  // let sum = 0;
-
-  // for (let i = 1; i < xVals.length; i += 1) {
-  //   const dx = xVals[i] - xVals[i - 1];
-  //   const trapezoid = (pdfVals[i] + pdfVals[i - 1]) * dx / 2;
-  //   sum += trapezoid;
-  //   cdfVals.push(sum);
-  // }
-
-  // // Normalize CDF
-  // const maxCDF = cdfVals[cdfVals.length - 1];
-  // const normalizedCDF = cdfVals.map((v) => v / maxCDF);
-
-  // return { xVals, pdfVals, cdfVals: normalizedCDF };
-
 export function findDistributionValue(
   data: DistributionData,
   x:number,
 ): {pdf: number; cdf: number} {
   const index = Math.round(
-    (x - data.xVals[0]) / (data.xVals[1] - data.xVals[0])
+    (x - data.xVals[0]) / (data.xVals[1] - data.xVals[0]),
   );
 
   if (index < 0 || index >= data.xVals.length) {
@@ -187,6 +176,6 @@ export function findDistributionValue(
 
   return {
     pdf: data.pdfVals[index],
-    cdf: data.cdfVals[index]
+    cdf: data.cdfVals[index],
   };
 }

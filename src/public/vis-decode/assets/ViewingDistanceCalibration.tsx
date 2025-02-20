@@ -54,15 +54,30 @@ export default function ViewingDistanceCalibration({ parameters, setAnswer }: St
     if (!ballRef.current || !squareRef.current || !pixelsPerMM || ballPositions.length >= 5) return;
     setIsTracking(true);
 
-    const animateBall = () => {
+    let isPaused = false;
+    let pauseStartTime = 0;
+    const PAUSE_DURATION = 1000; // 1 second pause
+
+    const animateBall = (timestamp: number) => {
       if (!ballRef.current) return;
+
+      if (isPaused) {
+        if (timestamp - pauseStartTime >= PAUSE_DURATION) {
+          isPaused = false;
+          ballRef.current.style.left = '740px';
+        }
+        animationFrameRef.current = requestAnimationFrame(animateBall);
+        return;
+      }
 
       const currentLeft = parseInt(ballRef.current.style.left || '740', 10);
       const newLeft = currentLeft - 2; // Move left by decreasing left value
 
       // add looping effect
       if (newLeft <= 0) {
-        ballRef.current.style.left = '740px';
+        isPaused = true;
+        pauseStartTime = timestamp;
+        // ballRef.current.style.left = '740px';
       } else {
         ballRef.current.style.left = `${newLeft}px`;
       }

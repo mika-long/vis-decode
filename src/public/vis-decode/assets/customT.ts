@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { gamma, lgamma } from 'mathjs';
 
 // Constants needed for the calculation
@@ -29,7 +30,7 @@ function studentTPDF(x: number, v: number): number {
   const exponent = -(v + 1) / 2;
   const lmainTerm = exponent * Math.log1p(xSquared / v);
 
-  // Combine logs and exponentiate 
+  // Combine logs and exponentiate
   return Math.exp(lnormTerm + lmainTerm);
 }
 
@@ -67,9 +68,9 @@ function incompleteBeta(x:number, a:number, b:number): number {
 
   const fpmin = 1e-30;
   let m = 1;
-  let qab = a + b;
-  let qap = a + 1;
-  let qam = a - 1;
+  const qab = a + b;
+  const qap = a + 1;
+  const qam = a - 1;
   let c = 1;
   let d = 1 - (qab * x) / qap;
 
@@ -78,8 +79,8 @@ function incompleteBeta(x:number, a:number, b:number): number {
   let h = d;
 
   for (m = 1; m <= 100; m += 1) {
-    let m2 = 2 * m;
-    let aa = m * (b - m) * x / ((qam + m2) * (a + m2));
+    const m2 = 2 * m;
+    let aa = (m * (b - m) * x) / ((qam + m2) * (a + m2));
     d = 1 + aa * d;
     if (Math.abs(d) < fpmin) d = fpmin;
     c = 1 + aa / c;
@@ -87,7 +88,7 @@ function incompleteBeta(x:number, a:number, b:number): number {
     d = 1 / d;
     h *= d * c;
 
-    aa = -(a + m) * (qab + m) * x / ((a + m2) * (qap + m2));
+    aa = (-(a + m) * (qab + m) * x) / ((a + m2) * (qap + m2));
     d = 1 + aa * d;
     if (Math.abs(d) < fpmin) d = fpmin;
     c = 1 + aa / c;
@@ -99,7 +100,7 @@ function incompleteBeta(x:number, a:number, b:number): number {
     if (Math.abs(del - 1) < 3e-7) break;
   }
 
-  return h * (x ** a) * ((1 - x) ** b) / a;
+  return (h * (x ** a) * ((1 - x) ** b)) / a;
 }
 
 /**
@@ -116,9 +117,9 @@ function logIncompleteBeta(x:number, a:number, b:number): number {
 
   const fpmin = 1e-30;
   let m = 1;
-  let qab = a + b;
-  let qap = a + 1;
-  let qam = a - 1;
+  const qab = a + b;
+  const qap = a + 1;
+  const qam = a - 1;
   let c = 1;
   let d = 1 - (qab * x) / qap;
 
@@ -127,8 +128,8 @@ function logIncompleteBeta(x:number, a:number, b:number): number {
   let h = d;
 
   for (m = 1; m <= 100; m += 1) {
-    let m2 = 2 * m;
-    let aa = m * (b - m) * x / ((qam + m2) * (a + m2));
+    const m2 = 2 * m;
+    let aa = (m * (b - m) * x) / ((qam + m2) * (a + m2));
     d = 1 + aa * d;
     if (Math.abs(d) < fpmin) d = fpmin;
     c = 1 + aa / c;
@@ -136,7 +137,7 @@ function logIncompleteBeta(x:number, a:number, b:number): number {
     d = 1 / d;
     h *= d * c;
 
-    aa = -(a + m) * (qab + m) * x / ((a + m2) * (qap + m2));
+    aa = (-(a + m) * (qab + m) * x) / ((a + m2) * (qap + m2));
     d = 1 + aa * d;
     if (Math.abs(d) < fpmin) d = fpmin;
     c = 1 + aa / c;
@@ -161,11 +162,11 @@ function logIncompleteBeta(x:number, a:number, b:number): number {
  */
 function regulaizedBeta(x: number, a: number, b: number): number {
   // return incompleteBeta(x, a, b) / beta(a, b);
-  if (x <= 0) return 0; 
-  if (x >= 1) return 1; 
+  if (x <= 0) return 0;
+  if (x >= 1) return 1;
 
-  // Calculate in log space and then exponentiate 
-  const logIncBeta = logIncompleteBeta(x, a, b); 
+  // Calculate in log space and then exponentiate
+  const logIncBeta = logIncompleteBeta(x, a, b);
   const logB = logBeta(a, b);
   return Math.exp(logIncBeta - logB);
 }
@@ -177,15 +178,14 @@ function regulaizedBeta(x: number, a: number, b: number): number {
  * @returns {number}
  */
 function studentTCDF(x:number, v: number): number {
-  // Handles x = 0 case explicitly 
+  // Handles x = 0 case explicitly
   if (x === 0) return 0.5;
 
   const w = v / (v + x * x);
 
   // For very small x values, use series expansion
   if (Math.abs(x) < 1e-10) {
-    return 0.5 + x * Math.sqrt(v) * gamma((v + 1) / 2) / 
-           (Math.sqrt(Math.PI * v) * gamma(v / 2));
+    return 0.5 + (x * Math.sqrt(v) * gamma((v + 1) / 2)) / (Math.sqrt(Math.PI * v) * gamma(v / 2));
   }
 
   if (x < 0) {

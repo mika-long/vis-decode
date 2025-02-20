@@ -32,8 +32,10 @@ interface CursorState {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Test({ parameters, setAnswer }: StimulusParams<any>) {
-  const { data, showPDF, training, taskType } = parameters;
-  const hasSlider = (taskType === TaskType.PDF_MEDIAN || taskType === TaskType.CDF_MODE ) ? true : false;
+  const {
+    data, showPDF, training, taskType,
+  } = parameters;
+  const hasSlider = taskType === TaskType.PDF_MEDIAN || taskType === TaskType.CDF_MODE;
   const [sliderValue, setSliderValue] = useState<number | undefined>();
   const [cursor, setCursor] = useState<CursorState | null>(null);
   const [selectedPoint, setSelectedPoint] = useState<Point | null>(null);
@@ -82,11 +84,11 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
       d3.max(distributionData.xVals) || 0,
     ];
     // Fixed y-domain to [0,1] by default
-    const yDomain = showPDF
+    const calculatedYDomain = showPDF
       ? [0, d3.max(distributionData.pdfVals) || 0]
       : [0, d3.max(distributionData.cdfVals) || 0];
 
-    const calculatedYDomain = [0, 1];
+    // const calculatedYDomain = [0, 1];
     const xScale = d3.scaleLinear()
       .domain(calculatedXDomain)
       .range([chartSettings.marginLeft, chartSettings.width - chartSettings.marginRight]);
@@ -145,7 +147,7 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
     if (index >= 0 && index < distributionData.xVals.length) {
       const point = {
         x: distributionData.xVals[index],
-        y: yValues[index]
+        y: yValues[index],
       };
       setSelectedPoint(point);
 
@@ -292,25 +294,25 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
           selectedPoint={selectedPoint}
           isTraining={training}
         >
-            {xScale && yScale && (
-              <GuideLines
-                xScale={xScale}
-                yScale={yScale}
-                width={chartSettings.width}
-                height={chartSettings.height}
-                margin={{
-                  top: chartSettings.marginTop,
-                  right: chartSettings.marginRight,
-                  left: chartSettings.marginLeft,
-                  bottom: chartSettings.marginBottom,
-                }}
-                sliderValue={sliderValue}
-                taskType={taskType}
-                training={training}
-                distributionData={distributionData}
-              />
-            )}
-          </Plot>
+          {xScale && yScale && (
+            <GuideLines
+              xScale={xScale}
+              yScale={yScale}
+              width={chartSettings.width}
+              height={chartSettings.height}
+              margin={{
+                top: chartSettings.marginTop,
+                right: chartSettings.marginRight,
+                left: chartSettings.marginLeft,
+                bottom: chartSettings.marginBottom,
+              }}
+              sliderValue={sliderValue}
+              taskType={taskType}
+              training={training}
+              distributionData={distributionData}
+            />
+          )}
+        </Plot>
         <Button
           onClick={handleClearPoint}
           mt="md"

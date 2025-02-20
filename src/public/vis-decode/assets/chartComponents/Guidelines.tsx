@@ -30,8 +30,8 @@ export function GuideLines({
   distributionData,
 }: GuideLinesProps) {
   if (!training || !distributionData) return null;
-   // Always render vertical line for PDF_MEDIAN
-   if (taskType === TaskType.PDF_MEDIAN && sliderValue !== undefined) {
+  // Always render vertical line for PDF_MEDIAN
+  if (taskType === TaskType.PDF_MEDIAN && sliderValue !== undefined) {
     return (
       <line
         x1={xScale(sliderValue)}
