@@ -226,7 +226,7 @@
         "path": "vis-decode/assets/Test.tsx", 
         "instruction": "Click on the highest point of the curve.",
         "instructionLocation": "aboveStimulus",
-        "nextButtonLocation": "aboveStimulus",
+        "nextButtonLocation": "belowStimulus",
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 13, "alpha": 0}, 
           "showPDF": true, 
@@ -257,7 +257,7 @@
         "path": "vis-decode/assets/Test.tsx", 
         "instruction": "Find the point where the curve crosses the horizontal line y = 0.5. Click on the intersection point where the curve meets this line.",
         "instructionLocation": "aboveStimulus",
-        "nextButtonLocation": "aboveStimulus",
+        "nextButtonLocation": "belowStimulus",
         "parameters": {
           "data": {"xi": 0, "omega": 1, "nu": 12, "alpha": 0}, 
           "showPDF": false, 
@@ -371,18 +371,78 @@
             "response": []
         },
         "task1_train_1": {
-          "baseComponent": "PDF-Median-Train"
+          "baseComponent": "PDF-Median-Train",
+          "parameters": {
+            "data": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}
+          }, 
+          "meta": {
+            "data": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}
+          }
+        }, 
+        "task1_train_2": {
+          "baseComponent": "PDF-Median-Train",
+          "parameters": {
+            "data": {"xi": -2, "omega": 2, "nu": 4, "alpha": 10}
+          }, 
+          "meta": {
+            "data": {"xi": -2, "omega": 2, "nu": 4, "alpha": 10}
+          }
         }, 
         "task2_train_1": {
           "baseComponent": "PDF-Mode-Train"
         }, 
+        "task2_train_2": {
+          "baseComponent": "PDF-Mode-Train",
+          "parameters": {
+            "data": {"xi": 0, "omega": 2, "nu": 10, "alpha": 0}
+          }, 
+          "meta": {
+            "data": {"xi": 0, "omega": 2, "nu": 10, "alpha": 0}
+          }
+        },
         "task3_train_1": {
           "baseComponent": "CDF-Median-Train"
+        },
+        "task3_train_2": {
+          "baseComponent": "CDF-Median-Train",
+          "parameters": {
+            "data": {"xi": 3, "omega": 2, "nu": 10, "alpha": 0}
+          }, 
+          "meta": {
+            "data": {"xi": 3, "omega": 2, "nu": 10, "alpha": 0}
+          }
         }, 
         "task4_train_1": {
           "baseComponent": "CDF-Mode-Train"
         },
+        "task4_train_2": {
+          "baseComponent": "CDF-Mode-Train",
+          "parameters": {
+            "data": {"xi": -1, "omega": 2, "nu": 10, "alpha": 10}
+          }, 
+          "meta": {
+            "data": {"xi": -1, "omega": 2, "nu": 10, "alpha": 10}
+          }
+        },
         "task1_test_1": {
+          "baseComponent": "PDF-Median-Test",
+          "parameters": {
+            "data": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
+          }, 
+          "meta": {
+            "data": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
+          }
+        }, 
+        "task1_test_2": {
+          "baseComponent": "PDF-Median-Test",
+          "parameters": {
+            "data": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
+          }, 
+          "meta": {
+            "data": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
+          }
+        }, 
+        "task1_test_3": {
           "baseComponent": "PDF-Median-Test",
           "parameters": {
             "data": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
@@ -400,7 +460,43 @@
             "data": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
           }
         }, 
+        "task2_test_2": {
+          "baseComponent": "PDF-Mode-Test",
+          "parameters": {
+            "data": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
+          },
+          "meta": {
+            "data": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
+          }
+        }, 
+        "task2_test_3": {
+          "baseComponent": "PDF-Mode-Test",
+          "parameters": {
+            "data": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
+          },
+          "meta": {
+            "data": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
+          }
+        }, 
         "task3_test_1": {
+          "baseComponent": "CDF-Mode-Test",
+          "parameters": {
+            "data": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
+          },
+          "meta": {
+            "data": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
+          }
+        }, 
+        "task3_test_2": {
+          "baseComponent": "CDF-Mode-Test",
+          "parameters": {
+            "data": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
+          },
+          "meta": {
+            "data": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
+          }
+        }, 
+        "task3_test_3": {
           "baseComponent": "CDF-Mode-Test",
           "parameters": {
             "data": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
@@ -412,10 +508,28 @@
         "task4_test_1": {
           "baseComponent": "CDF-Median-Test",
           "parameters": {
-            "data": {"xi": 1, "omega": 10, "nu": 3, "alpha": 1}
+            "data": {"xi": 1, "omega": 2, "nu": 4, "alpha": 1}
           },
           "meta": {
-            "data": {"xi": 1, "omega": 10, "nu": 3, "alpha": 1} 
+            "data": {"xi": 1, "omega": 2, "nu": 4, "alpha": 1} 
+          }
+        },
+        "task4_test_2": {
+          "baseComponent": "CDF-Median-Test",
+          "parameters": {
+            "data": {"xi": 1, "omega": 2, "nu": 4, "alpha": 1}
+          },
+          "meta": {
+            "data": {"xi": 1, "omega": 2, "nu": 4, "alpha": 1} 
+          }
+        },
+        "task4_test_3": {
+          "baseComponent": "CDF-Median-Test",
+          "parameters": {
+            "data": {"xi": 1, "omega": 2, "nu": 4, "alpha": 1}
+          },
+          "meta": {
+            "data": {"xi": 1, "omega": 2, "nu": 4, "alpha": 1} 
           }
         }
     },
@@ -440,14 +554,32 @@
             "calibration", 
             "training_instruction",
             "task1_train_1",
-            "task2_train_1",
-            "task3_train_1",
-            "task4_train_1",
+            "task1_train_2",
             "testing_instruction",
             "task1_test_1",
+            "task1_test_2",
+            "task1_test_3",
+            "training_instruction",
+            "task2_train_1",
+            "task2_train_2",
+            "testing_instruction",
             "task2_test_1",
+            "task2_test_2",
+            "task2_test_3",
+            "training_instruction",
+            "task3_train_1",
+            "task3_train_2",
+            "testing_instruction",
             "task3_test_1",
-            "task4_test_1"
+            "task3_test_2",
+            "task3_test_3",
+            "training_instruction",
+            "task4_train_1",
+            "task4_train_2",
+            "testing_instruction",
+            "task4_test_1",
+            "task4_test_2",
+            "task4_test_3"
         ]
     }
 }
