@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 import { useCallback, useMemo, useState } from 'react';
-import { Container, Button } from '@mantine/core';
+import { Container, Button, Slider } from '@mantine/core';
 import { initializeTrrack, Registry } from '@trrack/core';
 import { StimulusParams } from '../../../store/types';
 import { generateDistributionData } from './distributionCalculations';
@@ -28,7 +28,7 @@ interface TestProps extends StimulusParams<any> {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function Test({ parameters, setAnswer }: StimulusParams<any>) {
+function Test({ parameters, setAnswer, taskType }: TestProps) {
   const { data, showPDF, taskid, training, } = parameters;
   const [sliderValue, setSliderValue] = useState<number | undefined>();
   const [currentPoint, setCurrentPoint] = useState<Point | null>(null);
@@ -77,7 +77,7 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
     clickX: number,
     clickY: number,
     xScale: d3.ScaleLinear<number, number>,
-    yScale: d3.ScaleLinear<number, number>
+    yScale: d3.ScaleLinear<number, number>,
   ) => {
     if (!distributionData) return null;
 
@@ -136,9 +136,9 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
         status: true,
         provenanceGraph: trrack.graph.backend, // Include provenance data
         answers: {
-          "location-x": closestPoint.x,
-          "location-y": closestPoint.y
-        }
+          'location-x': closestPoint.x,
+          'location-y': closestPoint.y,
+        },
       });
     } else {
       setAnswer({
@@ -151,7 +151,7 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
   // Mouse move handler
   const handlePlotMouseMove = useCallback((
     event: React.MouseEvent,
-    { xScale, yScale }: { xScale: d3.ScaleLinear<number, number>, yScale: d3.ScaleLinear<number, number> }
+    { xScale, yScale }: { xScale: d3.ScaleLinear<number, number>, yScale: d3.ScaleLinear<number, number> },
   ) => {
     if (!distributionData) return;
 
@@ -179,6 +179,24 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
   return (
     <Container p="md">
       <div className="mt-4">
+        {/* optional slider */}
+        {training && (taskType === TaskType.PDF_MEDIAN || taskType === TaskType.CDF_MODE) && (
+          <div style={{ width: chartSettings.width }}>
+            <Slider
+              value={sliderValue}
+              onChange={setSliderValue}
+              min={distributionData?.xVals[0]}
+              max={distributionData?.xVals[distributionData.xVals.length - 1]}
+              step={0.1}
+              label={(value) => value.toFixed(2)}
+              className="mb-4"
+              styles={{
+                root: { width: '100%' },
+                track: { width: '100%' },
+              }}
+            />
+          </div>
+        )}
         <Plot
           data={linePoints}
           width={chartSettings.width}
