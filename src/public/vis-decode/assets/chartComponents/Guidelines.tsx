@@ -58,10 +58,7 @@ export function GuideLines({
     }
     case TaskType.PDF_MODE: {
       const maxY = Math.max(...distributionData.pdfVals);
-      // something is a bit wrong with the yscale here ...
-      console.log(maxY);
-      console.log(pdfYScale(maxY));
-      console.log(yScale(maxY));
+      // TODO
       return (
         <line
           x1={margin.left}
