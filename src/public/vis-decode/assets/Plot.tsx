@@ -8,7 +8,7 @@ import ClickMarker from './chartComponents/ClickMarker';
 interface PlotProps {
   // Data
   data: Array<{ x: number; y: number }>;
-  // Visualization parameters
+  // Visualization parameters (static)
   width?: number;
   height?: number;
   margin?: { top: number; right: number; bottom: number; left: number};
@@ -18,11 +18,15 @@ interface PlotProps {
     x?: string;
     y?: string;
   }
+  // Visual elements
+  cursor?: {x: number; y:number; isNearCurve: boolean} | null;
+  selectedPoint?: {x: number; y:number} | null;
   // Optional domain overrides
   xDomain?: [number, number];
   yDomain?: [number, number];
+  // Flag for whether this plot is for training
   isTraining?: boolean;
-  // interaction handlers
+  // Interaction handlers
   onClick?: (event: React.MouseEvent, scales: {
     xScale: d3.ScaleLinear<number, number>,
     yScale: d3.ScaleLinear<number, number>
@@ -32,9 +36,7 @@ interface PlotProps {
     yScale: d3.ScaleLinear<number, number>
   }) => void;
   onMouseLeave?: () => void;
-  // Visual elements
-  cursor?: {x: number; y:number; isNearCurve: boolean} | null;
-  selectedPoint?: {x: number; y:number} | null;
+  // Additional stuff
   children?: React.ReactNode;
 }
 
@@ -47,7 +49,7 @@ export function Plot({
   },
   strokeColor = '#2563eb',
   strokeWidth = 2,
-  isTraining = true,
+  isTraining,
   axisLabels,
   xDomain,
   yDomain,

@@ -31,7 +31,7 @@ interface CursorState {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function Test({ parameters, setAnswer }: StimulusParams<any>) {
+export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) {
   const {
     data, showPDF, training, taskType,
   } = parameters;
@@ -323,5 +323,3 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
     </Container>
   );
 }
-
-export default Test;
