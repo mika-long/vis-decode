@@ -46,19 +46,6 @@ export function GuideLines({
     );
   }
   switch (taskType) {
-    // case TaskType.PDF_MEDIAN: {
-    //   return (
-    //     <line
-    //       x1={xScale(sliderValue ?? 0)}
-    //       x2={xScale(sliderValue ?? 0)}
-    //       y1={margin.top}
-    //       y2={height - margin.bottom}
-    //       stroke="#666"
-    //       strokeWidth={1}
-    //       strokeDasharray="4"
-    //     />
-    //   );
-    // }
     case TaskType.PDF_MODE: {
       const maxY = Math.max(...distributionData.pdfVals);
       return (
@@ -70,6 +57,7 @@ export function GuideLines({
           stroke="#666"
           strokeWidth={1}
           strokeDasharray="4"
+          data-source="Guidelines"
         />
       );
     }
@@ -83,6 +71,7 @@ export function GuideLines({
           stroke="#666"
           strokeWidth={1}
           strokeDasharray="4"
+          data-source="Guidelines"
         />
       );
     }
@@ -115,6 +104,7 @@ export function GuideLines({
           y2={yScale(yEnd)}
           stroke="#666"
           strokeWidth={1}
+          data-source="Guidelines"
         />
       );
     }

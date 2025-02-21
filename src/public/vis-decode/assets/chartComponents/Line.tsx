@@ -8,7 +8,7 @@ interface LineProps {
   strokeWidth?: number;
 }
 
-export function Line({
+export default function Line({
   data,
   xScale,
   yScale,
@@ -25,6 +25,7 @@ export function Line({
       fill="none"
       stroke={strokeColor}
       strokeWidth={strokeWidth}
+      data-source="Line"
     />
   );
 }

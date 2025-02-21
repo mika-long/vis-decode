@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface CursorProps {
   position: { x: number; y: number } | null;
   isNearCurve: boolean;
@@ -18,6 +16,7 @@ export default function Cursor({ position, isNearCurve }: CursorProps) {
       strokeWidth={1}
       opacity={0.8}
       pointerEvents="none"
+      data-source="Cursor"
     />
   );
 }

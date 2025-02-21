@@ -1,7 +1,7 @@
 /* eslint-disable no-shadow */
 import { useMemo, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
-import { Line } from './chartComponents/Line';
+import Line from './chartComponents/Line';
 import Cursor from './chartComponents/Cursor';
 import ClickMarker from './chartComponents/ClickMarker';
 
