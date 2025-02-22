@@ -77,7 +77,7 @@
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
-          "data": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
+          "params": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
           "showPDF": true, 
           "taskid": "location", 
           "taskType": "pdf_median"
@@ -107,7 +107,7 @@
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
-          "data": {"xi": 0, "omega": 1, "nu": 13, "alpha": 0}, 
+          "params": {"xi": 0, "omega": 1, "nu": 13, "alpha": 0}, 
           "showPDF": true, 
           "taskid": "location",
           "taskType": "pdf_mode"
@@ -137,7 +137,7 @@
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
-          "data": {"xi": 0, "omega": 1, "nu": 12, "alpha": 0}, 
+          "params": {"xi": 0, "omega": 1, "nu": 12, "alpha": 0}, 
           "showPDF": false, 
           "taskid": "location",
           "taskType": "cdf_median"
@@ -167,7 +167,7 @@
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
-          "data": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}, 
+          "params": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}, 
           "showPDF": false,
           "taskid": "location",
           "taskType": "cdf_mode"
@@ -197,7 +197,7 @@
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
-          "data": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
+          "params": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
           "showPDF": true, 
           "taskid": "location", 
           "training": true,
@@ -228,7 +228,7 @@
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
-          "data": {"xi": 0, "omega": 1, "nu": 13, "alpha": 0}, 
+          "params": {"xi": 0, "omega": 1, "nu": 13, "alpha": 0}, 
           "showPDF": true, 
           "taskid": "location", 
           "training": true,
@@ -259,7 +259,7 @@
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
-          "data": {"xi": 0, "omega": 1, "nu": 12, "alpha": 0}, 
+          "params": {"xi": 0, "omega": 1, "nu": 12, "alpha": 0}, 
           "showPDF": false, 
           "taskid": "location", 
           "training": true,
@@ -290,7 +290,7 @@
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
-          "data": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}, 
+          "params": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}, 
           "showPDF": false,
           "taskid": "location", 
           "training": true,
@@ -373,19 +373,19 @@
         "task1_train_1": {
           "baseComponent": "PDF-Median-Train",
           "parameters": {
-            "data": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}
+            "params": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}
           }, 
           "meta": {
-            "data": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}
+            "params": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}
           }
         }, 
         "task1_train_2": {
           "baseComponent": "PDF-Median-Train",
           "parameters": {
-            "data": {"xi": -2, "omega": 2, "nu": 4, "alpha": 10}
+            "params": {"xi": -2, "omega": 2, "nu": 4, "alpha": 10}
           }, 
           "meta": {
-            "data": {"xi": -2, "omega": 2, "nu": 4, "alpha": 10}
+            "params": {"xi": -2, "omega": 2, "nu": 4, "alpha": 10}
           }
         }, 
         "task2_train_1": {
@@ -394,10 +394,10 @@
         "task2_train_2": {
           "baseComponent": "PDF-Mode-Train",
           "parameters": {
-            "data": {"xi": 0, "omega": 2, "nu": 10, "alpha": 0}
+            "params": {"xi": 0, "omega": 2, "nu": 10, "alpha": 0}
           }, 
           "meta": {
-            "data": {"xi": 0, "omega": 2, "nu": 10, "alpha": 0}
+            "params": {"xi": 0, "omega": 2, "nu": 10, "alpha": 0}
           }
         },
         "task3_train_1": {
@@ -406,10 +406,10 @@
         "task3_train_2": {
           "baseComponent": "CDF-Median-Train",
           "parameters": {
-            "data": {"xi": 3, "omega": 2, "nu": 10, "alpha": 0}
+            "params": {"xi": 3, "omega": 2, "nu": 10, "alpha": 0}
           }, 
           "meta": {
-            "data": {"xi": 3, "omega": 2, "nu": 10, "alpha": 0}
+            "params": {"xi": 3, "omega": 2, "nu": 10, "alpha": 0}
           }
         }, 
         "task4_train_1": {
@@ -418,118 +418,118 @@
         "task4_train_2": {
           "baseComponent": "CDF-Mode-Train",
           "parameters": {
-            "data": {"xi": -1, "omega": 2, "nu": 10, "alpha": 10}
+            "params": {"xi": -1, "omega": 2, "nu": 10, "alpha": 10}
           }, 
           "meta": {
-            "data": {"xi": -1, "omega": 2, "nu": 10, "alpha": 10}
+            "params": {"xi": -1, "omega": 2, "nu": 10, "alpha": 10}
           }
         },
         "task1_test_1": {
           "baseComponent": "PDF-Median-Test",
           "parameters": {
-            "data": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
+            "params": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
           }, 
           "meta": {
-            "data": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
+            "params": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
           }
         }, 
         "task1_test_2": {
           "baseComponent": "PDF-Median-Test",
           "parameters": {
-            "data": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
+            "params": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
           }, 
           "meta": {
-            "data": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
+            "params": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
           }
         }, 
         "task1_test_3": {
           "baseComponent": "PDF-Median-Test",
           "parameters": {
-            "data": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
+            "params": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
           }, 
           "meta": {
-            "data": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
+            "params": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
           }
         }, 
         "task2_test_1": {
           "baseComponent": "PDF-Mode-Test",
           "parameters": {
-            "data": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
+            "params": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
           },
           "meta": {
-            "data": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
+            "params": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
           }
         }, 
         "task2_test_2": {
           "baseComponent": "PDF-Mode-Test",
           "parameters": {
-            "data": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
+            "params": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
           },
           "meta": {
-            "data": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
+            "params": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
           }
         }, 
         "task2_test_3": {
           "baseComponent": "PDF-Mode-Test",
           "parameters": {
-            "data": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
+            "params": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
           },
           "meta": {
-            "data": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
+            "params": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
           }
         }, 
         "task3_test_1": {
           "baseComponent": "CDF-Mode-Test",
           "parameters": {
-            "data": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
+            "params": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
           },
           "meta": {
-            "data": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
+            "params": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
           }
         }, 
         "task3_test_2": {
           "baseComponent": "CDF-Mode-Test",
           "parameters": {
-            "data": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
+            "params": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
           },
           "meta": {
-            "data": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
+            "params": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
           }
         }, 
         "task3_test_3": {
           "baseComponent": "CDF-Mode-Test",
           "parameters": {
-            "data": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
+            "params": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
           },
           "meta": {
-            "data": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
+            "params": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
           }
         }, 
         "task4_test_1": {
           "baseComponent": "CDF-Median-Test",
           "parameters": {
-            "data": {"xi": 1, "omega": 2, "nu": 4, "alpha": 1}
+            "params": {"xi": 1, "omega": 2, "nu": 4, "alpha": 1}
           },
           "meta": {
-            "data": {"xi": 1, "omega": 2, "nu": 4, "alpha": 1} 
+            "params": {"xi": 1, "omega": 2, "nu": 4, "alpha": 1} 
           }
         },
         "task4_test_2": {
           "baseComponent": "CDF-Median-Test",
           "parameters": {
-            "data": {"xi": 1, "omega": 2, "nu": 4, "alpha": 1}
+            "params": {"xi": 1, "omega": 2, "nu": 4, "alpha": 1}
           },
           "meta": {
-            "data": {"xi": 1, "omega": 2, "nu": 4, "alpha": 1} 
+            "params": {"xi": 1, "omega": 2, "nu": 4, "alpha": 1} 
           }
         },
         "task4_test_3": {
           "baseComponent": "CDF-Median-Test",
           "parameters": {
-            "data": {"xi": 1, "omega": 2, "nu": 4, "alpha": 1}
+            "params": {"xi": 1, "omega": 2, "nu": 4, "alpha": 1}
           },
           "meta": {
-            "data": {"xi": 1, "omega": 2, "nu": 4, "alpha": 1} 
+            "params": {"xi": 1, "omega": 2, "nu": 4, "alpha": 1} 
           }
         }
     },

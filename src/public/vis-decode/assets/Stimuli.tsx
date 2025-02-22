@@ -7,15 +7,17 @@ import { generateDistributionData } from './distributionCalculations';
 import Plot from './Plot';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import GuideLines from './chartComponents/Guidelines';
-import { TaskType } from './TaskTypes';
+// import { TaskType } from './TaskTypes';
 import DistributionSlider from './chartComponents/DistributionSlider';
 import { useScales } from './chartComponents/ScalesContext';
 
 const chartSettings = {
-  marginBottom: 40,
-  marginLeft: 50,
-  marginTop: 15,
-  marginRight: 15,
+  margin: {
+    top: 15,
+    right: 15,
+    bottom: 40,
+    left: 50,
+  },
   height: 450,
   width: 600,
 };
@@ -28,13 +30,13 @@ interface Point {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) {
   const {
-    data, showPDF, training, taskType,
+    params, showPDF, training, taskType,
   } = parameters;
   const [sliderValue, setSliderValue] = useState<number | undefined>();
   const { xScale, yScale } = useScales();
 
   // Generate data
-  const distributionData = useMemo(() => generateDistributionData(data), [data]);
+  const distributionData = useMemo(() => generateDistributionData(params), [params]);
 
   // Generate line points
   const linePoints = useMemo(() => {
@@ -62,7 +64,6 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
         x: distributionData.xVals[index],
         y: yValues[index],
       };
-      setSelectedPoint(point);
 
       setAnswer({
         status: true,
@@ -74,14 +75,6 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
     }
   }, [distributionData, showPDF, setAnswer]);
 
-  const handleClearPoint = useCallback(() => {
-    setSelectedPoint(null);
-    setAnswer({
-      status: false,
-      answers: {},
-    });
-  }, [setAnswer]);
-
   return (
     <Container p="md">
       <div className="mt-4">
@@ -90,45 +83,10 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
           data={linePoints}
           width={chartSettings.width}
           height={chartSettings.height}
-          margin={{
-            top: chartSettings.marginTop,
-            right: chartSettings.marginRight,
-            left: chartSettings.marginLeft,
-            bottom: chartSettings.marginBottom,
-          }}
+          margin={{ ...chartSettings.margin }}
           yDomain={[0, 1]}
-          onClick={handlePlotClick}
-          onMouseMove={handlePlotMouseMove}
-          onMouseLeave={handleMouseLeave}
-          cursor={cursor}
-          selectedPoint={selectedPoint}
           isTraining={training}
-        >
-          {xScale && yScale && (
-            <GuideLines
-              xScale={xScale}
-              yScale={yScale}
-              width={chartSettings.width}
-              height={chartSettings.height}
-              margin={{
-                top: chartSettings.marginTop,
-                right: chartSettings.marginRight,
-                left: chartSettings.marginLeft,
-                bottom: chartSettings.marginBottom,
-              }}
-              sliderValue={sliderValue}
-              taskType={taskType}
-              training={training}
-              distributionData={distributionData}
-            />
-          )}
-        </Plot>
-        <Button
-          onClick={handleClearPoint}
-          mt="md"
-        >
-          Clear Point
-        </Button>
+        />
       </div>
     </Container>
   );

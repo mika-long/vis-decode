@@ -4,10 +4,7 @@ import { TaskType } from '../TaskTypes';
 import { useScales } from './ScalesContext';
 
 interface GuideLinesProps {
-  width: number;
-  height: number;
-  margin: { top: number; right: number; bottom: number; left: number };
-  sliderValue?: d3.NumberValue;
+  sliderValue?: number;
   taskType: TaskType;
   training: boolean;
   distributionData?: {
@@ -29,6 +26,7 @@ export default function GuideLines({
   } = useScales();
 
   if (!training || !distributionData) return null;
+  if (!sliderValue) return null;
 
   switch (taskType) {
     case TaskType.PDF_MEDIAN: {
