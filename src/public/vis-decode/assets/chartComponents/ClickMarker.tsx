@@ -1,10 +1,11 @@
+import { useScales } from './ScalesContext';
+
 interface ClickMarkerProps {
     point: { x: number; y: number } | null;
-    xScale: d3.ScaleLinear<number, number>;
-    yScale: d3.ScaleLinear<number, number>;
 }
 
-export default function ClickMarker({ point, xScale, yScale }: ClickMarkerProps) {
+export default function ClickMarker({ point }: ClickMarkerProps) {
+  const { xScale, yScale } = useScales();
   if (!point) return null;
 
   return (

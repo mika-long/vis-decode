@@ -1,6 +1,7 @@
 /* eslint-disable no-shadow */
-import { useMemo, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
+import { ScalesProvider, useScales } from './chartComponents/ScalesContext';
 import Line from './chartComponents/Line';
 import Cursor from './chartComponents/Cursor';
 import ClickMarker from './chartComponents/ClickMarker';
@@ -27,66 +28,35 @@ interface PlotProps {
   // Flag for whether this plot is for training
   isTraining?: boolean;
   // Interaction handlers
-  onClick?: (event: React.MouseEvent, scales: {
-    xScale: d3.ScaleLinear<number, number>,
-    yScale: d3.ScaleLinear<number, number>
-  }) => void;
-  onMouseMove?: (event: React.MouseEvent, scales: {
-    xScale: d3.ScaleLinear<number, number>,
-    yScale: d3.ScaleLinear<number, number>
-  }) => void;
+  onClick?: (event: React.MouseEvent) => void;
+  onMouseMove?: (event: React.MouseEvent) => void;
   onMouseLeave?: () => void;
   // Additional stuff
   children?: React.ReactNode;
 }
 
-export function Plot({
+function PlotContent({
   data,
-  width = 600,
-  height = 400,
-  margin = {
-    top: 20, right: 20, bottom: 40, left: 40,
-  },
   strokeColor = '#2563eb',
   strokeWidth = 2,
   isTraining,
   axisLabels,
-  xDomain,
-  yDomain,
   onClick,
   onMouseMove,
   onMouseLeave,
   cursor,
   selectedPoint,
   children,
-}: PlotProps) {
+}: Omit<PlotProps, 'width' | 'height' | 'margin' | 'xDomain' | 'yDomain'>) {
   // Refs
   const xAxisRef = useRef<SVGGElement>(null);
   const yAxisRef = useRef<SVGGElement>(null);
+  // Get scales from Context
+  const {
+    xScale, yScale, width, height, margin,
+  } = useScales();
 
-  const { xScale, yScale } = useMemo(() => {
-    // Calculate domains if not provided
-    const calculatedXDomain = xDomain || [
-      d3.min(data, (d) => d.x) || 0,
-      d3.max(data, (d) => d.x) || 0,
-    ];
-    const calculatedYDomain = yDomain || [
-      d3.min(data, (d) => d.y) || 0,
-      d3.max(data, (d) => d.y) || 0,
-    ];
-    // Create scales
-    const xScale = d3.scaleLinear()
-      .domain(calculatedXDomain)
-      .range([margin.left, width - margin.right]);
-
-    const yScale = d3.scaleLinear()
-      .domain(calculatedYDomain)
-      .range([height - margin.bottom, margin.top]);
-
-    return { xScale, yScale };
-  }, [data, xDomain, yDomain, margin, width, height]);
-
-  // Draw D3 axes
+  // Draw D3 axes and use scales from context
   useEffect(() => {
     if (xAxisRef.current) {
       d3.select(xAxisRef.current)
@@ -123,15 +93,13 @@ export function Plot({
     <svg
       width={width}
       height={height}
-      onClick={(e) => onClick?.(e, { xScale, yScale })}
-      onMouseMove={(e) => onMouseMove?.(e, { xScale, yScale })}
+      onClick={onClick}
+      onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
       style={{ cursor: isTraining ? 'default' : 'none' }} // Hide system cursor
     >
       <Line
         data={data}
-        xScale={xScale}
-        yScale={yScale}
         strokeColor={strokeColor}
         strokeWidth={strokeWidth}
       />
@@ -139,8 +107,42 @@ export function Plot({
       <g ref={yAxisRef} />
       {renderAxisLabels()}
       {cursor && <Cursor position={{ x: cursor.x, y: cursor.y }} isNearCurve={cursor.isNearCurve} />}
-      {selectedPoint && <ClickMarker point={selectedPoint} xScale={xScale} yScale={yScale} />}
+      {selectedPoint && <ClickMarker point={selectedPoint} />}
       {children}
     </svg>
+  );
+}
+
+export default function Plot({
+  width = 600,
+  height = 400,
+  margin = {
+    top: 20, right: 20, bottom: 40, left: 40,
+  },
+  xDomain,
+  yDomain,
+  data,
+  ...rest
+}: PlotProps) {
+  // Calculate domains if not provided
+  const calculatedXDomain = xDomain || [
+    d3.min(data, (d) => d.x) || 0,
+    d3.max(data, (d) => d.x) || 0,
+  ];
+  const calculatedYDomain = yDomain || [
+    d3.min(data, (d) => d.y) || 0,
+    d3.max(data, (d) => d.y) || 0,
+  ];
+
+  return (
+    <ScalesProvider
+      width={width}
+      height={height}
+      margin={margin}
+      xDomain={calculatedXDomain}
+      yDomain={calculatedYDomain}
+    >
+      <PlotContent data={data} {...rest} />
+    </ScalesProvider>
   );
 }

@@ -1,14 +1,16 @@
 /* eslint-disable no-shadow */
 import * as d3 from 'd3';
 import { useCallback, useMemo, useState } from 'react';
-import { Container, Button, Slider } from '@mantine/core';
+import { Container, Button } from '@mantine/core';
 import { initializeTrrack, Registry } from '@trrack/core';
 import { StimulusParams } from '../../../store/types';
 import { generateDistributionData } from './distributionCalculations';
-import { Plot } from './Plot';
+import Plot from './Plot';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { GuideLines } from './chartComponents/Guidelines';
+import GuideLines from './chartComponents/Guidelines';
 import { TaskType } from './TaskTypes';
+import DistributionSlider from './chartComponents/DistributionSlider';
+import { useScales } from './chartComponents/ScalesContext';
 
 const chartSettings = {
   marginBottom: 40,
@@ -35,10 +37,10 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
   const {
     data, showPDF, training, taskType,
   } = parameters;
-  const hasSlider = taskType === TaskType.PDF_MEDIAN || taskType === TaskType.CDF_MODE;
   const [sliderValue, setSliderValue] = useState<number | undefined>();
   const [cursor, setCursor] = useState<CursorState | null>(null);
   const [selectedPoint, setSelectedPoint] = useState<Point | null>(null);
+  const { xScale, yScale } = useScales();
 
   // Provenance related
   const { actions, trrack } = useMemo(() => {
@@ -73,31 +75,6 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
       x,
       y: yValues[i],
     }));
-  }, [distributionData, showPDF]);
-
-  // Create scales outside of Plot component so they can be shared
-  const { xScale, yScale } = useMemo(() => {
-    if (!distributionData) return { xScale: null, yScale: null };
-
-    const calculatedXDomain = [
-      d3.min(distributionData.xVals) || 0,
-      d3.max(distributionData.xVals) || 0,
-    ];
-    // Fixed y-domain to [0,1] by default
-    const calculatedYDomain = showPDF
-      ? [0, d3.max(distributionData.pdfVals) || 0]
-      : [0, d3.max(distributionData.cdfVals) || 0];
-
-    // const calculatedYDomain = [0, 1];
-    const xScale = d3.scaleLinear()
-      .domain(calculatedXDomain)
-      .range([chartSettings.marginLeft, chartSettings.width - chartSettings.marginRight]);
-
-    const yScale = d3.scaleLinear()
-      .domain(calculatedYDomain)
-      .range([chartSettings.height - chartSettings.marginBottom, chartSettings.marginTop]);
-
-    return { xScale, yScale };
   }, [distributionData, showPDF]);
 
   // Interaction logic
@@ -258,24 +235,7 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
   return (
     <Container p="md">
       <div className="mt-4">
-        {/* optional slider */}
-        {training && hasSlider && (
-          <div style={{ width: chartSettings.width, marginBottom: '2em' }}>
-            <Slider
-              value={sliderValue}
-              onChange={handleSliderChange}
-              min={distributionData?.xVals[0]}
-              max={distributionData?.xVals[distributionData.xVals.length - 1]}
-              step={0.1}
-              label={(value) => value.toFixed(2)}
-              className="mb-4"
-              styles={{
-                root: { width: '100%' },
-                track: { width: '100%' },
-              }}
-            />
-          </div>
-        )}
+        <DistributionSlider />
         <Plot
           data={linePoints}
           width={chartSettings.width}

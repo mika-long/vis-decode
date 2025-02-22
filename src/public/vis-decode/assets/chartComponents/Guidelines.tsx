@@ -1,10 +1,9 @@
 import React from 'react';
 import * as d3 from 'd3';
 import { TaskType } from '../TaskTypes';
+import { useScales } from './ScalesContext';
 
 interface GuideLinesProps {
-  xScale: d3.ScaleLinear<number, number>;
-  yScale: d3.ScaleLinear<number, number>;
   width: number;
   height: number;
   margin: { top: number; right: number; bottom: number; left: number };
@@ -18,9 +17,7 @@ interface GuideLinesProps {
   };
 }
 
-export function GuideLines({
-  xScale,
-  yScale,
+export default function GuideLines({
   width,
   height,
   margin,
@@ -29,6 +26,9 @@ export function GuideLines({
   training,
   distributionData,
 }: GuideLinesProps) {
+  // get scales lfrom context
+  const { xScale, yScale } = useScales();
+
   if (!training || !distributionData) return null;
   // Always render vertical line for PDF_MEDIAN
   if (taskType === TaskType.PDF_MEDIAN && sliderValue !== undefined) {
