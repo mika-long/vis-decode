@@ -2,7 +2,6 @@
 import * as d3 from 'd3';
 import { useCallback, useMemo, useState } from 'react';
 import { Container, Button } from '@mantine/core';
-import { initializeTrrack, Registry } from '@trrack/core';
 import { StimulusParams } from '../../../store/types';
 import { generateDistributionData } from './distributionCalculations';
 import Plot from './Plot';
@@ -26,47 +25,18 @@ interface Point {
   y: number
 }
 
-interface CursorState {
-  x: number;
-  y: number;
-  isNearCurve: boolean;
-}
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) {
   const {
     data, showPDF, training, taskType,
   } = parameters;
   const [sliderValue, setSliderValue] = useState<number | undefined>();
-  const [cursor, setCursor] = useState<CursorState | null>(null);
-  const [selectedPoint, setSelectedPoint] = useState<Point | null>(null);
   const { xScale, yScale } = useScales();
 
-  // Provenance related
-  const { actions, trrack } = useMemo(() => {
-    const reg = Registry.create();
-
-    const clickAction = reg.register('click', (state, click: {clickX:number, clickY: number}) => {
-      state.clickX = click.clickX;
-      state.clickY = click.clickY;
-      return state;
-    });
-
-    const trrackInst = initializeTrrack({
-      registry: reg,
-      initialState: { clickX: 0, clickY: 0 },
-    });
-
-    return {
-      actions: { clickAction },
-      trrack: trrackInst,
-    };
-  }, []);
-
-  // data generation
+  // Generate data
   const distributionData = useMemo(() => generateDistributionData(data), [data]);
 
-  // generate line points
+  // Generate line points
   const linePoints = useMemo(() => {
     if (!distributionData) return [];
 
@@ -78,40 +48,6 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
   }, [distributionData, showPDF]);
 
   // Interaction logic
-  // find closest point on the line to the clicked position
-  const findClosestPoint = useCallback((
-    clickX: number,
-    clickY: number,
-    xScale: d3.ScaleLinear<number, number>,
-    yScale: d3.ScaleLinear<number, number>,
-  ) => {
-    if (!distributionData) return null;
-
-    // convert pixel click coordinates to data space
-    const dataX = xScale.invert(clickX);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const dataY = yScale.invert(clickY);
-
-    // Find closest x value in the data
-    const index = d3.bisector((d) => d).left(distributionData.xVals, dataX);
-    const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
-    // handle edge cases
-    if (index === 0) return { x: distributionData.xVals[0], y: yValues[0] };
-    if (index >= distributionData.xVals.length) return { x: distributionData.xVals[distributionData.xVals.length - 1], y: yValues[yValues.length - 1] };
-    // non-edge case
-    const x0 = distributionData.xVals[index - 1];
-    const x1 = distributionData.xVals[index];
-
-    if (!x0 || !x1) return null;
-
-    const closest = Math.abs(dataX - x0) < Math.abs(dataX - x1) ? index - 1 : index;
-    const closestPoint = {
-      x: distributionData.xVals[closest],
-      y: (showPDF ? distributionData.pdfVals : distributionData.cdfVals)[closest],
-    };
-    return closestPoint;
-  }, [distributionData, showPDF]);
-
   // Update slider handler to set both slider value and selected point
   const handleSliderChange = useCallback((value: number) => {
     setSliderValue(value);
@@ -128,101 +64,15 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
       };
       setSelectedPoint(point);
 
-      // Update provenance and answer
-      trrack.apply('Slider moved', actions.clickAction({
-        clickX: point.x,
-        clickY: point.y,
-      }));
-
       setAnswer({
         status: true,
-        provenanceGraph: trrack.graph.backend,
         answers: {
           'location-x': point.x,
           'location-y': point.y,
         },
       });
     }
-  }, [distributionData, showPDF, actions, trrack, setAnswer]);
-
-  // Mouse move handler
-  const handlePlotMouseMove = useCallback((
-    event: React.MouseEvent,
-    { xScale, yScale }: { xScale: d3.ScaleLinear<number, number>, yScale: d3.ScaleLinear<number, number> },
-  ) => {
-    if (!distributionData) return;
-    if (training) return;
-
-    const svg = event.currentTarget as SVGSVGElement;
-    const pt = new DOMPoint();
-    pt.x = event.clientX;
-    pt.y = event.clientY;
-    const ctm = svg.getScreenCTM()?.inverse();
-    if (!ctm) return;
-    const svgPoint = pt.matrixTransform(ctm);
-
-    // proximity check
-    const closestPoint = findClosestPoint(svgPoint.x, svgPoint.y, xScale, yScale);
-    if (!closestPoint) return;
-
-    const isNear = Math.abs(svgPoint.y - yScale(closestPoint.y)) <= 10;
-    setCursor({
-      x: svgPoint.x,
-      y: svgPoint.y,
-      isNearCurve: isNear,
-    });
-  }, [distributionData, findClosestPoint]);
-
-  // Click handler using Plot's scales
-  const handlePlotClick = useCallback((
-    event: React.MouseEvent,
-    { xScale, yScale }: { xScale: d3.ScaleLinear<number, number>, yScale: d3.ScaleLinear<number, number> },
-  ) => {
-    if (!distributionData) return;
-
-    // Get svg coordinates
-    const svg = event.currentTarget as SVGSVGElement;
-    const pt = new DOMPoint();
-    pt.x = event.clientX;
-    pt.y = event.clientY;
-    const ctm = svg.getScreenCTM()?.inverse();
-    if (!ctm) return;
-    const svgPoint = pt.matrixTransform(ctm);
-
-    const closestPoint = findClosestPoint(svgPoint.x, svgPoint.y, xScale, yScale);
-    if (!closestPoint) return;
-
-    // Check proximity to line
-    const distance = Math.abs(svgPoint.y - yScale(closestPoint.y));
-    if (distance <= 5) {
-      // update point
-      setSelectedPoint(closestPoint);
-      // Track in provenance
-      trrack.apply('Clicked', actions.clickAction({
-        clickX: closestPoint.x,
-        clickY: closestPoint.y,
-      }));
-      // trrack and setAnswer logic
-      setAnswer({
-        status: true,
-        provenanceGraph: trrack.graph.backend, // Include provenance data
-        answers: {
-          'location-x': closestPoint.x,
-          'location-y': closestPoint.y,
-        },
-      });
-    } else {
-      setAnswer({
-        status: false,
-        answers: {},
-      });
-    }
-  }, [distributionData, actions, trrack, findClosestPoint, setAnswer]);
-
-  // Handle mouse leave
-  const handleMouseLeave = useCallback(() => {
-    setCursor(null);
-  }, []);
+  }, [distributionData, showPDF, setAnswer]);
 
   const handleClearPoint = useCallback(() => {
     setSelectedPoint(null);

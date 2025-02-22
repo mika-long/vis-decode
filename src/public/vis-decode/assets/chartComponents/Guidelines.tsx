@@ -7,7 +7,7 @@ interface GuideLinesProps {
   width: number;
   height: number;
   margin: { top: number; right: number; bottom: number; left: number };
-  sliderValue?: number;
+  sliderValue?: d3.NumberValue;
   taskType: TaskType;
   training: boolean;
   distributionData?: {
@@ -18,34 +18,33 @@ interface GuideLinesProps {
 }
 
 export default function GuideLines({
-  width,
-  height,
-  margin,
   sliderValue,
   taskType,
   training,
   distributionData,
 }: GuideLinesProps) {
-  // get scales lfrom context
-  const { xScale, yScale } = useScales();
+  // Get scales from context
+  const {
+    xScale, yScale, width, height, margin,
+  } = useScales();
 
   if (!training || !distributionData) return null;
-  // Always render vertical line for PDF_MEDIAN
-  if (taskType === TaskType.PDF_MEDIAN && sliderValue !== undefined) {
-    return (
-      <line
-        x1={xScale(sliderValue)}
-        x2={xScale(sliderValue)}
-        y1={margin.top}
-        y2={height - margin.bottom}
-        stroke="#666"
-        strokeWidth={1}
-        strokeDasharray="10"
-        data-source="Guidelines"
-      />
-    );
-  }
+
   switch (taskType) {
+    case TaskType.PDF_MEDIAN: {
+      return (
+        <line
+          x1={xScale(sliderValue)}
+          x2={xScale(sliderValue)}
+          y1={margin.top}
+          y2={height - margin.bottom}
+          stroke="#666"
+          strokeWidth={1}
+          strokeDasharray="10"
+          data-source="Guidelines"
+        />
+      );
+    }
     case TaskType.PDF_MODE: {
       const maxY = Math.max(...distributionData.pdfVals);
       return (
