@@ -1,15 +1,11 @@
 /* eslint-disable no-shadow */
 import * as d3 from 'd3';
 import { useCallback, useMemo, useState } from 'react';
-import { Container, Button } from '@mantine/core';
+import { Container, Space } from '@mantine/core';
 import { StimulusParams } from '../../../store/types';
 import { generateDistributionData } from './distributionCalculations';
 import Plot from './Plot';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import GuideLines from './chartComponents/Guidelines';
-// import { TaskType } from './TaskTypes';
 import DistributionSlider from './chartComponents/DistributionSlider';
-import { useScales } from './chartComponents/ScalesContext';
 
 const chartSettings = {
   margin: {
@@ -22,32 +18,53 @@ const chartSettings = {
   width: 600,
 };
 
-interface Point {
-  x: number,
-  y: number
-}
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) {
   const {
     params, showPDF, training, taskType,
   } = parameters;
-  const [sliderValue, setSliderValue] = useState<number | undefined>();
-  const { xScale, yScale } = useScales();
+  const [sliderValue, setSliderValue] = useState<number>();
+  const [selectedPoint, setSelectedPoint] = useState<{x: number, y:number} | null>(null);
 
-  // Generate data
+  // Generate distribution data
   const distributionData = useMemo(() => generateDistributionData(params), [params]);
+  // Generate guidelinse based on task type and slider value
 
-  // Generate line points
-  const linePoints = useMemo(() => {
-    if (!distributionData) return [];
+  const guidelines = useMemo(() => {
+    if (sliderValue === undefined || training === false) return null;
 
-    const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
-    return distributionData.xVals.map((x, i) => ({
-      x,
-      y: yValues[i],
-    }));
-  }, [distributionData, showPDF]);
+    // Find the index of the closest x value to our slider
+    const index = d3.bisector((d) => d).left(distributionData.xVals, sliderValue);
+
+    switch (taskType) {
+      case 'pdf_median':
+        return { x: sliderValue, y: null, tangentLine: null };
+      case 'pdf_mode':
+        return { x: null, y: Math.max(...distributionData.pdfVals), tangentLine: null };
+      case 'cdf_median':
+        return { x: null, y: 0.5, tangentLine: null };
+      case 'cdf_mode': {
+        // Get the point and slope at the current sliderValue
+        const point = {
+          x: sliderValue,
+          y: distributionData.cdfVals[index],
+        };
+        // PDF value at this point is the slope
+        const slope = distributionData.pdfVals[index];
+
+        return {
+          x: null,
+          y: null,
+          tangentLine: {
+            point,
+            slope,
+          },
+        };
+      }
+      default:
+        return null;
+    }
+  }, [sliderValue, training, taskType, distributionData]);
 
   // Interaction logic
   // Update slider handler to set both slider value and selected point
@@ -64,6 +81,7 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
         x: distributionData.xVals[index],
         y: yValues[index],
       };
+      setSelectedPoint(point);
 
       setAnswer({
         status: true,
@@ -75,17 +93,32 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
     }
   }, [distributionData, showPDF, setAnswer]);
 
+  if (!distributionData) return null;
+
   return (
     <Container p="md">
       <div className="mt-4">
-        <DistributionSlider />
+        <DistributionSlider
+          value={sliderValue ?? 0}
+          onChange={handleSliderChange}
+          distributionData={distributionData}
+          width={chartSettings.width - chartSettings.margin.left - chartSettings.margin.right}
+        />
+        <Space h="lg" />
         <Plot
-          data={linePoints}
+          distributionData={distributionData}
+          showPDF={showPDF}
           width={chartSettings.width}
           height={chartSettings.height}
-          margin={{ ...chartSettings.margin }}
+          margin={chartSettings.margin}
           yDomain={[0, 1]}
           isTraining={training}
+          selectedPoint={selectedPoint}
+          guidelines={guidelines}
+          axisLabels={{
+            x: 'Value',
+            y: showPDF ? 'Density' : 'Cumulative Probability',
+          }}
         />
       </div>
     </Container>

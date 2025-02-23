@@ -6,8 +6,6 @@ interface DistributionSliderProps {
   onChange: (value:number) => void;
   distributionData: DistributionData;
   width?: string | number;
-  showGuideLine?: boolean;
-  axis?: 'x' | 'y';
 }
 
 export default function DistributionSlider({
@@ -15,20 +13,22 @@ export default function DistributionSlider({
   onChange,
   distributionData,
   width = '100%',
-  showGuideLine,
-  axis
 }: DistributionSliderProps) {
-  if (!distributionData!.xVals!.length) return null;
+  if (!distributionData?.xVals?.length) return null;
 
   return (
     <div style={{ width }}>
       <Slider
         value={value}
         onChange={onChange}
-        min={distributionData?.xVals[0]}
-        max={distributionData?.xVals[distributionData.xVals.length - 1]}
+        min={distributionData.xVals[0]}
+        max={distributionData.xVals[distributionData.xVals.length - 1]}
         step={0.1}
         label={(val) => val.toFixed(2)}
+        styles={{
+          root: { width: '100%' },
+          track: { width: '100%' },
+        }}
         data-source="slider-check"
       />
     </div>

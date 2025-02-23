@@ -1,62 +1,75 @@
 /* eslint-disable no-shadow */
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 import * as d3 from 'd3';
 import { ScalesProvider, useScales } from './chartComponents/ScalesContext';
 import Line from './chartComponents/Line';
-import Cursor from './chartComponents/Cursor';
 import ClickMarker from './chartComponents/ClickMarker';
+import GuideLines from './chartComponents/Guidelines';
+import { DistributionData } from './distributionCalculations';
 
 interface PlotProps {
   // Data
-  data: Array<{ x: number; y: number }>;
-  // Visualization parameters (static)
+  distributionData: DistributionData;
+  showPDF?: boolean;
+  // Display settings
   width?: number;
   height?: number;
   margin?: { top: number; right: number; bottom: number; left: number};
+  // Visual customization
   strokeColor?: string;
   strokeWidth?: number;
   axisLabels?: {
     x?: string;
     y?: string;
   }
-  // Visual elements
-  cursor?: {x: number; y:number; isNearCurve: boolean} | null;
-  selectedPoint?: {x: number; y:number} | null;
+  // Interaction state
+  selectedPoint?: { x: number; y: number } | null;
+  guidelines?: {
+    x: number | null;
+    y: number | null;
+    tangentLine?: {
+      point: { x: number; y:number };
+      slope: number;
+    } | null;
+  } | null;
   // Optional domain overrides
   xDomain?: [number, number];
   yDomain?: [number, number];
   // Flag for whether this plot is for training
   isTraining?: boolean;
-  // Interaction handlers
-  onClick?: (event: React.MouseEvent) => void;
-  onMouseMove?: (event: React.MouseEvent) => void;
-  onMouseLeave?: () => void;
   // Additional stuff
   children?: React.ReactNode;
 }
 
 function PlotContent({
-  data,
+  distributionData,
+  showPDF = true,
   strokeColor = '#2563eb',
   strokeWidth = 2,
-  isTraining,
+  isTraining = false,
   axisLabels,
-  onClick,
-  onMouseMove,
-  onMouseLeave,
-  cursor,
   selectedPoint,
+  guidelines,
   children,
 }: Omit<PlotProps, 'width' | 'height' | 'margin' | 'xDomain' | 'yDomain'>) {
-  // Refs
-  const xAxisRef = useRef<SVGGElement>(null);
-  const yAxisRef = useRef<SVGGElement>(null);
   // Get scales from Context
   const {
     xScale, yScale, width, height, margin,
   } = useScales();
+  // Refs
+  const xAxisRef = useRef<SVGGElement>(null);
+  const yAxisRef = useRef<SVGGElement>(null);
 
-  // Draw D3 axes and use scales from context
+  // Generate line points from distributionData
+  const linePoints = useMemo(() => {
+    const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
+    return distributionData.xVals.map((x, i) => ({
+      x,
+      y: yValues[i],
+    }));
+  }, [distributionData, showPDF]);
+
+  // Draw D3 axes
   useEffect(() => {
     if (xAxisRef.current) {
       d3.select(xAxisRef.current)
@@ -70,8 +83,8 @@ function PlotContent({
     }
   }, [xScale, yScale, margin, height]);
 
-  // Axis labels
-  const renderAxisLabels = () => {
+  // Memoize Axis labels
+  const axisElements = useMemo(() => {
     if (!axisLabels) return null;
     return (
       <>
@@ -87,27 +100,32 @@ function PlotContent({
         )}
       </>
     );
-  };
+  }, [axisLabels, width, height]);
 
   return (
     <svg
       width={width}
       height={height}
-      onClick={onClick}
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
-      style={{ cursor: isTraining ? 'default' : 'none' }} // Hide system cursor
     >
+      {/* Base plot elements */}
       <Line
-        data={data}
+        data={linePoints}
         strokeColor={strokeColor}
         strokeWidth={strokeWidth}
       />
       <g ref={xAxisRef} />
       <g ref={yAxisRef} />
-      {renderAxisLabels()}
-      {cursor && <Cursor position={{ x: cursor.x, y: cursor.y }} isNearCurve={cursor.isNearCurve} />}
+      {axisElements}
+      {/* Interactive elements */}
       {selectedPoint && <ClickMarker point={selectedPoint} />}
+      {isTraining && guidelines && (
+        <GuideLines
+          xValue={guidelines.x}
+          yValue={guidelines.y}
+          tangentLine={guidelines.tangentLine}
+        />
+      )}
+      {/* Additional elements passed as children */}
       {children}
     </svg>
   );
@@ -120,18 +138,22 @@ export default function Plot({
     top: 20, right: 20, bottom: 40, left: 40,
   },
   xDomain,
-  yDomain,
-  data,
+  yDomain = [0, 1],
+  distributionData,
+  showPDF = true,
+  isTraining = false,
   ...rest
 }: PlotProps) {
   // Calculate domains if not provided
   const calculatedXDomain = xDomain || [
-    d3.min(data, (d) => d.x) || 0,
-    d3.max(data, (d) => d.x) || 0,
+    distributionData.xVals[0],
+    distributionData.xVals[distributionData.xVals.length - 1],
   ];
+
+  const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
   const calculatedYDomain = yDomain || [
-    d3.min(data, (d) => d.y) || 0,
-    d3.max(data, (d) => d.y) || 0,
+    0,
+    Math.max(...yValues),
   ];
 
   return (
@@ -142,7 +164,12 @@ export default function Plot({
       xDomain={calculatedXDomain}
       yDomain={calculatedYDomain}
     >
-      <PlotContent data={data} {...rest} />
+      <PlotContent
+        distributionData={distributionData}
+        showPDF={showPDF}
+        isTraining={isTraining}
+        {...rest}
+      />
     </ScalesProvider>
   );
 }
