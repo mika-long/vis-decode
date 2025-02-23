@@ -81,18 +81,27 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
   // Interaction logic
   // Update slider handler to set both slider value and selected point
   const handleSliderChange = useCallback((value: number) => {
+    // Updated Slider UI in real time
     setSliderValue(value);
+  }, []);
 
-    if (selectedPoint) {
-      setAnswer({
-        status: true,
-        answers: {
-          'location-x': selectedPoint.x,
-          'location-y': selectedPoint.y,
-        },
-      });
-    }
-  }, [selectedPoint, setAnswer]);
+  const handleSliderCommit = useCallback((value: number) => {
+    // Only submt answer when dragging finishes
+    const index = d3.bisector((d) => d).left(distributionData.xVals, value);
+    const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
+    const newSelectedPoint = {
+      x: distributionData.xVals[index],
+      y: yValues[index],
+    };
+
+    setAnswer({
+      status: true,
+      answers: {
+        'location-x': newSelectedPoint.x,
+        'location-y': newSelectedPoint.y,
+      },
+    });
+  }, [distributionData, showPDF, setAnswer]);
 
   if (!distributionData) return null;
 
@@ -102,6 +111,7 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
         <DistributionSlider
           value={sliderValue ?? 0}
           onChange={handleSliderChange}
+          onChangeEnd={handleSliderCommit}
           distributionData={distributionData}
           width={chartSettings.width - chartSettings.margin.left - chartSettings.margin.right}
         />

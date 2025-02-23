@@ -4,6 +4,7 @@ import { DistributionData } from '../distributionCalculations';
 interface DistributionSliderProps {
   value: number;
   onChange: (value:number) => void;
+  onChangeEnd: (value:number) => void;
   distributionData: DistributionData;
   width?: string | number;
 }
@@ -11,6 +12,7 @@ interface DistributionSliderProps {
 export default function DistributionSlider({
   value,
   onChange,
+  onChangeEnd,
   distributionData,
   width = '100%',
 }: DistributionSliderProps) {
@@ -21,6 +23,7 @@ export default function DistributionSlider({
       <Slider
         value={value}
         onChange={onChange}
+        onChangeEnd={onChangeEnd}
         min={distributionData.xVals[0]}
         max={distributionData.xVals[distributionData.xVals.length - 1]}
         step={0.1}
