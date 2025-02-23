@@ -24,7 +24,7 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
     params, showPDF, training, taskType,
   } = parameters;
   const [sliderValue, setSliderValue] = useState<number>();
-  const [selectedPoint, setSelectedPoint] = useState<{x: number, y:number} | null>(null);
+  // const [selectedPoint, setSelectedPoint] = useState<{x: number, y:number} | null>(null);
 
   // Generate distribution data
   const distributionData = useMemo(() => generateDistributionData(params), [params]);
@@ -66,32 +66,33 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
     }
   }, [sliderValue, training, taskType, distributionData]);
 
+  const selectedPoint = useMemo(() => {
+    if (sliderValue === undefined || !distributionData) return null;
+    // Find the closest point on the line for the given x value
+    const index = d3.bisector((d) => d).left(distributionData.xVals, sliderValue);
+    const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
+
+    return {
+      x: distributionData.xVals[index],
+      y: yValues[index],
+    };
+  }, [sliderValue, distributionData, showPDF]);
+
   // Interaction logic
   // Update slider handler to set both slider value and selected point
   const handleSliderChange = useCallback((value: number) => {
     setSliderValue(value);
-    if (!distributionData) return;
 
-    // Find the closest point on the line for the given x value
-    const index = d3.bisector((d) => d).left(distributionData.xVals, value);
-    const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
-
-    if (index >= 0 && index < distributionData.xVals.length) {
-      const point = {
-        x: distributionData.xVals[index],
-        y: yValues[index],
-      };
-      setSelectedPoint(point);
-
+    if (selectedPoint) {
       setAnswer({
         status: true,
         answers: {
-          'location-x': point.x,
-          'location-y': point.y,
+          'location-x': selectedPoint.x,
+          'location-y': selectedPoint.y,
         },
       });
     }
-  }, [distributionData, showPDF, setAnswer]);
+  }, [selectedPoint, setAnswer]);
 
   if (!distributionData) return null;
 
