@@ -13,9 +13,16 @@ export function Line({
   strokeWidth = 2,
 }: LineProps) {
   const { xScale, yScale } = useScales();
+
+  // Add validation
+  if (!data?.length || !xScale || !yScale) {
+    return null;
+  }
+
   const lineGenerator = d3.line<{x:number; y:number}>()
     .x((d) => xScale(d.x))
-    .y((d) => yScale(d.y));
+    .y((d) => yScale(d.y))
+    .defined((d) => !Number.isNaN(d.x) && !Number.isNaN(d.y));
 
   return (
     <path
@@ -23,6 +30,7 @@ export function Line({
       fill="none"
       stroke={strokeColor}
       strokeWidth={strokeWidth}
+      data-source="Line"
     />
   );
 }

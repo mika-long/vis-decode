@@ -57,43 +57,7 @@ function StimuliContent({
 }: StimuliContentProps) {
   const { xScale, yScale } = useScales();
 
-  // find closest point on the line to the clicked position
-  const findClosestPoint = useCallback((
-    clickX: number,
-    clickY: number,
-  ) => {
-    if (!distributionData) return null;
 
-    // convert pixel click coordinates to data space
-    const dataX = xScale.invert(clickX);
-    const dataY = yScale.invert(clickY);
-
-    // Find closest x value in the data
-    const index = d3.bisector((d) => d).left(distributionData.xVals, dataX);
-    const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
-
-    // handle edge cases
-    if (index === 0) return { x: distributionData.xVals[0], y: yValues[0] };
-    if (index >= distributionData.xVals.length) {
-      return {
-        x: distributionData.xVals[distributionData.xVals.length - 1],
-        y: yValues[yValues.length - 1],
-      };
-    }
-
-    // non-edge case
-    const x0 = distributionData.xVals[index - 1];
-    const x1 = distributionData.xVals[index];
-
-    if (!x0 || !x1) return null;
-
-    const closest = Math.abs(dataX - x0) < Math.abs(dataX - x1) ? index - 1 : index;
-    const closestPoint = {
-      x: distributionData.xVals[closest],
-      y: (showPDF ? distributionData.pdfVals : distributionData.cdfVals)[closest],
-    };
-    return closestPoint;
-  }, [distributionData, showPDF, xScale, yScale]);
 
   // Calculate guidelines based on cursor position or selected point
   const guidelines = useMemo(() => {

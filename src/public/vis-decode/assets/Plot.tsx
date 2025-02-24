@@ -63,6 +63,9 @@ export default function Plot({
 
   // Generate line points from distributionData
   const linePoints = useMemo(() => {
+    if (!distributionData?.xVals || !distributionData?.pdfVals || !distributionData?.cdfVals) {
+      return [];
+    }
     const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
     return distributionData.xVals.map((x, i) => ({
       x,
@@ -72,6 +75,7 @@ export default function Plot({
 
   // Draw D3 axes
   useEffect(() => {
+    if (!xScale || !yScale || !xAxisRef.current || !yAxisRef.current) return;
     if (xAxisRef.current) {
       d3.select(xAxisRef.current)
         .call(d3.axisBottom(xScale))
@@ -112,69 +116,28 @@ export default function Plot({
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
     >
-      <Line
-        data={linePoints}
-        strokeColor={strokeColor}
-        strokeWidth={strokeWidth}
-      />
-      <g ref={xAxisRef} />
-      <g ref={yAxisRef} />
-      {axisElements}
-      {/* Interactive elements */}
-      {cursor && <Cursor position={{ x: cursor.x, y: cursor.y }} isNearCurve={cursor.isNearCurve} />}
-      {selectedPoint && <ClickMarker point={selectedPoint} />}
-      {isTraining && guidelines && (
-        <GuideLines
-          xValue={guidelines.x}
-          yValue={guidelines.y}
-          tangentLine={guidelines.tangentLine}
+      <g>
+        <Line
+          data={linePoints}
+          strokeColor={strokeColor}
+          strokeWidth={strokeWidth}
         />
-      )}
-      {/* Additional elements passed as children */}
-      {children}
+        <g ref={xAxisRef} />
+        <g ref={yAxisRef} />
+        {axisElements}
+        {/* Interactive elements */}
+        {cursor && <Cursor position={{ x: cursor.x, y: cursor.y }} isNearCurve={cursor.isNearCurve} />}
+        {selectedPoint && <ClickMarker point={selectedPoint} />}
+        {isTraining && guidelines && (
+          <GuideLines
+            xValue={guidelines.x}
+            yValue={guidelines.y}
+            tangentLine={guidelines.tangentLine}
+          />
+        )}
+        {/* Additional elements passed as children */}
+        {children}
+      </g>
     </svg>
   );
 }
-
-// export default function Plot({
-//   width = 600,
-//   height = 400,
-//   margin = {
-//     top: 20, right: 20, bottom: 40, left: 40,
-//   },
-//   xDomain,
-//   yDomain = [0, 1],
-//   distributionData,
-//   showPDF = true,
-//   isTraining = false,
-//   ...rest
-// }: PlotProps) {
-//   // Calculate domains if not provided
-//   const calculatedXDomain = xDomain || [
-//     distributionData.xVals[0],
-//     distributionData.xVals[distributionData.xVals.length - 1],
-//   ];
-
-//   const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
-//   const calculatedYDomain = yDomain || [
-//     0,
-//     Math.max(...yValues),
-//   ];
-
-//   return (
-//     <ScalesProvider
-//       width={width}
-//       height={height}
-//       margin={margin}
-//       xDomain={calculatedXDomain}
-//       yDomain={calculatedYDomain}
-//     >
-//       <PlotContent
-//         distributionData={distributionData}
-//         showPDF={showPDF}
-//         isTraining={isTraining}
-//         {...rest}
-//       />
-//     </ScalesProvider>
-//   );
-// }
