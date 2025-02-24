@@ -5,4 +5,3 @@ export interface DistributionData {
   pdfVals: number[];
   cdfVals: number[];
 }
-
