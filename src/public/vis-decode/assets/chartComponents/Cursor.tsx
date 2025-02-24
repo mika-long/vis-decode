@@ -1,5 +1,7 @@
-import React from 'react';
-
+/**
+ * @param position: the position of the cursor
+ * @param isNearCurve: boolean value, whether the cursor is near the curve
+ */
 interface CursorProps {
   position: { x: number; y: number } | null;
   isNearCurve: boolean;

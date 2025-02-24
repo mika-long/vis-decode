@@ -1,17 +1,23 @@
 /* eslint-disable no-shadow */
-import { useMemo, useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import * as d3 from 'd3';
+import { ScalesProvider, useScales } from './chartComponents/ScalesContext';
 import { Line } from './chartComponents/Line';
 import Cursor from './chartComponents/Cursor';
 import ClickMarker from './chartComponents/ClickMarker';
+import { DistributionData } from './distributionCalculations';
+import GuideLines from './chartComponents/Guidelines';
 
 interface PlotProps {
   // Data
-  data: Array<{ x: number; y: number }>;
-  // Visualization parameters
+  distributionData: DistributionData;
+  showPDF?: boolean;
+  isTraining?: boolean;
+  // Display settings
   width?: number;
   height?: number;
   margin?: { top: number; right: number; bottom: number; left: number};
+  // Visual customization
   strokeColor?: string;
   strokeWidth?: number;
   axisLabels?: {
@@ -21,68 +27,48 @@ interface PlotProps {
   // Optional domain overrides
   xDomain?: [number, number];
   yDomain?: [number, number];
-  isTraining?: boolean;
-  // interaction handlers
-  onClick?: (event: React.MouseEvent, scales: {
-    xScale: d3.ScaleLinear<number, number>,
-    yScale: d3.ScaleLinear<number, number>
-  }) => void;
-  onMouseMove?: (event: React.MouseEvent, scales: {
-    xScale: d3.ScaleLinear<number, number>,
-    yScale: d3.ScaleLinear<number, number>
-  }) => void;
-  onMouseLeave?: () => void;
-  // Visual elements
+  // Interaction state
+  selectedPoint?: { x: number; y:number } | null;
+  guidelines?: {
+    x: number | null;
+    y: number | null;
+    tangentLine?: {
+      point: { x: number; y: number };
+      slope: number;
+    } | null;
+  };
   cursor?: {x: number; y:number; isNearCurve: boolean} | null;
-  selectedPoint?: {x: number; y:number} | null;
   children?: React.ReactNode;
 }
 
-export function Plot({
-  data,
-  width = 600,
-  height = 400,
-  margin = {
-    top: 20, right: 20, bottom: 40, left: 40,
-  },
+function PlotContent({
+  distributionData,
+  showPDF = true,
+  isTraining = false,
   strokeColor = '#2563eb',
   strokeWidth = 2,
-  isTraining,
   axisLabels,
-  xDomain,
-  yDomain,
-  onClick,
-  onMouseMove,
-  onMouseLeave,
-  cursor,
   selectedPoint,
+  guidelines,
+  cursor,
   children,
-}: PlotProps) {
+}: Omit<PlotProps, 'width' | 'height' | 'margin' | 'xDomain' | 'yDomain'>) {
+  // Get scales from context
+  const {
+    xScale, yScale, width, height, margin,
+  } = useScales();
   // Refs
   const xAxisRef = useRef<SVGGElement>(null);
   const yAxisRef = useRef<SVGGElement>(null);
 
-  const { xScale, yScale } = useMemo(() => {
-    // Calculate domains if not provided
-    const calculatedXDomain = xDomain || [
-      d3.min(data, (d) => d.x) || 0,
-      d3.max(data, (d) => d.x) || 0,
-    ];
-    const calculatedYDomain = yDomain || [
-      d3.min(data, (d) => d.y) || 0,
-      d3.max(data, (d) => d.y) || 0,
-    ];
-    // Create scales
-    const xScale = d3.scaleLinear()
-      .domain(calculatedXDomain)
-      .range([margin.left, width - margin.right]);
-
-    const yScale = d3.scaleLinear()
-      .domain(calculatedYDomain)
-      .range([height - margin.bottom, margin.top]);
-
-    return { xScale, yScale };
-  }, [data, xDomain, yDomain, margin, width, height]);
+  // Generate line points from distributionData
+  const linePoints = useMemo(() => {
+    const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
+    return distributionData.xVals.map((x, i) => ({
+      x,
+      y: yValues[i],
+    }));
+  }, [distributionData, showPDF]);
 
   // Draw D3 axes
   useEffect(() => {
@@ -99,7 +85,7 @@ export function Plot({
   }, [xScale, yScale, margin, height]);
 
   // Axis labels
-  const renderAxisLabels = () => {
+  const axisElements = useMemo(() => {
     if (!axisLabels) return null;
     return (
       <>
@@ -115,30 +101,77 @@ export function Plot({
         )}
       </>
     );
-  };
+  }, [axisLabels, width, height]);
 
   return (
     <svg
       width={width}
       height={height}
-      onClick={(e) => onClick?.(e, { xScale, yScale })}
-      onMouseMove={(e) => onMouseMove?.(e, { xScale, yScale })}
-      onMouseLeave={onMouseLeave}
       style={{ cursor: isTraining ? 'default' : 'none' }} // Hide system cursor
     >
       <Line
-        data={data}
-        xScale={xScale}
-        yScale={yScale}
+        data={linePoints}
         strokeColor={strokeColor}
         strokeWidth={strokeWidth}
       />
       <g ref={xAxisRef} />
       <g ref={yAxisRef} />
-      {renderAxisLabels()}
+      {axisElements}
+      {/* Interactive elements */}
       {cursor && <Cursor position={{ x: cursor.x, y: cursor.y }} isNearCurve={cursor.isNearCurve} />}
-      {selectedPoint && <ClickMarker point={selectedPoint} xScale={xScale} yScale={yScale} />}
+      {selectedPoint && <ClickMarker point={selectedPoint} />}
+      {isTraining && guidelines && (
+        <GuideLines
+          xValue={guidelines.x}
+          yValue={guidelines.y}
+          tangentLine={guidelines.tangentLine}
+        />
+      )}
+      {/* Additional elements passed as children */}
       {children}
     </svg>
+  );
+}
+
+export default function Plot({
+  width = 600,
+  height = 400,
+  margin = {
+    top: 20, right: 20, bottom: 40, left: 40,
+  },
+  xDomain,
+  yDomain = [0, 1],
+  distributionData,
+  showPDF = true,
+  isTraining = false,
+  ...rest
+}: PlotProps) {
+  // Calculate domains if not provided
+  const calculatedXDomain = xDomain || [
+    distributionData.xVals[0],
+    distributionData.xVals[distributionData.xVals.length - 1],
+  ];
+
+  const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
+  const calculatedYDomain = yDomain || [
+    0,
+    Math.max(...yValues),
+  ];
+
+  return (
+    <ScalesProvider
+      width={width}
+      height={height}
+      margin={margin}
+      xDomain={calculatedXDomain}
+      yDomain={calculatedYDomain}
+    >
+      <PlotContent
+        distributionData={distributionData}
+        showPDF={showPDF}
+        isTraining={isTraining}
+        {...rest}
+      />
+    </ScalesProvider>
   );
 }

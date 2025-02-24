@@ -30,7 +30,7 @@ interface ScalesProviderProps {
   children: React.ReactNode;
 }
 
-export function ScalesProvide({
+export function ScalesProvider({
   width,
   height,
   margin,

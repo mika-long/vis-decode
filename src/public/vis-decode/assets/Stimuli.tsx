@@ -5,18 +5,19 @@ import { Container, Button } from '@mantine/core';
 import { initializeTrrack, Registry } from '@trrack/core';
 import { StimulusParams } from '../../../store/types';
 import { generateDistributionData } from './distributionCalculations';
-import { Plot } from './Plot';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { GuideLines } from './chartComponents/Guidelines';
-// import { TaskType } from './TaskTypes';
+import Plot from './Plot';
+import GuideLines from './chartComponents/Guidelines';
+import { useScales } from './chartComponents/ScalesContext';
 
 const chartSettings = {
-  marginBottom: 40,
-  marginLeft: 50,
-  marginTop: 15,
-  marginRight: 15,
   height: 450,
   width: 600,
+  margin: {
+    top: 15,
+    right: 15,
+    left: 50,
+    bottom: 40,
+  },
 };
 
 interface Point {
@@ -31,12 +32,34 @@ interface CursorState {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function Test({ parameters, setAnswer }: StimulusParams<any>) {
+export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) {
   const {
-    data, showPDF, training, taskType,
+    params, showPDF, training, taskType,
   } = parameters;
   const [cursor, setCursor] = useState<CursorState | null>(null);
   const [selectedPoint, setSelectedPoint] = useState<Point | null>(null);
+
+  // Generate distribution data
+  const distributionData = useMemo(() => generateDistributionData(params), [params]);
+
+  const guidelines = useMemo(() => {
+    if (training === false) return null;
+    // Find the index of the closest x value
+    const index = d3.bisector((d) => d).left(distributionData.xVals, selectedPoint);
+
+    switch (taskType) {
+      case 'pdf_median':
+        return { x: sliderValue, y: null, tangentLine: null };
+      case 'pdf_mode':
+        return null;
+      case 'cdf_median':
+        return null;
+      case 'cdf_mode':
+        return null;
+      default:
+        return null;
+    }
+  }, [sliderValue, training, taskType, distributionData]);
 
   // Provenance related
   const { actions, trrack } = useMemo(() => {
@@ -58,46 +81,6 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
       trrack: trrackInst,
     };
   }, []);
-
-  // data generation
-  const distributionData = useMemo(() => generateDistributionData(data), [data]);
-
-  // generate line points
-  const linePoints = useMemo(() => {
-    if (!distributionData) return [];
-
-    const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
-    return distributionData.xVals.map((x, i) => ({
-      x,
-      y: yValues[i],
-    }));
-  }, [distributionData, showPDF]);
-
-  // Create scales outside of Plot component so they can be shared
-  const { xScale, yScale } = useMemo(() => {
-    if (!distributionData) return { xScale: null, yScale: null };
-
-    const calculatedXDomain = [
-      d3.min(distributionData.xVals) || 0,
-      d3.max(distributionData.xVals) || 0,
-    ];
-    // Fixed y-domain to [0,1] by default
-    const calculatedYDomain = showPDF
-      ? [0, d3.max(distributionData.pdfVals) || 0]
-      // : [0, d3.max(distributionData.cdfVals) || 0];
-      : [0, 1]; // CDF is always [0, 1]
-
-    // const calculatedYDomain = [0, 1];
-    const xScale = d3.scaleLinear()
-      .domain(calculatedXDomain)
-      .range([chartSettings.marginLeft, chartSettings.width - chartSettings.marginRight]);
-
-    const yScale = d3.scaleLinear()
-      .domain(calculatedYDomain)
-      .range([chartSettings.height - chartSettings.marginBottom, chartSettings.marginTop]);
-
-    return { xScale, yScale };
-  }, [distributionData, showPDF]);
 
   // Interaction logic
   // find closest point on the line to the clicked position
@@ -133,39 +116,6 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
     };
     return closestPoint;
   }, [distributionData, showPDF]);
-
-  // // Update slider handler to set both slider value and selected point
-  // const handleSliderChange = useCallback((value: number) => {
-  //   setSliderValue(value);
-  //   if (!distributionData) return;
-
-  //   // Find the closest point on the line for the given x value
-  //   const index = d3.bisector((d) => d).left(distributionData.xVals, value);
-  //   const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
-
-  //   if (index >= 0 && index < distributionData.xVals.length) {
-  //     const point = {
-  //       x: distributionData.xVals[index],
-  //       y: yValues[index],
-  //     };
-  //     setSelectedPoint(point);
-
-  //     // Update provenance and answer
-  //     trrack.apply('Slider moved', actions.clickAction({
-  //       clickX: point.x,
-  //       clickY: point.y,
-  //     }));
-
-  //     setAnswer({
-  //       status: true,
-  //       provenanceGraph: trrack.graph.backend,
-  //       answers: {
-  //         'location-x': point.x,
-  //         'location-y': point.y,
-  //       },
-  //     });
-  //   }
-  // }, [distributionData, showPDF, actions, trrack, setAnswer]);
 
   // Mouse move handler
   const handlePlotMouseMove = useCallback((
@@ -254,65 +204,28 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
     });
   }, [setAnswer]);
 
-  // slider related code
-  // {training && hasSlider && (
-  //   <div style={{ width: chartSettings.width, marginBottom: '2em' }}>
-  //     <Slider
-  //       value={sliderValue}
-  //       onChange={handleSliderChange}
-  //       min={distributionData?.xVals[0]}
-  //       max={distributionData?.xVals[distributionData.xVals.length - 1]}
-  //       step={0.1}
-  //       label={(value) => value.toFixed(2)}
-  //       className="mb-4"
-  //       styles={{
-  //         root: { width: '100%' },
-  //         track: { width: '100%' },
-  //       }}
-  //     />
-  //   </div>
-  // )}
-
   return (
     <Container p="md">
       <div className="mt-4">
         <Plot
-          data={linePoints}
+          distributionData={distributionData}
           width={chartSettings.width}
           height={chartSettings.height}
-          margin={{
-            top: chartSettings.marginTop,
-            right: chartSettings.marginRight,
-            left: chartSettings.marginLeft,
-            bottom: chartSettings.marginBottom,
-          }}
+          margin={chartSettings.margin}
+          isTraining={training}
+          showPDF={showPDF}
           yDomain={[0, 1]}
           onClick={handlePlotClick}
           onMouseMove={handlePlotMouseMove}
           onMouseLeave={handleMouseLeave}
           cursor={cursor}
           selectedPoint={selectedPoint}
-          isTraining={training}
-        >
-          {xScale && yScale && (
-            <GuideLines
-              xScale={xScale}
-              yScale={yScale}
-              width={chartSettings.width}
-              height={chartSettings.height}
-              margin={{
-                top: chartSettings.marginTop,
-                right: chartSettings.marginRight,
-                left: chartSettings.marginLeft,
-                bottom: chartSettings.marginBottom,
-              }}
-              taskType={taskType}
-              training={training}
-              selectedPoint={selectedPoint}
-              distributionData={distributionData}
-            />
-          )}
-        </Plot>
+          guidelines={guidelines}
+          axisLabels={{
+            x: 'Value',
+            y: showPDF ? 'Density' : 'Cumulative Probability',
+          }}
+        />
         <Button
           onClick={handleClearPoint}
           mt="md"
@@ -324,4 +237,3 @@ function Test({ parameters, setAnswer }: StimulusParams<any>) {
   );
 }
 
-export default Test;

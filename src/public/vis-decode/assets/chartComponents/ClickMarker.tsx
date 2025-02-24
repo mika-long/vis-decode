@@ -1,33 +1,21 @@
+import { useScales } from './ScalesContext';
+
 interface ClickMarkerProps {
     point: { x: number; y: number } | null;
-    xScale: d3.ScaleLinear<number, number>;
-    yScale: d3.ScaleLinear<number, number>;
 }
 
-export default function ClickMarker({ point, xScale, yScale }: ClickMarkerProps) {
+export default function ClickMarker({ point }: ClickMarkerProps) {
+  const { xScale, yScale } = useScales();
   if (!point) return null;
 
   return (
-    <>
-      <circle
-        cx={xScale(point.x)}
-        cy={yScale(point.y)}
-        r={4}
-        fill="#ff0000"
-        pointerEvents="none"
-        data-source="ClickMarker"
-      />
-      {/* <line
-        x1={xScale.range()[0]}
-        x2={xScale.range()[1]}
-        y1={yScale(point.y)}
-        y2={yScale(point.y)}
-        stroke="#2563eb"
-        strokeWidth={1}
-        strokeDasharray="4"
-        opacity={0.5}
-        pointerEvents="none"
-      /> */}
-    </>
+    <circle
+      cx={xScale(point.x)}
+      cy={yScale(point.y)}
+      r={4}
+      fill="#ff0000"
+      pointerEvents="none"
+      data-source="ClickMarker"
+    />
   );
 }
