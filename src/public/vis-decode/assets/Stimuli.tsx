@@ -1,8 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as d3 from 'd3';
-import { useCallback, useMemo, useState } from 'react';
-import { Container, Button } from '@mantine/core';
+import {
+  useCallback, useEffect, useMemo, useState,
+} from 'react';
+import {
+  Container, Button, Text, Space,
+} from '@mantine/core';
 import { initializeTrrack, Registry } from '@trrack/core';
 import { StimulusParams } from '../../../store/types';
 import { generateDistributionData } from './distributionCalculations';
@@ -32,6 +36,22 @@ interface CursorState {
   isNearCurve: boolean;
 }
 
+interface DistributionParams {
+  xi: number;
+  omega: number;
+  nu: number;
+  alpha: number;
+}
+
+function generateRandomParams(): DistributionParams {
+  return {
+    xi: Math.random() * 2 - 1,
+    omega: 0.5 + Math.random() * 1.5,
+    nu: 3 + Math.floor(Math.random() * 20),
+    alpha: Math.random() * 2 - 1,
+  };
+}
+
 interface StimuliContentProps {
   distributionData: any;
   showPDF: boolean;
@@ -42,6 +62,7 @@ interface StimuliContentProps {
   selectedPoint: Point | null;
   setSelectedPoint: (point: Point | null) => void;
   setAnswer: (answer: { status: boolean; answers: any }) => void;
+  randomParams: DistributionParams;
 }
 
 // Component moved outside
@@ -55,6 +76,7 @@ function StimuliContent({
   selectedPoint,
   setSelectedPoint,
   setAnswer,
+  randomParams,
 }: StimuliContentProps) {
   // Scales from context
   const { xScale, yScale } = useScales();
@@ -71,7 +93,15 @@ function StimuliContent({
     yScale,
     setSelectedPoint,
     setCursor,
-    setAnswer,
+    setAnswer: (answerData) => {
+      setAnswer({
+        status: answerData.status,
+        answers: {
+          ...answerData.answers,
+          randomParams,
+        },
+      });
+    },
   });
 
   // Calculate guidelines based on cursor position or selected point
@@ -160,11 +190,23 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
   const {
     params, showPDF, training, taskType,
   } = parameters;
+  // State for randomized parameters
+  const [randomParams, setRandomParams] = useState<DistributionParams>(() => generateRandomParams());
   const [cursor, setCursor] = useState<CursorState | null>(null);
   const [selectedPoint, setSelectedPoint] = useState<Point | null>(null);
+  const [userAnswer, setUserAnswer] = useState<any>(null);
+
+  // Generate a new set of random parameters
+  const regenerateParams = useCallback(() => {
+    const newParams = generateRandomParams();
+    setRandomParams(newParams);
+    // Reset the selected point and answer when parameters change
+    setSelectedPoint(null);
+    setUserAnswer(null);
+  }, []);
 
   // Generate distribution data
-  const distributionData = useMemo(() => generateDistributionData(params), [params]);
+  const distributionData = useMemo(() => generateDistributionData(randomParams), [randomParams]);
 
   // Calculate domains for scales - ensure they are tuples
   const xDomain: [number, number] = useMemo(() => [
@@ -179,9 +221,44 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
     setSelectedPoint(null);
     setAnswer({
       status: false,
-      answers: {},
+      answers: {
+        randomParams,
+      },
     });
-  }, [setAnswer]);
+  }, [setAnswer, randomParams]);
+
+  // Custom setAnswer wrapper to track both the user's answer and the parameters
+  const handleSetAnswer = useCallback((answerData: { status: boolean; answers: any }) => {
+    setUserAnswer(answerData.answers);
+    // Format the answers to match config.json
+    const formattedAnswers = {
+      ...answerData.answers,
+      'param-xi': randomParams.xi,
+      'param-omega': randomParams.omega,
+      'param-nu': randomParams.nu,
+      'param-alpha': randomParams.alpha,
+      // 'taskType': taskType,
+      // 'taskid': taskid
+    };
+
+    setAnswer({
+      status: answerData.status,
+      answers: formattedAnswers,
+    });
+  }, [setAnswer, randomParams]);
+
+  // Initial answer setup to track parameters even before user interaction
+  useEffect(() => {
+    setAnswer({
+      status: false,
+      answers: {
+        'param-xi': randomParams.xi,
+        'param-omega': randomParams.omega,
+        'param-nu': randomParams.nu,
+        'param-alpha': randomParams.alpha,
+      },
+    });
+  }, [randomParams, setAnswer]);
 
   return (
     <Container p="md">
@@ -203,6 +280,7 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
             selectedPoint={selectedPoint}
             setSelectedPoint={setSelectedPoint}
             setAnswer={setAnswer}
+            randomParams={randomParams}
           />
         </ScalesProvider>
         <Button
@@ -211,6 +289,22 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
         >
           Clear Point
         </Button>
+        {/* Optional debug information */}
+        <Space h="xl" />
+        <Text size="md" c="dimmed">
+          Debug - Random Parameters:
+          xi=
+          {randomParams.xi.toFixed(2)}
+          ,
+          omega=
+          {randomParams.omega.toFixed(2)}
+          ,
+          nu=
+          {randomParams.nu}
+          ,
+          alpha=
+          {randomParams.alpha.toFixed(2)}
+        </Text>
       </div>
     </Container>
   );

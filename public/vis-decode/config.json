@@ -87,7 +87,6 @@
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
             "required": true, 
-            "location": "belowStimulus",
             "type": "iframe", 
             "hidden": true
           }, 
@@ -96,6 +95,34 @@
             "prompt": "The y-axis location of your click", 
             "required": false, 
             "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-xi",
+            "prompt": "Random parameter xi",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
+          },
+          {
+            "id": "param-omega",
+            "prompt": "Random parameter omega",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
+          },
+          {
+            "id": "param-nu",
+            "prompt": "Random parameter nu",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
+          },
+          {
+            "id": "param-xi",
+            "prompt": "Random parameter alpha",
+            "required": false,
+            "type": "iframe",
             "hidden": true
           }
         ]
@@ -127,6 +154,34 @@
             "required": false, 
             "type": "iframe", 
             "hidden": true
+          },
+          {
+            "id": "param-xi",
+            "prompt": "Random parameter xi",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
+          },
+          {
+            "id": "param-omega",
+            "prompt": "Random parameter omega",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
+          },
+          {
+            "id": "param-nu",
+            "prompt": "Random parameter nu",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
+          },
+          {
+            "id": "param-xi",
+            "prompt": "Random parameter alpha",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
           }
         ]
       }, 
@@ -157,6 +212,34 @@
             "required": false, 
             "type": "iframe", 
             "hidden": true
+          },
+          {
+            "id": "param-xi",
+            "prompt": "Random parameter xi",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
+          },
+          {
+            "id": "param-omega",
+            "prompt": "Random parameter omega",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
+          },
+          {
+            "id": "param-nu",
+            "prompt": "Random parameter nu",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
+          },
+          {
+            "id": "param-xi",
+            "prompt": "Random parameter alpha",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
           }
         ]
       },
@@ -186,6 +269,34 @@
             "prompt": "The y-axis location of your click", 
             "required": false, 
             "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-xi",
+            "prompt": "Random parameter xi",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
+          },
+          {
+            "id": "param-omega",
+            "prompt": "Random parameter omega",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
+          },
+          {
+            "id": "param-nu",
+            "prompt": "Random parameter nu",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
+          },
+          {
+            "id": "param-xi",
+            "prompt": "Random parameter alpha",
+            "required": false,
+            "type": "iframe",
             "hidden": true
           }
         ]
@@ -218,6 +329,34 @@
             "required": false, 
             "type": "iframe", 
             "hidden": true
+          },
+          {
+            "id": "param-xi",
+            "prompt": "Random parameter xi",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
+          },
+          {
+            "id": "param-omega",
+            "prompt": "Random parameter omega",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
+          },
+          {
+            "id": "param-nu",
+            "prompt": "Random parameter nu",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
+          },
+          {
+            "id": "param-xi",
+            "prompt": "Random parameter alpha",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
           }
         ]
       }, 
@@ -248,6 +387,34 @@
             "prompt": "The y-axis location of your click", 
             "required": false, 
             "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-xi",
+            "prompt": "Random parameter xi",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
+          },
+          {
+            "id": "param-omega",
+            "prompt": "Random parameter omega",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
+          },
+          {
+            "id": "param-nu",
+            "prompt": "Random parameter nu",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
+          },
+          {
+            "id": "param-xi",
+            "prompt": "Random parameter alpha",
+            "required": false,
+            "type": "iframe",
             "hidden": true
           }
         ]
@@ -310,6 +477,34 @@
             "prompt": "The y-axis location of your click", 
             "required": false, 
             "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-xi",
+            "prompt": "Random parameter xi",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
+          },
+          {
+            "id": "param-omega",
+            "prompt": "Random parameter omega",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
+          },
+          {
+            "id": "param-nu",
+            "prompt": "Random parameter nu",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
+          },
+          {
+            "id": "param-xi",
+            "prompt": "Random parameter alpha",
+            "required": false,
+            "type": "iframe",
             "hidden": true
           }
         ]
