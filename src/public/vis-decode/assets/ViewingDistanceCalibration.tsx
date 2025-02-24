@@ -1,7 +1,7 @@
-/* eslint-disable react/jsx-indent */
-/* eslint-disable react/jsx-closing-tag-location */
 /* eslint-disable react/jsx-one-expression-per-line */
-import React, { useState, useRef, useEffect } from 'react';
+import {
+  useState, useRef, useEffect, useMemo,
+} from 'react';
 import {
   Stack, List, Text, Container,
 } from '@mantine/core';
@@ -29,7 +29,7 @@ export default function ViewingDistanceCalibration({ parameters, setAnswer }: St
   const [clickCount, setClickCount] = useState<number>(5);
 
   // Calculate viewing distance function
-  const calculateViewingDistance = (positions: number[]) => {
+  const calculateViewingDistance = useMemo((positions: number[]) => {
     if (!positions.length || !pixelsPerMM || !squareRef.current) return;
 
     const avgBallPos = positions.reduce((a, b) => a + b, 0) / positions.length;
@@ -40,7 +40,7 @@ export default function ViewingDistanceCalibration({ parameters, setAnswer }: St
 
     setViewingDistance(viewDistance);
     setIsTracking(false);
-  };
+  }, [blindspotAngle, pixelsPerMM]);
 
   // Reset ball to starting position
   const resetBall = () => {
@@ -50,7 +50,7 @@ export default function ViewingDistanceCalibration({ parameters, setAnswer }: St
   };
 
   // Animation control functions
-  const startBlindspotTracking = () => {
+  const startBlindspotTracking = useMemo(() => {
     if (!ballRef.current || !squareRef.current || !pixelsPerMM || ballPositions.length >= 5) return;
     setIsTracking(true);
 
@@ -86,7 +86,7 @@ export default function ViewingDistanceCalibration({ parameters, setAnswer }: St
     };
 
     animationFrameRef.current = requestAnimationFrame(animateBall);
-  };
+  }, [ballPositions, pixelsPerMM]);
 
   const stopTracking = () => {
     if (animationFrameRef.current) {
@@ -136,7 +136,7 @@ export default function ViewingDistanceCalibration({ parameters, setAnswer }: St
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [isTracking]);
+  }, [isTracking, calculateViewingDistance, startBlindspotTracking]);
 
   // Reset state when pixelsPerMM changes
   useEffect(() => {
@@ -173,8 +173,7 @@ export default function ViewingDistanceCalibration({ parameters, setAnswer }: St
             <List.Item>Put your left hand on the <b>space bar</b>.</List.Item>
             <List.Item>Cover your right eye with your right hand.</List.Item>
             <List.Item>Using your left eye, focus on the black square. Keep your focus on the black square.</List.Item>
-            <List.Item>The <span style={{ color: 'red', fontWeight: 'bold' }}>red ball</span> will disappear as it moves from right to left.
-            Press the space bar as soon as the ball disappears.</List.Item>
+            <List.Item>The <span style={{ color: 'red', fontWeight: 'bold' }}>red ball</span> will disappear as it moves from right to left. Press the space bar as soon as the ball disappears.</List.Item>
           </List>
           <Text ta="center">
             {ballPositions.length >= 5

@@ -1,20 +1,16 @@
 /* eslint-disable no-shadow */
 import { useEffect, useRef, useMemo } from 'react';
 import * as d3 from 'd3';
-import { ScalesProvider, useScales } from './chartComponents/ScalesContext';
+import { useScales } from './chartComponents/ScalesContext';
 import Line from './chartComponents/Line';
 import ClickMarker from './chartComponents/ClickMarker';
 import GuideLines from './chartComponents/Guidelines';
-import { DistributionData } from '../dataGeneration/distributionCalculations';
+import { DistributionData } from './dataGeneration/distributionCalculations';
 
 interface PlotProps {
   // Data
   distributionData: DistributionData;
   showPDF?: boolean;
-  // Display settings
-  width?: number;
-  height?: number;
-  margin?: { top: number; right: number; bottom: number; left: number};
   // Visual customization
   strokeColor?: string;
   strokeWidth?: number;
@@ -32,16 +28,13 @@ interface PlotProps {
       slope: number;
     } | null;
   } | null;
-  // Optional domain overrides
-  xDomain?: [number, number];
-  yDomain?: [number, number];
   // Flag for whether this plot is for training
   isTraining?: boolean;
   // Additional stuff
   children?: React.ReactNode;
 }
 
-function PlotContent({
+export default function Plot({
   distributionData,
   showPDF = true,
   strokeColor = '#2563eb',
@@ -51,11 +44,12 @@ function PlotContent({
   selectedPoint,
   guidelines,
   children,
-}: Omit<PlotProps, 'width' | 'height' | 'margin' | 'xDomain' | 'yDomain'>) {
-  // Get scales from Context
+}: PlotProps) {
+  // Get scales from Context that is now provided at a higher level
   const {
     xScale, yScale, width, height, margin,
   } = useScales();
+
   // Refs
   const xAxisRef = useRef<SVGGElement>(null);
   const yAxisRef = useRef<SVGGElement>(null);
@@ -128,48 +122,5 @@ function PlotContent({
       {/* Additional elements passed as children */}
       {children}
     </svg>
-  );
-}
-
-export default function Plot({
-  width = 600,
-  height = 400,
-  margin = {
-    top: 20, right: 20, bottom: 40, left: 40,
-  },
-  xDomain,
-  yDomain = [0, 1],
-  distributionData,
-  showPDF = true,
-  isTraining = false,
-  ...rest
-}: PlotProps) {
-  // Calculate domains if not provided
-  const calculatedXDomain = xDomain || [
-    distributionData.xVals[0],
-    distributionData.xVals[distributionData.xVals.length - 1],
-  ];
-
-  const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
-  const calculatedYDomain = yDomain || [
-    0,
-    Math.max(...yValues),
-  ];
-
-  return (
-    <ScalesProvider
-      width={width}
-      height={height}
-      margin={margin}
-      xDomain={calculatedXDomain}
-      yDomain={calculatedYDomain}
-    >
-      <PlotContent
-        distributionData={distributionData}
-        showPDF={showPDF}
-        isTraining={isTraining}
-        {...rest}
-      />
-    </ScalesProvider>
   );
 }

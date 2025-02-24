@@ -1,11 +1,14 @@
 /* eslint-disable no-shadow */
 import * as d3 from 'd3';
-import { useCallback, useMemo, useState } from 'react';
+import {
+  useCallback, useEffect, useMemo, useState,
+} from 'react';
 import { Container, Space } from '@mantine/core';
 import { StimulusParams } from '../../../store/types';
-import { generateDistributionData } from '../dataGeneration/distributionCalculations';
+import { generateDistributionData } from './dataGeneration/distributionCalculations';
 import Plot from './Plot';
 import DistributionSlider from './chartComponents/DistributionSlider';
+import { ScalesProvider } from './chartComponents/ScalesContext';
 
 const chartSettings = {
   margin: {
@@ -18,17 +21,59 @@ const chartSettings = {
   width: 600,
 };
 
+interface DistributionParams {
+  xi: number;
+  omega: number;
+  nu: number;
+  alpha: number;
+}
+
+function generateRandomParams(): DistributionParams {
+  return {
+    xi: Math.random() * 8 - 4,
+    omega: 0.2 + Math.random() * 2.3,
+    nu: 3 + Math.floor(Math.random() * 22),
+    alpha: Math.random() * 8 - 4,
+  };
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) {
   const {
-    params, showPDF, training, taskType,
+    params: initialParams, showPDF, training, taskType,
   } = parameters;
   const [sliderValue, setSliderValue] = useState<number>();
-  // const [selectedPoint, setSelectedPoint] = useState<{x: number, y:number} | null>(null);
+  const [currentParams, setCurrentParams] = useState<DistributionParams>(initialParams || generateRandomParams());
 
   // Generate distribution data
-  const distributionData = useMemo(() => generateDistributionData(params), [params]);
-  // Generate guidelinse based on task type and slider value
+  const distributionData = useMemo(() => generateDistributionData(currentParams), [currentParams]);
+
+  // // Set domain for scales
+  // const xDomain = [-5, 5];
+  // const yDomain = [0, 1];
+
+  // Initialize the parameters when component mounts if not provided
+  useEffect(() => {
+    if (!initialParams || Object.keys(initialParams).length === 0) {
+      const newParams = generateRandomParams();
+      setCurrentParams(newParams);
+
+      // Record the answer
+      setAnswer({
+        status: true,
+        answers: {
+          'param-xi': newParams.xi,
+          'param-omega': newParams.omega,
+          'param-nu': newParams.nu,
+          'param-alpha': newParams.alpha,
+          'location-x': null,
+          'location-y': null,
+          'pixel-x': null,
+          'pixel-y': null,
+        },
+      });
+    }
+  }, [initialParams, setAnswer]);
 
   const guidelines = useMemo(() => {
     if (sliderValue === undefined || training === false) return null;
@@ -78,6 +123,28 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
     };
   }, [sliderValue, distributionData, showPDF]);
 
+  // // Handler to generate new random parameters
+  // const handleGenerateNew = useCallback(() => {
+  //   const newParams = generateRandomParams();
+  //   setCurrentParams(newParams);
+  //   setSliderValue(undefined); // reset slider
+
+  //   // Record the answer
+  //   setAnswer({
+  //     status: true,
+  //     answers: {
+  //       'param-xi': newParams.xi,
+  //       'param-omega': newParams.omega,
+  //       'param-nu': newParams.nu,
+  //       'param-alpha': newParams.alpha,
+  //       'location-x': null,
+  //       'location-y': null,
+  //       'pixel-x': null,
+  //       'pixel-y': null,
+  //     },
+  //   });
+  // }, [setAnswer]);
+
   // Interaction logic
   // Update slider handler to set both slider value and selected point
   const handleSliderChange = useCallback((value: number) => {
@@ -99,38 +166,46 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
       answers: {
         'location-x': newSelectedPoint.x,
         'location-y': newSelectedPoint.y,
+        'param-xi': currentParams.xi,
+        'param-omega': currentParams.omega,
+        'param-nu': currentParams.nu,
+        'param-alpha': currentParams.alpha,
       },
     });
-  }, [distributionData, showPDF, setAnswer]);
+  }, [distributionData, showPDF, setAnswer, currentParams]);
 
   if (!distributionData) return null;
 
   return (
     <Container p="md">
       <div className="mt-4">
-        <DistributionSlider
-          value={sliderValue ?? 0}
-          onChange={handleSliderChange}
-          onChangeEnd={handleSliderCommit}
-          distributionData={distributionData}
-          width={chartSettings.width - chartSettings.margin.left - chartSettings.margin.right}
-        />
-        <Space h="lg" />
-        <Plot
-          distributionData={distributionData}
-          showPDF={showPDF}
+        <ScalesProvider
           width={chartSettings.width}
           height={chartSettings.height}
           margin={chartSettings.margin}
+          xDomain={[-5, 5]}
           yDomain={[0, 1]}
-          isTraining={training}
-          selectedPoint={selectedPoint}
-          guidelines={guidelines}
-          axisLabels={{
-            x: 'Value',
-            y: showPDF ? 'Density' : 'Cumulative Probability',
-          }}
-        />
+        >
+          <DistributionSlider
+            value={sliderValue ?? 0}
+            onChange={handleSliderChange}
+            onChangeEnd={handleSliderCommit}
+            distributionData={distributionData}
+            width={chartSettings.width - chartSettings.margin.left - chartSettings.margin.right}
+          />
+          <Space h="lg" />
+          <Plot
+            distributionData={distributionData}
+            showPDF={showPDF}
+            isTraining={training}
+            selectedPoint={selectedPoint}
+            guidelines={guidelines}
+            axisLabels={{
+              x: 'Value',
+              y: showPDF ? 'Density' : 'Cumulative Probability',
+            }}
+          />
+        </ScalesProvider>
       </div>
     </Container>
   );
