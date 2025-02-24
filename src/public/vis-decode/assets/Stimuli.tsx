@@ -9,7 +9,7 @@ import {
 } from '@mantine/core';
 import { initializeTrrack, Registry } from '@trrack/core';
 import { StimulusParams } from '../../../store/types';
-import { generateDistributionData } from './distributionCalculations';
+import { generateDistributionData } from './dataGeneration/libRDistributionCalculations';
 import Plot from './Plot';
 import { ScalesProvider, useScales } from './chartComponents/ScalesContext';
 import { useChartInteractions } from './hooks/useChartInteractions';
@@ -267,9 +267,10 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
           width={chartSettings.width}
           height={chartSettings.height}
           margin={chartSettings.margin}
-          xDomain={xDomain}
+          xDomain={[-5, 5]}
           // yDomain={yDomain}
-          yDomain={[-5, 5]}
+          // xDomain={xDomain}
+          yDomain={[0, 1]}
         >
           <StimuliContent
             distributionData={distributionData}
