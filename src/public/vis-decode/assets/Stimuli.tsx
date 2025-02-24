@@ -219,6 +219,7 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
   // Handle clear point
   const handleClearPoint = useCallback(() => {
     setSelectedPoint(null);
+    // console.log(randomParams);
     setAnswer({
       status: false,
       answers: {
@@ -279,7 +280,7 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
             setCursor={setCursor}
             selectedPoint={selectedPoint}
             setSelectedPoint={setSelectedPoint}
-            setAnswer={setAnswer}
+            setAnswer={handleSetAnswer}
             randomParams={randomParams}
           />
         </ScalesProvider>
