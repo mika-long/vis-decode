@@ -45,10 +45,10 @@ interface DistributionParams {
 
 function generateRandomParams(): DistributionParams {
   return {
-    xi: Math.random() * 2 - 1,
-    omega: 0.5 + Math.random() * 1.5,
-    nu: 3 + Math.floor(Math.random() * 20),
-    alpha: Math.random() * 2 - 1,
+    xi: Math.random() * 8 - 4,
+    omega: 0.2 + Math.random() * 2.3,
+    nu: 3 + Math.floor(Math.random() * 22),
+    alpha: Math.random() * 8 - 4,
   };
 }
 
@@ -219,7 +219,6 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
   // Handle clear point
   const handleClearPoint = useCallback(() => {
     setSelectedPoint(null);
-    // console.log(randomParams);
     setAnswer({
       status: false,
       answers: {
@@ -269,7 +268,8 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
           height={chartSettings.height}
           margin={chartSettings.margin}
           xDomain={xDomain}
-          yDomain={yDomain}
+          // yDomain={yDomain}
+          yDomain={[-5, 5]}
         >
           <StimuliContent
             distributionData={distributionData}
