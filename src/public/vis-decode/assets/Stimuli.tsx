@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 import { useCallback, useMemo, useState } from 'react';
 import { Container, Space } from '@mantine/core';
 import { StimulusParams } from '../../../store/types';
-import { generateDistributionData } from './distributionCalculations';
+import { generateDistributionData } from '../dataGeneration/distributionCalculations';
 import Plot from './Plot';
 import DistributionSlider from './chartComponents/DistributionSlider';
 
