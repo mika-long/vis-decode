@@ -24,7 +24,8 @@ interface UseChartInteractionProps {
   setCursor: (cursor: CursorState | null) => void;
   setAnswer: (answer: { status: boolean; answers: any }) => void;
 }
-export function useChartInteraction({
+
+export function useChartInteractions({
   distributionData,
   showPDF,
   xScale,

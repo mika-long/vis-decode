@@ -8,6 +8,7 @@ import { StimulusParams } from '../../../store/types';
 import { generateDistributionData } from './distributionCalculations';
 import Plot from './Plot';
 import { ScalesProvider, useScales } from './chartComponents/ScalesContext';
+import { useChartInteractions } from './hooks/useChartInteractions';
 
 const chartSettings = {
   height: 450,
@@ -55,9 +56,23 @@ function StimuliContent({
   setSelectedPoint,
   setAnswer,
 }: StimuliContentProps) {
+  // Scales from context
   const { xScale, yScale } = useScales();
-
-
+  // Use the chart interaction hooks
+  const {
+    handleMouseMove,
+    handleClick,
+    handleMouseLeave,
+    findClosestPoint,
+  } = useChartInteractions({
+    distributionData,
+    showPDF,
+    xScale,
+    yScale,
+    setSelectedPoint,
+    setCursor,
+    setAnswer,
+  });
 
   // Calculate guidelines based on cursor position or selected point
   const guidelines = useMemo(() => {
@@ -119,82 +134,13 @@ function StimuliContent({
     }
   }, [cursor, selectedPoint, training, taskType, distributionData, findClosestPoint]);
 
-  // Mouse move handler
-  const handlePlotMouseMove = useCallback((
-    event: React.MouseEvent,
-  ) => {
-    if (!distributionData) return;
-    // Get SVG coordinates from mouse position
-    const svg = event.currentTarget as SVGSVGElement;
-    const pt = new DOMPoint();
-    pt.x = event.clientX;
-    pt.y = event.clientY;
-    const ctm = svg.getScreenCTM()?.inverse();
-    if (!ctm) return;
-    const svgPoint = pt.matrixTransform(ctm);
-
-    // proximity check
-    const closestPoint = findClosestPoint(svgPoint.x, svgPoint.y);
-    if (!closestPoint) return;
-
-    const isNear = Math.abs(svgPoint.y - yScale(closestPoint.y)) <= 10;
-    setCursor({
-      x: svgPoint.x,
-      y: svgPoint.y,
-      isNearCurve: isNear,
-    });
-  }, [distributionData, findClosestPoint, yScale, setCursor]);
-
-  // Click handler
-  const handlePlotClick = useCallback((
-    event: React.MouseEvent,
-  ) => {
-    if (!distributionData) return;
-
-    // Get svg coordinates
-    const svg = event.currentTarget as SVGSVGElement;
-    const pt = new DOMPoint();
-    pt.x = event.clientX;
-    pt.y = event.clientY;
-    const ctm = svg.getScreenCTM()?.inverse();
-    if (!ctm) return;
-    const svgPoint = pt.matrixTransform(ctm);
-
-    const closestPoint = findClosestPoint(svgPoint.x, svgPoint.y);
-    if (!closestPoint) return;
-
-    // Check proximity to line
-    const distance = Math.abs(svgPoint.y - yScale(closestPoint.y));
-    if (distance <= 5) {
-      // update point
-      setSelectedPoint(closestPoint);
-      setAnswer({
-        status: true,
-        answers: {
-          'location-x': closestPoint.x,
-          'location-y': closestPoint.y,
-        },
-      });
-    } else {
-      setAnswer({
-        status: false,
-        answers: {},
-      });
-    }
-  }, [distributionData, findClosestPoint, yScale, setSelectedPoint, setAnswer]);
-
-  // Handle mouse leave
-  const handleMouseLeave = useCallback(() => {
-    setCursor(null);
-  }, [setCursor]);
-
   return (
     <Plot
       distributionData={distributionData}
       isTraining={training}
       showPDF={showPDF}
-      onClick={handlePlotClick}
-      onMouseMove={handlePlotMouseMove}
+      onClick={handleClick}
+      onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       cursor={cursor}
       selectedPoint={selectedPoint}

@@ -33,8 +33,8 @@ interface PlotProps {
   cursor?: {x: number; y:number; isNearCurve: boolean} | null;
   children?: React.ReactNode;
   // Event handlers
-  onClick?: (event: React.MouseEvent) => void;
-  onMouseMove?: (event: React.MouseEvent) => void;
+  onClick?: (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => void;
+  onMouseMove?: (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => void;
   onMouseLeave?: () => void;
 }
 
