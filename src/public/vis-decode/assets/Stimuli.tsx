@@ -102,10 +102,11 @@ function StimuliContent({
         return {
           x: point.x,
           y: null,
-          tangentLine: {
-            point,
-            slope,
-          },
+          // tangentLine: {
+          //   point,
+          //   slope,
+          // },
+          tangentLine: null,
         };
       }
       case 'pdf_mode':
@@ -116,13 +117,15 @@ function StimuliContent({
         };
       case 'cdf_median':
         return {
-          x: point.x,
+          // x: point.x,
+          x: null,
           y: 0.5,
           tangentLine: null,
         };
       case 'cdf_mode':
         return {
-          x: point.x,
+          // x: point.x,
+          x: null,
           y: null,
           tangentLine: {
             point,

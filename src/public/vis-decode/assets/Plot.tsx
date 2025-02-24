@@ -111,7 +111,8 @@ export default function Plot({
     <svg
       width={width}
       height={height}
-      style={{ cursor: isTraining ? 'default' : 'none' }} // Hide system cursor
+      // style={{ cursor: isTraining ? 'default' : 'none' }} // Hide system cursor
+      style={{ cursor: 'none' }}
       onClick={onClick}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
