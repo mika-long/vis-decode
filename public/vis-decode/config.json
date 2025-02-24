@@ -72,7 +72,7 @@
       },
       "PDF-Median-Test": {
         "type": "react-component", 
-        "path": "vis-decode/assets/Test.tsx", 
+        "path": "vis-decode/assets/Stimuli.tsx", 
         "instruction": "Find and click on a point along the curve where a vertical line through that point would divide the total area under the curve into two equal regions. In other words, find the x-coordinate where the area to the left equals the area to the right.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
@@ -102,7 +102,7 @@
       },
       "PDF-Mode-Test": {
         "type": "react-component", 
-        "path": "vis-decode/assets/Test.tsx", 
+        "path": "vis-decode/assets/Stimuli.tsx", 
         "instruction": "Click on the maximum point of the curve - the point where the y-value is greatest. This will be where the curve reaches its highest position on the graph.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
@@ -132,7 +132,7 @@
       }, 
       "CDF-Median-Test": {
         "type": "react-component", 
-        "path": "vis-decode/assets/Test.tsx", 
+        "path": "vis-decode/assets/Stimuli.tsx", 
         "instruction": "Click on the point where the curve crosses the horizontal line y = 0.5. This is the point where the curve intersects with y = 0.5.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
@@ -162,7 +162,7 @@
       },
       "CDF-Mode-Test": {
         "type": "react-component", 
-        "path": "vis-decode/assets/Test.tsx", 
+        "path": "vis-decode/assets/Stimuli.tsx", 
         "instruction": "Click on the point of the curve where its slope (rate of change) is the steepest --- this is where the tangent line has the largest absolute value for its slope.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
@@ -192,7 +192,7 @@
       },
       "PDF-Median-Train": {
         "type": "react-component", 
-        "path": "vis-decode/assets/Test.tsx", 
+        "path": "vis-decode/assets/Stimuli.tsx", 
         "instruction": "Find the vertical line that divides the total area under the curve into two equal halves. To do this: 1. Look at the curve and estimate where this dividing line might be 2. Click on the x-axis at that point 3. A vertical line will appear showing whether your guess splits the area evenly 4. Adjust your guess until the areas on both sides are equal",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
@@ -223,7 +223,7 @@
       }, 
       "PDF-Mode-Train": {
         "type": "react-component", 
-        "path": "vis-decode/assets/Test.tsx", 
+        "path": "vis-decode/assets/Stimuli.tsx", 
         "instruction": "Click on the highest point of the curve.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
@@ -254,7 +254,7 @@
       }, 
       "CDF-Median-Train": {
         "type": "react-component", 
-        "path": "vis-decode/assets/Test.tsx", 
+        "path": "vis-decode/assets/Stimuli.tsx", 
         "instruction": "Find the point where the curve crosses the horizontal line y = 0.5. Click on the intersection point where the curve meets this line.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
@@ -285,7 +285,7 @@
       },
       "CDF-Mode-Train": {
         "type": "react-component", 
-        "path": "vis-decode/assets/Test.tsx", 
+        "path": "vis-decode/assets/Stimuli.tsx", 
         "instruction": "Click on the curve that has the steepest tangent slope.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",

@@ -1,4 +1,5 @@
-/* eslint-disable no-shadow */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as d3 from 'd3';
 import { useCallback, useMemo, useState } from 'react';
 import { Container, Button } from '@mantine/core';
@@ -6,8 +7,7 @@ import { initializeTrrack, Registry } from '@trrack/core';
 import { StimulusParams } from '../../../store/types';
 import { generateDistributionData } from './distributionCalculations';
 import Plot from './Plot';
-import GuideLines from './chartComponents/Guidelines';
-import { useScales } from './chartComponents/ScalesContext';
+import { ScalesProvider, useScales } from './chartComponents/ScalesContext';
 
 const chartSettings = {
   height: 450,
@@ -31,79 +31,56 @@ interface CursorState {
   isNearCurve: boolean;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) {
-  const {
-    params, showPDF, training, taskType,
-  } = parameters;
+interface StimuliContentProps {
+  distributionData: any;
+  showPDF: boolean;
+  training: boolean;
+  taskType: string;
+  cursor: CursorState | null;
+  setCursor: (cursor: CursorState | null) => void;
+  selectedPoint: Point | null;
+  setSelectedPoint: (point: Point | null) => void;
+  setAnswer: (answer: { status: boolean; answers: any }) => void;
+}
+
+// Component moved outside
+function StimuliContent({
+  distributionData,
+  showPDF,
+  training,
+  taskType,
+  cursor,
+  setCursor,
+  selectedPoint,
+  setSelectedPoint,
+  setAnswer,
+}: StimuliContentProps) {
   const { xScale, yScale } = useScales();
-  const [cursor, setCursor] = useState<CursorState | null>(null);
-  const [selectedPoint, setSelectedPoint] = useState<Point | null>(null);
 
-  // Generate distribution data
-  const distributionData = useMemo(() => generateDistributionData(params), [params]);
-
-  const guidelines = useMemo(() => {
-    if (training === false) return null;
-    // Find the index of the closest x value
-    const index = d3.bisector((d) => d).left(distributionData.xVals, selectedPoint);
-
-    switch (taskType) {
-      case 'pdf_median':
-        return { x: sliderValue, y: null, tangentLine: null };
-      case 'pdf_mode':
-        return null;
-      case 'cdf_median':
-        return null;
-      case 'cdf_mode':
-        return null;
-      default:
-        return null;
-    }
-  }, [sliderValue, training, taskType, distributionData]);
-
-  // Provenance related
-  const { actions, trrack } = useMemo(() => {
-    const reg = Registry.create();
-
-    const clickAction = reg.register('click', (state, click: {clickX:number, clickY: number}) => {
-      state.clickX = click.clickX;
-      state.clickY = click.clickY;
-      return state;
-    });
-
-    const trrackInst = initializeTrrack({
-      registry: reg,
-      initialState: { clickX: 0, clickY: 0 },
-    });
-
-    return {
-      actions: { clickAction },
-      trrack: trrackInst,
-    };
-  }, []);
-
-  // Interaction logic
   // find closest point on the line to the clicked position
   const findClosestPoint = useCallback((
     clickX: number,
     clickY: number,
-    xScale: d3.ScaleLinear<number, number>,
-    yScale: d3.ScaleLinear<number, number>,
   ) => {
     if (!distributionData) return null;
 
     // convert pixel click coordinates to data space
     const dataX = xScale.invert(clickX);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const dataY = yScale.invert(clickY);
 
     // Find closest x value in the data
     const index = d3.bisector((d) => d).left(distributionData.xVals, dataX);
     const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
+
     // handle edge cases
     if (index === 0) return { x: distributionData.xVals[0], y: yValues[0] };
-    if (index >= distributionData.xVals.length) return { x: distributionData.xVals[distributionData.xVals.length - 1], y: yValues[yValues.length - 1] };
+    if (index >= distributionData.xVals.length) {
+      return {
+        x: distributionData.xVals[distributionData.xVals.length - 1],
+        y: yValues[yValues.length - 1],
+      };
+    }
+
     // non-edge case
     const x0 = distributionData.xVals[index - 1];
     const x1 = distributionData.xVals[index];
@@ -116,16 +93,74 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
       y: (showPDF ? distributionData.pdfVals : distributionData.cdfVals)[closest],
     };
     return closestPoint;
-  }, [distributionData, showPDF]);
+  }, [distributionData, showPDF, xScale, yScale]);
+
+  // Calculate guidelines based on cursor position or selected point
+  const guidelines = useMemo(() => {
+    if (!training) return { x: null, y: null, tangentLine: null };
+
+    // Only show guidelines for selected points or when hovering near the curve
+    if (!selectedPoint && (!cursor || !cursor.isNearCurve)) {
+      return { x: null, y: null, tangentLine: null };
+    }
+
+    // If we have a cursor near the curve, find the closest point
+    const point = cursor?.isNearCurve
+      ? findClosestPoint(cursor.x, cursor.y)
+      : selectedPoint;
+
+    if (!point) return { x: null, y: null, tangentLine: null };
+
+    // Find the index of the closest x value for tangent calculation
+    const index = d3.bisector((d) => d).left(distributionData.xVals, point.x);
+
+    switch (taskType) {
+      case 'pdf_median': {
+        if (!point) return { x: null, y: null, tangentLine: null };
+        const slope = index > 0 && index < distributionData.pdfVals.length - 1
+          ? (distributionData.pdfVals[index + 1] - distributionData.pdfVals[index - 1]) / (distributionData.xVals[index + 1] - distributionData.xVals[index - 1])
+          : 0;
+        return {
+          x: point.x,
+          y: null,
+          tangentLine: {
+            point,
+            slope,
+          },
+        };
+      }
+      case 'pdf_mode':
+        return {
+          x: point.x,
+          y: point.y,
+          tangentLine: null,
+        };
+      case 'cdf_median':
+        return {
+          x: point.x,
+          y: 0.5,
+          tangentLine: null,
+        };
+      case 'cdf_mode':
+        return {
+          x: point.x,
+          y: null,
+          tangentLine: {
+            point,
+            slope: (distributionData.cdfVals[index + 1] - distributionData.cdfVals[index - 1]) / (distributionData.xVals[index + 1] - distributionData.xVals[index - 1]),
+          },
+        };
+      default:
+        return { x: null, y: null, tangentLine: null };
+    }
+  }, [cursor, selectedPoint, training, taskType, distributionData, findClosestPoint]);
 
   // Mouse move handler
   const handlePlotMouseMove = useCallback((
     event: React.MouseEvent,
-    { xScale, yScale }: { xScale: d3.ScaleLinear<number, number>, yScale: d3.ScaleLinear<number, number> },
   ) => {
     if (!distributionData) return;
-    if (training) return;
-
+    // Get SVG coordinates from mouse position
     const svg = event.currentTarget as SVGSVGElement;
     const pt = new DOMPoint();
     pt.x = event.clientX;
@@ -135,7 +170,7 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
     const svgPoint = pt.matrixTransform(ctm);
 
     // proximity check
-    const closestPoint = findClosestPoint(svgPoint.x, svgPoint.y, xScale, yScale);
+    const closestPoint = findClosestPoint(svgPoint.x, svgPoint.y);
     if (!closestPoint) return;
 
     const isNear = Math.abs(svgPoint.y - yScale(closestPoint.y)) <= 10;
@@ -144,12 +179,11 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
       y: svgPoint.y,
       isNearCurve: isNear,
     });
-  }, [distributionData, findClosestPoint, training]);
+  }, [distributionData, findClosestPoint, yScale, setCursor]);
 
-  // Click handler using Plot's scales
+  // Click handler
   const handlePlotClick = useCallback((
     event: React.MouseEvent,
-    { xScale, yScale }: { xScale: d3.ScaleLinear<number, number>, yScale: d3.ScaleLinear<number, number> },
   ) => {
     if (!distributionData) return;
 
@@ -162,7 +196,7 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
     if (!ctm) return;
     const svgPoint = pt.matrixTransform(ctm);
 
-    const closestPoint = findClosestPoint(svgPoint.x, svgPoint.y, xScale, yScale);
+    const closestPoint = findClosestPoint(svgPoint.x, svgPoint.y);
     if (!closestPoint) return;
 
     // Check proximity to line
@@ -170,15 +204,8 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
     if (distance <= 5) {
       // update point
       setSelectedPoint(closestPoint);
-      // Track in provenance
-      trrack.apply('Clicked', actions.clickAction({
-        clickX: closestPoint.x,
-        clickY: closestPoint.y,
-      }));
-      // trrack and setAnswer logic
       setAnswer({
         status: true,
-        provenanceGraph: trrack.graph.backend, // Include provenance data
         answers: {
           'location-x': closestPoint.x,
           'location-y': closestPoint.y,
@@ -190,13 +217,51 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
         answers: {},
       });
     }
-  }, [distributionData, actions, trrack, findClosestPoint, setAnswer]);
+  }, [distributionData, findClosestPoint, yScale, setSelectedPoint, setAnswer]);
 
   // Handle mouse leave
   const handleMouseLeave = useCallback(() => {
     setCursor(null);
-  }, []);
+  }, [setCursor]);
 
+  return (
+    <Plot
+      distributionData={distributionData}
+      isTraining={training}
+      showPDF={showPDF}
+      onClick={handlePlotClick}
+      onMouseMove={handlePlotMouseMove}
+      onMouseLeave={handleMouseLeave}
+      cursor={cursor}
+      selectedPoint={selectedPoint}
+      guidelines={guidelines}
+      axisLabels={{
+        x: 'Value',
+        y: showPDF ? 'Density' : 'Cumulative Probability',
+      }}
+    />
+  );
+}
+
+export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) {
+  const {
+    params, showPDF, training, taskType,
+  } = parameters;
+  const [cursor, setCursor] = useState<CursorState | null>(null);
+  const [selectedPoint, setSelectedPoint] = useState<Point | null>(null);
+
+  // Generate distribution data
+  const distributionData = useMemo(() => generateDistributionData(params), [params]);
+
+  // Calculate domains for scales - ensure they are tuples
+  const xDomain: [number, number] = useMemo(() => [
+    distributionData.xVals[0],
+    distributionData.xVals[distributionData.xVals.length - 1],
+  ], [distributionData]);
+
+  const yDomain: [number, number] = [0, 1];
+
+  // Handle clear point
   const handleClearPoint = useCallback(() => {
     setSelectedPoint(null);
     setAnswer({
@@ -208,25 +273,25 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
   return (
     <Container p="md">
       <div className="mt-4">
-        <Plot
-          distributionData={distributionData}
+        <ScalesProvider
           width={chartSettings.width}
           height={chartSettings.height}
           margin={chartSettings.margin}
-          isTraining={training}
-          showPDF={showPDF}
-          yDomain={[0, 1]}
-          onClick={handlePlotClick}
-          onMouseMove={handlePlotMouseMove}
-          onMouseLeave={handleMouseLeave}
-          cursor={cursor}
-          selectedPoint={selectedPoint}
-          guidelines={guidelines}
-          axisLabels={{
-            x: 'Value',
-            y: showPDF ? 'Density' : 'Cumulative Probability',
-          }}
-        />
+          xDomain={xDomain}
+          yDomain={yDomain}
+        >
+          <StimuliContent
+            distributionData={distributionData}
+            showPDF={showPDF}
+            training={training}
+            taskType={taskType}
+            cursor={cursor}
+            setCursor={setCursor}
+            selectedPoint={selectedPoint}
+            setSelectedPoint={setSelectedPoint}
+            setAnswer={setAnswer}
+          />
+        </ScalesProvider>
         <Button
           onClick={handleClearPoint}
           mt="md"

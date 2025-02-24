@@ -45,7 +45,7 @@ export function ScalesProvider({
 
     const yScale = d3.scaleLinear()
       .domain(yDomain)
-      .range([margin.left, width - margin.right]);
+      .range([height - margin.bottom, margin.top]);
 
     return {
       xScale,

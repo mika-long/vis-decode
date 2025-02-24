@@ -5,7 +5,7 @@ interface TangentLine {
   slope: number;
 }
 
-interface GuideLinesProps {
+export interface GuideLinesProps {
   xValue?: number | null | undefined;
   yValue?: number | null | undefined;
   tangentLine?: TangentLine | null;
