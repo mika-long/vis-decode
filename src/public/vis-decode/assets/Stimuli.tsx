@@ -36,6 +36,7 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
   const {
     params, showPDF, training, taskType,
   } = parameters;
+  const { xScale, yScale } = useScales();
   const [cursor, setCursor] = useState<CursorState | null>(null);
   const [selectedPoint, setSelectedPoint] = useState<Point | null>(null);
 
@@ -236,4 +237,3 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
     </Container>
   );
 }
-
