@@ -112,6 +112,34 @@
             "required": false, 
             "type": "iframe", 
             "hidden": true
+          },
+          {
+            "id": "param-xi", 
+            "prompt": "The xi parameter", 
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-omega", 
+            "prompt": "The omega parameter", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-nu", 
+            "prompt": "The nu parameter", 
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-alpha", 
+            "prompt": "The alpha parameter", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
           }
         ]
       },
@@ -132,7 +160,6 @@
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
             "required": true, 
-            "location": "sidebar",
             "type": "iframe", 
             "hidden": true
           }, 
@@ -147,13 +174,40 @@
             "id": "pixel-x", 
             "prompt": "The pixel x-axis location of your click", 
             "required": true, 
-            "location": "belowStimulus",
             "type": "iframe", 
             "hidden": true
           }, 
           {
             "id": "pixel-y", 
             "prompt": "The pixel y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-xi", 
+            "prompt": "The xi parameter", 
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-omega", 
+            "prompt": "The omega parameter", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-nu", 
+            "prompt": "The nu parameter", 
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-alpha", 
+            "prompt": "The alpha parameter", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
@@ -192,13 +246,40 @@
             "id": "pixel-x", 
             "prompt": "The pixel x-axis location of your click", 
             "required": true, 
-            "location": "belowStimulus",
             "type": "iframe", 
             "hidden": true
           }, 
           {
             "id": "pixel-y", 
             "prompt": "The pixel y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-xi", 
+            "prompt": "The xi parameter", 
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-omega", 
+            "prompt": "The omega parameter", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-nu", 
+            "prompt": "The nu parameter", 
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-alpha", 
+            "prompt": "The alpha parameter", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
@@ -222,7 +303,6 @@
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
             "required": true, 
-            "location": "sidebar",
             "type": "iframe", 
             "hidden": true
           }, 
@@ -237,13 +317,40 @@
             "id": "pixel-x", 
             "prompt": "The pixel x-axis location of your click", 
             "required": true, 
-            "location": "belowStimulus",
             "type": "iframe", 
             "hidden": true
           }, 
           {
             "id": "pixel-y", 
             "prompt": "The pixel y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-xi", 
+            "prompt": "The xi parameter", 
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-omega", 
+            "prompt": "The omega parameter", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-nu", 
+            "prompt": "The nu parameter", 
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-alpha", 
+            "prompt": "The alpha parameter", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
@@ -293,6 +400,34 @@
             "required": false, 
             "type": "iframe", 
             "hidden": true
+          },
+          {
+            "id": "param-xi", 
+            "prompt": "The xi parameter", 
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-omega", 
+            "prompt": "The omega parameter", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-nu", 
+            "prompt": "The nu parameter", 
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-alpha", 
+            "prompt": "The alpha parameter", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
           }
         ]
       }, 
@@ -336,6 +471,34 @@
           {
             "id": "pixel-y", 
             "prompt": "The pixel y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-xi", 
+            "prompt": "The xi parameter", 
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-omega", 
+            "prompt": "The omega parameter", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-nu", 
+            "prompt": "The nu parameter", 
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-alpha", 
+            "prompt": "The alpha parameter", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
@@ -385,6 +548,34 @@
             "required": false, 
             "type": "iframe", 
             "hidden": true
+          },
+          {
+            "id": "param-xi", 
+            "prompt": "The xi parameter", 
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-omega", 
+            "prompt": "The omega parameter", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-nu", 
+            "prompt": "The nu parameter", 
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-alpha", 
+            "prompt": "The alpha parameter", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
           }
         ]
       },
@@ -428,6 +619,34 @@
           {
             "id": "pixel-y", 
             "prompt": "The pixel y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-xi", 
+            "prompt": "The xi parameter", 
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-omega", 
+            "prompt": "The omega parameter", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-nu", 
+            "prompt": "The nu parameter", 
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-alpha", 
+            "prompt": "The alpha parameter", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
