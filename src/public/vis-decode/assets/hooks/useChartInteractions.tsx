@@ -5,8 +5,12 @@ import { ScaleLinear } from 'd3';
 import { DistributionData } from '../dataGeneration/libRDistributionCalculations';
 
 interface Point {
+  // data coordinates
   x: number;
   y: number;
+  // pixel coordinates
+  pixelX?: number;
+  pixelY?: number;
 }
 
 interface CursorState {
@@ -51,11 +55,20 @@ export function useChartInteractions({
     const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
 
     // handle edge cases
-    if (index === 0) return { x: distributionData.xVals[0], y: yValues[0] };
+    if (index === 0) {
+      return {
+        x: distributionData.xVals[0],
+        y: yValues[0],
+        pixelX: xScale(distributionData.xVals[0]),
+        pixelY: yScale(yValues[0]),
+      };
+    }
     if (index >= distributionData.xVals.length) {
       return {
         x: distributionData.xVals[distributionData.xVals.length - 1],
         y: yValues[yValues.length - 1],
+        pixelX: xScale(distributionData.xVals[distributionData.xVals.length - 1]),
+        pixelY: yScale(yValues[yValues.length - 1]),
       };
     }
 
@@ -66,9 +79,13 @@ export function useChartInteractions({
     if (!x0 || !x1) return null;
 
     const closest = Math.abs(dataX - x0) < Math.abs(dataX - x1) ? index - 1 : index;
+    const closestX = distributionData.xVals[closest];
+    const closestY = (showPDF ? distributionData.pdfVals : distributionData.cdfVals)[closest];
     const closestPoint = {
-      x: distributionData.xVals[closest],
-      y: (showPDF ? distributionData.pdfVals : distributionData.cdfVals)[closest],
+      x: closestX,
+      y: closestY,
+      pixelX: xScale(closestX),
+      pixelY: yScale(closestY),
     };
     return closestPoint;
   }, [distributionData, showPDF, xScale, yScale]);
@@ -97,15 +114,18 @@ export function useChartInteractions({
     const closestPoint = findClosestPoint(svgPoint.x, svgPoint.y);
     if (!closestPoint) return;
 
-    // Check if mouse is near the curve
-    const isNear = Math.abs(svgPoint.y - yScale(closestPoint.y)) <= 10;
+    // Check if mouse is near the curve using Euclidean distance
+    const curvePixelX = closestPoint.pixelX || xScale(closestPoint.x);
+    const curvePixelY = closestPoint.pixelY || yScale(closestPoint.y);
+    const euclideanDistance = Math.sqrt((svgPoint.x - curvePixelX) ** 2 + (svgPoint.y - curvePixelY) ** 2);
+    const isNear = euclideanDistance <= 15;
 
     setCursor({
       x: svgPoint.x,
       y: svgPoint.y,
       isNearCurve: isNear,
     });
-  }, [distributionData, findClosestPoint, yScale, setCursor, getSVGCoordinates]);
+  }, [distributionData, xScale, yScale, findClosestPoint, setCursor, getSVGCoordinates]);
 
   const handleClick = useCallback((
     event: React.MouseEvent<SVGSVGElement>,
@@ -118,15 +138,19 @@ export function useChartInteractions({
     const closestPoint = findClosestPoint(svgPoint.x, svgPoint.y);
     if (!closestPoint) return;
 
-    // Check if click is near the curve
-    const distance = Math.abs(svgPoint.y - yScale(closestPoint.y));
-    if (distance <= 5) {
+    // Check if click is near the curve using Euclidean distance
+    const curvePixelX = closestPoint.pixelX || xScale(closestPoint.x);
+    const curvePixelY = closestPoint.pixelY || yScale(closestPoint.y);
+    const euclideanDistance = Math.sqrt((svgPoint.x - curvePixelX) ** 2 + (svgPoint.y - curvePixelY) ** 2);
+    if (euclideanDistance <= 10) {
       setSelectedPoint(closestPoint);
       setAnswer({
         status: true,
         answers: {
           'location-x': closestPoint.x,
           'location-y': closestPoint.y,
+          'pixel-x': closestPoint.pixelX,
+          'pixel-y': closestPoint.pixelY,
         },
       });
     } else {
@@ -135,7 +159,7 @@ export function useChartInteractions({
         answers: {},
       });
     }
-  }, [distributionData, findClosestPoint, yScale, setSelectedPoint, setAnswer, getSVGCoordinates]);
+  }, [distributionData, xScale, yScale, findClosestPoint, setSelectedPoint, setAnswer, getSVGCoordinates]);
 
   const handleMouseLeave = useCallback(() => {
     setCursor(null);

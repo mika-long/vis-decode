@@ -141,7 +141,8 @@ function StimuliContent({
       }
       case 'pdf_mode':
         return {
-          x: point.x,
+          // x: point.x,
+          x: null,
           y: point.y,
           tangentLine: null,
         };
@@ -276,10 +277,8 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
           width={chartSettings.width}
           height={chartSettings.height}
           margin={chartSettings.margin}
-          // xDomain={xDomain}
-          // yDomain={yDomain}
-          xDomain={[-5, 5]}
-          yDomain={[0, 1]}
+          xDomain={[-5, 5]} // xDomain
+          yDomain={[0, 1]} // yDomain
         >
           <StimuliContent
             distributionData={distributionData}

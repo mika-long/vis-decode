@@ -96,6 +96,20 @@
             "required": false, 
             "type": "iframe", 
             "hidden": true
+          },
+          {
+            "id": "pixel-x", 
+            "prompt": "The pixel x-axis location of your click", 
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "pixel-y", 
+            "prompt": "The pixel y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
           }, 
           {
             "id": "param-xi",
@@ -150,6 +164,20 @@
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "pixel-x", 
+            "prompt": "The pixel x-axis location of your click", 
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "pixel-y", 
+            "prompt": "The pixel y-axis location of your click", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
@@ -212,6 +240,20 @@
             "hidden": true
           },
           {
+            "id": "pixel-x", 
+            "prompt": "The pixel x-axis location of your click", 
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "pixel-y", 
+            "prompt": "The pixel y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
             "id": "param-xi",
             "prompt": "Random parameter xi",
             "required": false,
@@ -264,6 +306,20 @@
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "pixel-x", 
+            "prompt": "The pixel x-axis location of your click", 
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "pixel-y", 
+            "prompt": "The pixel y-axis location of your click", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
@@ -327,6 +383,20 @@
             "hidden": true
           },
           {
+            "id": "pixel-x", 
+            "prompt": "The pixel x-axis location of your click", 
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "pixel-y", 
+            "prompt": "The pixel y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
             "id": "param-xi",
             "prompt": "Random parameter xi",
             "required": false,
@@ -380,6 +450,20 @@
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "pixel-x", 
+            "prompt": "The pixel x-axis location of your click", 
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "pixel-y", 
+            "prompt": "The pixel y-axis location of your click", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
@@ -441,6 +525,48 @@
             "required": false, 
             "type": "iframe", 
             "hidden": true
+          },
+          {
+            "id": "pixel-x", 
+            "prompt": "The pixel x-axis location of your click", 
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "pixel-y", 
+            "prompt": "The pixel y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-xi",
+            "prompt": "Random parameter xi",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
+          },
+          {
+            "id": "param-omega",
+            "prompt": "Random parameter omega",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
+          },
+          {
+            "id": "param-nu",
+            "prompt": "Random parameter nu",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
+          },
+          {
+            "id": "param-alpha",
+            "prompt": "Random parameter alpha",
+            "required": false,
+            "type": "iframe",
+            "hidden": true
           }
         ]
       },
@@ -468,6 +594,20 @@
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "pixel-x", 
+            "prompt": "The pixel x-axis location of your click", 
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "pixel-y", 
+            "prompt": "The pixel y-axis location of your click", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
@@ -615,109 +755,73 @@
         "task1_test_1": {
           "baseComponent": "PDF-Median-Test",
           "parameters": {
-            "params": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
-          }, 
-          "meta": {
-            "params": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
+            "params": null
           }
         }, 
         "task1_test_2": {
           "baseComponent": "PDF-Median-Test",
           "parameters": {
-            "params": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
-          }, 
-          "meta": {
-            "params": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
+            "params": null
           }
         }, 
         "task1_test_3": {
           "baseComponent": "PDF-Median-Test",
           "parameters": {
-            "params": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
-          }, 
-          "meta": {
-            "params": {"xi": -1, "omega": 1, "nu": 1, "alpha": 10}
+            "params": null
           }
         }, 
         "task2_test_1": {
           "baseComponent": "PDF-Mode-Test",
           "parameters": {
-            "params": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
-          },
-          "meta": {
-            "params": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
+            "params": null
           }
         }, 
         "task2_test_2": {
           "baseComponent": "PDF-Mode-Test",
           "parameters": {
-            "params": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
-          },
-          "meta": {
-            "params": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
+            "params": null
           }
         }, 
         "task2_test_3": {
           "baseComponent": "PDF-Mode-Test",
           "parameters": {
-            "params": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
-          },
-          "meta": {
-            "params": {"xi": 0, "omega": 2, "nu": 3, "alpha": 5}
+            "params": null
           }
         }, 
         "task3_test_1": {
           "baseComponent": "CDF-Mode-Test",
           "parameters": {
-            "params": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
-          },
-          "meta": {
-            "params": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
+            "params": null
           }
         }, 
         "task3_test_2": {
           "baseComponent": "CDF-Mode-Test",
           "parameters": {
-            "params": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
-          },
-          "meta": {
-            "params": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
+            "params": null
           }
         }, 
         "task3_test_3": {
           "baseComponent": "CDF-Mode-Test",
           "parameters": {
-            "params": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
-          },
-          "meta": {
-            "params": {"xi": 1, "omega": 1, "nu": 3, "alpha": -20}
+            "params": null
           }
         }, 
         "task4_test_1": {
           "baseComponent": "CDF-Median-Test",
           "parameters": {
-            "params": {"xi": 1, "omega": 2, "nu": 4, "alpha": 1}
-          },
-          "meta": {
-            "params": {"xi": 1, "omega": 2, "nu": 4, "alpha": 1} 
+            "params": null
           }
         },
         "task4_test_2": {
           "baseComponent": "CDF-Median-Test",
           "parameters": {
-            "params": {"xi": 1, "omega": 2, "nu": 4, "alpha": 1}
-          },
-          "meta": {
-            "params": {"xi": 1, "omega": 2, "nu": 4, "alpha": 1} 
+            "params": null
           }
         },
         "task4_test_3": {
           "baseComponent": "CDF-Median-Test",
           "parameters": {
-            "params": {"xi": 1, "omega": 2, "nu": 4, "alpha": 1}
-          },
-          "meta": {
-            "params": {"xi": 1, "omega": 2, "nu": 4, "alpha": 1} 
+            "params": null
           }
         }
     },
