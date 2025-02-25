@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-shadow */
 import * as d3 from 'd3';
 import {
@@ -8,7 +9,9 @@ import { StimulusParams } from '../../../store/types';
 import { generateDistributionData } from './dataGeneration/distributionCalculations';
 import Plot from './Plot';
 import DistributionSlider from './chartComponents/DistributionSlider';
-import { ScalesProvider } from './chartComponents/ScalesContext';
+import { ScalesProvider, useScales } from './chartComponents/ScalesContext';
+import { DistributionData } from './dataGeneration/jstatDistributionCalculations';
+import { TaskType } from './TaskTypes';
 
 const chartSettings = {
   margin: {
@@ -28,6 +31,18 @@ interface DistributionParams {
   alpha: number;
 }
 
+// Interface for the DistributionVisualization component props
+interface DistributionVisualizationProps {
+  sliderValue: number | undefined;
+  setSliderValue: (value: number) => void;
+  distributionData: DistributionData;
+  showPDF: boolean;
+  training: boolean;
+  taskType: TaskType;
+  currentParams: DistributionParams;
+  setAnswer: (answer: { status: boolean; answers: Record<string, any> }) => void;
+}
+
 function generateRandomParams(): DistributionParams {
   return {
     xi: Math.random() * 8 - 4,
@@ -37,43 +52,19 @@ function generateRandomParams(): DistributionParams {
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) {
-  const {
-    params: initialParams, showPDF, training, taskType,
-  } = parameters;
-  const [sliderValue, setSliderValue] = useState<number>();
-  const [currentParams, setCurrentParams] = useState<DistributionParams>(initialParams || generateRandomParams());
-
-  // Generate distribution data
-  const distributionData = useMemo(() => generateDistributionData(currentParams), [currentParams]);
-
-  // // Set domain for scales
-  // const xDomain = [-5, 5];
-  // const yDomain = [0, 1];
-
-  // Initialize the parameters when component mounts if not provided
-  useEffect(() => {
-    if (!initialParams || Object.keys(initialParams).length === 0) {
-      const newParams = generateRandomParams();
-      setCurrentParams(newParams);
-
-      // Record the answer
-      setAnswer({
-        status: true,
-        answers: {
-          'param-xi': newParams.xi,
-          'param-omega': newParams.omega,
-          'param-nu': newParams.nu,
-          'param-alpha': newParams.alpha,
-          'location-x': null,
-          'location-y': null,
-          'pixel-x': null,
-          'pixel-y': null,
-        },
-      });
-    }
-  }, [initialParams, setAnswer]);
+// This component receives all props it needs and has access to scales context
+function DistributionVisualization({
+  sliderValue,
+  setSliderValue,
+  distributionData,
+  showPDF,
+  training,
+  taskType,
+  currentParams,
+  setAnswer,
+}: DistributionVisualizationProps) {
+  // Now we have access to scales here, inside the ScalesProvider
+  const scales = useScales();
 
   const guidelines = useMemo(() => {
     if (sliderValue === undefined || training === false) return null;
@@ -123,37 +114,15 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
     };
   }, [sliderValue, distributionData, showPDF]);
 
-  // // Handler to generate new random parameters
-  // const handleGenerateNew = useCallback(() => {
-  //   const newParams = generateRandomParams();
-  //   setCurrentParams(newParams);
-  //   setSliderValue(undefined); // reset slider
-
-  //   // Record the answer
-  //   setAnswer({
-  //     status: true,
-  //     answers: {
-  //       'param-xi': newParams.xi,
-  //       'param-omega': newParams.omega,
-  //       'param-nu': newParams.nu,
-  //       'param-alpha': newParams.alpha,
-  //       'location-x': null,
-  //       'location-y': null,
-  //       'pixel-x': null,
-  //       'pixel-y': null,
-  //     },
-  //   });
-  // }, [setAnswer]);
-
   // Interaction logic
   // Update slider handler to set both slider value and selected point
   const handleSliderChange = useCallback((value: number) => {
     // Updated Slider UI in real time
     setSliderValue(value);
-  }, []);
+  }, [setSliderValue]);
 
   const handleSliderCommit = useCallback((value: number) => {
-    // Only submt answer when dragging finishes
+    // Only submit answer when dragging finishes
     const index = d3.bisector((d) => d).left(distributionData.xVals, value);
     const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
     const newSelectedPoint = {
@@ -161,18 +130,83 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
       y: yValues[index],
     };
 
+    // Convert the logical coordinates to pixel coordinates using the scales
+    const pixelX = scales.xScale(newSelectedPoint.x);
+    const pixelY = scales.yScale(newSelectedPoint.y);
+
     setAnswer({
       status: true,
       answers: {
         'location-x': newSelectedPoint.x,
         'location-y': newSelectedPoint.y,
+        'pixel-x': pixelX,
+        'pixel-y': pixelY,
         'param-xi': currentParams.xi,
         'param-omega': currentParams.omega,
         'param-nu': currentParams.nu,
         'param-alpha': currentParams.alpha,
       },
     });
-  }, [distributionData, showPDF, setAnswer, currentParams]);
+  }, [distributionData, showPDF, setAnswer, currentParams, scales]);
+
+  return (
+    <>
+      <DistributionSlider
+        value={sliderValue ?? 0}
+        onChange={handleSliderChange}
+        onChangeEnd={handleSliderCommit}
+        distributionData={distributionData}
+        width={chartSettings.width - chartSettings.margin.left - chartSettings.margin.right}
+      />
+      <Space h="lg" />
+      <Plot
+        distributionData={distributionData}
+        showPDF={showPDF}
+        isTraining={training}
+        selectedPoint={selectedPoint}
+        guidelines={guidelines}
+        axisLabels={{
+          x: 'Value',
+          y: showPDF ? 'Density' : 'Cumulative Probability',
+        }}
+      />
+    </>
+  );
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) {
+  const {
+    params: initialParams, showPDF, training, taskType,
+  } = parameters;
+  const [sliderValue, setSliderValue] = useState<number>();
+  const [currentParams, setCurrentParams] = useState<DistributionParams>(initialParams || generateRandomParams());
+
+  // Generate distribution data
+  const distributionData = useMemo(() => generateDistributionData(currentParams), [currentParams]);
+
+  // Initialize the parameters when component mounts if not provided
+  useEffect(() => {
+    if (!initialParams || Object.keys(initialParams).length === 0) {
+      const newParams = generateRandomParams();
+      setCurrentParams(newParams);
+
+      // Record the answer
+      setAnswer({
+        status: true,
+        answers: {
+          'param-xi': newParams.xi,
+          'param-omega': newParams.omega,
+          'param-nu': newParams.nu,
+          'param-alpha': newParams.alpha,
+          'location-x': null,
+          'location-y': null,
+          'pixel-x': null,
+          'pixel-y': null,
+        },
+      });
+    }
+  }, [initialParams, setAnswer]);
 
   if (!distributionData) return null;
 
@@ -186,24 +220,15 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
           xDomain={[-5, 5]}
           yDomain={[0, 1]}
         >
-          <DistributionSlider
-            value={sliderValue ?? 0}
-            onChange={handleSliderChange}
-            onChangeEnd={handleSliderCommit}
-            distributionData={distributionData}
-            width={chartSettings.width - chartSettings.margin.left - chartSettings.margin.right}
-          />
-          <Space h="lg" />
-          <Plot
+          <DistributionVisualization
+            sliderValue={sliderValue}
+            setSliderValue={setSliderValue}
             distributionData={distributionData}
             showPDF={showPDF}
-            isTraining={training}
-            selectedPoint={selectedPoint}
-            guidelines={guidelines}
-            axisLabels={{
-              x: 'Value',
-              y: showPDF ? 'Density' : 'Cumulative Probability',
-            }}
+            training={training}
+            taskType={taskType}
+            currentParams={currentParams}
+            setAnswer={setAnswer}
           />
         </ScalesProvider>
       </div>
