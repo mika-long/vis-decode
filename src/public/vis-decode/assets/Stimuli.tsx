@@ -4,7 +4,7 @@ import * as d3 from 'd3';
 import {
   useCallback, useEffect, useMemo, useState,
 } from 'react';
-import { Container, Space } from '@mantine/core';
+import { Container, Space, Text } from '@mantine/core';
 import { StimulusParams } from '../../../store/types';
 import { generateDistributionData, DistributionData } from './dataGeneration/jstatDistributionCalculations';
 import Plot from './Plot';
@@ -230,6 +230,22 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
             setAnswer={setAnswer}
           />
         </ScalesProvider>
+        {/* Optional debug information */}
+        <Space h="xl" />
+        <Text size="md" c="dimmed">
+          Debug - Random Parameters:
+          xi=
+          {currentParams.xi.toFixed(2)}
+          ,
+          omega=
+          {currentParams.omega.toFixed(2)}
+          ,
+          nu=
+          {currentParams.nu}
+          ,
+          alpha=
+          {currentParams.alpha.toFixed(2)}
+        </Text>
       </div>
     </Container>
   );
