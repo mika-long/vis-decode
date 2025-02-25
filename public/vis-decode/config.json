@@ -86,8 +86,7 @@
           {
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
-            "required": true, 
-            "location": "belowStimulus",
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -101,8 +100,7 @@
           {
             "id": "pixel-x", 
             "prompt": "The pixel x-axis location of your click", 
-            "required": true, 
-            "location": "belowStimulus",
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -116,7 +114,7 @@
           {
             "id": "param-xi", 
             "prompt": "The xi parameter", 
-            "required": true, 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -130,7 +128,7 @@
           {
             "id": "param-nu", 
             "prompt": "The nu parameter", 
-            "required": true, 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -159,7 +157,7 @@
           {
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
-            "required": true, 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -173,7 +171,7 @@
           {
             "id": "pixel-x", 
             "prompt": "The pixel x-axis location of your click", 
-            "required": true, 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -187,7 +185,7 @@
           {
             "id": "param-xi", 
             "prompt": "The xi parameter", 
-            "required": true, 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -201,7 +199,7 @@
           {
             "id": "param-nu", 
             "prompt": "The nu parameter", 
-            "required": true, 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -230,8 +228,7 @@
           {
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
-            "required": true, 
-            "location": "sidebar",
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -245,7 +242,7 @@
           {
             "id": "pixel-x", 
             "prompt": "The pixel x-axis location of your click", 
-            "required": true, 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -259,7 +256,7 @@
           {
             "id": "param-xi", 
             "prompt": "The xi parameter", 
-            "required": true, 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -273,7 +270,7 @@
           {
             "id": "param-nu", 
             "prompt": "The nu parameter", 
-            "required": true, 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -302,7 +299,7 @@
           {
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
-            "required": true, 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -316,7 +313,7 @@
           {
             "id": "pixel-x", 
             "prompt": "The pixel x-axis location of your click", 
-            "required": true, 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -330,7 +327,7 @@
           {
             "id": "param-xi", 
             "prompt": "The xi parameter", 
-            "required": true, 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -344,7 +341,7 @@
           {
             "id": "param-nu", 
             "prompt": "The nu parameter", 
-            "required": true, 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -374,8 +371,7 @@
           {
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
-            "required": true, 
-            "location": "belowStimulus",
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -389,8 +385,7 @@
           {
             "id": "pixel-x", 
             "prompt": "The pixel x-axis location of your click", 
-            "required": true, 
-            "location": "belowStimulus",
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -404,7 +399,7 @@
           {
             "id": "param-xi", 
             "prompt": "The xi parameter", 
-            "required": true, 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -418,7 +413,7 @@
           {
             "id": "param-nu", 
             "prompt": "The nu parameter", 
-            "required": true, 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -448,8 +443,7 @@
           {
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
-            "required": true, 
-            "location": "sidebar",
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -463,7 +457,7 @@
           {
             "id": "pixel-x", 
             "prompt": "The pixel x-axis location of your click", 
-            "required": true, 
+            "required": false, 
             "location": "belowStimulus",
             "type": "iframe", 
             "hidden": true
@@ -478,7 +472,7 @@
           {
             "id": "param-xi", 
             "prompt": "The xi parameter", 
-            "required": true, 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -492,7 +486,7 @@
           {
             "id": "param-nu", 
             "prompt": "The nu parameter", 
-            "required": true, 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -522,8 +516,7 @@
           {
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
-            "required": true, 
-            "location": "sidebar",
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -537,8 +530,7 @@
           {
             "id": "pixel-x", 
             "prompt": "The pixel x-axis location of your click", 
-            "required": true, 
-            "location": "belowStimulus",
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -552,7 +544,7 @@
           {
             "id": "param-xi", 
             "prompt": "The xi parameter", 
-            "required": true, 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -566,7 +558,7 @@
           {
             "id": "param-nu", 
             "prompt": "The nu parameter", 
-            "required": true, 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -596,8 +588,7 @@
           {
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
-            "required": true, 
-            "location": "sidebar",
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -611,7 +602,7 @@
           {
             "id": "pixel-x", 
             "prompt": "The pixel x-axis location of your click", 
-            "required": true, 
+            "required": false, 
             "location": "belowStimulus",
             "type": "iframe", 
             "hidden": true
@@ -626,7 +617,7 @@
           {
             "id": "param-xi", 
             "prompt": "The xi parameter", 
-            "required": true, 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -640,7 +631,7 @@
           {
             "id": "param-nu", 
             "prompt": "The nu parameter", 
-            "required": true, 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 

@@ -62,7 +62,7 @@ interface StimuliContentProps {
   selectedPoint: Point | null;
   setSelectedPoint: (point: Point | null) => void;
   setAnswer: (answer: { status: boolean; answers: any }) => void;
-  randomParams: DistributionParams;
+  currentParams: DistributionParams;
 }
 
 // Component moved outside
@@ -76,7 +76,7 @@ function StimuliContent({
   selectedPoint,
   setSelectedPoint,
   setAnswer,
-  randomParams,
+  currentParams,
 }: StimuliContentProps) {
   // Scales from context
   const { xScale, yScale } = useScales();
@@ -98,7 +98,7 @@ function StimuliContent({
         status: answerData.status,
         answers: {
           ...answerData.answers,
-          randomParams,
+          currentParams,
         },
       });
     },
@@ -290,7 +290,7 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
             selectedPoint={selectedPoint}
             setSelectedPoint={setSelectedPoint}
             setAnswer={handleSetAnswer}
-            randomParams={currentParams}
+            currentParams={currentParams}
           />
         </ScalesProvider>
         <Button
