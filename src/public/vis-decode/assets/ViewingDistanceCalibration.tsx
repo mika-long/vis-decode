@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import {
-  useState, useRef, useEffect, useMemo,
+  useCallback, useState, useRef, useEffect,
 } from 'react';
 import {
   Stack, List, Text, Container,
@@ -29,7 +29,7 @@ export default function ViewingDistanceCalibration({ parameters, setAnswer }: St
   const [clickCount, setClickCount] = useState<number>(5);
 
   // Calculate viewing distance function
-  const calculateViewingDistance = useMemo((positions: number[]) => {
+  const calculateViewingDistance = useCallback((positions: number[]) => {
     if (!positions.length || !pixelsPerMM || !squareRef.current) return;
 
     const avgBallPos = positions.reduce((a, b) => a + b, 0) / positions.length;
@@ -43,14 +43,14 @@ export default function ViewingDistanceCalibration({ parameters, setAnswer }: St
   }, [blindspotAngle, pixelsPerMM]);
 
   // Reset ball to starting position
-  const resetBall = () => {
+  const resetBall = useCallback(() => {
     if (ballRef.current) {
       ballRef.current.style.left = '740px';
     }
-  };
+  }, []);
 
   // Animation control functions
-  const startBlindspotTracking = useMemo(() => {
+  const startBlindspotTracking = useCallback(() => {
     if (!ballRef.current || !squareRef.current || !pixelsPerMM || ballPositions.length >= 5) return;
     setIsTracking(true);
 
@@ -136,7 +136,7 @@ export default function ViewingDistanceCalibration({ parameters, setAnswer }: St
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [isTracking, calculateViewingDistance, startBlindspotTracking]);
+  }, [isTracking, calculateViewingDistance, startBlindspotTracking, resetBall]);
 
   // Reset state when pixelsPerMM changes
   useEffect(() => {
@@ -152,7 +152,7 @@ export default function ViewingDistanceCalibration({ parameters, setAnswer }: St
       setBallPositions([]);
       setClickCount(5);
     };
-  }, []);
+  }, [resetBall]);
 
   // Cleanup animation frame on unmount
   useEffect(() => () => {
