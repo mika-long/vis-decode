@@ -11,6 +11,7 @@ import cardImage from './costco_card.png';
 interface VirtualChinrestCalibrationProps extends StimulusParams<any> {
   itemWidthMM?: number;
   itemHeightMM?: number;
+  fixedCorner?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 }
 
 export default function VirtualChinrestCalibration({
@@ -18,6 +19,7 @@ export default function VirtualChinrestCalibration({
   setAnswer,
   itemWidthMM = 85.6, // Standard credit card width
   itemHeightMM = 53.98, // Standard credit card height
+  fixedCorner = 'top-left', // Default to top-left fixed corner
 }: VirtualChinrestCalibrationProps) {
   // Set states
   const [itemWidthPx, setItemWidthPx] = useState(300);
@@ -25,8 +27,10 @@ export default function VirtualChinrestCalibration({
   const [isCalibrationComplete, setIsCalibrationComplete] = useState(false);
   const [sliderRange, setSliderRange] = useState({ min: 100, max: 500 });
   const { taskid } = parameters;
+
   // Set references
   const containerRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   // Aspect ratio of the item
   const aspectRatio = itemHeightMM / itemWidthMM;
@@ -73,6 +77,16 @@ export default function VirtualChinrestCalibration({
     setIsCalibrationComplete(true);
   };
 
+  // Get position styles based on which corner should be fixed
+  const getPositionStyles = () => ({
+    position: 'relative' as const,
+    width: '100%',
+    height: `${calculateHeight(sliderRange.max)}px`, // Use maximum possible height
+    display: 'flex',
+    justifyContent: fixedCorner.includes('right') ? 'flex-end' : 'flex-start',
+    alignItems: fixedCorner.includes('bottom') ? 'flex-end' : 'flex-start',
+  });
+
   return (
     // Container component from Mantine that centers content and provides max-width
     <Container size="md">
@@ -101,30 +115,34 @@ export default function VirtualChinrestCalibration({
             bar: { cursor: 'pointer' }, // Changes cursor on filled bar
           }}
         />
-        <div
-          ref={containerRef}
-          style={{
-            width: `${itemWidthPx}px`,
-            height: `${calculateHeight(itemWidthPx)}px`,
-            margin: '20px auto', // Centers the container
-            overflow: 'hidden', // Prevents image overflow
-          }}
-        >
-          <img
-            src={cardImage}
-            alt="Credit Card"
+
+        {/* Wrapper div that maintains position */}
+        <div ref={wrapperRef} style={getPositionStyles()}>
+          {/* Card container that changes size */}
+          <div
+            ref={containerRef}
             style={{
-              width: '100%', // Makes image fill container
-              height: '100%',
-              objectFit: 'contain', // Maintains aspect ratio
+              width: `${itemWidthPx}px`,
+              height: `${calculateHeight(itemWidthPx)}px`,
+              overflow: 'hidden', // Prevents image overflow
             }}
-          />
+          >
+            <img
+              src={cardImage}
+              alt="Credit Card"
+              style={{
+                width: '100%', // Makes image fill container
+                height: '100%',
+                objectFit: 'contain', // Maintains aspect ratio
+              }}
+            />
+          </div>
         </div>
+
         {isCalibrationComplete && (
           <div style={{ textAlign: 'center', color: 'green' }}>
-            Calibration Complete - Pixels per MM: { pixelsPerMM?.toFixed(2) }
+            Calibration Complete - Pixels per MM: {pixelsPerMM?.toFixed(2)}
           </div>
-          // //
         )}
       </Stack>
     </Container>
