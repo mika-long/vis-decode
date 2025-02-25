@@ -9,7 +9,7 @@ import {
 } from '@mantine/core';
 import { initializeTrrack, Registry } from '@trrack/core';
 import { StimulusParams } from '../../../store/types';
-import { generateDistributionData } from './dataGeneration/libRDistributionCalculations';
+import { generateDistributionData } from './dataGeneration/jstatDistributionCalculations';
 import Plot from './Plot';
 import { ScalesProvider, useScales } from './chartComponents/ScalesContext';
 import { useChartInteractions } from './hooks/useChartInteractions';

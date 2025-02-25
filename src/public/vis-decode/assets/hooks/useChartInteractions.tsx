@@ -2,7 +2,7 @@
 import { useCallback } from 'react';
 import * as d3 from 'd3';
 import { ScaleLinear } from 'd3';
-import { DistributionData } from '../dataGeneration/libRDistributionCalculations';
+import { DistributionData } from '../dataGeneration/jstatDistributionCalculations';
 
 interface Point {
   // data coordinates
