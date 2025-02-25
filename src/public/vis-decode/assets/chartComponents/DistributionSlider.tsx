@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Slider } from '@mantine/core';
 import { DistributionData } from '../dataGeneration/jstatDistributionCalculations';
 
@@ -17,13 +18,20 @@ export default function DistributionSlider({
   width = '100%',
 }: DistributionSliderProps) {
   if (!distributionData?.xVals?.length) return null;
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [thumbVisible, setThumbVisible] = useState(false);
+
+  const handleChangeEnd = (newValue: number) => {
+    setThumbVisible(true);
+    onChangeEnd(newValue);
+  };
 
   return (
     <div style={{ width }}>
       <Slider
-        value={value}
+        value={thumbVisible ? value : -5}
         onChange={onChange}
-        onChangeEnd={onChangeEnd}
+        onChangeEnd={handleChangeEnd}
         min={distributionData.xVals[0]}
         max={distributionData.xVals[distributionData.xVals.length - 1]}
         step={0.01}
@@ -32,7 +40,7 @@ export default function DistributionSlider({
           root: { width: '100%' },
           track: { width: '100%', backgroundColor: '#e9ecef' },
           bar: { backgroundColor: '#e9ecef' },
-          // thumb: { borderWidth: 2, borderColor: '#228be6' },
+          thumb: { display: thumbVisible ? 'block' : 'none' },
         }}
         data-source="slider-check"
       />
