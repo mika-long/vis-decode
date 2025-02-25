@@ -188,25 +188,19 @@ function StimuliContent({
 
 export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) {
   const {
-    params, showPDF, training, taskType,
+    params: initialParams, showPDF, training, taskType,
   } = parameters;
-  // State for randomized parameters
-  const [randomParams, setRandomParams] = useState<DistributionParams>(() => generateRandomParams());
+  // State for parameters; if data specifies then yes else no
+  const [currentParams, setCurrentParams] = useState<DistributionParams>(() => {
+    if (initialParams) return initialParams;
+    return generateRandomParams();
+  });
   const [cursor, setCursor] = useState<CursorState | null>(null);
   const [selectedPoint, setSelectedPoint] = useState<Point | null>(null);
   const [userAnswer, setUserAnswer] = useState<any>(null);
 
-  // Generate a new set of random parameters
-  const regenerateParams = useCallback(() => {
-    const newParams = generateRandomParams();
-    setRandomParams(newParams);
-    // Reset the selected point and answer when parameters change
-    setSelectedPoint(null);
-    setUserAnswer(null);
-  }, []);
-
   // Generate distribution data
-  const distributionData = useMemo(() => generateDistributionData(randomParams), [randomParams]);
+  const distributionData = useMemo(() => generateDistributionData(currentParams), [currentParams]);
 
   // Calculate domains for scales - ensure they are tuples
   const xDomain: [number, number] = useMemo(() => [
@@ -216,16 +210,31 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
 
   const yDomain: [number, number] = [0, 1];
 
-  // Handle clear point
+  /**
+   * Clears the selected point and resets the answer state
+   *
+   * @function handleClearPoint
+   * @returns {void}
+   *
+   * @description
+   * This callback function:
+   * 1. Sets the selected point to null
+   * 2. Updates the answer state with the current parameters and a false status
+   *
+   * @dependencies
+   * - setSelectedPoint
+   * - setAnswer
+   * - currentParams
+   */
   const handleClearPoint = useCallback(() => {
     setSelectedPoint(null);
     setAnswer({
       status: false,
       answers: {
-        randomParams,
+        currentParams,
       },
     });
-  }, [setAnswer, randomParams]);
+  }, [setAnswer, currentParams]);
 
   // Custom setAnswer wrapper to track both the user's answer and the parameters
   const handleSetAnswer = useCallback((answerData: { status: boolean; answers: any }) => {
@@ -233,10 +242,10 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
     // Format the answers to match config.json
     const formattedAnswers = {
       ...answerData.answers,
-      'param-xi': randomParams.xi,
-      'param-omega': randomParams.omega,
-      'param-nu': randomParams.nu,
-      'param-alpha': randomParams.alpha,
+      'param-xi': currentParams.xi,
+      'param-omega': currentParams.omega,
+      'param-nu': currentParams.nu,
+      'param-alpha': currentParams.alpha,
       // 'taskType': taskType,
       // 'taskid': taskid
     };
@@ -245,20 +254,20 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
       status: answerData.status,
       answers: formattedAnswers,
     });
-  }, [setAnswer, randomParams]);
+  }, [setAnswer, currentParams]);
 
   // Initial answer setup to track parameters even before user interaction
   useEffect(() => {
     setAnswer({
       status: false,
       answers: {
-        'param-xi': randomParams.xi,
-        'param-omega': randomParams.omega,
-        'param-nu': randomParams.nu,
-        'param-alpha': randomParams.alpha,
+        'param-xi': currentParams.xi,
+        'param-omega': currentParams.omega,
+        'param-nu': currentParams.nu,
+        'param-alpha': currentParams.alpha,
       },
     });
-  }, [randomParams, setAnswer]);
+  }, [currentParams, setAnswer]);
 
   return (
     <Container p="md">
@@ -267,9 +276,9 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
           width={chartSettings.width}
           height={chartSettings.height}
           margin={chartSettings.margin}
-          xDomain={[-5, 5]}
-          // yDomain={yDomain}
           // xDomain={xDomain}
+          // yDomain={yDomain}
+          xDomain={[-5, 5]}
           yDomain={[0, 1]}
         >
           <StimuliContent
@@ -282,7 +291,7 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
             selectedPoint={selectedPoint}
             setSelectedPoint={setSelectedPoint}
             setAnswer={handleSetAnswer}
-            randomParams={randomParams}
+            randomParams={currentParams}
           />
         </ScalesProvider>
         <Button
@@ -296,16 +305,16 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
         <Text size="md" c="dimmed">
           Debug - Random Parameters:
           xi=
-          {randomParams.xi.toFixed(2)}
+          {currentParams.xi.toFixed(2)}
           ,
           omega=
-          {randomParams.omega.toFixed(2)}
+          {currentParams.omega.toFixed(2)}
           ,
           nu=
-          {randomParams.nu}
+          {currentParams.nu}
           ,
           alpha=
-          {randomParams.alpha.toFixed(2)}
+          {currentParams.alpha.toFixed(2)}
         </Text>
       </div>
     </Container>
