@@ -124,7 +124,7 @@ export function skewTCDF(x: number, params: DistributionParams): number {
 export function generateDistributionData(
   params: DistributionParams,
   range: [number, number] = [-5, 5],
-  step: number = 0.1,
+  step: number = 0.01,
 ): DistributionData {
   const {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
