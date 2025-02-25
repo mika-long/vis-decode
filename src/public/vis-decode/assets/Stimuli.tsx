@@ -232,7 +232,10 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
     setAnswer({
       status: false,
       answers: {
-        currentParams,
+        'param-xi': currentParams.xi,
+        'param-omega': currentParams.omega,
+        'param-nu': currentParams.nu,
+        'param-alpha': currentParams.alpha,
       },
     });
   }, [setAnswer, currentParams]);
