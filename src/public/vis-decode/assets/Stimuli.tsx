@@ -69,7 +69,7 @@ function DistributionVisualization({
     if (sliderValue === undefined || training === false) return null;
 
     // Find the index of the closest x value to our slider
-    const index = d3.bisector((d) => d).left(distributionData.xVals, sliderValue);
+    const index = d3.bisector((d: number) => d).left(distributionData.xVals, sliderValue);
 
     switch (taskType) {
       case 'pdf_median':
@@ -173,13 +173,16 @@ function DistributionVisualization({
   );
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) {
   const {
     params: initialParams, showPDF, training, taskType,
   } = parameters;
   const [sliderValue, setSliderValue] = useState<number>();
-  const [currentParams, setCurrentParams] = useState<DistributionParams>(initialParams || generateRandomParams());
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [currentParams, setCurrentParams] = useState<DistributionParams>(() => {
+    if (initialParams) return initialParams;
+    return generateRandomParams();
+  });
 
   // Generate distribution data
   const distributionData = useMemo(() => generateDistributionData(currentParams), [currentParams]);
@@ -187,17 +190,14 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
   // Initialize the parameters when component mounts if not provided
   useEffect(() => {
     if (!initialParams || Object.keys(initialParams).length === 0) {
-      const newParams = generateRandomParams();
-      setCurrentParams(newParams);
-
       // Record the answer
       setAnswer({
         status: true,
         answers: {
-          'param-xi': newParams.xi,
-          'param-omega': newParams.omega,
-          'param-nu': newParams.nu,
-          'param-alpha': newParams.alpha,
+          'param-xi': currentParams.xi,
+          'param-omega': currentParams.omega,
+          'param-nu': currentParams.nu,
+          'param-alpha': currentParams.alpha,
           'location-x': null,
           'location-y': null,
           'pixel-x': null,
@@ -205,7 +205,7 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
         },
       });
     }
-  }, [initialParams, setAnswer]);
+  }, [initialParams, setAnswer, currentParams]);
 
   if (!distributionData) return null;
 
@@ -223,9 +223,9 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
             sliderValue={sliderValue}
             setSliderValue={setSliderValue}
             distributionData={distributionData}
-            showPDF={showPDF}
-            training={training}
-            taskType={taskType}
+            showPDF={showPDF || false}
+            training={training || false}
+            taskType={taskType || 'pdf_median'}
             currentParams={currentParams}
             setAnswer={setAnswer}
           />
