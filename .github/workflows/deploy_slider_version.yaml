@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - slider-version
+  workflow_dispatch:
 
 jobs:
   deploy:

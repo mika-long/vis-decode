@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - click-version
+  workflow_dispatch:
 
 jobs:
   deploy:
