@@ -26,11 +26,13 @@ export default function DistributionSlider({
         onChangeEnd={onChangeEnd}
         min={distributionData.xVals[0]}
         max={distributionData.xVals[distributionData.xVals.length - 1]}
-        step={0.1}
+        step={0.01}
         label={(val) => val.toFixed(2)}
         styles={{
           root: { width: '100%' },
-          track: { width: '100%' },
+          track: { width: '100%', backgroundColor: '#e9ecef' },
+          bar: { backgroundColor: '#e9ecef' },
+          // thumb: { borderWidth: 2, borderColor: '#228be6' },
         }}
         data-source="slider-check"
       />

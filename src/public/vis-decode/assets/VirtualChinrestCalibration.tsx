@@ -5,7 +5,7 @@ import {
   Slider, Button, Container, Stack, Text,
 } from '@mantine/core';
 import { StimulusParams } from '../../../store/types';
-import cardImage from './costco_card.png';
+import cardImage from './card.png';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 interface VirtualChinrestCalibrationProps extends StimulusParams<any> {
@@ -16,8 +16,8 @@ interface VirtualChinrestCalibrationProps extends StimulusParams<any> {
 export default function VirtualChinrestCalibration({
   parameters,
   setAnswer,
-  itemWidthMM = 85.6, // Standard credit card width
-  itemHeightMM = 53.98, // Standard credit card height
+  itemWidthMM = 85, // Standard credit card width (85.6)
+  itemHeightMM = 54, // Standard credit card height (53.98)
 }: VirtualChinrestCalibrationProps) {
   // Set states
   const [itemWidthPx, setItemWidthPx] = useState(300);
