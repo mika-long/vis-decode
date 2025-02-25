@@ -86,14 +86,55 @@
           {
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
-            "required": true, 
-            "location": "belowStimulus",
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "pixel-x", 
+            "prompt": "The Pixel x-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "pixel-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-xi", 
+            "prompt": "parameter xi", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-omega", 
+            "prompt": "parameter omega", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-nu", 
+            "prompt": "parameter nu", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-alpha", 
+            "prompt": "parameter alpha", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
@@ -116,14 +157,55 @@
           {
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
-            "required": true, 
-            "location": "sidebar",
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "pixel-x", 
+            "prompt": "The Pixel x-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "pixel-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-xi", 
+            "prompt": "parameter xi", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-omega", 
+            "prompt": "parameter omega", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-nu", 
+            "prompt": "parameter nu", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-alpha", 
+            "prompt": "parameter alpha", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
@@ -146,14 +228,55 @@
           {
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
-            "required": true, 
-            "location": "sidebar",
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "pixel-x", 
+            "prompt": "The Pixel x-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "pixel-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-xi", 
+            "prompt": "parameter xi", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-omega", 
+            "prompt": "parameter omega", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-nu", 
+            "prompt": "parameter nu", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-alpha", 
+            "prompt": "parameter alpha", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
@@ -176,14 +299,55 @@
           {
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
-            "required": true, 
-            "location": "sidebar",
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "pixel-x", 
+            "prompt": "The Pixel x-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "pixel-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-xi", 
+            "prompt": "parameter xi", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-omega", 
+            "prompt": "parameter omega", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-nu", 
+            "prompt": "parameter nu", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-alpha", 
+            "prompt": "parameter alpha", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
@@ -207,14 +371,55 @@
           {
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
-            "required": true, 
-            "location": "belowStimulus",
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "pixel-x", 
+            "prompt": "The Pixel x-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "pixel-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-xi", 
+            "prompt": "parameter xi", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-omega", 
+            "prompt": "parameter omega", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-nu", 
+            "prompt": "parameter nu", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-alpha", 
+            "prompt": "parameter alpha", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
@@ -238,14 +443,55 @@
           {
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
-            "required": true, 
-            "location": "sidebar",
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "pixel-x", 
+            "prompt": "The Pixel x-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "pixel-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-xi", 
+            "prompt": "parameter xi", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-omega", 
+            "prompt": "parameter omega", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-nu", 
+            "prompt": "parameter nu", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-alpha", 
+            "prompt": "parameter alpha", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
@@ -269,14 +515,55 @@
           {
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
-            "required": true, 
-            "location": "sidebar",
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "pixel-x", 
+            "prompt": "The Pixel x-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "pixel-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-xi", 
+            "prompt": "parameter xi", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-omega", 
+            "prompt": "parameter omega", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-nu", 
+            "prompt": "parameter nu", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-alpha", 
+            "prompt": "parameter alpha", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
@@ -300,14 +587,55 @@
           {
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
-            "required": true, 
-            "location": "sidebar",
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "pixel-x", 
+            "prompt": "The Pixel x-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "pixel-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-xi", 
+            "prompt": "parameter xi", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-omega", 
+            "prompt": "parameter omega", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-nu", 
+            "prompt": "parameter nu", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-alpha", 
+            "prompt": "parameter alpha", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
