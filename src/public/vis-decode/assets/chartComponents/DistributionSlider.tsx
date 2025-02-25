@@ -1,5 +1,5 @@
 import { Slider } from '@mantine/core';
-import { DistributionData } from '../dataGeneration/distributionCalculations';
+import { DistributionData } from '../dataGeneration/jstatDistributionCalculations';
 
 interface DistributionSliderProps {
   value: number;

@@ -6,11 +6,10 @@ import {
 } from 'react';
 import { Container, Space } from '@mantine/core';
 import { StimulusParams } from '../../../store/types';
-import { generateDistributionData } from './dataGeneration/distributionCalculations';
+import { generateDistributionData, DistributionData } from './dataGeneration/jstatDistributionCalculations';
 import Plot from './Plot';
 import DistributionSlider from './chartComponents/DistributionSlider';
 import { ScalesProvider, useScales } from './chartComponents/ScalesContext';
-import { DistributionData } from './dataGeneration/jstatDistributionCalculations';
 import { TaskType } from './TaskTypes';
 
 const chartSettings = {

@@ -5,7 +5,7 @@ import { useScales } from './chartComponents/ScalesContext';
 import Line from './chartComponents/Line';
 import ClickMarker from './chartComponents/ClickMarker';
 import GuideLines from './chartComponents/Guidelines';
-import { DistributionData } from './dataGeneration/distributionCalculations';
+import { DistributionData } from './dataGeneration/jstatDistributionCalculations';
 
 interface PlotProps {
   // Data
