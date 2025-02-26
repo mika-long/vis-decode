@@ -49,7 +49,7 @@ function generateRandomParams(): DistributionParams {
   return {
     xi: Math.random() * 8 - 4,
     omega: 0.2 + Math.random() * 2.3,
-    nu: 3 + Math.floor(Math.random() * 18),
+    nu: 3 + Math.floor(Math.random() * 15),
     alpha: Math.random() * 8 - 4,
   };
 }
