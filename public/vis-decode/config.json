@@ -73,7 +73,7 @@
       "PDF-Median-Test": {
         "type": "react-component", 
         "path": "vis-decode/assets/Stimuli.tsx", 
-        "instruction": "Drag the slider to move the ball along the curve until the vertical line through it divides the area into two equal halves. Adjust left/right until the areas match, then release to lock the ball's position.",
+        "instruction": "Use the cursor to move the ball along the curve until a vertical line through it divides the area into two equal halves. Click to lock the ball's position.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -144,7 +144,7 @@
       "PDF-Mode-Test": {
         "type": "react-component", 
         "path": "vis-decode/assets/Stimuli.tsx", 
-        "instruction": "Drag the slider to move the ball along the curve to the highest point (where y is greatest). Position the ball at the peak, then release to confirm.",
+        "instruction": "Use the cursor to move the ball along the curve to the highest point (where y is greatest). Position the ball at the peak, then click to confirm.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -215,7 +215,7 @@
       "CDF-Median-Test": {
         "type": "react-component", 
         "path": "vis-decode/assets/Stimuli.tsx", 
-        "instruction": "Drag the slider to move the ball along the curve until it rests where the curve crosses y=0.5. Fine-tune the ball's position using the slider, then release.",
+        "instruction": "Use the cursor to move the ball along the curve until it rests where the curve crosses y=0.5. Click to confirm selection.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -286,7 +286,7 @@
       "CDF-Mode-Test": {
         "type": "react-component", 
         "path": "vis-decode/assets/Stimuli.tsx", 
-        "instruction": "Drag the slider to move the ball along the curve to where the slope is steepest. Adjust until the ball is at the point of maximum steepness, then release.",
+        "instruction": "Use the cursor to move the ball along the curve to where the slope is steepest. Adjust until the ball is at the point of maximum steepness, then click to confirm.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -357,7 +357,7 @@
       "PDF-Median-Train": {
         "type": "react-component", 
         "path": "vis-decode/assets/Stimuli.tsx", 
-        "instruction": "Use the slider to position the ball along the curve: 1. Drag to estimate area division 2. Observe shaded regions 3. Adjust until areas balance 4. Release to finalize ball position",
+        "instruction": "Use the cursor to position the ball along the curve, such that the area under the curve is divded into two equal halves. Click to finalize your selection.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -429,7 +429,7 @@
       "PDF-Mode-Train": {
         "type": "react-component", 
         "path": "vis-decode/assets/Stimuli.tsx", 
-        "instruction": "Drag the slider to move the ball along the curve to its highest position. The ball will rise/fall with the curve --- position it at the peak before releasing.",
+        "instruction": "Use the cursor to move the ball along the curve to its highest position. The ball will rise/fall with the curve --- position it at the peak before clicking to confirm its location.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -502,7 +502,7 @@
       "CDF-Median-Train": {
         "type": "react-component", 
         "path": "vis-decode/assets/Stimuli.tsx", 
-        "instruction": "Slide the ball along the curve using the slider control. Stop when the ball is directly on the y=0.5 intersection point, then release to submit.",
+        "instruction": "Use the cursor to slide the ball along the curve. Stop when the ball is directly on the y=0.5 intersection point, then click to confirm selection.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -574,7 +574,7 @@
       "CDF-Mode-Train": {
         "type": "react-component", 
         "path": "vis-decode/assets/Stimuli.tsx", 
-        "instruction": "Drag the slider to trace the ball along the curve. Identify where the ball moves upward most rapidly --- this is the steepest slope. Release at this location.",
+        "instruction": "Use the cursor to trace the ball along the curve. Identify where the ball moves upward most rapidly --- this is the steepest slope. Click to confirm the location.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
