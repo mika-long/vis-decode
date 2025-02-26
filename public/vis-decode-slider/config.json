@@ -1,0 +1,1074 @@
+{
+    "$schema": "https://raw.githubusercontent.com/reVISit-studies/study/main/src/parser/StudyConfigSchema.json",
+    "studyMetadata": {
+        "title": "Visual Decoding Operators (Slider)",
+        "version": "pilot", 
+        "authors": [
+            "Sheng Long",
+            "The ReVISit team"
+        ],
+        "date": "2024-12-18",
+        "description": "A study designed to elicit responses from participants",
+        "organizations": [
+            "Northwestern University"
+        ]
+    },
+    "uiConfig": {
+        "contactEmail": "contact@revisit.dev",
+        "helpTextPath": "vis-decode-slider/assets/help.md",
+        "logoPath": "revisitAssets/revisitLogoSquare.svg",
+        "withProgressBar": true,
+        "autoDownloadStudy": false,
+        "sidebar": false
+    },
+    "importedLibraries": [],
+    "baseComponents": {
+      "card": {
+        "type": "react-component", 
+        "path": "vis-decode-slider/assets/VirtualChinrestCalibration.tsx", 
+        "nextButtonLocation": "belowStimulus", 
+        "parameters": {
+          "taskid": "pixelsPerMM"
+        },
+        "response": [
+          {
+            "id": "pixelsPerMM", 
+            "prompt": "Calibration results",
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      },
+      "ball": {
+        "type": "react-component",
+        "path": "vis-decode-slider/assets/ViewingDistanceCalibration.tsx",
+        "nextButtonLocation": "belowStimulus", 
+        "parameters": {
+          "blindspotAngle": 13.5
+        }, 
+        "response": [
+          {
+            "id": "dist-calibration-MM",
+            "prompt": "Distance Calibration results in MM",
+            "required": true, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "dist-calibration-CM",
+            "prompt": "Distance Calibration results in CM",
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "ball-positions",
+            "prompt": "Position of balls in pixels",
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      },
+      "PDF-Median-Test": {
+        "type": "react-component", 
+        "path": "vis-decode-slider/assets/Stimuli.tsx", 
+        "instruction": "Drag the slider to move the ball along the curve until the vertical line through it divides the area into two equal halves. Adjust left/right until the areas match, then release to lock the ball's position.",
+        "instructionLocation": "aboveStimulus",
+        "nextButtonLocation": "belowStimulus",
+        "parameters": {
+          "params": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
+          "showPDF": true, 
+          "taskid": "location", 
+          "taskType": "pdf_median"
+        }, 
+        "response": [
+          {
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "pixel-x", 
+            "prompt": "The Pixel x-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "pixel-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-xi", 
+            "prompt": "parameter xi", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-omega", 
+            "prompt": "parameter omega", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-nu", 
+            "prompt": "parameter nu", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-alpha", 
+            "prompt": "parameter alpha", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      },
+      "PDF-Mode-Test": {
+        "type": "react-component", 
+        "path": "vis-decode-slider/assets/Stimuli.tsx", 
+        "instruction": "Drag the slider to move the ball along the curve to the highest point (where y is greatest). Position the ball at the peak, then release to confirm.",
+        "instructionLocation": "aboveStimulus",
+        "nextButtonLocation": "belowStimulus",
+        "parameters": {
+          "params": {"xi": 0, "omega": 1, "nu": 13, "alpha": 0}, 
+          "showPDF": true, 
+          "taskid": "location",
+          "taskType": "pdf_mode"
+        }, 
+        "response": [
+          {
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "pixel-x", 
+            "prompt": "The Pixel x-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "pixel-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-xi", 
+            "prompt": "parameter xi", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-omega", 
+            "prompt": "parameter omega", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-nu", 
+            "prompt": "parameter nu", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-alpha", 
+            "prompt": "parameter alpha", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      }, 
+      "CDF-Median-Test": {
+        "type": "react-component", 
+        "path": "vis-decode-slider/assets/Stimuli.tsx", 
+        "instruction": "Drag the slider to move the ball along the curve until it rests where the curve crosses y=0.5. Fine-tune the ball's position using the slider, then release.",
+        "instructionLocation": "aboveStimulus",
+        "nextButtonLocation": "belowStimulus",
+        "parameters": {
+          "params": {"xi": 0, "omega": 1, "nu": 12, "alpha": 0}, 
+          "showPDF": false, 
+          "taskid": "location",
+          "taskType": "cdf_median"
+        },
+        "response": [
+          {
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "pixel-x", 
+            "prompt": "The Pixel x-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "pixel-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-xi", 
+            "prompt": "parameter xi", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-omega", 
+            "prompt": "parameter omega", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-nu", 
+            "prompt": "parameter nu", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-alpha", 
+            "prompt": "parameter alpha", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      },
+      "CDF-Mode-Test": {
+        "type": "react-component", 
+        "path": "vis-decode-slider/assets/Stimuli.tsx", 
+        "instruction": "Drag the slider to move the ball along the curve to where the slope is steepest. Adjust until the ball is at the point of maximum steepness, then release.",
+        "instructionLocation": "aboveStimulus",
+        "nextButtonLocation": "belowStimulus",
+        "parameters": {
+          "params": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}, 
+          "showPDF": false,
+          "taskid": "location",
+          "taskType": "cdf_mode"
+        }, 
+        "response": [
+          {
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "pixel-x", 
+            "prompt": "The Pixel x-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "pixel-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-xi", 
+            "prompt": "parameter xi", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-omega", 
+            "prompt": "parameter omega", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-nu", 
+            "prompt": "parameter nu", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-alpha", 
+            "prompt": "parameter alpha", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      },
+      "PDF-Median-Train": {
+        "type": "react-component", 
+        "path": "vis-decode-slider/assets/Stimuli.tsx", 
+        "instruction": "Click on the slider to initialize a staarting point. Use the slider to position the ball along the curve, such that the vertiacl line divides the area under the curve into two equal halves. Fine tune your selection by using the left and right arrow keys.",
+        "instructionLocation": "aboveStimulus",
+        "nextButtonLocation": "belowStimulus",
+        "parameters": {
+          "params": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
+          "showPDF": true, 
+          "taskid": "location", 
+          "training": true,
+          "taskType": "pdf_median"
+        }, 
+        "response": [
+          {
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "pixel-x", 
+            "prompt": "The Pixel x-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "pixel-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-xi", 
+            "prompt": "parameter xi", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-omega", 
+            "prompt": "parameter omega", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-nu", 
+            "prompt": "parameter nu", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-alpha", 
+            "prompt": "parameter alpha", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      }, 
+      "PDF-Mode-Train": {
+        "type": "react-component", 
+        "path": "vis-decode-slider/assets/Stimuli.tsx", 
+        "instruction": "Drag the slider to move the ball along the curve to its highest position. The ball will rise/fall with the curve --- position it at the peak before releasing.",
+        "instructionLocation": "aboveStimulus",
+        "nextButtonLocation": "belowStimulus",
+        "parameters": {
+          "params": {"xi": 0, "omega": 1, "nu": 13, "alpha": 0}, 
+          "showPDF": true, 
+          "taskid": "location", 
+          "training": true,
+          "taskType": "pdf_mode"
+        }, 
+        "response": [
+          {
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "pixel-x", 
+            "prompt": "The Pixel x-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "pixel-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-xi", 
+            "prompt": "parameter xi", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-omega", 
+            "prompt": "parameter omega", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-nu", 
+            "prompt": "parameter nu", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-alpha", 
+            "prompt": "parameter alpha", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      }, 
+      "CDF-Median-Train": {
+        "type": "react-component", 
+        "path": "vis-decode-slider/assets/Stimuli.tsx", 
+        "instruction": "Slide the ball along the curve using the slider control. Stop when the ball is directly on the y=0.5 intersection point, then release to submit.",
+        "instructionLocation": "aboveStimulus",
+        "nextButtonLocation": "belowStimulus",
+        "parameters": {
+          "params": {"xi": 0, "omega": 1, "nu": 12, "alpha": 0}, 
+          "showPDF": false, 
+          "taskid": "location", 
+          "training": true,
+          "taskType": "cdf_median"
+        },
+        "response": [
+          {
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "pixel-x", 
+            "prompt": "The Pixel x-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "pixel-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-xi", 
+            "prompt": "parameter xi", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-omega", 
+            "prompt": "parameter omega", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-nu", 
+            "prompt": "parameter nu", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-alpha", 
+            "prompt": "parameter alpha", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      },
+      "CDF-Mode-Train": {
+        "type": "react-component", 
+        "path": "vis-decode-slider/assets/Stimuli.tsx", 
+        "instruction": "Drag the slider to trace the ball along the curve. Identify where the ball moves upward most rapidly --- this is the steepest slope. Release at this location.",
+        "instructionLocation": "aboveStimulus",
+        "nextButtonLocation": "belowStimulus",
+        "parameters": {
+          "params": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}, 
+          "showPDF": false,
+          "taskid": "location", 
+          "training": true,
+          "taskType": "cdf_mode"
+        }, 
+        "response": [
+          {
+            "id": "location-x", 
+            "prompt": "The x-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "pixel-x", 
+            "prompt": "The Pixel x-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "pixel-y", 
+            "prompt": "The y-axis location of your click", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-xi", 
+            "prompt": "parameter xi", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-omega", 
+            "prompt": "parameter omega", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-nu", 
+            "prompt": "parameter nu", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }, 
+          {
+            "id": "param-alpha", 
+            "prompt": "parameter alpha", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
+      }
+    },
+    "components": {
+        "introduction": {
+            "type": "markdown",
+            "path": "vis-decode-slider/assets/introduction.md",
+            "response": [
+                {
+                "id": "prolificId",
+                "prompt": "Please enter your Prolific ID (without any spaces):",
+                "required": true,
+                "location": "belowStimulus",
+                "type": "shortText",
+                "placeholder": "Prolific ID",
+                "paramCapture": "PROLIFIC_ID"
+                }
+            ]
+        },
+        "consent": {
+            "type": "markdown",
+            "path": "vis-decode-slider/assets/consent.md",
+            "nextButtonText": "Next",
+            "response": [
+              {
+                "id": "consentApproval",
+                "prompt": "Do you consent to the study and wish to continue?",
+                "required": true,
+                "location": "belowStimulus",
+                "type": "radio",
+                "options": [
+                  "Decline",
+                  "Accept"
+                ]
+              }
+            ]
+        },
+        "calibration-intro": {
+          "type": "markdown", 
+          "path": "vis-decode-slider/assets/calibration_intro.md", 
+          "response": []
+        },
+        "calibration": {
+          "baseComponent": "card"
+        },
+        "distance calibration": {
+          "baseComponent": "ball"
+        },
+        "training_instruction": {
+            "type": "markdown",
+            "path": "vis-decode-slider/assets/training.md",
+            "response": []
+        },
+        "testing_instruction": {
+            "type": "markdown",
+            "path": "vis-decode-slider/assets/testing.md",
+            "response": []
+        },
+        "task1_train_1": {
+          "baseComponent": "PDF-Median-Train",
+          "parameters": {
+            "params": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}
+          }, 
+          "meta": {
+            "params": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}
+          }
+        }, 
+        "task1_train_2": {
+          "baseComponent": "PDF-Median-Train",
+          "parameters": {
+            "params": {"xi": -2, "omega": 2, "nu": 4, "alpha": 10}
+          }, 
+          "meta": {
+            "params": {"xi": -2, "omega": 2, "nu": 4, "alpha": 10}
+          }
+        }, 
+        "task2_train_1": {
+          "baseComponent": "PDF-Mode-Train"
+        }, 
+        "task2_train_2": {
+          "baseComponent": "PDF-Mode-Train",
+          "parameters": {
+            "params": {"xi": 0, "omega": 2, "nu": 10, "alpha": 0}
+          }, 
+          "meta": {
+            "params": {"xi": 0, "omega": 2, "nu": 10, "alpha": 0}
+          }
+        },
+        "task3_train_1": {
+          "baseComponent": "CDF-Median-Train"
+        },
+        "task3_train_2": {
+          "baseComponent": "CDF-Median-Train",
+          "parameters": {
+            "params": {"xi": 3, "omega": 2, "nu": 10, "alpha": 0}
+          }, 
+          "meta": {
+            "params": {"xi": 3, "omega": 2, "nu": 10, "alpha": 0}
+          }
+        }, 
+        "task4_train_1": {
+          "baseComponent": "CDF-Mode-Train"
+        },
+        "task4_train_2": {
+          "baseComponent": "CDF-Mode-Train",
+          "parameters": {
+            "params": {"xi": -1, "omega": 2, "nu": 10, "alpha": 10}
+          }, 
+          "meta": {
+            "params": {"xi": -1, "omega": 2, "nu": 10, "alpha": 10}
+          }
+        },
+        "task1_test_1": {
+          "baseComponent": "PDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        }, 
+        "task1_test_2": {
+          "baseComponent": "PDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        }, 
+        "task1_test_3": {
+          "baseComponent": "PDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task1_test_4": {
+          "baseComponent": "PDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task1_test_5": {
+          "baseComponent": "PDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task1_test_6": {
+          "baseComponent": "PDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task1_test_7": {
+          "baseComponent": "PDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task1_test_8": {
+          "baseComponent": "PDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task1_test_9": {
+          "baseComponent": "PDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task1_test_10": {
+          "baseComponent": "PDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task2_test_1": {
+          "baseComponent": "PDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        }, 
+        "task2_test_2": {
+          "baseComponent": "PDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        }, 
+        "task2_test_3": {
+          "baseComponent": "PDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task2_test_4": {
+          "baseComponent": "PDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task2_test_5": {
+          "baseComponent": "PDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task2_test_6": {
+          "baseComponent": "PDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task2_test_7": {
+          "baseComponent": "PDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task2_test_8": {
+          "baseComponent": "PDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task2_test_9": {
+          "baseComponent": "PDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task2_test_10": {
+          "baseComponent": "PDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task3_test_1": {
+          "baseComponent": "CDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        }, 
+        "task3_test_2": {
+          "baseComponent": "CDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        }, 
+        "task3_test_3": {
+          "baseComponent": "CDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task3_test_4": {
+          "baseComponent": "CDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task3_test_5": {
+          "baseComponent": "CDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task3_test_6": {
+          "baseComponent": "CDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task3_test_7": {
+          "baseComponent": "CDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task3_test_8": {
+          "baseComponent": "CDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task3_test_9": {
+          "baseComponent": "CDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task3_test_10": {
+          "baseComponent": "CDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task4_test_1": {
+          "baseComponent": "CDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task4_test_2": {
+          "baseComponent": "CDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task4_test_3": {
+          "baseComponent": "CDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task4_test_4": {
+          "baseComponent": "CDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task4_test_5": {
+          "baseComponent": "CDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task4_test_6": {
+          "baseComponent": "CDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task4_test_7": {
+          "baseComponent": "CDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task4_test_8": {
+          "baseComponent": "CDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task4_test_9": {
+          "baseComponent": "CDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task4_test_10": {
+          "baseComponent": "CDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        }
+    },
+    "sequence": {
+        "order": "fixed",
+        "components": [
+            "introduction",
+            {
+              "components": ["consent"], 
+              "skip": [{
+                "name": "consent", 
+                "check": "response", 
+                "responseId": "consentApproval", 
+                "value": "Decline", 
+                "to": "end", 
+                "comparison": "equal"
+              }], 
+              "order": "fixed"
+            }, 
+            "calibration-intro", 
+            "calibration", 
+            "distance calibration",
+            "training_instruction",
+            "task1_train_1",
+            "task1_train_2",
+            "testing_instruction",
+            "task1_test_1",
+            "task1_test_2",
+            "task1_test_3",
+            "task1_test_4",
+            "task1_test_5",
+            "task1_test_6",
+            "task1_test_7",
+            "task1_test_8",
+            "task1_test_9",
+            "task1_test_10",
+            "training_instruction",
+            "task2_train_1",
+            "task2_train_2",
+            "testing_instruction",
+            "task2_test_1",
+            "task2_test_2",
+            "task2_test_3",
+            "task2_test_4",
+            "task2_test_5",
+            "task2_test_6",
+            "task2_test_7",
+            "task2_test_8",
+            "task2_test_9",
+            "task2_test_10",
+            "training_instruction",
+            "task3_train_1",
+            "task3_train_2",
+            "testing_instruction",
+            "task3_test_1",
+            "task3_test_2",
+            "task3_test_3",
+            "task3_test_4",
+            "task3_test_5",
+            "task3_test_6",
+            "task3_test_7",
+            "task3_test_8",
+            "task3_test_9",
+            "task3_test_10",
+            "training_instruction",
+            "task4_train_1",
+            "task4_train_2",
+            "testing_instruction",
+            "task4_test_1",
+            "task4_test_2",
+            "task4_test_3",
+            "task4_test_4",
+            "task4_test_5",
+            "task4_test_6",
+            "task4_test_7",
+            "task4_test_8",
+            "task4_test_9",
+            "task4_test_10"
+        ]
+    }
+}
