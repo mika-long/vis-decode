@@ -772,6 +772,48 @@
             "params": null
           }
         }, 
+        "task1_test_4": {
+          "baseComponent": "PDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        }, 
+        "task1_test_5": {
+          "baseComponent": "PDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        }, 
+        "task1_test_6": {
+          "baseComponent": "PDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        }, 
+        "task1_test_7": {
+          "baseComponent": "PDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        }, 
+        "task1_test_8": {
+          "baseComponent": "PDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        }, 
+        "task1_test_9": {
+          "baseComponent": "PDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task1_test_10": {
+          "baseComponent": "PDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        }, 
         "task2_test_1": {
           "baseComponent": "PDF-Mode-Test",
           "parameters": {
@@ -789,7 +831,49 @@
           "parameters": {
             "params": null
           }
+        },
+        "task2_test_4": {
+          "baseComponent": "PDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
         }, 
+        "task2_test_5": {
+          "baseComponent": "PDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        }, 
+        "task2_test_6": {
+          "baseComponent": "PDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task2_test_7": {
+          "baseComponent": "PDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task2_test_8": {
+          "baseComponent": "PDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        }, 
+        "task2_test_9": {
+          "baseComponent": "PDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        }, 
+        "task2_test_10": {
+          "baseComponent": "PDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        },
         "task3_test_1": {
           "baseComponent": "CDF-Mode-Test",
           "parameters": {
@@ -807,7 +891,49 @@
           "parameters": {
             "params": null
           }
+        },
+        "task3_test_4": {
+          "baseComponent": "CDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
         }, 
+        "task3_test_5": {
+          "baseComponent": "CDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        }, 
+        "task3_test_6": {
+          "baseComponent": "CDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task3_test_7": {
+          "baseComponent": "CDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        }, 
+        "task3_test_8": {
+          "baseComponent": "CDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        }, 
+        "task3_test_9": {
+          "baseComponent": "CDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task3_test_10": {
+          "baseComponent": "CDF-Mode-Test",
+          "parameters": {
+            "params": null
+          }
+        },
         "task4_test_1": {
           "baseComponent": "CDF-Median-Test",
           "parameters": {
@@ -821,6 +947,48 @@
           }
         },
         "task4_test_3": {
+          "baseComponent": "CDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task4_test_4": {
+          "baseComponent": "CDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task4_test_5": {
+          "baseComponent": "CDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task4_test_6": {
+          "baseComponent": "CDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task4_test_7": {
+          "baseComponent": "CDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task4_test_8": {
+          "baseComponent": "CDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task4_test_9": {
+          "baseComponent": "CDF-Median-Test",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task4_test_10": {
           "baseComponent": "CDF-Median-Test",
           "parameters": {
             "params": null
@@ -853,6 +1021,13 @@
             "task1_test_1",
             "task1_test_2",
             "task1_test_3",
+            "task1_test_4",
+            "task1_test_5",
+            "task1_test_6",
+            "task1_test_7",
+            "task1_test_8",
+            "task1_test_9",
+            "task1_test_10",
             "training_instruction",
             "task2_train_1",
             "task2_train_2",
@@ -860,6 +1035,13 @@
             "task2_test_1",
             "task2_test_2",
             "task2_test_3",
+            "task2_test_4",
+            "task2_test_5",
+            "task2_test_6",
+            "task2_test_7",
+            "task2_test_8",
+            "task2_test_9",
+            "task2_test_10",
             "training_instruction",
             "task3_train_1",
             "task3_train_2",
@@ -867,13 +1049,27 @@
             "task3_test_1",
             "task3_test_2",
             "task3_test_3",
+            "task3_test_4",
+            "task3_test_5",
+            "task3_test_6",
+            "task3_test_7",
+            "task3_test_8",
+            "task3_test_9",
+            "task3_test_10",
             "training_instruction",
             "task4_train_1",
             "task4_train_2",
             "testing_instruction",
             "task4_test_1",
             "task4_test_2",
-            "task4_test_3"
+            "task4_test_3",
+            "task4_test_4",
+            "task4_test_5",
+            "task4_test_6",
+            "task4_test_7",
+            "task4_test_8",
+            "task4_test_9",
+            "task4_test_10"
         ]
     }
 }
