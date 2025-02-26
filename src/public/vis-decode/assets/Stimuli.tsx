@@ -27,7 +27,9 @@ const chartSettings = {
 
 interface Point {
   x: number,
-  y: number
+  y: number,
+  pixelX?: number,
+  pixelY?: number,
 }
 
 interface CursorState {
@@ -47,7 +49,7 @@ function generateRandomParams(): DistributionParams {
   return {
     xi: Math.random() * 8 - 4,
     omega: 0.2 + Math.random() * 2.3,
-    nu: 3 + Math.floor(Math.random() * 22),
+    nu: 3 + Math.floor(Math.random() * 18),
     alpha: Math.random() * 8 - 4,
   };
 }
@@ -80,6 +82,8 @@ function StimuliContent({
 }: StimuliContentProps) {
   // Scales from context
   const { xScale, yScale } = useScales();
+  const [nearestPoint, setNearestPoint] = useState<Point | null>(null);
+
   // Use the chart interaction hooks
   const {
     handleMouseMove,
@@ -93,6 +97,7 @@ function StimuliContent({
     yScale,
     setSelectedPoint,
     setCursor,
+    setNearestPoint,
     setAnswer: (answerData) => {
       setAnswer({
         status: answerData.status,
@@ -115,7 +120,7 @@ function StimuliContent({
 
     // If we have a cursor near the curve, find the closest point
     const point = cursor?.isNearCurve
-      ? findClosestPoint(cursor.x, cursor.y)
+      ? nearestPoint
       : selectedPoint;
 
     if (!point) return { x: null, y: null, tangentLine: null };
@@ -166,7 +171,7 @@ function StimuliContent({
       default:
         return { x: null, y: null, tangentLine: null };
     }
-  }, [cursor, selectedPoint, training, taskType, distributionData, findClosestPoint]);
+  }, [cursor, selectedPoint, training, taskType, distributionData, nearestPoint]);
 
   return (
     <Plot
@@ -178,6 +183,7 @@ function StimuliContent({
       onMouseLeave={handleMouseLeave}
       cursor={cursor}
       selectedPoint={selectedPoint}
+      nearestPoint={nearestPoint}
       guidelines={guidelines}
       axisLabels={{
         x: 'Value',

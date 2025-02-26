@@ -1,23 +1,20 @@
 /**
  * @param position: the position of the cursor
- * @param isNearCurve: boolean value, whether the cursor is near the curve
  */
 interface CursorProps {
   position: { x: number; y: number } | null;
-  isNearCurve: boolean;
 }
 
-export default function Cursor({ position, isNearCurve }: CursorProps) {
+export default function Cursor({ position }: CursorProps) {
   if (!position) return null;
 
   return (
     <circle
       cx={position.x}
       cy={position.y}
-      r={isNearCurve ? 5 : 20}
-      fill={isNearCurve ? '#2563eb' : '#666'}
-      stroke={isNearCurve ? '#2563eb' : '#666'} // Blue when near curve
-      strokeWidth={1}
+      r={10}
+      fill="#666"
+      stroke="none"
       opacity={0.8}
       pointerEvents="none"
     />

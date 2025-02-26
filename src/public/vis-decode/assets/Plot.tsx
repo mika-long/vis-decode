@@ -5,6 +5,7 @@ import { useScales } from './chartComponents/ScalesContext';
 import { Line } from './chartComponents/Line';
 import Cursor from './chartComponents/Cursor';
 import ClickMarker from './chartComponents/ClickMarker';
+import NearestPointMarker from './chartComponents/NearestPointMarker';
 import { DistributionData } from './dataGeneration/jstatDistributionCalculations';
 import GuideLines from './chartComponents/Guidelines';
 
@@ -21,7 +22,8 @@ interface PlotProps {
     y?: string;
   }
   // Interaction state
-  selectedPoint?: { x: number; y:number } | null;
+  selectedPoint?: { x: number; y:number; pixelX?: number; pixelY?: number } | null;
+  nearestPoint?: { x: number; y:number; pixelX?: number; pixelY?: number} | null;
   guidelines?: {
     x: number | null;
     y: number | null;
@@ -46,6 +48,7 @@ export default function Plot({
   strokeWidth = 2,
   axisLabels,
   selectedPoint,
+  nearestPoint,
   guidelines,
   cursor,
   children,
@@ -131,7 +134,8 @@ export default function Plot({
         <g ref={yAxisRef} />
         {axisElements}
         {/* Interactive elements */}
-        {cursor && <Cursor position={{ x: cursor.x, y: cursor.y }} isNearCurve={cursor.isNearCurve} />}
+        {cursor && <Cursor position={{ x: cursor.x, y: cursor.y }} />}
+        {cursor?.isNearCurve && nearestPoint && <NearestPointMarker point={nearestPoint} />}
         {selectedPoint && <ClickMarker point={selectedPoint} />}
         {isTraining && guidelines && (
           <GuideLines
