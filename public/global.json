@@ -1,7 +1,8 @@
 {
   "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.0.0-rc3/src/parser/GlobalConfigSchema.json",
   "configsList": [
-    "vis-decode",
+    "vis-decode-slider",
+    "vis-decode-click",
     "tutorial-simple-study",
     "tutorial-react-and-randomization",
     "tutorial-advanced-react",
@@ -35,8 +36,11 @@
     "test-skip-logic"
   ],
   "configs": {
-    "vis-decode": {
-      "path": "vis-decode/config.json"
+    "vis-decode-slider": {
+      "path": "vis-decode-slider/config.json"
+    },
+    "vis-decode-click": {
+      "path": "vis-decode-click/config.json"
     },
     "tutorial-simple-study": {
       "path": "tutorial/simple-study/config.json"
