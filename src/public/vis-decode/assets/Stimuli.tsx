@@ -44,7 +44,7 @@ interface DistributionVisualizationProps {
 
 function generateRandomParams(): DistributionParams {
   return {
-    xi: Math.random() * 8 - 4,
+    xi: Math.random() * 6 - 3,
     omega: 0.2 + Math.random() * 2.3,
     nu: 3 + Math.floor(Math.random() * 22),
     alpha: Math.random() * 8 - 4,

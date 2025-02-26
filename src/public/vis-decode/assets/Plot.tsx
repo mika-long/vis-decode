@@ -68,12 +68,16 @@ export default function Plot({
     if (xAxisRef.current) {
       d3.select(xAxisRef.current)
         .call(d3.axisBottom(xScale))
-        .attr('transform', `translate(0,${height - margin.bottom})`);
+        .attr('transform', `translate(0,${height - margin.bottom})`)
+        .selectAll('text') // Select all text elements (tick labels)
+        .style('font-size', '12px'); // Set the font size (adjust value as needed);
     }
     if (yAxisRef.current) {
       d3.select(yAxisRef.current)
         .call(d3.axisLeft(yScale))
-        .attr('transform', `translate(${margin.left},0)`);
+        .attr('transform', `translate(${margin.left},0)`)
+        .selectAll('text')
+        .style('font-size', '12px');
     }
   }, [xScale, yScale, margin, height]);
 
