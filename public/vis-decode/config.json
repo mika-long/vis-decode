@@ -358,7 +358,7 @@
       "PDF-Median-Train": {
         "type": "react-component", 
         "path": "vis-decode/assets/Stimuli.tsx", 
-        "instruction": "Use the slider to position the ball along the curve: 1. Drag to estimate area division 2. Observe shaded regions 3. Adjust until areas balance 4. Release to finalize ball position",
+        "instruction": "Click on the slider to initialize a staarting point. Use the slider to position the ball along the curve, such that the vertiacl line divides the area under the curve into two equal halves. Fine tune your selection by using the left and right arrow keys.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {

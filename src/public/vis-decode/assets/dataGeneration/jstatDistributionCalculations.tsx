@@ -226,3 +226,43 @@ export function findDistributionValue(
 
   return { pdf, cdf };
 }
+
+export function findModeFromPDF(xValues: number[], pdfValues: number[]) {
+  let maxPDFIndex = 0;
+
+  for (let i = 0; i < pdfValues.length; i += 1) {
+    if (pdfValues[i] > pdfValues[maxPDFIndex]) {
+      maxPDFIndex = i;
+    }
+  }
+  return xValues[maxPDFIndex];
+}
+
+export function findMedianFromCDF(xValues: number[], cdfValues: number[]) {
+  let closestIndex = 0;
+  let minDifference = Math.abs(cdfValues[0] - 0.5);
+
+  for (let i = 0; i < cdfValues.length; i += 1) {
+    const difference = Math.abs(cdfValues[i] - 0.5);
+    if (difference < minDifference) {
+      minDifference = difference;
+      closestIndex = i;
+    }
+  }
+  if (Math.abs(cdfValues[closestIndex] - 0.5) < 1e-6) {
+    return xValues[closestIndex];
+  }
+
+  let leftIndex = 0;
+  let rightIndex = cdfValues.length - 1;
+
+  for (let i = 0; i < cdfValues.length - 1; i += 1) {
+    if (cdfValues[i] <= 0.5 && cdfValues[i + 1] >= 0.5) {
+      leftIndex = i;
+      rightIndex = i + 1;
+      break;
+    }
+  }
+  const t = (0.5 - cdfValues[leftIndex]) / (cdfValues[rightIndex] - cdfValues[leftIndex]);
+  return xValues[leftIndex] + t * (xValues[rightIndex] - xValues[leftIndex]);
+}

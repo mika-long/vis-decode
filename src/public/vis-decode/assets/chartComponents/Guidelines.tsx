@@ -31,7 +31,7 @@ export default function GuideLines({
         y1={margin.top}
         y2={height - margin.bottom}
         stroke="#666"
-        strokeWidth={1}
+        strokeWidth={1.5}
         strokeDasharray="4"
         data-source="Guidelines-vertical"
       />
@@ -48,7 +48,7 @@ export default function GuideLines({
         y1={yScale(yValue)}
         y2={yScale(yValue)}
         stroke="#666"
-        strokeWidth={1}
+        strokeWidth={1.5}
         strokeDasharray="4"
         data-source="Guidelines-horizontal"
       />
@@ -75,7 +75,7 @@ export default function GuideLines({
         x2={xScale(x2)}
         y2={yScale(y2)}
         stroke="#666"
-        strokeWidth={1}
+        strokeWidth={1.5}
         strokeDasharray="4"
         data-source="Guidelines-tangent"
       />
