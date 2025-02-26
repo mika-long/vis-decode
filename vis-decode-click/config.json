@@ -4,7 +4,7 @@
         "title": "Visual Decoding Operators (Click)",
         "version": "pilot",
         "authors": [
-            "Sheng Long"
+            "Sheng Long "
         ],
         "date": "2024-12-18",
         "description": "A study designed to elicit responses from participants",
@@ -24,7 +24,7 @@
     "baseComponents": {
       "card": {
         "type": "react-component", 
-        "path": "vis-decode/assets/VirtualChinrestCalibration.tsx", 
+        "path": "vis-decode-click/assets/VirtualChinrestCalibration.tsx", 
         "nextButtonLocation": "belowStimulus", 
         "parameters": {
           "taskid": "pixelsPerMM"
@@ -41,7 +41,7 @@
       },
       "ball": {
         "type": "react-component",
-        "path": "vis-decode/assets/ViewingDistanceCalibration.tsx",
+        "path": "vis-decode-click/assets/ViewingDistanceCalibration.tsx",
         "nextButtonLocation": "belowStimulus", 
         "parameters": {
           "blindspotAngle": 13.5
@@ -72,7 +72,7 @@
       },
       "PDF-Median-Test": {
         "type": "react-component", 
-        "path": "vis-decode/assets/Stimuli.tsx", 
+        "path": "vis-decode-click/assets/Stimuli.tsx", 
         "instruction": "Use the cursor to move the ball along the curve until a vertical line through it divides the area into two equal halves. Click to lock the ball's position.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
@@ -143,7 +143,7 @@
       },
       "PDF-Mode-Test": {
         "type": "react-component", 
-        "path": "vis-decode/assets/Stimuli.tsx", 
+        "path": "vis-decode-click/assets/Stimuli.tsx", 
         "instruction": "Use the cursor to move the ball along the curve to the highest point (where y is greatest). Position the ball at the peak, then click to confirm.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
@@ -214,7 +214,7 @@
       }, 
       "CDF-Median-Test": {
         "type": "react-component", 
-        "path": "vis-decode/assets/Stimuli.tsx", 
+        "path": "vis-decode-click/assets/Stimuli.tsx", 
         "instruction": "Use the cursor to move the ball along the curve until it rests where the curve crosses y=0.5. Click to confirm selection.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
@@ -285,7 +285,7 @@
       },
       "CDF-Mode-Test": {
         "type": "react-component", 
-        "path": "vis-decode/assets/Stimuli.tsx", 
+        "path": "vis-decode-click/assets/Stimuli.tsx", 
         "instruction": "Use the cursor to move the ball along the curve to where the slope is steepest. Adjust until the ball is at the point of maximum steepness, then click to confirm.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
@@ -356,7 +356,7 @@
       },
       "PDF-Median-Train": {
         "type": "react-component", 
-        "path": "vis-decode/assets/Stimuli.tsx", 
+        "path": "vis-decode-click/assets/Stimuli.tsx", 
         "instruction": "Use the cursor to position the ball along the curve, such that the area under the curve is divded into two equal halves. Click to finalize your selection.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
@@ -428,7 +428,7 @@
       }, 
       "PDF-Mode-Train": {
         "type": "react-component", 
-        "path": "vis-decode/assets/Stimuli.tsx", 
+        "path": "vis-decode-click/assets/Stimuli.tsx", 
         "instruction": "Use the cursor to move the ball along the curve to its highest position. The ball will rise/fall with the curve --- position it at the peak before clicking to confirm its location.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
@@ -501,7 +501,7 @@
       }, 
       "CDF-Median-Train": {
         "type": "react-component", 
-        "path": "vis-decode/assets/Stimuli.tsx", 
+        "path": "vis-decode-click/assets/Stimuli.tsx", 
         "instruction": "Use the cursor to slide the ball along the curve. Stop when the ball is directly on the y=0.5 intersection point, then click to confirm selection.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
@@ -573,7 +573,7 @@
       },
       "CDF-Mode-Train": {
         "type": "react-component", 
-        "path": "vis-decode/assets/Stimuli.tsx", 
+        "path": "vis-decode-click/assets/Stimuli.tsx", 
         "instruction": "Use the cursor to trace the ball along the curve. Identify where the ball moves upward most rapidly --- this is the steepest slope. Click to confirm the location.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
@@ -648,7 +648,7 @@
     "components": {
         "introduction": {
             "type": "markdown",
-            "path": "vis-decode/assets/introduction.md",
+            "path": "vis-decode-click/assets/introduction.md",
             "response": [
                 {
                 "id": "prolificId",
@@ -663,7 +663,7 @@
         },
         "consent": {
             "type": "markdown",
-            "path": "vis-decode/assets/consent.md",
+            "path": "vis-decode-click/assets/consent.md",
             "nextButtonText": "Next",
             "response": [
               {
@@ -681,7 +681,7 @@
         },
         "calibration-intro": {
           "type": "markdown", 
-          "path": "vis-decode/assets/calibration_intro.md", 
+          "path": "vis-decode-click/assets/calibration_intro.md", 
           "response": []
         },
         "calibration": {
@@ -692,12 +692,12 @@
         },
         "training_instruction": {
             "type": "markdown",
-            "path": "vis-decode/assets/training.md",
+            "path": "vis-decode-click/assets/training.md",
             "response": []
         },
         "testing_instruction": {
             "type": "markdown",
-            "path": "vis-decode/assets/testing.md",
+            "path": "vis-decode-click/assets/testing.md",
             "response": []
         },
         "task1_train_1": {
