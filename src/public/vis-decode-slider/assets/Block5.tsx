@@ -3,8 +3,26 @@ import * as d3 from 'd3';
 import { useGetAnswers } from '../../../store/hooks/useGetAnswers';
 import { useScales } from './chartComponents/ScalesContext';
 import ClickMarker from './chartComponents/ClickMarker';
+import DistributionSlider from './chartComponents/DistributionSlider';
+
+const chartSettings = {
+  margin: {
+    top: 15,
+    right: 15,
+    bottom: 40,
+    left: 50,
+  },
+  height: 450,
+  width: 600,
+};
 
 interface Block5Props {
+  xSliderValue?: number | undefined,
+  ySliderValue?: number | undefined,
+  setXSliderValue: (value: number) => void;
+  setYSliderValue: (value: number) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setAnswer: (answer: {status: boolean; answers: Record<string, any> }) => void,
   axisLabels?: {
     x?: string;
     y?: string;
@@ -15,9 +33,14 @@ interface Block5Props {
 }
 
 export default function Block5({
+  xSliderValue,
+  ySliderValue,
   axisLabels,
   selectedPoint,
   children,
+  setXSliderValue,
+  setYSliderValue,
+  setAnswer,
 }: Block5Props) {
   const {
     xScale, yScale, width, height, margin,
