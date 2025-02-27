@@ -5,7 +5,7 @@ import {
   Slider, Button, Container, Stack, Text,
 } from '@mantine/core';
 import { StimulusParams } from '../../../store/types';
-import cardImage from './card.png';
+import cardImage from './costco_card.png';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 interface VirtualChinrestCalibrationProps extends StimulusParams<any> {
