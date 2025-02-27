@@ -26,16 +26,20 @@ function sgn(x: number) {
   return -1;
 }
 
+/**
+ * Probability density function (PDF) for the skewed generalized t-distribution
+ */
 export function skewGeneralizedTPDF(x: number, params: GeneralizedDistributionParams) {
   // https://github.com/carterkd/sgt/blob/master/R/InternalSGT.R
   const {
     mu, sigma, lambda, p, q,
   } = params;
 
+  // Calculate variance adjustment
   const denomBeta = beta(1 / p, q);
-
   const v = (q ** (-1 / p)) * ((3 * lambda ** 2 + 1) * (beta(3 / p, q - 2 / p) / denomBeta) - 4 * lambda ** 2 * (beta(2 / p, q - 1 / p) / denomBeta) ** 2) ** (-1 / 2);
 
+  // Calculate mean adjustment
   const m = (2 * v * sigma * lambda * (q ** (1 / p)) * beta(2 / p, q - 1 / p)) / denomBeta;
 
   const denomPart1 = 2 * v * sigma * (q ** (1 / p)) * denomBeta;
@@ -44,6 +48,9 @@ export function skewGeneralizedTPDF(x: number, params: GeneralizedDistributionPa
   return p / (denomPart1 * denomPart2);
 }
 
+/**
+ * Cumulative density function (PDF) for the skewed generalized t-distribution
+ */
 export function skewGeneralizedTCDF(x: number, params: GeneralizedDistributionParams) {
   const {
     mu, sigma, lambda, p, q,
