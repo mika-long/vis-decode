@@ -1,5 +1,6 @@
 // Import jStat for the Student's t distribution functions
 import jStat from 'jstat';
+import * as math from 'mathjs';
 
 // Interface definitions
 export interface DistributionData {
@@ -13,6 +14,25 @@ export interface DistributionParams {
   omega: number;
   nu: number;
   alpha: number;
+}
+
+export interface GeneralizedDistributionParams {
+  mu: number;
+  sigma: number;
+  lambda: number;
+  p: number;
+  q: number
+}
+
+// Helper function
+function beta(a: number, b:number) {
+  return (math.gamma(a) * math.gamma(b)) / math.gamma(a + b);
+}
+
+function sgn(x: number) {
+  // get the sign of a value
+  if (x >= 0) return 1;
+  return -1;
 }
 
 /**
@@ -44,6 +64,28 @@ export function skewTPDF(x: number, params: DistributionParams): number {
   const FPart = jStat.studentt.cdf(scaledZ, nu + 1);
 
   return (2 / omega) * tDensity * FPart;
+}
+
+export function skewGeneralizedTPDF(x: number, params: GeneralizedDistributionParams) {
+  // https://github.com/carterkd/sgt/blob/master/R/InternalSGT.R
+  const {
+    mu, sigma, lambda, p, q,
+  } = params;
+  // Error checks
+  if (lambda < -1 || lambda > 1) throw new Error('lambda should be bewteen -1 and 1');
+  if (p < 0 || q < 0) throw new Error('p and/or q should be positive values');
+  if (sigma < 0) throw new Error('sigma should be positive');
+
+  const denomBeta = beta(1 / p, q);
+
+  const v = (q ** (-1 / p)) * ((3 * lambda ** 2 + 1) * (beta(3 / p, q - 2 / p) / denomBeta) - 4 * lambda ** 2 * (beta(2 / p, q - 1 / p) / denomBeta) ** 2) ** (-1 / 2);
+
+  const m = (2 * v * sigma * lambda * (q ** (1 / p)) * beta(2 / p, q - 1 / p)) / denomBeta;
+
+  const denomPart1 = 2 * v * sigma * (q ** (1 / p)) * denomBeta;
+  const denomPart2 = ((Math.abs(x - mu + m) ** p) / (q * ((v * sigma) ** p) * ((lambda * sgn(x - mu + m) + 1) ** p) + 1)) ** (1 / p + q);
+
+  return p / (denomPart1 * denomPart2);
 }
 
 /**
