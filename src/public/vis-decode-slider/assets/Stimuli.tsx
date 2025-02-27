@@ -44,10 +44,10 @@ interface DistributionVisualizationProps {
 
 function generateRandomParams(): DistributionParams {
   return {
-    xi: Math.random() * 5 - 2,
-    omega: 0.2 + Math.random() * 2.3,
-    nu: 3 + Math.floor(Math.random() * 22),
-    alpha: Math.random() * 8 - 4,
+    xi: Number((Math.random() * 8 - 4).toFixed(3)),
+    omega: Number((0.3 + Math.random() * 1.2).toFixed(3)),
+    nu: 3 + Math.floor(Math.random() * 27),
+    alpha: Number((Math.random() * 10 - 5).toFixed(3)),
   };
 }
 
