@@ -6,7 +6,7 @@ import {
 } from 'react';
 import { Container, Space, Text } from '@mantine/core';
 import { StimulusParams } from '../../../store/types';
-import { generateDistributionData, DistributionData } from './dataGeneration/jstatDistributionCalculations';
+import { generateDistributionData, DistributionData, GeneralizedDistributionParams, DistributionParams } from './dataGeneration/jstatDistributionCalculations';
 import Plot from './Plot';
 import DistributionSlider from './chartComponents/DistributionSlider';
 import { ScalesProvider, useScales } from './chartComponents/ScalesContext';
@@ -23,12 +23,12 @@ const chartSettings = {
   width: 600,
 };
 
-interface DistributionParams {
-  xi: number;
-  omega: number;
-  nu: number;
-  alpha: number;
-}
+// interface DistributionParams {
+//   xi: number;
+//   omega: number;
+//   nu: number;
+//   alpha: number;
+// }
 
 // Interface for the DistributionVisualization component props
 interface DistributionVisualizationProps {
@@ -38,7 +38,7 @@ interface DistributionVisualizationProps {
   showPDF: boolean;
   training: boolean;
   taskType: TaskType;
-  currentParams: DistributionParams;
+  currentParams: GeneralizedDistributionParams;
   setAnswer: (answer: { status: boolean; answers: Record<string, any> }) => void;
 }
 
@@ -140,10 +140,10 @@ function DistributionVisualization({
         'location-y': newSelectedPoint.y,
         'pixel-x': pixelX,
         'pixel-y': pixelY,
-        'param-xi': currentParams.xi,
-        'param-omega': currentParams.omega,
-        'param-nu': currentParams.nu,
-        'param-alpha': currentParams.alpha,
+        // 'param-xi': currentParams.xi,
+        // 'param-omega': currentParams.omega,
+        // 'param-nu': currentParams.nu,
+        // 'param-alpha': currentParams.alpha,
       },
     });
   }, [distributionData, showPDF, setAnswer, currentParams, scales]);
@@ -179,7 +179,7 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
   } = parameters;
   const [sliderValue, setSliderValue] = useState<number>();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [currentParams, setCurrentParams] = useState<DistributionParams>(() => {
+  const [currentParams, setCurrentParams] = useState<GeneralizedDistributionParams>(() => {
     if (initialParams) return initialParams;
     return generateRandomParams();
   });
@@ -194,10 +194,10 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
       setAnswer({
         status: true,
         answers: {
-          'param-xi': currentParams.xi,
-          'param-omega': currentParams.omega,
-          'param-nu': currentParams.nu,
-          'param-alpha': currentParams.alpha,
+          // 'param-xi': currentParams.xi,
+          // 'param-omega': currentParams.omega,
+          // 'param-nu': currentParams.nu,
+          // 'param-alpha': currentParams.alpha,
           'location-x': null,
           'location-y': null,
           'pixel-x': null,
@@ -232,7 +232,7 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
         </ScalesProvider>
         {/* Optional debug information */}
         <Space h="xl" />
-        <Text size="md" c="dimmed">
+        {/* <Text size="md" c="dimmed">
           Debug - Random Parameters:
           xi=
           {currentParams.xi.toFixed(2)}
@@ -245,7 +245,7 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
           ,
           alpha=
           {currentParams.alpha.toFixed(2)}
-        </Text>
+        </Text> */}
       </div>
     </Container>
   );

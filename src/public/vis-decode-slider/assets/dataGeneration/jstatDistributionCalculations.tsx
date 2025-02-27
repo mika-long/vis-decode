@@ -83,7 +83,7 @@ export function skewGeneralizedTPDF(x: number, params: GeneralizedDistributionPa
   const m = (2 * v * sigma * lambda * (q ** (1 / p)) * beta(2 / p, q - 1 / p)) / denomBeta;
 
   const denomPart1 = 2 * v * sigma * (q ** (1 / p)) * denomBeta;
-  const denomPart2 = ((Math.abs(x - mu + m) ** p) / (q * ((v * sigma) ** p) * ((lambda * sgn(x - mu + m) + 1) ** p) + 1)) ** (1 / p + q);
+  const denomPart2 = (1 + (Math.abs(x - mu + m) ** p) / (q * ((v * sigma) ** p) * ((1 + lambda * sgn(x - mu + m)) ** p))) ** (q + 1 / p);
 
   return p / (denomPart1 * denomPart2);
 }
@@ -164,19 +164,23 @@ export function skewTCDF(x: number, params: DistributionParams): number {
  * @returns {DistributionData} - x values, PDF values, and CDF values
  */
 export function generateDistributionData(
-  params: DistributionParams,
+  // params: DistributionParams,
+  params: GeneralizedDistributionParams,
   range: [number, number] = [-5, 5],
   step: number = 0.01,
 ): DistributionData {
+  // const {
+  //   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  //   xi, omega, nu, alpha,
+  // } = params;
   const {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    xi, omega, nu, alpha,
+    mu, sigma, lambda, p, q,
   } = params;
 
-  // Validate parameters
-  if (omega <= 0 || nu <= 0) {
-    throw new Error('Scale parameter omega and degrees of freedom nu must be positive');
-  }
+  // // Validate parameters
+  // if (omega <= 0 || nu <= 0) {
+  //   throw new Error('Scale parameter omega and degrees of freedom nu must be positive');
+  // }
 
   // Generate x values with exactly even spacing to ensure integer x values are included
   const xVals: number[] = [];
@@ -194,7 +198,8 @@ export function generateDistributionData(
   // Calculate PDF values with error handling
   const pdfVals = xVals.map((x) => {
     try {
-      return skewTPDF(x, params);
+      // return skewTPDF(x, params);
+      return skewGeneralizedTPDF(x, params);
     } catch (e) {
       console.warn(`Error calculating PDF at x=${x}:`, e);
       return 0;
@@ -202,16 +207,17 @@ export function generateDistributionData(
   });
 
   // Calculate CDF values with error handling
-  const cdfVals = xVals.map((x) => {
-    try {
-      return skewTCDF(x, params);
-    } catch (e) {
-      console.warn(`Error calculating CDF at x=${x}:`, e);
-      // Fallback approximation
-      const z = (x - xi) / omega;
-      return z < 0 ? 0.5 * (1 + Math.tanh(z)) : 0.5 + 0.5 * (1 - Math.exp(-z));
-    }
-  });
+  // const cdfVals = xVals.map((x) => {
+  //   try {
+  //     return skewTCDF(x, params);
+  //   } catch (e) {
+  //     console.warn(`Error calculating CDF at x=${x}:`, e);
+  //     // Fallback approximation
+  //     const z = (x - xi) / omega;
+  //     return z < 0 ? 0.5 * (1 + Math.tanh(z)) : 0.5 + 0.5 * (1 - Math.exp(-z));
+  //   }
+  // });
+  const cdfVals = [1, 1, 1];
 
   return { xVals, pdfVals, cdfVals };
 }

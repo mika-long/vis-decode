@@ -361,7 +361,7 @@
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
-          "params": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
+          "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}, 
           "showPDF": true, 
           "taskid": "location", 
           "training": true,
@@ -701,10 +701,10 @@
         "task1_train_1": {
           "baseComponent": "PDF-Median-Train",
           "parameters": {
-            "params": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
           }, 
           "meta": {
-            "params": {"xi": 0, "omega": 1, "nu": 11, "alpha": 0}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
           }
         }, 
         "task1_train_2": {
