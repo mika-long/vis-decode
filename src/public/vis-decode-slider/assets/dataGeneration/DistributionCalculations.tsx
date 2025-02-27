@@ -1,11 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable space-infix-ops */
-// Import jStat for the Student's t distribution functions
-// import jStat from 'jstat';
-// import * as math from 'mathjs';
 import betainc from '@stdlib/math-base-special-betainc'; // Incomplete Beta function
 import beta from '@stdlib/math-base-special-beta'; // Beta function
-import t from '@stdlib/stats-base-dists-t'; // student's t distribution
+// import t from '@stdlib/stats-base-dists-t'; // student's t distribution
 
 export interface DistributionData {
   xVals: number[];
@@ -124,6 +121,7 @@ export function generateDistributionData(
       return skewGeneralizedTCDF(x, params);
     } catch (e) {
       console.warn(`Error calculating CDF at x=${x}:`, e);
+      return 0;
     }
   });
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Slider } from '@mantine/core';
-import { DistributionData } from '../dataGeneration/jstatDistributionCalculations';
+import { DistributionData } from '../dataGeneration/DistributionCalculations';
 
 interface DistributionSliderProps {
   value: number;

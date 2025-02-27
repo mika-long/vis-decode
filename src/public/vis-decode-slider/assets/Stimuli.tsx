@@ -6,7 +6,7 @@ import {
 } from 'react';
 import { Container, Space, Text } from '@mantine/core';
 import { StimulusParams } from '../../../store/types';
-import { generateDistributionData, DistributionData, GeneralizedDistributionParams, DistributionParams } from './dataGeneration/jstatDistributionCalculations';
+import { generateDistributionData, DistributionData, GeneralizedDistributionParams } from './dataGeneration/DistributionCalculations';
 import Plot from './Plot';
 import DistributionSlider from './chartComponents/DistributionSlider';
 import { ScalesProvider, useScales } from './chartComponents/ScalesContext';
@@ -23,13 +23,6 @@ const chartSettings = {
   width: 600,
 };
 
-// interface DistributionParams {
-//   xi: number;
-//   omega: number;
-//   nu: number;
-//   alpha: number;
-// }
-
 // Interface for the DistributionVisualization component props
 interface DistributionVisualizationProps {
   sliderValue: number | undefined;
@@ -42,12 +35,14 @@ interface DistributionVisualizationProps {
   setAnswer: (answer: { status: boolean; answers: Record<string, any> }) => void;
 }
 
-function generateRandomParams(): DistributionParams {
+// TODO --- check and fix this range
+function generateRandomParams(): GeneralizedDistributionParams {
   return {
-    xi: Number((Math.random() * 8 - 4).toFixed(3)),
-    omega: Number((0.3 + Math.random() * 1.2).toFixed(3)),
-    nu: 3 + Math.floor(Math.random() * 27),
-    alpha: Number((Math.random() * 10 - 5).toFixed(3)),
+    mu: Number((Math.random() * 8 - 4).toFixed(3)),
+    sigma: Number((0.3 + Math.random() * 1.2).toFixed(3)),
+    lambda: 3 + Math.floor(Math.random() * 27),
+    p: Number((Math.random() * 10 - 5).toFixed(3)),
+    q: Number((Math.random() * 10 - 5).toFixed(3)),
   };
 }
 
@@ -140,10 +135,11 @@ function DistributionVisualization({
         'location-y': newSelectedPoint.y,
         'pixel-x': pixelX,
         'pixel-y': pixelY,
-        // 'param-xi': currentParams.xi,
-        // 'param-omega': currentParams.omega,
-        // 'param-nu': currentParams.nu,
-        // 'param-alpha': currentParams.alpha,
+        'param-mu': currentParams.mu,
+        'param-sigma': currentParams.sigma,
+        'param-lambda': currentParams.lambda,
+        'param-p': currentParams.p,
+        'param-q': currentParams.q,
       },
     });
   }, [distributionData, showPDF, setAnswer, currentParams, scales]);
@@ -194,14 +190,15 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
       setAnswer({
         status: true,
         answers: {
-          // 'param-xi': currentParams.xi,
-          // 'param-omega': currentParams.omega,
-          // 'param-nu': currentParams.nu,
-          // 'param-alpha': currentParams.alpha,
           'location-x': null,
           'location-y': null,
           'pixel-x': null,
           'pixel-y': null,
+          'param-mu': currentParams.mu,
+          'param-sigma': currentParams.sigma,
+          'param-lambda': currentParams.lambda,
+          'param-p': currentParams.p,
+          'param-q': currentParams.q,
         },
       });
     }
@@ -232,20 +229,23 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
         </ScalesProvider>
         {/* Optional debug information */}
         <Space h="xl" />
-        {/* <Text size="md" c="dimmed">
+        <Text size="md" c="dimmed">
           Debug - Random Parameters:
-          xi=
-          {currentParams.xi.toFixed(2)}
+          mu=
+          {currentParams.mu.toFixed(2)}
           ,
-          omega=
-          {currentParams.omega.toFixed(2)}
+          sigma=
+          {currentParams.sigma.toFixed(2)}
           ,
-          nu=
-          {currentParams.nu}
+          lambda=
+          {currentParams.lambda}
           ,
-          alpha=
-          {currentParams.alpha.toFixed(2)}
-        </Text> */}
+          p=
+          {currentParams.p.toFixed(2)}
+          ,
+          q=
+          {currentParams.q.toFixed(2)}
+        </Text>
       </div>
     </Container>
   );
