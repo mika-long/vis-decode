@@ -35,14 +35,13 @@ interface DistributionVisualizationProps {
   setAnswer: (answer: { status: boolean; answers: Record<string, any> }) => void;
 }
 
-// TODO --- check and fix this range
 function generateRandomParams(): GeneralizedDistributionParams {
   return {
-    mu: Number((Math.random() * 8 - 4).toFixed(3)),
-    sigma: Number((0.3 + Math.random() * 1.2).toFixed(3)),
-    lambda: 3 + Math.floor(Math.random() * 27),
-    p: Number((Math.random() * 10 - 5).toFixed(3)),
-    q: Number((Math.random() * 10 - 5).toFixed(3)),
+    mu: Number((Math.random() * 4 - 2).toFixed(3)), // mu in [-2, 2]
+    sigma: Number((0.5 + Math.random() * 1.5).toFixed(3)), // sigma in [0.5, 2]
+    lambda: Number((Math.random() * 2 - 1).toFixed(3)), // bounded between -1 and 1
+    p: Number((2 + Math.random() * 8).toFixed(3)),
+    q: Number((2 + Math.random() * 8).toFixed(3)),
   };
 }
 
