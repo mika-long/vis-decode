@@ -77,7 +77,7 @@
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
-          "params": {"xi": 0, "omega": 1, "nu": 1, "alpha": 0}, 
+          "params": {"mu": 0, "sigma": 1, "lambda": 1, "p": 10, "q": 10}, 
           "showPDF": true, 
           "taskid": "location", 
           "taskType": "pdf_median"
@@ -112,29 +112,36 @@
             "hidden": true
           },
           {
-            "id": "param-xi", 
-            "prompt": "parameter xi", 
+            "id": "param-mu", 
+            "prompt": "parameter mu", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
           {
-            "id": "param-omega", 
-            "prompt": "parameter omega", 
+            "id": "param-sigma", 
+            "prompt": "parameter sigma", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
           },
           {
-            "id": "param-nu", 
-            "prompt": "parameter nu", 
+            "id": "param-lambda", 
+            "prompt": "parameter lambda", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
           {
-            "id": "param-alpha", 
-            "prompt": "parameter alpha", 
+            "id": "param-p", 
+            "prompt": "parameter p", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-q", 
+            "prompt": "parameter q", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
@@ -183,29 +190,36 @@
             "hidden": true
           },
           {
-            "id": "param-xi", 
-            "prompt": "parameter xi", 
+            "id": "param-mu", 
+            "prompt": "parameter mu", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
           {
-            "id": "param-omega", 
-            "prompt": "parameter omega", 
+            "id": "param-sigma", 
+            "prompt": "parameter sigma", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
           },
           {
-            "id": "param-nu", 
-            "prompt": "parameter nu", 
+            "id": "param-lambda", 
+            "prompt": "parameter lambda", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
           {
-            "id": "param-alpha", 
-            "prompt": "parameter alpha", 
+            "id": "param-p", 
+            "prompt": "parameter p", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-q", 
+            "prompt": "parameter q", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
@@ -254,29 +268,36 @@
             "hidden": true
           },
           {
-            "id": "param-xi", 
-            "prompt": "parameter xi", 
+            "id": "param-mu", 
+            "prompt": "parameter mu", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
           {
-            "id": "param-omega", 
-            "prompt": "parameter omega", 
+            "id": "param-sigma", 
+            "prompt": "parameter sigma", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
           },
           {
-            "id": "param-nu", 
-            "prompt": "parameter nu", 
+            "id": "param-lambda", 
+            "prompt": "parameter lambda", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
           {
-            "id": "param-alpha", 
-            "prompt": "parameter alpha", 
+            "id": "param-p", 
+            "prompt": "parameter p", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-q", 
+            "prompt": "parameter q", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
@@ -325,29 +346,36 @@
             "hidden": true
           },
           {
-            "id": "param-xi", 
-            "prompt": "parameter xi", 
+            "id": "param-mu", 
+            "prompt": "parameter mu", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
           {
-            "id": "param-omega", 
-            "prompt": "parameter omega", 
+            "id": "param-sigma", 
+            "prompt": "parameter sigma", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
           },
           {
-            "id": "param-nu", 
-            "prompt": "parameter nu", 
+            "id": "param-lambda", 
+            "prompt": "parameter lambda", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
           {
-            "id": "param-alpha", 
-            "prompt": "parameter alpha", 
+            "id": "param-p", 
+            "prompt": "parameter p", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-q", 
+            "prompt": "parameter q", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
@@ -397,29 +425,36 @@
             "hidden": true
           },
           {
-            "id": "param-xi", 
-            "prompt": "parameter xi", 
+            "id": "param-mu", 
+            "prompt": "parameter mu", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
           {
-            "id": "param-omega", 
-            "prompt": "parameter omega", 
+            "id": "param-sigma", 
+            "prompt": "parameter sigma", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
           },
           {
-            "id": "param-nu", 
-            "prompt": "parameter nu", 
+            "id": "param-lambda", 
+            "prompt": "parameter lambda", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
           {
-            "id": "param-alpha", 
-            "prompt": "parameter alpha", 
+            "id": "param-p", 
+            "prompt": "parameter p", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-q", 
+            "prompt": "parameter q", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
@@ -469,29 +504,36 @@
             "hidden": true
           },
           {
-            "id": "param-xi", 
-            "prompt": "parameter xi", 
+            "id": "param-mu", 
+            "prompt": "parameter mu", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
           {
-            "id": "param-omega", 
-            "prompt": "parameter omega", 
+            "id": "param-sigma", 
+            "prompt": "parameter sigma", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
           },
           {
-            "id": "param-nu", 
-            "prompt": "parameter nu", 
+            "id": "param-lambda", 
+            "prompt": "parameter lambda", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
           {
-            "id": "param-alpha", 
-            "prompt": "parameter alpha", 
+            "id": "param-p", 
+            "prompt": "parameter p", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-q", 
+            "prompt": "parameter q", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
@@ -541,29 +583,36 @@
             "hidden": true
           },
           {
-            "id": "param-xi", 
-            "prompt": "parameter xi", 
+            "id": "param-mu", 
+            "prompt": "parameter mu", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
           {
-            "id": "param-omega", 
-            "prompt": "parameter omega", 
+            "id": "param-sigma", 
+            "prompt": "parameter sigma", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
           },
           {
-            "id": "param-nu", 
-            "prompt": "parameter nu", 
+            "id": "param-lambda", 
+            "prompt": "parameter lambda", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
           {
-            "id": "param-alpha", 
-            "prompt": "parameter alpha", 
+            "id": "param-p", 
+            "prompt": "parameter p", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-q", 
+            "prompt": "parameter q", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
@@ -613,29 +662,36 @@
             "hidden": true
           },
           {
-            "id": "param-xi", 
-            "prompt": "parameter xi", 
+            "id": "param-mu", 
+            "prompt": "parameter mu", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
           {
-            "id": "param-omega", 
-            "prompt": "parameter omega", 
+            "id": "param-sigma", 
+            "prompt": "parameter sigma", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
           },
           {
-            "id": "param-nu", 
-            "prompt": "parameter nu", 
+            "id": "param-lambda", 
+            "prompt": "parameter lambda", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
           }, 
           {
-            "id": "param-alpha", 
-            "prompt": "parameter alpha", 
+            "id": "param-p", 
+            "prompt": "parameter p", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "param-q", 
+            "prompt": "parameter q", 
             "required": false, 
             "type": "iframe", 
             "hidden": true
@@ -710,46 +766,64 @@
         "task1_train_2": {
           "baseComponent": "PDF-Median-Train",
           "parameters": {
-            "params": {"xi": -2, "omega": 2, "nu": 4, "alpha": 10}
-          }, 
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+          },  
           "meta": {
-            "params": {"xi": -2, "omega": 2, "nu": 4, "alpha": 10}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
           }
         }, 
         "task2_train_1": {
-          "baseComponent": "PDF-Mode-Train"
+          "baseComponent": "PDF-Mode-Train",
+          "parameters": {
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+          },  
+          "meta": {
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+          }
         }, 
         "task2_train_2": {
           "baseComponent": "PDF-Mode-Train",
           "parameters": {
-            "params": {"xi": 0, "omega": 2, "nu": 10, "alpha": 0}
-          }, 
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+          },  
           "meta": {
-            "params": {"xi": 0, "omega": 2, "nu": 10, "alpha": 0}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
           }
         },
         "task3_train_1": {
-          "baseComponent": "CDF-Median-Train"
+          "baseComponent": "CDF-Median-Train",
+          "parameters": {
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+          },  
+          "meta": {
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+          }
         },
         "task3_train_2": {
           "baseComponent": "CDF-Median-Train",
           "parameters": {
-            "params": {"xi": 3, "omega": 2, "nu": 10, "alpha": 0}
-          }, 
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+          },  
           "meta": {
-            "params": {"xi": 3, "omega": 2, "nu": 10, "alpha": 0}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
           }
         }, 
         "task4_train_1": {
-          "baseComponent": "CDF-Mode-Train"
+          "baseComponent": "CDF-Mode-Train",
+          "parameters": {
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+          },  
+          "meta": {
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+          }
         },
         "task4_train_2": {
           "baseComponent": "CDF-Mode-Train",
           "parameters": {
-            "params": {"xi": -1, "omega": 2, "nu": 10, "alpha": 10}
-          }, 
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+          },  
           "meta": {
-            "params": {"xi": -1, "omega": 2, "nu": 10, "alpha": 10}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
           }
         },
         "task1_test_1": {
