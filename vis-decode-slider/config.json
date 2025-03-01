@@ -697,6 +697,32 @@
             "hidden": true
           }
         ]
+      },
+      "Block-5": {
+        "type": "react-component",
+        "path": "vis-decode-slider/assets/Block5.tsx",
+        "instruction": "Drag the slider such that the two balls on the x-axis and y-axis match the curve.",
+        "instructionLocation": "aboveStimulus",
+        "nextButtonLocation": "belowStimulus",
+        "parameters": {
+          "params": {"id": 5}
+        },
+        "response": [
+          {
+            "id": "slider-x", 
+            "prompt": "The x-axis location of your slider", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "slider-y", 
+            "prompt": "The y-axis location of your slider", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          }
+        ]
       }
     },
     "components": {
@@ -1065,6 +1091,12 @@
           "parameters": {
             "params": null
           }
+        },
+        "task5_train_1": {
+          "baseComponent": "Block-5",
+          "parameters": {
+            "params": null
+          }
         }
     },
     "sequence": {
@@ -1141,7 +1173,8 @@
             "task4_test_7",
             "task4_test_8",
             "task4_test_9",
-            "task4_test_10"
+            "task4_test_10",
+            "task5_train_1"
         ]
     }
 }
