@@ -1,11 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   useEffect, useRef, useMemo, useCallback, useState,
 } from 'react';
 import * as d3 from 'd3';
-import { Stack, Space } from '@mantine/core';
+import { Stack, Space, Text } from '@mantine/core';
 import { useGetAnswers } from '../../../store/hooks/useGetAnswers';
-import { ScalesProvider } from './chartComponents/ScalesContext';
-import ClickMarker from './chartComponents/ClickMarker';
+import { ScalesProvider, useScales } from './chartComponents/ScalesContext';
 import Block5Slider from './chartComponents/Block5Slider';
 import { StimulusParams } from '../../../store/types';
 
@@ -31,8 +31,6 @@ interface Block5Props {
     x?: string;
     y?: string;
   }
-  // Interaction state
-  selectedPoint?: { x: number; y: number } | null;
   children?: React.ReactNode;
 }
 
@@ -43,11 +41,13 @@ function Block5Visualization({
   setYSliderValue,
   setAnswer,
   axisLabels,
-  selectedPoint,
   children,
 }: Block5Props) {
-  // TODO
-  const { margin, width, height } = chartSettings;
+  // Use the scales from context
+  const {
+    xScale, yScale, width, height, margin,
+  } = useScales();
+  // Refs for axes
   const xAxisRef = useRef<SVGGElement>(null);
   const yAxisRef = useRef<SVGGElement>(null);
 
@@ -79,33 +79,23 @@ function Block5Visualization({
   }, [setYSliderValue]);
 
   const handleXSliderCommit = useCallback((value: number) => {
-    // TODO
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    setAnswer((prevAnswer) => {
-      // preserve previous answer and only update x slider value
-      const prevAnswers = prevAnswer?.answers || {};
-      return {
-        status: true,
-        answers: {
-          ...prevAnswers,
-          'x-slider': value,
-        },
-      };
+    setAnswer({
+      status: true,
+      answers: {
+        'x-slider': value,
+        'y-slider': ySliderValue ?? 0,
+      },
     });
-  }, [setAnswer]);
-
+  }, [setAnswer, ySliderValue]);
   const handleYSliderCommit = useCallback((value: number) => {
-    setAnswer((prevAnswer) => {
-      const prevAnswers = prevAnswer?.answers || {};
-      return {
-        status: true,
-        answers: {
-          ...prevAnswers,
-          'y-slider': value,
-        },
-      };
+    setAnswer({
+      status: true,
+      answers: {
+        'x-slider': xSliderValue ?? 0,
+        'y-slider': value,
+      },
     });
-  }, [setAnswer]);
+  }, [setAnswer, xSliderValue]);
 
   // Memoize Axis labels
   const axisElements = useMemo(() => {
@@ -129,6 +119,8 @@ function Block5Visualization({
   return (
     <>
       {/* X Slider */}
+      <Space />
+      <Text size="md"> X Slider </Text>
       <Block5Slider
         min={-5}
         max={5}
@@ -136,8 +128,8 @@ function Block5Visualization({
         onChange={handleXSliderChange}
         onChangeEnd={handleXSliderCommit}
       />
-      <Space h="md" />
       {/* Y Slider */}
+      <Text size="md"> Y Slider </Text>
       <Block5Slider
         min={0}
         max={1}
@@ -145,6 +137,7 @@ function Block5Visualization({
         onChange={handleYSliderChange}
         onChangeEnd={handleYSliderCommit}
       />
+      <Space />
       <svg
         width={width}
         height={height}
@@ -152,8 +145,30 @@ function Block5Visualization({
         <g ref={xAxisRef} />
         <g ref={yAxisRef} />
         {axisElements}
-        {selectedPoint && (
-          <ClickMarker x={xScale(selectedPoint.x)} y={yScale(selectedPoint.y)} />
+        {/* Dot on the x-axis */}
+        {xSliderValue !== undefined && (
+          <circle
+            cx={xScale(xSliderValue)}
+            cy={yScale(0)}
+            r={5}
+            fill="blue"
+            fillOpacity={0.6}
+            stroke="white"
+            strokeWidth={1.5}
+            pointerEvents="none"
+          />
+        )}
+        {ySliderValue !== undefined && (
+          <circle
+            cx={xScale(-5)}
+            cy={yScale(ySliderValue)}
+            r={5}
+            fill="green"
+            stroke="white"
+            strokeWidth={1.5}
+            fillOpacity={0.6}
+            pointerEvents="none"
+          />
         )}
         {children}
       </svg>
@@ -170,13 +185,6 @@ export default function Block5({ parameters, setAnswer }: StimulusParams<any>) {
 
   const [xSliderValue, setXSliderValue] = useState<number>(0);
   const [ySliderValue, setYSliderValue] = useState<number>(0);
-
-  const [selectedPoint, setSelectedPoint] = useState<{x: number, y: number} | null>(null);
-
-  // Update selected point when sliders change
-  useEffect(() => {
-    setSelectedPoint({ x: xSliderValue, y: ySliderValue });
-  }, [xSliderValue, ySliderValue]);
 
   return (
     <Stack>
@@ -195,7 +203,6 @@ export default function Block5({ parameters, setAnswer }: StimulusParams<any>) {
           setYSliderValue={setYSliderValue}
           setAnswer={setAnswer}
           axisLabels={{ x: 'X Axis', y: 'Y Axis' }}
-          selectedPoint={selectedPoint}
         />
       </ScalesProvider>
     </Stack>

@@ -40,5 +40,6 @@ export default function Block5Slider({
       }}
       data-source="block-5-sliders"
     />
+
   );
 }
