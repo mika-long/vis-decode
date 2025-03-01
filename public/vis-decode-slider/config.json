@@ -50,7 +50,7 @@
           {
             "id": "dist-calibration-MM",
             "prompt": "Distance Calibration results in MM",
-            "required": false, 
+            "required": true, 
             "type": "iframe", 
             "hidden": true
           }, 
@@ -385,7 +385,7 @@
       "PDF-Median-Train": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
-        "instruction": "Click on the slider to initialize a staarting point. Use the slider to position the ball along the curve, such that the vertiacl line divides the area under the curve into two equal halves. Fine tune your selection by using the left and right arrow keys.",
+        "instruction": "Click on the slider to initialize a starting point. Use the slider to position the ball along the curve, such that the vertiacl line divides the area under the curve into two equal halves. Fine tune your selection by using the left and right arrow keys.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -399,7 +399,7 @@
           {
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
-            "required": false, 
+            "required": true, 
             "type": "iframe", 
             "hidden": true
           }, 
