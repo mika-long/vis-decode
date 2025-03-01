@@ -2,7 +2,6 @@
 /* eslint-disable space-infix-ops */
 import betainc from '@stdlib/math-base-special-betainc'; // Incomplete Beta function
 import beta from '@stdlib/math-base-special-beta'; // Beta function
-// import t from '@stdlib/stats-base-dists-t'; // student's t distribution
 
 export interface DistributionData {
   xVals: number[];
@@ -22,8 +21,27 @@ export interface GeneralizedDistributionParams {
 // Return the sign of x
 function sgn(x: number) {
   // get the sign of a value
-  if (x >= 0) return 1;
+  if (x > 0) return 1;
+  if (x === 0) return 0;
   return -1;
+}
+
+function pbeta(
+  q: number,
+  shape1: number,
+  shape2: number,
+): number {
+  // Parameter validation
+  if (shape1 <= 0 || shape2 <= 0) return NaN;
+
+  // Camp q to valid range [0, 1]
+  if (q <= 0) return 0;
+  if (q >= 1) return 1;
+
+  // Calculate the regularized incomplete beta function
+  const prob = betainc(q, shape1, shape2, true);
+
+  return prob;
 }
 
 /**
@@ -55,28 +73,35 @@ export function skewGeneralizedTCDF(x: number, params: GeneralizedDistributionPa
   const {
     mu, sigma, lambda, p, q,
   } = params;
-  // TODO -- handle special cases like p = infty and q = infty
+
+  const denomBeta = beta(1/p, q);
 
   // Calculate variance adjustment
-  const denomBeta = beta(1/p, q);
-  const v = (q ** (-1/p)) * Math.sqrt(1 / ((3 * lambda ** 2 + 1) * (beta(3/p, q - 2/p) / denomBeta) - 4 * lambda ** 2 * (beta(2/p, q - 1/p) / denomBeta) ** 2));
+  const v = (q ** (-1/p)) * Math.sqrt(1 / ((3 * (lambda ** 2) + 1) * (beta(3/p, q - 2/p) / denomBeta) - 4 * (lambda ** 2) * (beta(2/p, q - 1/p) / denomBeta) ** 2));
+  const sig = sigma / v;
 
   // Calcultae mean adjustment
-  const m = (2 * v * sigma * lambda * (q ** (1/p)) * beta(2/p, q - 1/p)) / denomBeta;
+  const m = (2 * sigma * lambda * (q ** (1/p)) * beta(2/p, q - 1/p)) / denomBeta;
+  let z = x - mu + m;
 
-  // Calculate CDF
-  const z = x - mu + m;
-  let prob: number;
+  // Track if we need to flip the result
+  const flip = z > 0;
+  let lam = lambda;
 
-  if (z >= 0) {
-    const w = (z ** p) / ((v * sigma) ** p * ((1 + lambda) ** p) * q);
-    prob = 0.5 + 0.5 * betainc(q, 1/p, q/(q+w));
-  } else {
-    const w = ((-z) ** p) / ((v * sigma) ** p * ((1 - lambda) ** p) * q);
-    prob = 0.5 - 0.5 * betainc(q, 1/p, q/(q+w));
+  if (flip) {
+    lam = -lam;
+    z = -z;
   }
+  let out = (1 - lam) / 2 + ((lam - 1) / 2) * pbeta(
+    1 / (1 + q * ((sig * (1 - lam)) / (-z)) ** p),
+    1/p,
+    q,
+  );
 
-  return prob;
+  if (flip) {
+    out = 1 - out;
+  }
+  return out;
 }
 
 /**
