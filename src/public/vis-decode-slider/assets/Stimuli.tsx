@@ -37,11 +37,11 @@ interface DistributionVisualizationProps {
 
 function generateRandomParams(): GeneralizedDistributionParams {
   return {
-    mu: Number((Math.random() * 4 - 2).toFixed(3)), // mu in [-2, 2]
-    sigma: Number((0.5 + Math.random() * 1.5).toFixed(3)), // sigma in [0.5, 2]
-    lambda: Number((Math.random() * 2 - 1).toFixed(3)), // bounded between -1 and 1
-    p: Number((2 + Math.random() * 8).toFixed(3)),
-    q: Number((2 + Math.random() * 8).toFixed(3)),
+    mu: Number((Math.random() * 4 - 2).toFixed(1)), // mu in [-2, 2]
+    sigma: Number((0.5 + Math.random() * 1.5).toFixed(1)), // sigma in [0.5, 2]
+    lambda: Number((Math.random() * 2 - 1).toFixed(1)), // bounded between -1 and 1
+    p: Number((2 + Math.random() * 8).toFixed(1)),
+    q: Number((2 + Math.random() * 8).toFixed(1)),
   };
 }
 
@@ -231,19 +231,19 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
         <Text size="md" c="dimmed">
           Debug - Random Parameters:
           mu=
-          {currentParams.mu.toFixed(2)}
+          {currentParams.mu}
           ,
           sigma=
-          {currentParams.sigma.toFixed(2)}
+          {currentParams.sigma}
           ,
           lambda=
           {currentParams.lambda}
           ,
           p=
-          {currentParams.p.toFixed(2)}
+          {currentParams.p}
           ,
           q=
-          {currentParams.q.toFixed(2)}
+          {currentParams.q}
         </Text>
       </div>
     </Container>
