@@ -25,8 +25,10 @@ const chartSettings = {
 
 // Interface for the DistributionVisualization component props
 interface DistributionVisualizationProps {
-  sliderValue: number | undefined;
-  setSliderValue: (value: number) => void;
+  sliderValue: number | null;
+  setSliderValue: (value: number | null) => void;
+  hasInteracted: boolean;
+  setHasInteracted: (value: boolean) => void;
   distributionData: DistributionData;
   showPDF: boolean;
   training: boolean;
@@ -49,6 +51,8 @@ function generateRandomParams(): GeneralizedDistributionParams {
 function DistributionVisualization({
   sliderValue,
   setSliderValue,
+  hasInteracted,
+  setHasInteracted,
   distributionData,
   showPDF,
   training,
@@ -60,7 +64,7 @@ function DistributionVisualization({
   const scales = useScales();
 
   const guidelines = useMemo(() => {
-    if (sliderValue === undefined || training === false) return null;
+    if (sliderValue === null || training === false) return null;
 
     // Find the index of the closest x value to our slider
     const index = d3.bisector((d: number) => d).left(distributionData.xVals, sliderValue);
@@ -96,7 +100,7 @@ function DistributionVisualization({
   }, [sliderValue, training, taskType, distributionData]);
 
   const selectedPoint = useMemo(() => {
-    if (sliderValue === undefined || !distributionData) return null;
+    if (sliderValue === null || !distributionData) return null;
     // Find the closest point on the line for the given x value
     const index = d3.bisector((d) => d).left(distributionData.xVals, sliderValue);
     const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
@@ -110,9 +114,13 @@ function DistributionVisualization({
   // Interaction logic
   // Update slider handler to set both slider value and selected point
   const handleSliderChange = useCallback((value: number) => {
-    // Updated Slider UI in real time
+    // Mark that user has interacted with the slider
+    if (!hasInteracted) {
+      setHasInteracted(true);
+    }
+    // Update Slider UI in real time
     setSliderValue(value);
-  }, [setSliderValue]);
+  }, [setSliderValue, hasInteracted, setHasInteracted]);
 
   const handleSliderCommit = useCallback((value: number) => {
     // Only submit answer when dragging finishes
@@ -127,6 +135,7 @@ function DistributionVisualization({
     const pixelX = scales.xScale(newSelectedPoint.x);
     const pixelY = scales.yScale(newSelectedPoint.y);
 
+    // Update the answer state with status true
     setAnswer({
       status: true,
       answers: {
@@ -146,7 +155,7 @@ function DistributionVisualization({
   return (
     <>
       <DistributionSlider
-        value={sliderValue ?? 0}
+        value={sliderValue !== null ? sliderValue : 0}
         onChange={handleSliderChange}
         onChangeEnd={handleSliderCommit}
         distributionData={distributionData}
@@ -172,7 +181,13 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
   const {
     params: initialParams, showPDF, training, taskType,
   } = parameters;
-  const [sliderValue, setSliderValue] = useState<number>();
+
+  // Initialize slider value as null (no selection)
+  const [sliderValue, setSliderValue] = useState<number | null>(null);
+
+  // Track whether user has interacted with the slider
+  const [hasInteracted, setHasInteracted] = useState<boolean>(false);
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [currentParams, setCurrentParams] = useState<GeneralizedDistributionParams>(() => {
     if (initialParams) return initialParams;
@@ -182,26 +197,24 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
   // Generate distribution data
   const distributionData = useMemo(() => generateDistributionData(currentParams), [currentParams]);
 
-  // Initialize the parameters when component mounts if not provided
+  // Always set initial answer state regardless of initialParams
   useEffect(() => {
-    if (!initialParams || Object.keys(initialParams).length === 0) {
-      // Record the answer
-      setAnswer({
-        status: true,
-        answers: {
-          'location-x': null,
-          'location-y': null,
-          'pixel-x': null,
-          'pixel-y': null,
-          'param-mu': currentParams.mu,
-          'param-sigma': currentParams.sigma,
-          'param-lambda': currentParams.lambda,
-          'param-p': currentParams.p,
-          'param-q': currentParams.q,
-        },
-      });
-    }
-  }, [initialParams, setAnswer, currentParams]);
+    // Set a default initial state with status: false
+    setAnswer({
+      status: false, // Start with status false until user makes a selection
+      answers: {
+        'location-x': null,
+        'location-y': null,
+        'pixel-x': null,
+        'pixel-y': null,
+        'param-mu': currentParams.mu,
+        'param-sigma': currentParams.sigma,
+        'param-lambda': currentParams.lambda,
+        'param-p': currentParams.p,
+        'param-q': currentParams.q,
+      },
+    });
+  }, [setAnswer, currentParams]);
 
   if (!distributionData) return null;
 
@@ -218,6 +231,8 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
           <DistributionVisualization
             sliderValue={sliderValue}
             setSliderValue={setSliderValue}
+            hasInteracted={hasInteracted}
+            setHasInteracted={setHasInteracted}
             distributionData={distributionData}
             showPDF={showPDF || false}
             training={training || false}
