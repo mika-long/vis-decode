@@ -9,7 +9,7 @@ interface LineProps {
 
 export function Line({
   data,
-  strokeColor = 'currentColor',
+  strokeColor = '#253494',
   strokeWidth = 2,
 }: LineProps) {
   const { xScale, yScale } = useScales();

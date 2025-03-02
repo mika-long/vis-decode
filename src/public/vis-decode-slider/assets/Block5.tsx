@@ -8,6 +8,7 @@ import { useGetAnswers } from '../../../store/hooks/useGetAnswers';
 import { ScalesProvider, useScales } from './chartComponents/ScalesContext';
 import Block5Slider from './chartComponents/Block5Slider';
 import { StimulusParams } from '../../../store/types';
+import ClickMarker from './chartComponents/ClickMarker';
 
 const chartSettings = {
   margin: {
@@ -178,10 +179,14 @@ function Block5Visualization({
 
 export default function Block5({ parameters, setAnswer }: StimulusParams<any>) {
   // TODO
-  const {a, b} = parameters;
+  // const {a, b} = parameters;
   const answers = useGetAnswers(['task1_test_1', 'task1_test_2', 'task1_test_3']);
+  const xVal = answers.task1_test_1_37['location-x'];
+  const yVal = answers.task1_test_1_37['location-y'];
+  const point = { x: xVal, y: yVal };
   // eslint-disable-next-line no-console
-  console.log(answers);
+  // console.log(answers.task1_test_1_37['location-x']);
+  // console.log(typeof answers);
 
   const [xSliderValue, setXSliderValue] = useState<number>(0);
   const [ySliderValue, setYSliderValue] = useState<number>(0);
@@ -203,7 +208,9 @@ export default function Block5({ parameters, setAnswer }: StimulusParams<any>) {
           setYSliderValue={setYSliderValue}
           setAnswer={setAnswer}
           axisLabels={{ x: 'X Axis', y: 'Y Axis' }}
-        />
+        >
+          <ClickMarker point={point} />
+        </Block5Visualization>
       </ScalesProvider>
     </Stack>
   );

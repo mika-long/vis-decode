@@ -37,7 +37,7 @@ interface PlotProps {
 export default function Plot({
   distributionData,
   showPDF = true,
-  strokeColor = '#2563eb',
+  strokeColor = '#2c7fb8',
   strokeWidth = 2,
   isTraining = false,
   axisLabels,

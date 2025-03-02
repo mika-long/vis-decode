@@ -44,7 +44,7 @@ export default function Plot({
   distributionData,
   showPDF = true,
   isTraining = false,
-  strokeColor = '#2563eb',
+  strokeColor = '#bd0026',
   strokeWidth = 2,
   axisLabels,
   selectedPoint,

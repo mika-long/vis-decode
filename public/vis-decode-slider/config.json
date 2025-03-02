@@ -543,7 +543,7 @@
       "CDF-Median-Train": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
-        "instruction": "Slide the ball along the curve using the slider control. Stop when the ball is directly on the y=0.5 intersection point, then release to submit.",
+        "instruction": "Slide the ball along the curve using the slider control. Stop when the ball is directly on the y=0.5 intersection point, then release to submit. For finer controls, use the left and right arrow keys.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
