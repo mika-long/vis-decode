@@ -773,11 +773,13 @@
         "training_instruction": {
             "type": "markdown",
             "path": "vis-decode-slider/assets/training.md",
+            "nextButtonEnableTime": 5000,
             "response": []
         },
         "testing_instruction": {
             "type": "markdown",
             "path": "vis-decode-slider/assets/testing.md",
+            "nextButtonEnableTime": 5000,
             "response": []
         },
         "task1_train_1": {
