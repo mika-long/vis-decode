@@ -1099,6 +1099,72 @@
           "parameters": {
             "params": null
           }
+        },
+        "task5_train_2": {
+          "baseComponent": "Block-5",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task5_test_1": {
+          "baseComponent": "Block-5",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task5_test_2": {
+          "baseComponent": "Block-5",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task5_test_3": {
+          "baseComponent": "Block-5",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task5_test_4": {
+          "baseComponent": "Block-5",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task5_test_5": {
+          "baseComponent": "Block-5",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task5_test_6": {
+          "baseComponent": "Block-5",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task5_test_7": {
+          "baseComponent": "Block-5",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task5_test_8": {
+          "baseComponent": "Block-5",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task5_test_9": {
+          "baseComponent": "Block-5",
+          "parameters": {
+            "params": null
+          }
+        },
+        "task5_test_10": {
+          "baseComponent": "Block-5",
+          "parameters": {
+            "params": null
+          }
         }
     },
     "sequence": {
@@ -1121,6 +1187,7 @@
             "calibration", 
             "distance calibration",
             {
+              "order": "random",
               "components": [
                 {
                   "components": [
@@ -1198,8 +1265,7 @@
                   ],
                   "order": "fixed"
                 }
-              ], 
-              "order": "fixed"
+              ]
             },
             {
               "components": [
