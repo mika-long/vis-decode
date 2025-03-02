@@ -705,7 +705,7 @@
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
-          "params": {"id": 5}
+          "trial_id": "17"
         },
         "response": [
           {
@@ -1109,7 +1109,7 @@
         "task5_test_1": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": null
+            "params": { "id": 10}
           }
         },
         "task5_test_2": {

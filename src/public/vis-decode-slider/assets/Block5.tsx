@@ -177,16 +177,21 @@ function Block5Visualization({
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function Block5({ parameters, setAnswer }: StimulusParams<any>) {
   // TODO
-  // const {a, b} = parameters;
-  const answers = useGetAnswers(['task1_test_1', 'task1_test_2', 'task1_test_3']);
-  const xVal = answers.task1_test_1_37['location-x'];
-  const yVal = answers.task1_test_1_37['location-y'];
-  const point = { x: xVal, y: yVal };
-  // eslint-disable-next-line no-console
-  // console.log(answers.task1_test_1_37['location-x']);
-  // console.log(typeof answers);
+  const { trial_id: trialId } = parameters;
+  const answers = useGetAnswers([trialId.toString()]);
+  const n = Object.keys(answers)[0];
+  let point = { x: null as number | null, y: null as number | null };
+  if (answers[n]) {
+    const answer = answers[n] as { 'location-x': number, 'location-y': number };
+    const xVal = answer['location-x'];
+    const yVal = answer['location-y'];
+    if (xVal && yVal) {
+      point = { x: xVal, y: yVal };
+    }
+  }
 
   const [xSliderValue, setXSliderValue] = useState<number>(0);
   const [ySliderValue, setYSliderValue] = useState<number>(0);
