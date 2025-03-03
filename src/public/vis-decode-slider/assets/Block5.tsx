@@ -22,10 +22,6 @@ const chartSettings = {
 };
 
 interface Block5Props {
-  xSliderValue?: number | undefined,
-  ySliderValue?: number | undefined,
-  setXSliderValue: (value: number) => void;
-  setYSliderValue: (value: number) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setAnswer: (answer: {status: boolean; answers: Record<string, any> }) => void,
   axisLabels?: {
@@ -36,10 +32,6 @@ interface Block5Props {
 }
 
 function Block5Visualization({
-  xSliderValue,
-  setXSliderValue,
-  ySliderValue,
-  setYSliderValue,
   setAnswer,
   axisLabels,
   children,
@@ -51,6 +43,11 @@ function Block5Visualization({
   // Refs for axes
   const xAxisRef = useRef<SVGGElement>(null);
   const yAxisRef = useRef<SVGGElement>(null);
+  // Initialize slider values as null (no selection)
+  const [xSliderValue, setXSliderValue] = useState<number | null>(null);
+  const [ySliderValue, setYSliderValue] = useState<number | null>(null);
+  const [xHasInteracted, setXHasInteracted] = useState<boolean>(false);
+  const [yHasInteracted, setYHasInteracted] = useState<boolean>(false);
 
   // Draw D3 axes
   useEffect(() => {
@@ -73,11 +70,18 @@ function Block5Visualization({
   }, [xScale, yScale, margin, height]);
 
   const handleXSliderChange = useCallback((value: number) => {
+    if (!xHasInteracted) {
+      setXHasInteracted(true);
+    }
     setXSliderValue(value);
-  }, [setXSliderValue]);
+  }, [xHasInteracted, setXSliderValue, setXHasInteracted]);
+
   const handleYSliderChange = useCallback((value: number) => {
+    if (!yHasInteracted) {
+      setYHasInteracted(true);
+    }
     setYSliderValue(value);
-  }, [setYSliderValue]);
+  }, [yHasInteracted, setYSliderValue, setYHasInteracted]);
 
   const handleXSliderCommit = useCallback((value: number) => {
     setAnswer({
@@ -119,25 +123,26 @@ function Block5Visualization({
 
   return (
     <>
-      {/* X Slider */}
-      <Space />
-      <Text size="md"> X Slider </Text>
-      <Block5Slider
-        min={-5}
-        max={5}
-        value={xSliderValue ?? 0}
-        onChange={handleXSliderChange}
-        onChangeEnd={handleXSliderCommit}
-      />
-      {/* Y Slider */}
-      <Text size="md"> Y Slider </Text>
-      <Block5Slider
-        min={0}
-        max={1}
-        value={ySliderValue ?? 0}
-        onChange={handleYSliderChange}
-        onChangeEnd={handleYSliderCommit}
-      />
+      <div style={{ width: width - margin.left - margin.right }}>
+        {/* X Slider */}
+        <Text size="md"> X Slider </Text>
+        <Block5Slider
+          min={-5}
+          max={5}
+          value={xSliderValue ?? 0}
+          onChange={handleXSliderChange}
+          onChangeEnd={handleXSliderCommit}
+        />
+        {/* Y Slider */}
+        <Text size="md"> Y Slider </Text>
+        <Block5Slider
+          min={0}
+          max={1}
+          value={ySliderValue ?? 0}
+          onChange={handleYSliderChange}
+          onChangeEnd={handleYSliderCommit}
+        />
+      </div>
       <Space />
       <svg
         width={width}
@@ -146,8 +151,8 @@ function Block5Visualization({
         <g ref={xAxisRef} />
         <g ref={yAxisRef} />
         {axisElements}
-        {/* Dot on the x-axis */}
-        {xSliderValue !== undefined && (
+        {/* Dot on the x-axis - only display after user interaction */}
+        {xSliderValue !== null && xHasInteracted && (
           <circle
             cx={xScale(xSliderValue)}
             cy={yScale(0)}
@@ -159,7 +164,8 @@ function Block5Visualization({
             pointerEvents="none"
           />
         )}
-        {ySliderValue !== undefined && (
+        {/* Dot on the y-axis - only display after user interaction */}
+        {ySliderValue !== null && yHasInteracted && (
           <circle
             cx={xScale(-5)}
             cy={yScale(ySliderValue)}
@@ -179,7 +185,6 @@ function Block5Visualization({
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function Block5({ parameters, setAnswer }: StimulusParams<any>) {
-  // TODO
   const { trial_id: trialId } = parameters;
   const answers = useGetAnswers([trialId.toString()]);
   const n = Object.keys(answers)[0];
@@ -193,9 +198,6 @@ export default function Block5({ parameters, setAnswer }: StimulusParams<any>) {
     }
   }
 
-  const [xSliderValue, setXSliderValue] = useState<number>(0);
-  const [ySliderValue, setYSliderValue] = useState<number>(0);
-
   return (
     <Stack>
       {/* X axis slider */}
@@ -207,10 +209,6 @@ export default function Block5({ parameters, setAnswer }: StimulusParams<any>) {
         yDomain={[0, 1]}
       >
         <Block5Visualization
-          xSliderValue={xSliderValue}
-          ySliderValue={ySliderValue}
-          setXSliderValue={setXSliderValue}
-          setYSliderValue={setYSliderValue}
           setAnswer={setAnswer}
           axisLabels={{ x: 'X Axis', y: 'Y Axis' }}
         >
