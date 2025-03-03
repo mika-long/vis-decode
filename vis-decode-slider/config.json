@@ -1,7 +1,7 @@
 {
     "$schema": "https://raw.githubusercontent.com/reVISit-studies/study/main/src/parser/StudyConfigSchema.json",
     "studyMetadata": {
-        "title": "Visual Decoding Operators (Slider)",
+        "title": "Visual Decoding Operators",
         "version": "pilot", 
         "authors": [
             "Sheng Long "
