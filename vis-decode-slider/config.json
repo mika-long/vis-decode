@@ -73,7 +73,7 @@
       "PDF-Median-Test": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
-        "instruction": "Drag the slider to move the ball along the curve until the vertical line through it divides the area into two equal halves. Adjust left/right until the areas match, then release to lock the ball's position.",
+        "instruction": "Click the slider to initialize a selection. \n\n Drag the slider to move the ball along the curve until a vertical line through it divides the area into two equal halves. \n\n Adjust left/right until the areas match. ",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -151,7 +151,7 @@
       "PDF-Mode-Test": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
-        "instruction": "Drag the slider to move the ball along the curve to the highest point (where y is greatest). Position the ball at the peak, then release to confirm.",
+        "instruction": "Click the slider to initialize a selection. \n\n Drag the slider to move the ball along the curve to the highest point (where y is greatest). \n\n Position the ball at the peak. To finetune selection, use the left/right arrow keys.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -229,7 +229,7 @@
       "CDF-Median-Test": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
-        "instruction": "Drag the slider to move the ball along the curve until it rests where the curve crosses y=0.5. Fine-tune the ball's position using the slider, then release.",
+        "instruction": "Click the slider to initialize. \n\n Drag the slider to move the ball along the curve until it rests where the curve crosses y=0.5. \n\n Fine-tune the ball's position using the left/right arrow keys.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -307,7 +307,7 @@
       "CDF-Mode-Test": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
-        "instruction": "Drag the slider to move the ball along the curve to where the slope is steepest. Adjust until the ball is at the point of maximum steepness, then release.",
+        "instruction": "Click the slider to initialize. \n\n Drag the slider to move the ball along the curve to where the slope is steepest. \n\n Adjust until the ball is at the point of maximum steepness, using the left/right arrow keys for finetuning.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -464,7 +464,7 @@
       "PDF-Mode-Train": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
-        "instruction": "Drag the slider to move the ball along the curve to its highest position. The ball will rise/fall with the curve --- position it at the peak before releasing.",
+        "instruction": "Click on the slider to initialize your selection. \n\n Drag the slider to move the ball along the curve to its highest position. \n\n The ball will rise/fall with the curve --- position it at the peak.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -543,7 +543,7 @@
       "CDF-Median-Train": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
-        "instruction": "Slide the ball along the curve using the slider control. Stop when the ball is directly on the y=0.5 intersection point, then release to submit. For finer controls, use the left and right arrow keys.",
+        "instruction": "Click on the slider to initialize. \n\n Slide the ball along the curve using the slider control. \n\n Stop when the ball is directly on the y=0.5 intersection point, then release to submit. \n\n For finer controls, use the left and right arrow keys.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -622,7 +622,7 @@
       "CDF-Mode-Train": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
-        "instruction": "Drag the slider to trace the ball along the curve. Identify where the ball moves upward most rapidly --- this is the steepest slope. Release at this location.",
+        "instruction": "Click the slider to initialize. \n\n Drag the slider to trace the ball along the curve. \n\n Identify where the ball moves upward most rapidly --- this is the steepest slope.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -701,7 +701,7 @@
       "Block-5": {
         "type": "react-component",
         "path": "vis-decode-slider/assets/Block5.tsx",
-        "instruction": "Drag the slider such that the two balls on the x-axis and y-axis match the curve.",
+        "instruction": "Click on the sliders to initialize your selection. \n\n Drag the slider such that the two balls on the x-axis and y-axis match the curve.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -781,6 +781,32 @@
             "path": "vis-decode-slider/assets/testing.md",
             "nextButtonEnableTime": 5000,
             "response": []
+        },
+        "post-survey": {
+          "type": "questionnaire",
+           "response": [
+            {
+              "id": "gender",
+              "prompt": "## Thank you! \n Help us complete a survey \n Gender",
+              "location": "belowStimulus",
+              "type": "checkbox",
+              "options": ["Man", "Woman", "Genderqueer"],
+              "maxSelections": 1,
+              "minSelections": 1
+            }, 
+            {
+              "id": "age",
+              "prompt": "Age",
+              "location": "belowStimulus",
+              "type": "numerical"
+            },
+            {
+              "id": "feedback",
+              "prompt": "Any feedback?",
+              "location": "belowStimulus",
+              "type": "longText"
+            }
+           ]
         },
         "task1_train_1": {
           "baseComponent": "PDF-Median-Train",
@@ -1285,7 +1311,8 @@
                 "task5_test_10"
               ], 
               "order": "fixed"
-            }
+            },
+            "post-survey"
         ]
     }
 }
