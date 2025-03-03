@@ -77,7 +77,7 @@
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
-          "params": {"mu": 0, "sigma": 1, "lambda": 1, "p": 10, "q": 10}, 
+          "params": {"mu": 0, "sigma": 1, "lambda": 1, "p": 2, "q": 10}, 
           "showPDF": true, 
           "taskid": "location", 
           "taskType": "pdf_median"
@@ -389,7 +389,7 @@
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
-          "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}, 
+          "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}, 
           "showPDF": true, 
           "taskid": "location", 
           "training": true,
@@ -785,73 +785,73 @@
         "task1_train_1": {
           "baseComponent": "PDF-Median-Train",
           "parameters": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
           }, 
           "meta": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
           }
         }, 
         "task1_train_2": {
           "baseComponent": "PDF-Median-Train",
           "parameters": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
           },  
           "meta": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
           }
         }, 
         "task2_train_1": {
           "baseComponent": "PDF-Mode-Train",
           "parameters": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
           },  
           "meta": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
           }
         }, 
         "task2_train_2": {
           "baseComponent": "PDF-Mode-Train",
           "parameters": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
           },  
           "meta": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
           }
         },
         "task3_train_1": {
           "baseComponent": "CDF-Median-Train",
           "parameters": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
           },  
           "meta": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
           }
         },
         "task3_train_2": {
           "baseComponent": "CDF-Median-Train",
           "parameters": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
           },  
           "meta": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
           }
         }, 
         "task4_train_1": {
           "baseComponent": "CDF-Mode-Train",
           "parameters": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
           },  
           "meta": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
           }
         },
         "task4_train_2": {
           "baseComponent": "CDF-Mode-Train",
           "parameters": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
           },  
           "meta": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 10, "q": 10}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
           }
         },
         "task1_test_1": {

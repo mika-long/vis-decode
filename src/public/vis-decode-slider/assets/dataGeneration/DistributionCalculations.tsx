@@ -58,7 +58,8 @@ export function skewGeneralizedTPDF(x: number, params: GeneralizedDistributionPa
   const v = (q ** (-1 / p)) * ((3 * lambda ** 2 + 1) * (beta(3 / p, q - 2 / p) / denomBeta) - 4 * lambda ** 2 * (beta(2 / p, q - 1 / p) / denomBeta) ** 2) ** (-1 / 2);
 
   // Calculate mean adjustment
-  const m = (2 * v * sigma * lambda * (q ** (1 / p)) * beta(2 / p, q - 1 / p)) / denomBeta;
+  // const m = (2 * v * sigma * lambda * (q ** (1 / p)) * beta(2 / p, q - 1 / p)) / denomBeta;
+  const m = 0;
 
   const denomPart1 = 2 * v * sigma * (q ** (1 / p)) * denomBeta;
   const denomPart2 = (1 + (Math.abs(x - mu + m) ** p) / (q * ((v * sigma) ** p) * ((1 + lambda * sgn(x - mu + m)) ** p))) ** (q + 1 / p);

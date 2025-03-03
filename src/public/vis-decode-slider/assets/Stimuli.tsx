@@ -40,10 +40,10 @@ interface DistributionVisualizationProps {
 function generateRandomParams(): GeneralizedDistributionParams {
   return {
     mu: Number((Math.random() * 4 - 2).toFixed(1)), // mu in [-2, 2]
-    sigma: Number((0.5 + Math.random() * 1.5).toFixed(1)), // sigma in [0.5, 2]
+    sigma: Number((0.5 + Math.random() * 2).toFixed(1)), // sigma in [0.5, 2.5]
     lambda: Number((Math.random() * 2 - 1).toFixed(1)), // bounded between -1 and 1
-    p: Number((2 + Math.random() * 8).toFixed(1)),
-    q: Number((2 + Math.random() * 8).toFixed(1)),
+    p: Number((1 + Math.random() * 3).toFixed(1)),
+    q: Number((1 + Math.random() * 99).toFixed(1)),
   };
 }
 
