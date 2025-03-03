@@ -64,22 +64,23 @@ export default function Plot({
   }, [distributionData, showPDF]);
 
   // Draw D3 axes
+  // https://d3js.org/d3-axis#axis_offset
+  // apparently the default offset is 0.5, which made things not align
+  // making it to 0 helps things better ...
   useEffect(() => {
     if (xAxisRef.current) {
       d3.select(xAxisRef.current)
-        .call(d3.axisBottom(xScale))
+        .call(d3.axisBottom(xScale).offset(0))
         .attr('transform', `translate(0,${height - margin.bottom})`)
         .selectAll('text') // Select all text elements (tick labels)
-        .style('font-size', '12px') // Set the font size (adjust value as needed);
-        .style('stroke-width', '2px');
+        .style('font-size', '12px'); // Set the font size (adjust value as needed);
     }
     if (yAxisRef.current) {
       d3.select(yAxisRef.current)
-        .call(d3.axisLeft(yScale))
+        .call(d3.axisLeft(yScale).offset(0))
         .attr('transform', `translate(${margin.left},0)`)
         .selectAll('text')
-        .style('font-size', '12px')
-        .style('stroke-width', '2px');
+        .style('font-size', '12px');
     }
   }, [xScale, yScale, margin, height]);
 

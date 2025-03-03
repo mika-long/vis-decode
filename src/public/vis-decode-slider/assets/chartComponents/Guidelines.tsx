@@ -48,7 +48,7 @@ export default function GuideLines({
         y1={yScale(yValue)}
         y2={yScale(yValue)}
         stroke="#666"
-        strokeWidth={1.5}
+        strokeWidth={1}
         strokeDasharray="4"
         data-source="Guidelines-horizontal"
       />

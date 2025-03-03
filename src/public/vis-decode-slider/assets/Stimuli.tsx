@@ -106,8 +106,8 @@ function DistributionVisualization({
     const yValues = showPDF ? distributionData.pdfVals : distributionData.cdfVals;
 
     return {
-      x: distributionData.xVals[index],
-      y: yValues[index],
+      x: distributionData.xVals[index] === 0 ? 0 : distributionData.xVals[index],
+      y: Number(yValues[index].toFixed(3)),
     };
   }, [sliderValue, distributionData, showPDF]);
 

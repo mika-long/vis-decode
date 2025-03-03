@@ -6,9 +6,7 @@ interface ClickMarkerProps {
 
 export default function ClickMarker({ point }: ClickMarkerProps) {
   const { xScale, yScale } = useScales();
-  if (!point) return null;
-  if (!point.x) return null;
-  if (!point.y) return null;
+  if (!point || point.x === null || point.y === null) return null;
 
   return (
     <circle
