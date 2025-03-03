@@ -2,6 +2,7 @@
 /* eslint-disable space-infix-ops */
 import betainc from '@stdlib/math-base-special-betainc'; // Incomplete Beta function
 import beta from '@stdlib/math-base-special-beta'; // Beta function
+import normal from '@stdlib/random-base-normal'; // Normal sampling
 
 export interface DistributionData {
   xVals: number[];
@@ -105,6 +106,25 @@ export function skewGeneralizedTCDF(x: number, params: GeneralizedDistributionPa
   return out;
 }
 
+export function generateRandomParams(): GeneralizedDistributionParams {
+  // https://github.com/stdlib-js/random-base-normal
+  const rand = normal.factory();
+  let r = Number(rand(0, 0.33).toFixed(1));
+  if (r >= 1) {
+    r = 0.9;
+  } else if (r <= -1) {
+    r = -0.9;
+  }
+
+  return {
+    mu: Number((Math.random() * 4 - 2).toFixed(1)), // mu in [-2, 2]
+    sigma: Number((0.5 + Math.random() * 2).toFixed(1)), // sigma in [0.5, 2.5]
+    lambda: r, // bounded between -1 and 1
+    p: Number((1 + Math.random() * 3).toFixed(1)),
+    q: Number((1 + Math.random() * 49).toFixed(1)),
+  };
+}
+
 /**
  * Generates distribution data with even spacing and handles numerical issues
  * @param {DistributionParams} params - Distribution parameters
@@ -161,95 +181,31 @@ export function generateDistributionData(
   return { xVals, pdfVals, cdfVals };
 }
 
-// /**
-//  * Finds the distribution values at a specific point with interpolation
-//  * @param {DistributionData} data - Distribution data
-//  * @param {number} x - Point to evaluate
-//  * @returns {object} - PDF and CDF values at x
-//  */
-// export function findDistributionValue(
-//   data: DistributionData,
-//   x: number,
-// ): { pdf: number; cdf: number } {
-//   // Find the closest index using binary search
-//   let left = 0;
-//   let right = data.xVals.length - 1;
+export function generateValidDistribution(
+  initialParams: GeneralizedDistributionParams,
+  threshold: number = 1e-3,
+  maxAttempts: number = 20,
+): {data: DistributionData, params: GeneralizedDistributionParams } {
+  let currentParams = { ...initialParams };
+  let attempts = 0;
 
-//   // Direct match
-//   const exactIndex = data.xVals.findIndex((val) => Math.abs(val - x) < 1e-10);
-//   if (exactIndex >= 0) {
-//     return {
-//       pdf: data.pdfVals[exactIndex],
-//       cdf: data.cdfVals[exactIndex],
-//     };
-//   }
+  while (attempts < maxAttempts) {
+    const data = generateDistributionData(currentParams);
 
-//   // Binary search for closest points
-//   while (left <= right) {
-//     const mid = Math.floor((left + right) / 2);
-//     if (data.xVals[mid] < x) {
-//       left = mid + 1;
-//     } else {
-//       right = mid - 1;
-//     }
-//   }
+    const leftBoundaryPDF = data.pdfVals[0];
+    const rightBoudaryPDF = data.pdfVals[data.pdfVals.length - 1];
 
-//   // Ensure indices are within bounds
-//   right = Math.max(0, right);
-//   left = Math.min(data.xVals.length - 1, left);
+    if (leftBoundaryPDF <= threshold && rightBoudaryPDF <= threshold) {
+      return { data, params: currentParams };
+    }
 
-//   // If we're at the boundaries, return the boundary value
-//   if (right >= left) {
-//     return {
-//       pdf: data.pdfVals[left],
-//       cdf: data.cdfVals[left],
-//     };
-//   }
+    currentParams = generateRandomParams();
+    attempts += 1;
+  }
 
-//   // Linear interpolation between points
-//   const t = (x - data.xVals[right]) / (data.xVals[left] - data.xVals[right]);
-//   const pdf = data.pdfVals[right] * (1 - t) + data.pdfVals[left] * t;
-//   const cdf = data.cdfVals[right] * (1 - t) + data.cdfVals[left] * t;
+  // console.log("Still there are issues ...")
+  // console.log(currentParams);
 
-//   return { pdf, cdf };
-// }
-
-// export function findModeFromPDF(xValues: number[], pdfValues: number[]) {
-//   let maxPDFIndex = 0;
-
-//   for (let i = 0; i < pdfValues.length; i += 1) {
-//     if (pdfValues[i] > pdfValues[maxPDFIndex]) {
-//       maxPDFIndex = i;
-//     }
-//   }
-//   return xValues[maxPDFIndex];
-// }
-
-// export function findMedianFromCDF(xValues: number[], cdfValues: number[]) {
-//   let closestIndex = 0;
-//   let minDifference = Math.abs(cdfValues[0] - 0.5);
-
-//   for (let i = 0; i < cdfValues.length; i += 1) {
-//     const difference = Math.abs(cdfValues[i] - 0.5);
-//     if (difference < minDifference) {
-//       minDifference = difference;
-//       closestIndex = i;
-//     }
-//   }
-//   if (Math.abs(cdfValues[closestIndex] - 0.5) < 1e-6) {
-//     return xValues[closestIndex];
-//   }
-
-//   let leftIndex = 0;
-//   let rightIndex = cdfValues.length - 1;
-
-//   for (let i = 0; i < cdfValues.length - 1; i += 1) {
-//     if (cdfValues[i] <= 0.5 && cdfValues[i + 1] >= 0.5) {
-//       leftIndex = i;
-//       rightIndex = i + 1;
-//       break;
-//     }
-//   }
-//   const t = (0.5 - cdfValues[leftIndex]) / (cdfValues[rightIndex] - cdfValues[leftIndex]);
-//   return xValues[leftIndex] + t * (xValues[rightIndex] - xValues[leftIndex]);
-// }
+  const finalData = generateDistributionData(currentParams);
+  return { data: finalData, params: currentParams };
+}

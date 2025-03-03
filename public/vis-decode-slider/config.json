@@ -839,10 +839,10 @@
         "task4_train_1": {
           "baseComponent": "CDF-Mode-Train",
           "parameters": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 4, "q": 10}
           },  
           "meta": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 4, "q": 10}
           }
         },
         "task4_train_2": {

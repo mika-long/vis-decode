@@ -6,7 +6,9 @@ import {
 } from 'react';
 import { Container, Space, Text } from '@mantine/core';
 import { StimulusParams } from '../../../store/types';
-import { generateDistributionData, DistributionData, GeneralizedDistributionParams } from './dataGeneration/DistributionCalculations';
+import {
+  generateValidDistribution, DistributionData, GeneralizedDistributionParams, generateRandomParams,
+} from './dataGeneration/DistributionCalculations';
 import Plot from './Plot';
 import DistributionSlider from './chartComponents/DistributionSlider';
 import { ScalesProvider, useScales } from './chartComponents/ScalesContext';
@@ -35,16 +37,6 @@ interface DistributionVisualizationProps {
   taskType: TaskType;
   currentParams: GeneralizedDistributionParams;
   setAnswer: (answer: { status: boolean; answers: Record<string, any> }) => void;
-}
-
-function generateRandomParams(): GeneralizedDistributionParams {
-  return {
-    mu: Number((Math.random() * 4 - 2).toFixed(1)), // mu in [-2, 2]
-    sigma: Number((0.5 + Math.random() * 2).toFixed(1)), // sigma in [0.5, 2.5]
-    lambda: Number((Math.random() * 2 - 1).toFixed(1)), // bounded between -1 and 1
-    p: Number((1 + Math.random() * 3).toFixed(1)),
-    q: Number((1 + Math.random() * 99).toFixed(1)),
-  };
 }
 
 // This component receives all props it needs and has access to scales context
@@ -195,7 +187,13 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
   });
 
   // Generate distribution data
-  const distributionData = useMemo(() => generateDistributionData(currentParams), [currentParams]);
+  const { distributionData, adjustedParam } = useMemo(() => {
+    const result = generateValidDistribution(currentParams);
+    return {
+      distributionData: result.data,
+      adjustedParam: result.params,
+    };
+  }, [currentParams]);
 
   // Always set initial answer state regardless of initialParams
   useEffect(() => {
@@ -207,14 +205,14 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
         'location-y': null,
         'pixel-x': null,
         'pixel-y': null,
-        'param-mu': currentParams.mu,
-        'param-sigma': currentParams.sigma,
-        'param-lambda': currentParams.lambda,
-        'param-p': currentParams.p,
-        'param-q': currentParams.q,
+        'param-mu': adjustedParam.mu,
+        'param-sigma': adjustedParam.sigma,
+        'param-lambda': adjustedParam.lambda,
+        'param-p': adjustedParam.p,
+        'param-q': adjustedParam.q,
       },
     });
-  }, [setAnswer, currentParams]);
+  }, [setAnswer, adjustedParam]);
 
   if (!distributionData) return null;
 
@@ -246,19 +244,19 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
         <Text size="md" c="dimmed">
           Debug - Random Parameters:
           mu=
-          {currentParams.mu}
+          {adjustedParam.mu}
           ,
           sigma=
-          {currentParams.sigma}
+          {adjustedParam.sigma}
           ,
           lambda=
-          {currentParams.lambda}
+          {adjustedParam.lambda}
           ,
           p=
-          {currentParams.p}
+          {adjustedParam.p}
           ,
           q=
-          {currentParams.q}
+          {adjustedParam.q}
         </Text>
       </div>
     </Container>

@@ -61,12 +61,15 @@ export default function GuideLines({
 
     // Calculate points for a line segment extending left and right from the point
     // We'll extend the line by a reasonable amount in data space
-    const extendBy = (xScale.domain()[1] - xScale.domain()[0]) * 0.2; // Extend by 20% of domain
+    const extendBy = (xScale.domain()[1] - xScale.domain()[0]) * 0.05; // Extend by 10% of domain
 
     const x1 = tangentLine.point.x - extendBy;
     const y1 = tangentLine.point.y - (extendBy * tangentLine.slope);
     const x2 = tangentLine.point.x + extendBy;
     const y2 = tangentLine.point.y + (extendBy * tangentLine.slope);
+
+    // console.log(extendBy);
+    // console.log(x1, x2, y1, y2);
 
     return (
       <line
