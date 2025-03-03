@@ -69,38 +69,43 @@ function Block5Visualization({
     }
   }, [xScale, yScale, margin, height]);
 
+  // Update answers whenever slider values change
+  useEffect(() => {
+    // Only send complete answers when both sliders have been interacted with
+    if (xHasInteracted && yHasInteracted) {
+      setAnswer({
+        status: true,
+        answers: {
+          'slider-x': xSliderValue ?? 0,
+          'slider-y': ySliderValue ?? 0,
+        },
+      });
+    }
+  }, [xSliderValue, ySliderValue, xHasInteracted, yHasInteracted, setAnswer]);
+
   const handleXSliderChange = useCallback((value: number) => {
     if (!xHasInteracted) {
       setXHasInteracted(true);
     }
     setXSliderValue(value);
-  }, [xHasInteracted, setXSliderValue, setXHasInteracted]);
+  }, [xHasInteracted]);
 
   const handleYSliderChange = useCallback((value: number) => {
     if (!yHasInteracted) {
       setYHasInteracted(true);
     }
     setYSliderValue(value);
-  }, [yHasInteracted, setYSliderValue, setYHasInteracted]);
+  }, [yHasInteracted]);
 
   const handleXSliderCommit = useCallback((value: number) => {
-    setAnswer({
-      status: true,
-      answers: {
-        'x-slider': value,
-        'y-slider': ySliderValue ?? 0,
-      },
-    });
-  }, [setAnswer, ySliderValue]);
+    // This commit function is still useful for final values
+    setXSliderValue(value);
+  }, []);
+
   const handleYSliderCommit = useCallback((value: number) => {
-    setAnswer({
-      status: true,
-      answers: {
-        'x-slider': xSliderValue ?? 0,
-        'y-slider': value,
-      },
-    });
-  }, [setAnswer, xSliderValue]);
+    // This commit function is still useful for final values
+    setYSliderValue(value);
+  }, []);
 
   // Memoize Axis labels
   const axisElements = useMemo(() => {
