@@ -57,14 +57,14 @@
           {
             "id": "dist-calibration-CM",
             "prompt": "Distance Calibration results in CM",
-            "required": false, 
+            "required": true, 
             "type": "iframe", 
             "hidden": true
           },
           {
             "id": "ball-positions",
             "prompt": "Position of balls in pixels",
-            "required": false, 
+            "required": true, 
             "type": "iframe", 
             "hidden": true
           }
@@ -705,7 +705,8 @@
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
-          "trial_id": "9"
+          "trial_id": "9",
+          "taskid": "slider"
         },
         "response": [
           {

@@ -69,15 +69,26 @@ function Block5Visualization({
     }
   }, [xScale, yScale, margin, height]);
 
-  // Update answers whenever slider values change
+  // Set initial answer state with status=false (important for framework to track answers)
   useEffect(() => {
-    // Only send complete answers when both sliders have been interacted with
-    if (xHasInteracted && yHasInteracted) {
+    setAnswer({
+      status: false,
+      answers: {
+        'slider-x': null,
+        'slider-y': null,
+      },
+    });
+  }, [setAnswer]);
+
+  // Update answer whenever both sliders have values
+  useEffect(() => {
+    if (xHasInteracted && yHasInteracted && xSliderValue !== null && ySliderValue !== null) {
+      console.log("setting answer here");
       setAnswer({
         status: true,
         answers: {
-          'slider-x': xSliderValue ?? 0,
-          'slider-y': ySliderValue ?? 0,
+          'slider-x': xSliderValue,
+          'slider-y': ySliderValue,
         },
       });
     }
@@ -97,13 +108,12 @@ function Block5Visualization({
     setYSliderValue(value);
   }, [yHasInteracted]);
 
+  // Simplified commit handlers
   const handleXSliderCommit = useCallback((value: number) => {
-    // This commit function is still useful for final values
     setXSliderValue(value);
   }, []);
 
   const handleYSliderCommit = useCallback((value: number) => {
-    // This commit function is still useful for final values
     setYSliderValue(value);
   }, []);
 
@@ -190,7 +200,8 @@ function Block5Visualization({
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function Block5({ parameters, setAnswer }: StimulusParams<any>) {
-  const { trial_id: trialId } = parameters;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { trial_id: trialId, taskid } = parameters;
   const answers = useGetAnswers([trialId.toString()]);
   const n = Object.keys(answers)[0];
   let point = { x: null as number | null, y: null as number | null };
