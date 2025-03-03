@@ -73,7 +73,7 @@
       "PDF-Median-Test": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
-        "instruction": "Click the slider to initialize a selection. \n\n Drag the slider to move the ball along the curve until a vertical line through it divides the area into two equal halves. \n\n Adjust left/right until the areas match. ",
+        "instruction": "Click the slider to initialize a selection. \n\n Drag the slider to move the ball along the curve until a vertical line through it divides the area into two equal halves. \n\n Adjust using left arrow ← and right arrow → keys until the areas match. ",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -385,7 +385,7 @@
       "PDF-Median-Train": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
-        "instruction": "Click on the slider to initialize a starting point. Use the slider to position the ball along the curve, such that the vertiacl line divides the area under the curve into two equal halves. Fine tune your selection by using the left and right arrow keys.",
+        "instruction": "Click on the slider to initialize a starting point. \n\n Use the slider to position the ball along the curve, such that the vertical dotted line divides the area under the curve into two equal halves. \n\n Fine tune your selection by using the left and right arrow keys.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -820,10 +820,10 @@
         "task1_train_2": {
           "baseComponent": "PDF-Median-Train",
           "parameters": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0.3, "p": 2, "q": 10}
           },  
           "meta": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0.3, "p": 2, "q": 10}
           }
         }, 
         "task2_train_1": {
@@ -838,10 +838,10 @@
         "task2_train_2": {
           "baseComponent": "PDF-Mode-Train",
           "parameters": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0.3, "p": 2, "q": 10}
           },  
           "meta": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
+            "params": {"mu": 0, "sigma": 1, "lambda": 0.3, "p": 2, "q": 10}
           }
         },
         "task3_train_1": {
@@ -856,10 +856,10 @@
         "task3_train_2": {
           "baseComponent": "CDF-Median-Train",
           "parameters": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
+            "params": {"mu": 1.5, "sigma": 1.5, "lambda": 0, "p": 2, "q": 10}
           },  
           "meta": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
+            "params": {"mu": 1.5, "sigma": 1.5, "lambda": 0, "p": 2, "q": 10}
           }
         }, 
         "task4_train_1": {
@@ -1123,73 +1123,73 @@
         "task5_train_1": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": null
+            "params": {"id": 60}
           }
         },
         "task5_train_2": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": null
+            "params": {"id": 54}
           }
         },
         "task5_test_1": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": { "id": 10}
+            "params": { "id": 14}
           }
         },
         "task5_test_2": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": null
+            "params": { "id": 12}
           }
         },
         "task5_test_3": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": null
+            "params": { "id": 24}
           }
         },
         "task5_test_4": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": null
+            "params": { "id": 31}
           }
         },
         "task5_test_5": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": null
+            "params": { "id": 30}
           }
         },
         "task5_test_6": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": null
+            "params": { "id": 40}
           }
         },
         "task5_test_7": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": null
+            "params": { "id": 44}
           }
         },
         "task5_test_8": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": null
+            "params": { "id": 45}
           }
         },
         "task5_test_9": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": null
+            "params": { "id": 55}
           }
         },
         "task5_test_10": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": null
+            "params": { "id": 52}
           }
         }
     },

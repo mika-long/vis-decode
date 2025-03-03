@@ -120,7 +120,7 @@ export function generateRandomParams(): GeneralizedDistributionParams {
     mu: Number((Math.random() * 4 - 2).toFixed(1)), // mu in [-2, 2]
     sigma: Number((0.5 + Math.random() * 2).toFixed(1)), // sigma in [0.5, 2.5]
     lambda: r, // bounded between -1 and 1
-    p: Number((1 + Math.random() * 3).toFixed(1)),
+    p: Number((2 + Math.random() * 3).toFixed(1)),
     q: Number((1 + Math.random() * 49).toFixed(1)),
   };
 }
