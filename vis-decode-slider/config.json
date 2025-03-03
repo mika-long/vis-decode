@@ -711,14 +711,14 @@
           {
             "id": "slider-x", 
             "prompt": "The x-axis location of your slider", 
-            "required": false, 
+            "required": true, 
             "type": "iframe", 
             "hidden": true
           },
           {
             "id": "slider-y", 
             "prompt": "The y-axis location of your slider", 
-            "required": false, 
+            "required": true, 
             "type": "iframe", 
             "hidden": true
           }
