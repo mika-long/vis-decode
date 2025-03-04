@@ -811,6 +811,18 @@
             "nextButtonEnableTime": 5000,
             "response": []
         },
+        "train-video-1": {
+          "baseComponent": "training-video-task1"
+        },
+        "train-video-2": {
+          "baseComponent": "training-video-task2"
+        },
+        "train-video-3": {
+          "baseComponent": "training-video-task3"
+        },
+        "train-video-4": {
+          "baseComponent": "training-video-task4"
+        },
         "testing_instruction": {
             "type": "markdown",
             "path": "vis-decode-slider/assets/testing.md",
@@ -1266,7 +1278,7 @@
                 {
                   "components": [
                     "training_instruction",
-                    "training-video-task1",
+                    "training-video-1",
                     "task1_train_1",
                     "task1_train_2",
                     "testing_instruction",
@@ -1286,7 +1298,7 @@
                 {
                   "components": [
                     "training_instruction",
-                    "training-video-task2",
+                    "training-video-2", 
                     "task2_train_1",
                     "task2_train_2",
                     "testing_instruction",
@@ -1306,7 +1318,7 @@
                 {
                   "components": [
                     "training_instruction",
-                    "training-video-task3",
+                    "training-video-3",
                     "task3_train_1",
                     "task3_train_2",
                     "testing_instruction",
@@ -1326,7 +1338,7 @@
                 {
                   "components": [
                     "training_instruction",
-                    "training-video-task4",
+                    "training-video-4",
                     "task4_train_1",
                     "task4_train_2",
                     "testing_instruction",
