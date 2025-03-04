@@ -70,6 +70,26 @@
           }
         ]
       },
+      "training-video-task1": {
+        "type": "website",
+        "path": "vis-decode-slider/assets/training-task1.html",
+        "response": []
+      },
+      "training-video-task2": {
+        "type": "website",
+        "path": "vis-decode-slider/assets/training-task2.html",
+        "response": []
+      },
+      "training-video-task3": {
+        "type": "website",
+        "path": "vis-decode-slider/assets/training-task3.html",
+        "response": []
+      },
+      "training-video-task4": {
+        "type": "website",
+        "path": "vis-decode-slider/assets/training-task4.html",
+        "response": []
+      },
       "PDF-Median-Test": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
@@ -1246,6 +1266,7 @@
                 {
                   "components": [
                     "training_instruction",
+                    "training-video-task1",
                     "task1_train_1",
                     "task1_train_2",
                     "testing_instruction",
@@ -1265,6 +1286,7 @@
                 {
                   "components": [
                     "training_instruction",
+                    "training-video-task2",
                     "task2_train_1",
                     "task2_train_2",
                     "testing_instruction",
@@ -1284,6 +1306,7 @@
                 {
                   "components": [
                     "training_instruction",
+                    "training-video-task3",
                     "task3_train_1",
                     "task3_train_2",
                     "testing_instruction",
@@ -1303,6 +1326,7 @@
                 {
                   "components": [
                     "training_instruction",
+                    "training-video-task4",
                     "task4_train_1",
                     "task4_train_2",
                     "testing_instruction",
