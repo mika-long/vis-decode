@@ -76,6 +76,8 @@ function Block5Visualization({
       answers: {
         'slider-x': null,
         'slider-y': null,
+        'location-x': null,
+        'location-y': null,
       },
     });
   }, [setAnswer]);
@@ -215,6 +217,29 @@ export default function Block5({ parameters, setAnswer }: StimulusParams<any>) {
     }
   }
 
+  // Wrap the original setAnswer to include both slider and point values
+  const handleSetAnswer = useCallback((answerData: {status: boolean; answers: Record<string, any> }) => {
+    const combinedAnswer = {
+      status: answerData.status,
+      answers: {
+        ...answerData.answers,
+        'location-x': point.x, // Include the point's x value
+        'location-y': point.y, // Include the point's y value
+      },
+    };
+
+    // Only override with slider values if point values are null
+    if (point.x === null && answerData.answers['slider-x'] !== null) {
+      combinedAnswer.answers['location-x'] = answerData.answers['slider-x'];
+    }
+
+    if (point.y === null && answerData.answers['slider-y'] !== null) {
+      combinedAnswer.answers['location-y'] = answerData.answers['slider-y'];
+    }
+
+    setAnswer(combinedAnswer);
+  }, [point, setAnswer]);
+
   return (
     <Stack>
       {/* X axis slider */}
@@ -226,7 +251,7 @@ export default function Block5({ parameters, setAnswer }: StimulusParams<any>) {
         yDomain={[0, 1]}
       >
         <Block5Visualization
-          setAnswer={setAnswer}
+          setAnswer={handleSetAnswer}
           axisLabels={{ x: 'X Axis', y: 'Y Axis' }}
         >
           <ClickMarker point={point} />

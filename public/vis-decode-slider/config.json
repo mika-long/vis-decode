@@ -722,6 +722,20 @@
             "required": false, 
             "type": "iframe", 
             "hidden": true
+          }, 
+          {
+            "id": "location-x", 
+            "prompt": "The x-axis location of your slider", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
+          },
+          {
+            "id": "location-y", 
+            "prompt": "The y-axis location of your slider", 
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
           }
         ]
       }
