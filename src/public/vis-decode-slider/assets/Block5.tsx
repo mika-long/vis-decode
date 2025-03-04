@@ -3,7 +3,9 @@ import {
   useEffect, useRef, useMemo, useCallback, useState,
 } from 'react';
 import * as d3 from 'd3';
-import { Stack, Space, Text } from '@mantine/core';
+import {
+  Stack, Space, Text, Container,
+} from '@mantine/core';
 import { useGetAnswers } from '../../../store/hooks/useGetAnswers';
 import { ScalesProvider, useScales } from './chartComponents/ScalesContext';
 import Block5Slider from './chartComponents/Block5Slider';
@@ -241,22 +243,24 @@ export default function Block5({ parameters, setAnswer }: StimulusParams<any>) {
   }, [point, setAnswer]);
 
   return (
-    <Stack>
-      {/* X axis slider */}
-      <ScalesProvider
-        width={chartSettings.width}
-        height={chartSettings.height}
-        margin={chartSettings.margin}
-        xDomain={[-5, 5]}
-        yDomain={[0, 1]}
-      >
-        <Block5Visualization
-          setAnswer={handleSetAnswer}
-          axisLabels={{ x: 'X Axis', y: 'Y Axis' }}
+    <Container p="md">
+      <Stack>
+        {/* X axis slider */}
+        <ScalesProvider
+          width={chartSettings.width}
+          height={chartSettings.height}
+          margin={chartSettings.margin}
+          xDomain={[-5, 5]}
+          yDomain={[0, 1]}
         >
-          <ClickMarker point={point} />
-        </Block5Visualization>
-      </ScalesProvider>
-    </Stack>
+          <Block5Visualization
+            setAnswer={handleSetAnswer}
+            axisLabels={{ x: 'X Axis', y: 'Y Axis' }}
+          >
+            <ClickMarker point={point} />
+          </Block5Visualization>
+        </ScalesProvider>
+      </Stack>
+    </Container>
   );
 }

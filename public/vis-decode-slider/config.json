@@ -1327,16 +1327,21 @@
                 "task5_train_1",
                 "task5_train_2",
                 "testing_instruction",
-                "task5_test_1",
-                "task5_test_2",
-                "task5_test_3",
-                "task5_test_4",
-                "task5_test_5",
-                "task5_test_6",
-                "task5_test_7",
-                "task5_test_8",
-                "task5_test_9",
-                "task5_test_10"
+                {
+                  "components": [
+                    "task5_test_1",
+                    "task5_test_2",
+                    "task5_test_3",
+                    "task5_test_4",
+                    "task5_test_5",
+                    "task5_test_6",
+                    "task5_test_7",
+                    "task5_test_8",
+                    "task5_test_9",
+                    "task5_test_10"
+                  ],
+                  "order": "random"
+                }
               ], 
               "order": "fixed"
             },
