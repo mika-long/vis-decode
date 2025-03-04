@@ -83,7 +83,6 @@ function Block5Visualization({
   // Update answer whenever both sliders have values
   useEffect(() => {
     if (xHasInteracted && yHasInteracted && xSliderValue !== null && ySliderValue !== null) {
-      console.log("setting answer here");
       setAnswer({
         status: true,
         answers: {
