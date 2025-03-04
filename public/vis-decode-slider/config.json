@@ -70,26 +70,6 @@
           }
         ]
       },
-      "training-video-task1": {
-        "type": "website",
-        "path": "vis-decode-slider/assets/training-task1.html",
-        "response": []
-      },
-      "training-video-task2": {
-        "type": "website",
-        "path": "vis-decode-slider/assets/training-task2.html",
-        "response": []
-      },
-      "training-video-task3": {
-        "type": "website",
-        "path": "vis-decode-slider/assets/training-task3.html",
-        "response": []
-      },
-      "training-video-task4": {
-        "type": "website",
-        "path": "vis-decode-slider/assets/training-task4.html",
-        "response": []
-      },
       "PDF-Median-Test": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
@@ -812,16 +792,24 @@
             "response": []
         },
         "train-video-1": {
-          "baseComponent": "training-video-task1"
+          "type": "website",
+          "path": "vis-decode-slider/assets/training-task1.html",
+          "response": []
         },
         "train-video-2": {
-          "baseComponent": "training-video-task2"
+          "type": "website",
+          "path": "vis-decode-slider/assets/training-task1.html",
+          "response": []
         },
         "train-video-3": {
-          "baseComponent": "training-video-task3"
+          "type": "website",
+          "path": "vis-decode-slider/assets/training-task1.html",
+          "response": []
         },
         "train-video-4": {
-          "baseComponent": "training-video-task4"
+          "type": "website",
+          "path": "vis-decode-slider/assets/training-task1.html",
+          "response": []
         },
         "testing_instruction": {
             "type": "markdown",
@@ -1278,7 +1266,7 @@
                 {
                   "components": [
                     "training_instruction",
-                    "training-video-1",
+                    "train-video-1",
                     "task1_train_1",
                     "task1_train_2",
                     "testing_instruction",
@@ -1298,7 +1286,7 @@
                 {
                   "components": [
                     "training_instruction",
-                    "training-video-2", 
+                    "train-video-2", 
                     "task2_train_1",
                     "task2_train_2",
                     "testing_instruction",
@@ -1318,7 +1306,7 @@
                 {
                   "components": [
                     "training_instruction",
-                    "training-video-3",
+                    "train-video-3",
                     "task3_train_1",
                     "task3_train_2",
                     "testing_instruction",
@@ -1338,7 +1326,7 @@
                 {
                   "components": [
                     "training_instruction",
-                    "training-video-4",
+                    "train-video-4",
                     "task4_train_1",
                     "task4_train_2",
                     "testing_instruction",
