@@ -1124,73 +1124,73 @@
         "task5_train_1": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": {"id": 60}
+            "params": {"trial_id": 60}
           }
         },
         "task5_train_2": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": {"id": 54}
+            "params": {"trial_id": 54}
           }
         },
         "task5_test_1": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": { "id": 14}
+            "params": { "trial_id": 14}
           }
         },
         "task5_test_2": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": { "id": 12}
+            "params": { "trial_id": 12}
           }
         },
         "task5_test_3": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": { "id": 24}
+            "params": { "trial_id": 24}
           }
         },
         "task5_test_4": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": { "id": 31}
+            "params": { "trial_id": 31}
           }
         },
         "task5_test_5": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": { "id": 30}
+            "params": { "trial_id": 30}
           }
         },
         "task5_test_6": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": { "id": 40}
+            "params": { "trial_id": 40}
           }
         },
         "task5_test_7": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": { "id": 44}
+            "params": { "trial_id": 44}
           }
         },
         "task5_test_8": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": { "id": 45}
+            "params": { "trial_id": 45}
           }
         },
         "task5_test_9": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": { "id": 55}
+            "params": { "trial_id": 55}
           }
         },
         "task5_test_10": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": { "id": 52}
+            "params": { "trial_id": 52}
           }
         }
     },

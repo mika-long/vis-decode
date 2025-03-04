@@ -200,7 +200,9 @@ function Block5Visualization({
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function Block5({ parameters, setAnswer }: StimulusParams<any>) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { trial_id: trialId, taskid } = parameters;
+  // const { trial_id: trialId, taskid } = parameters;
+  const { params } = parameters;
+  const trialId = params.trial_id;
   const answers = useGetAnswers([trialId.toString()]);
   const n = Object.keys(answers)[0];
   let point = { x: null as number | null, y: null as number | null };
