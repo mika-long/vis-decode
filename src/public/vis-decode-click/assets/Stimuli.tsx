@@ -131,40 +131,31 @@ function StimuliContent({
     switch (taskType) {
       case 'pdf_median': {
         if (!point) return { x: null, y: null, tangentLine: null };
-        const slope = index > 0 && index < distributionData.pdfVals.length - 1
-          ? (distributionData.pdfVals[index + 1] - distributionData.pdfVals[index - 1]) / (distributionData.xVals[index + 1] - distributionData.xVals[index - 1])
-          : 0;
         return {
           x: point.x,
           y: null,
-          // tangentLine: {
-          //   point,
-          //   slope,
-          // },
           tangentLine: null,
         };
       }
       case 'pdf_mode':
         return {
-          // x: point.x,
           x: null,
           y: point.y,
           tangentLine: null,
         };
       case 'cdf_median':
         return {
-          // x: point.x,
           x: null,
           y: 0.5,
           tangentLine: null,
         };
       case 'cdf_mode':
         return {
-          // x: point.x,
           x: null,
           y: null,
           tangentLine: {
             point,
+            // TODO: fix the following ...
             slope: (distributionData.cdfVals[index + 1] - distributionData.cdfVals[index - 1]) / (distributionData.xVals[index + 1] - distributionData.xVals[index - 1]),
           },
         };

@@ -83,7 +83,8 @@ export function skewGeneralizedTCDF(x: number, params: GeneralizedDistributionPa
   const sig = sigma / v;
 
   // Calcultae mean adjustment
-  const m = (2 * sigma * lambda * (q ** (1/p)) * beta(2/p, q - 1/p)) / denomBeta;
+  // const m = (2 * sigma * lambda * (q ** (1/p)) * beta(2/p, q - 1/p)) / denomBeta;
+  const m = 0; // we don't need mean adjustment if we want mu to be the mode
   let z = x - mu + m;
 
   // Track if we need to flip the result
