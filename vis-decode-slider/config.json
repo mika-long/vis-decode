@@ -701,7 +701,7 @@
       "Block-5": {
         "type": "react-component",
         "path": "vis-decode-slider/assets/Block5.tsx",
-        "instruction": "Click on the sliders to initialize your selection. \n\n Drag the slider such that the two balls on the x-axis and y-axis match the curve.",
+        "instruction": "Click on the sliders to initialize your selection. \n\n Drag the sliders such that the two balls on the x-axis and y-axis match the red dot.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -788,24 +788,37 @@
            "response": [
             {
               "id": "gender",
-              "prompt": "## Thank you! \n Help us complete a survey \n Gender",
+              "prompt": "## Thank you! \n\n Please answer the following demographics related questions: \n\n Gender",
               "location": "belowStimulus",
-              "type": "checkbox",
-              "options": ["Man", "Woman", "Genderqueer"],
-              "maxSelections": 1,
-              "minSelections": 1
+              "type": "radio",
+              "options": ["Male", "Female", "Prefer to self describe", "Prefer not to say"]
+            },
+            {
+              "id": "self-gender",
+              "prompt": "If you have selected 'Prefer to self describe', what is your gender?",
+              "location": "belowStimulus",
+              "type": "shortText",
+              "required": false
             }, 
             {
               "id": "age",
-              "prompt": "Age",
+              "prompt": "What is your age?",
               "location": "belowStimulus",
               "type": "numerical"
             },
             {
               "id": "feedback",
-              "prompt": "Any feedback?",
+              "prompt": "(Optional) Were any of the instructions unclear?",
               "location": "belowStimulus",
-              "type": "longText"
+              "type": "longText",
+              "required": false
+            },
+            {
+              "id": "strategy",
+              "prompt": "(Optional) Please share with us any **strategy** you used.",
+              "location": "belowStimulus",
+              "type": "longText",
+              "required": false
             }
            ]
         },
