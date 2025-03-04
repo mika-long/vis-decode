@@ -798,17 +798,17 @@
         },
         "train-video-2": {
           "type": "website",
-          "path": "vis-decode-slider/assets/training-task1.html",
+          "path": "vis-decode-slider/assets/training-task2.html",
           "response": []
         },
         "train-video-3": {
           "type": "website",
-          "path": "vis-decode-slider/assets/training-task1.html",
+          "path": "vis-decode-slider/assets/training-task3.html",
           "response": []
         },
         "train-video-4": {
           "type": "website",
-          "path": "vis-decode-slider/assets/training-task1.html",
+          "path": "vis-decode-slider/assets/training-task4.html",
           "response": []
         },
         "testing_instruction": {
