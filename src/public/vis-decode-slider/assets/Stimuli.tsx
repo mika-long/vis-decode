@@ -235,7 +235,7 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
             showPDF={showPDF || false}
             training={training || false}
             taskType={taskType || 'pdf_median'}
-            currentParams={currentParams}
+            currentParams={adjustedParam}
             setAnswer={setAnswer}
           />
         </ScalesProvider>
