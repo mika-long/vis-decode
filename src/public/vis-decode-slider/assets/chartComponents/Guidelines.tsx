@@ -68,10 +68,6 @@ export default function GuideLines({
     const x2 = tangentLine.point.x + extendBy;
     const y2 = tangentLine.point.y + (extendBy * tangentLine.slope);
 
-    // console.log(extendBy);
-    // console.log(x1, x2, y1, y2);
-    // console.log(tangentLine.point); // this y value is wrong ... need to figure out why ...
-
     return (
       <line
         x1={xScale(x1)}

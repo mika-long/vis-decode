@@ -70,6 +70,7 @@ export function skewGeneralizedTPDF(x: number, params: GeneralizedDistributionPa
 
 /**
  * Cumulative density function (PDF) for the skewed generalized t-distribution
+ * https://github.com/carterkd/sgt/blob/master/R/InternalSGT.R#L8
  */
 export function skewGeneralizedTCDF(x: number, params: GeneralizedDistributionParams) {
   const {
@@ -79,7 +80,7 @@ export function skewGeneralizedTCDF(x: number, params: GeneralizedDistributionPa
   const denomBeta = beta(1/p, q);
 
   // Calculate variance adjustment
-  const v = (q ** (-1/p)) * Math.sqrt(1 / ((3 * (lambda ** 2) + 1) * (beta(3/p, q - 2/p) / denomBeta) - 4 * (lambda ** 2) * (beta(2/p, q - 1/p) / denomBeta) ** 2));
+  const v = (q ** (1/p)) * Math.sqrt((3 * (lambda ** 2) + 1) * (beta(3/p, q - 2/p) / denomBeta) - 4 * (lambda ** 2) * ((beta(2/p, q - 1/p) / denomBeta) ** 2));
   const sig = sigma / v;
 
   // Calcultae mean adjustment
