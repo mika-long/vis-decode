@@ -57,14 +57,14 @@
           {
             "id": "dist-calibration-CM",
             "prompt": "Distance Calibration results in CM",
-            "required": true, 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           },
           {
             "id": "ball-positions",
             "prompt": "Position of balls in pixels",
-            "required": true, 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }
@@ -719,7 +719,7 @@
           {
             "id": "slider-y", 
             "prompt": "The y-axis location of your slider", 
-            "required": true, 
+            "required": false, 
             "type": "iframe", 
             "hidden": true
           }
