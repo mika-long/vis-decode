@@ -4,6 +4,7 @@ import * as d3 from 'd3';
 import {
   useCallback, useEffect, useMemo, useState,
 } from 'react';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Container, Space, Text } from '@mantine/core';
 import { StimulusParams } from '../../../store/types';
 import {
@@ -240,7 +241,7 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
           />
         </ScalesProvider>
         {/* Optional debug information */}
-        <Space h="xl" />
+        {/* <Space h="xl" />
         <Text size="md" c="dimmed">
           Debug - Random Parameters:
           mu=
@@ -257,7 +258,7 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
           ,
           q=
           {adjustedParam.q}
-        </Text>
+        </Text> */}
       </div>
     </Container>
   );
