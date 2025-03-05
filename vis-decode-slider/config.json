@@ -811,6 +811,11 @@
           "path": "vis-decode-slider/assets/training-task4.md",
           "response": []
         },
+        "train-video-5": {
+          "type": "markdown",
+          "path": "vis-decode-slider/assets/training-task5.md",
+          "response": []
+        },
         "testing_instruction": {
             "type": "markdown",
             "path": "vis-decode-slider/assets/testing.md",
@@ -1267,7 +1272,6 @@
                   "components": [
                     "training_instruction",
                     "train-video-1",
-                    "train-video-1-markdown",
                     "task1_train_1",
                     "task1_train_2",
                     "testing_instruction",
@@ -1349,6 +1353,7 @@
             {
               "components": [
                 "training_instruction",
+                "train-video-5",
                 "task5_train_1",
                 "task5_train_2",
                 "testing_instruction",
