@@ -32,3 +32,6 @@ docs/
 
 public/__revisit-widget
 src/public/__revisit-widget
+
+# stop tracking .env once it's set to use firebase
+.env

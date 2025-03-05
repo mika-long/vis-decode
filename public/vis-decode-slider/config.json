@@ -73,7 +73,7 @@
       "PDF-Median-Test": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
-        "instruction": "Click the slider to initialize a selection. \n\n Drag the slider to move the ball along the curve until a hypothetical vertical line through it divides the area into two equal halves. \n\n Adjust using left arrow ← and right arrow → keys until the areas match. ",
+        "instruction": "Click the slider to initialize a selection. \n\n Drag the slider to move the ball along the curve until a hypothetical vertical line through it divides the area into two **equal** halves. \n\n Adjust using left ← and right → arrow keys until the areas match. ",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -151,7 +151,7 @@
       "PDF-Mode-Test": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
-        "instruction": "Click the slider to initialize a selection. \n\n Drag the slider to move the ball along the curve to the highest point (where y is greatest). \n\n Position the ball at the peak. To finetune selection, use the left/right arrow keys.",
+        "instruction": "Click the slider to initialize a selection. \n\n Drag the slider to move the ball along the curve to the **highest point** (where y is greatest). \n\n Position the ball at the peak. To finetune selection, use the left ← and right → arrow keys.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -229,7 +229,7 @@
       "CDF-Median-Test": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
-        "instruction": "Click the slider to initialize. \n\n Drag the slider to move the ball along the curve until it rests where the curve crosses y=0.5. \n\n Fine-tune the ball's position using the left/right arrow keys.",
+        "instruction": "Click the slider to initialize. \n\n Drag the slider to move the ball along the curve until it rests where the curve crosses y=0.5. \n\n Fine-tune the ball's position using the left ← and right → arrow keys.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -307,7 +307,7 @@
       "CDF-Mode-Test": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
-        "instruction": "Click the slider to initialize. \n\n Drag the slider to move the ball along the curve to where the slope is steepest. \n\n Adjust until the ball is at the point of maximum steepness, using the left/right arrow keys for finetuning.",
+        "instruction": "Click the slider to initialize. \n\n Drag the slider to move the ball along the curve to where the slope is steepest. \n\n Adjust until the ball is at the point of maximum steepness, using the left ← and right → arrow keys for fine-tuning.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -385,7 +385,7 @@
       "PDF-Median-Train": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
-        "instruction": "Click on the slider to initialize a starting point. \n\n Use the slider to position the ball along the curve, such that the vertical dotted line divides the area under the curve into two equal halves. \n\n Fine tune your selection by using the left and right arrow keys.",
+        "instruction": "Click on the slider to initialize a starting point. \n\n Use the slider to position the ball along the curve, such that the vertical dotted line divides the area under the curve into two equal halves. \n\n Fine tune your selection by using the left ← and right → arrow keys.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -543,7 +543,7 @@
       "CDF-Median-Train": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
-        "instruction": "Click on the slider to initialize. \n\n Slide the ball along the curve using the slider control. \n\n Stop when the ball is directly on the y=0.5 intersection point. \n\n For finer controls, use the left and right arrow keys.",
+        "instruction": "Click on the slider to initialize. \n\n Slide the ball along the curve using the slider control. \n\n Stop when the ball is directly on the y=0.5 intersection point. \n\n For finer controls, use the left ← and right → arrow keys.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -1182,7 +1182,7 @@
         "task5_train_2": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": {"trial_id": 54}
+            "params": {"trial_id": 62}
           }
         },
         "task5_test_1": {
@@ -1200,7 +1200,7 @@
         "task5_test_3": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": { "trial_id": 24}
+            "params": { "trial_id": 30}
           }
         },
         "task5_test_4": {
@@ -1242,7 +1242,7 @@
         "task5_test_10": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": { "trial_id": 52}
+            "params": { "trial_id": 60}
           }
         }
     },
