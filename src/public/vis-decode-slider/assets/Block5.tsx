@@ -209,15 +209,18 @@ export default function Block5({ parameters, setAnswer }: StimulusParams<any>) {
   const trialId = params.trial_id;
   const answers = useGetAnswers([trialId.toString()]);
   const n = Object.keys(answers)[0];
-  let point = { x: null as number | null, y: null as number | null };
-  if (answers[n]) {
-    const answer = answers[n] as { 'location-x': number, 'location-y': number };
-    const xVal = answer['location-x'];
-    const yVal = answer['location-y'];
-    if (xVal && yVal) {
-      point = { x: xVal, y: yVal };
+  const point = useMemo(() => {
+    let p = { x: null as number | null, y: null as number | null };
+    if (answers[n]) {
+      const answer = answers[n] as { 'location-x': number, 'location-y': number };
+      const xVal = answer['location-x'];
+      const yVal = answer['location-y'];
+      if (xVal && yVal) {
+        p = { x: xVal, y: yVal };
+      }
     }
-  }
+    return p;
+  }, [answers, n]);
 
   // Wrap the original setAnswer to include both slider and point values
   const handleSetAnswer = useCallback((answerData: {status: boolean; answers: Record<string, any> }) => {
