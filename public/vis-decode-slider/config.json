@@ -759,7 +759,7 @@
         "consent": {
             "type": "markdown",
             "path": "vis-decode-slider/assets/consent.md",
-            "nextButtonText": "Next",
+            "nextButtonText": "I agree",
             "response": [
               {
                 "id": "consentApproval",
@@ -792,23 +792,23 @@
             "response": []
         },
         "train-video-1": {
-          "type": "website",
-          "path": "vis-decode-slider/assets/training-task1.html",
+          "type": "markdown",
+          "path": "vis-decode-slider/assets/training-task1.md",
           "response": []
         },
         "train-video-2": {
-          "type": "website",
-          "path": "vis-decode-slider/assets/training-task2.html",
+          "type": "markdown",
+          "path": "vis-decode-slider/assets/training-task2.md",
           "response": []
         },
         "train-video-3": {
-          "type": "website",
-          "path": "vis-decode-slider/assets/training-task3.html",
+          "type": "markdown",
+          "path": "vis-decode-slider/assets/training-task3.md",
           "response": []
         },
         "train-video-4": {
-          "type": "website",
-          "path": "vis-decode-slider/assets/training-task4.html",
+          "type": "markdown",
+          "path": "vis-decode-slider/assets/training-task4.md",
           "response": []
         },
         "testing_instruction": {
@@ -1267,6 +1267,7 @@
                   "components": [
                     "training_instruction",
                     "train-video-1",
+                    "train-video-1-markdown",
                     "task1_train_1",
                     "task1_train_2",
                     "testing_instruction",
