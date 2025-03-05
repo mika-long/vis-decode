@@ -73,7 +73,7 @@
       "PDF-Median-Test": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
-        "instruction": "Click the slider to initialize a selection. \n\n Drag the slider to move the ball along the curve until a vertical line through it divides the area into two equal halves. \n\n Adjust using left arrow ← and right arrow → keys until the areas match. ",
+        "instruction": "Click the slider to initialize a selection. \n\n Drag the slider to move the ball along the curve until a hypothetical vertical line through it divides the area into two equal halves. \n\n Adjust using left arrow ← and right arrow → keys until the areas match. ",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
