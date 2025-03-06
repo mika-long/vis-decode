@@ -11,6 +11,7 @@ import { ScalesProvider, useScales } from './chartComponents/ScalesContext';
 import Block5Slider from './chartComponents/Block5Slider';
 import { StimulusParams } from '../../../store/types';
 import ClickMarker from './chartComponents/ClickMarker';
+import GuideLines from './chartComponents/Guidelines';
 
 const chartSettings = {
   margin: {
@@ -31,12 +32,14 @@ interface Block5Props {
     y?: string;
   }
   children?: React.ReactNode;
+  isTraining?: boolean;
 }
 
 function Block5Visualization({
   setAnswer,
   axisLabels,
   children,
+  isTraining = false,
 }: Block5Props) {
   // Use the scales from context
   const {
@@ -139,6 +142,17 @@ function Block5Visualization({
     );
   }, [axisLabels, width, height]);
 
+  // Calculate guidelines based on slider value
+  const guidelines = useMemo(() => {
+    if (!isTraining) return null;
+
+    return {
+      x: xSliderValue,
+      y: ySliderValue,
+      tangentLine: null,
+    };
+  }, [isTraining, xSliderValue, ySliderValue]);
+
   return (
     <>
       <div style={{ width: width - margin.left - margin.right }}>
@@ -195,6 +209,14 @@ function Block5Visualization({
             pointerEvents="none"
           />
         )}
+        {/* guidelines */}
+        {isTraining && guidelines && (
+          <GuideLines
+            xValue={guidelines.x}
+            yValue={guidelines.y}
+            tangentLine={guidelines.tangentLine}
+          />
+        )}
         {children}
       </svg>
     </>
@@ -207,6 +229,8 @@ export default function Block5({ parameters, setAnswer }: StimulusParams<any>) {
   // const { trial_id: trialId, taskid } = parameters;
   const { params } = parameters;
   const trialId = params.trial_id;
+  const isTraining = params.training || false; // default to false
+
   const answers = useGetAnswers([trialId.toString()]);
   const n = Object.keys(answers)[0];
   const point = useMemo(() => {
@@ -259,6 +283,7 @@ export default function Block5({ parameters, setAnswer }: StimulusParams<any>) {
           <Block5Visualization
             setAnswer={handleSetAnswer}
             axisLabels={{ x: 'X Axis', y: 'Y Axis' }}
+            isTraining={isTraining}
           >
             <ClickMarker point={point} />
           </Block5Visualization>
