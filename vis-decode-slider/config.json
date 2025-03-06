@@ -785,6 +785,12 @@
         "distance calibration": {
           "baseComponent": "ball"
         },
+        "general_instruction":{
+          "type": "markdown",
+          "path": "vis-decode-slider/assets/general_instruction.md",
+          "response": [],
+          "nextButtonEnableTime": 3000
+        },
         "training_instruction": {
             "type": "markdown",
             "path": "vis-decode-slider/assets/training.md",
@@ -1176,13 +1182,13 @@
         "task5_train_1": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": {"trial_id": 60}
+            "params": {"trial_id": 60, "training": true}
           }
         },
         "task5_train_2": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": {"trial_id": 62}
+            "params": {"trial_id": 62, "training": true}
           }
         },
         "task5_test_1": {
@@ -1265,6 +1271,7 @@
             "calibration-intro", 
             "calibration", 
             "distance calibration",
+            "general_instruction",
             {
               "order": "random",
               "components": [
