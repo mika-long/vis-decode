@@ -151,7 +151,7 @@
       "PDF-Mode-Test": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
-        "instruction": "Click the slider to initialize a selection. \n\n Drag the slider to move the ball along the curve to the **highest point** (where y is greatest). \n\n Position the ball at the peak. To finetune selection, use the left ← and right → arrow keys.",
+        "instruction": "Click the slider to initialize a selection. \n\n Drag the slider to move the ball along the curve to the **highest point** (where y is greatest). \n\n Position the ball at the peak. To fine-tune selection, use the left ← and right → arrow keys.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -385,7 +385,7 @@
       "PDF-Median-Train": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
-        "instruction": "Click on the slider to initialize a starting point. \n\n Use the slider to position the ball along the curve, such that the vertical dotted line divides the area under the curve into two equal halves. \n\n Fine tune your selection by using the left ← and right → arrow keys.",
+        "instruction": "Click on the slider to initialize a starting point. \n\n Use the slider to position the ball along the curve, such that the vertical dotted line divides the area under the curve into two equal halves. \n\n Fine-tune your selection by using the left ← and right → arrow keys.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -464,7 +464,7 @@
       "PDF-Mode-Train": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
-        "instruction": "Click on the slider to initialize your selection. \n\n Drag the slider to move the ball along the curve to its highest position. \n\n The ball will rise/fall with the curve --- position it at the peak.",
+        "instruction": "Click on the slider to initialize your selection. \n\n Drag the slider to move the ball along the curve to its highest position. \n\n The ball will rise/fall with the curve --- position it at the peak. Use left ← and right → arrow keys to fine-tune.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -622,7 +622,7 @@
       "CDF-Mode-Train": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
-        "instruction": "Click the slider to initialize. \n\n Drag the slider to trace the ball along the curve. \n\n Identify where the ball moves upward most rapidly --- this is the steepest slope.",
+        "instruction": "Click the slider to initialize. \n\n Drag the slider to trace the ball along the curve. \n\n Identify where the ball moves upward most rapidly --- this is the steepest slope. Use left ← and right arrow → keys to fine-tune selection.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
