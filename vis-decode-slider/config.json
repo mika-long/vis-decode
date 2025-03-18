@@ -1224,7 +1224,7 @@
         "task5_test_6": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": { "trial_id": 40}
+            "params": { "trial_id": 43}
           }
         },
         "task5_test_7": {
@@ -1242,7 +1242,7 @@
         "task5_test_9": {
           "baseComponent": "Block-5",
           "parameters": {
-            "params": { "trial_id": 55}
+            "params": { "trial_id": 59}
           }
         },
         "task5_test_10": {
