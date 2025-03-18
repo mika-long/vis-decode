@@ -111,7 +111,7 @@ export function skewGeneralizedTCDF(x: number, params: GeneralizedDistributionPa
 export function generateRandomParams(): GeneralizedDistributionParams {
   // https://github.com/stdlib-js/random-base-normal
   const rand = normal.factory();
-  let r = Number(rand(0, 0.33).toFixed(1));
+  let r = Number(rand(0, 0.33).toFixed(2));
   if (r >= 1) {
     r = 0.9;
   } else if (r <= -1) {
@@ -119,11 +119,12 @@ export function generateRandomParams(): GeneralizedDistributionParams {
   }
 
   return {
-    mu: Number((Math.random() * 4 - 2).toFixed(1)), // mu in [-2, 2]
-    sigma: Number((0.5 + Math.random() * 2).toFixed(1)), // sigma in [0.5, 2.5]
-    lambda: r, // bounded between -1 and 1
-    p: Number((2 + Math.random() * 3).toFixed(1)),
-    q: Number((1 + Math.random() * 49).toFixed(1)),
+    mu: Number((Math.random() * 4 - 2).toFixed(2)), // mu in [-2, 2]
+    sigma: Number((0.5 + Math.random() * 2).toFixed(2)), // sigma in [0.5, 2.5]
+    // lambda: r, // bounded between -1 and 1
+    lambda: Number((Math.random() * 1.7 - 0.85).toFixed(2)), // make it random sampling
+    p: Number((2 + Math.random() * 3).toFixed(2)),
+    q: Number((1 + Math.random() * 49).toFixed(2)),
   };
 }
 
