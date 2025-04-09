@@ -16,7 +16,7 @@ Before we begin, please read the following consent form carefully and thereafter
 The following is a short summary of this study to help you decide whether to be a part of this study. Information that is more detailed is explained later on in this form.
 - The purpose of this study is to understand how people visually decode and extract key statistical properties (specifically median and mode) from probability distributions.
 - You will be asked to complete a series of visual perception tasks where you make judgments about statistical graphs by looking at them and using an interactive interface to indicate your answers.
-- We expect that you will be in this research study for approximately 20 – 35 minutes total. 
+- We expect that you will be in this research study for approximately **10 – 20 minutes total**. 
 - The primary potential risk of participation is minor temporary eye strain from viewing a computer screen. 
 - The main benefit of being in this study is contributing to improved design of statistical visualizations for better public understanding. 
 
@@ -36,7 +36,7 @@ We expect about 120 people will be in this research study.
 ## What happens if I say, “Yes, I want to be in this research”?
 If you agree to be in this research study, here’s what will happen: 
 - You will complete a series of visual perception tasks on your computer through a web-based platform. **You must use a desktop or laptop computer with a modern web browser (mobile devides are not allowed).** 
-- The study will take approximately **20 – 35 minutes total**, including instructions, training, and the tasks themselves. 
+- The study will take approximately **10 – 20 minutes total**, including instructions, training, and the tasks themselves. 
 - You will be shown different types of statistical graphs, called **probability density graphs** (PDFs) and **cumulative distribution functions** (CDFs). 
 - For each graph, you will be asked to make judgments about specific statistical properties by: 
     - Looking at the graph 
@@ -44,9 +44,10 @@ If you agree to be in this research study, here’s what will happen:
     - Moving on to the next graph when ready 
     - You will be given amply training and instructions on what we’re looking for for each graph. 
     - You will have unlimited time for each judgment, with brief breaks provided throughout the trial. 
-    - You will complete 40 – 60 trials in total across all tasks. 
+    - You will complete **60** trials in total across all tasks, of which 10 are training trials. 
     - The study will automatically record your responses and how long you take to make each judgment. No personally identifying information will be collected. 
-    - You will receive a base payment of **$5** for completing the study, plus the opportunity to earn additional bonues of up to $0.25 per accurate response (up to $10 to $15 in total bonues) 
+    <!-- - You will receive a base payment of **$5** for completing the study, plus the opportunity to earn additional bonues of up to $0.25 per accurate response (up to $10 to $15 in total bonues)  -->
+    - You will receive a payment of **$5** for completing the study. 
 
 ## Will being in this study help me in any way?
 We cannot promise any benefits to you or others from your taking part in this research. However, possible benefits include increased awareness of techniques for reading statistical properties from charts through participating in these visual perception tasks. The main benefit of this research will be to the broader scientific community. Your participation will help us: 
@@ -88,7 +89,6 @@ Efforts will be made to limit the use and disclosure of your personal informatio
 
 There are reasons why information about you may be used or seen by other people beyond the research team during or after this study. Examples include:
 - University officials, government officials, study funders, auditors, and the Institutional Review Board may need access to the study information to make sure the study is done in a safe and appropriate manner.  
-- Collaborating researchers at other institutions who are involved with this study. [include this bullet point ONLY if applicable to your study]
 
 We will not ask you about child abuse, but if you tell us about child abuse or neglect, we may be required or permitted by law or policy to report to authorities.
 
@@ -99,7 +99,11 @@ De-identified data from this study may be shared with the research community, wi
 The results of this study could be shared in articles and presentations, but will not include any information that identifies you unless you give permission for use of information that identifies you in articles and presentations. 
 
 ## Will I be paid or given anything for taking part in this study?
-You will receive base payment of **$5** for your participation in this study. There will be an additional bonus of $0.25 per correct response, with “correct” defined as within an acceptable margin of error from the true value, resulting in a maximum potential bonus of $10-$15. The base payment will bre released through Prolific within 24 hours of study completion, and the performance bonuses will be calculated and distributed within 48 hours of study completion. All payments are handled through Prolific’s secure payment system.    
+You will receive a payment of **$5** for your participation in this study. 
+<!-- There will be an additional bonus of $0.25 per correct response, with “correct” defined as within an acceptable margin of error from the true value, resulting in a maximum potential bonus of $10-$15.  -->
+The payment will bre released through Prolific within 24 hours of study completion.
+<!-- , and the performance bonuses will be calculated and distributed within 48 hours of study completion.  -->
+All payments are handled through Prolific’s secure payment system.    
 Participants who withdraw before completing all trials will not receive any payment. 
 
 ## Who can I talk to?
