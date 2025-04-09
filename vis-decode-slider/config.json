@@ -307,7 +307,7 @@
       "CDF-Mode-Test": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
-        "instruction": "Click the slider to initialize. \n\n Drag the slider to move the ball along the curve to where the slope is steepest. \n\n Adjust until the ball is at the point of maximum steepness, using the left ← and right → arrow keys for fine-tuning.",
+        "instruction": "Click the slider to initialize. \n\n Drag the slider to move the ball along the curve to where the slope is *steepest*. \n\n Adjust until the ball is at the point of maximum steepness, using the left ← and right → arrow keys for fine-tuning.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
@@ -622,7 +622,7 @@
       "CDF-Mode-Train": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
-        "instruction": "Click the slider to initialize. \n\n Drag the slider to trace the ball along the curve. \n\n Identify where the ball moves upward most rapidly --- this is the steepest slope. Use left ← and right arrow → keys to fine-tune selection.",
+        "instruction": "Click the slider to initialize. \n\n Drag the slider to trace the ball along the curve. \n\n Identify the point where the tangent line to the curve is *steepest* --- this is where the slope is at its maximum value. Look for where an imaginary straight line touching the curve would have the steepest upward angle. \n\n Use left ← and right arrow → keys to fine-tune selection.",
         "instructionLocation": "aboveStimulus",
         "nextButtonLocation": "belowStimulus",
         "parameters": {
