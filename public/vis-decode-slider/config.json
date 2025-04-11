@@ -13,12 +13,14 @@
         ]
     },
     "uiConfig": {
-        "contactEmail": "contact@revisit.dev",
+        "contactEmail": "shenglong@u.northwestern.edu",
         "helpTextPath": "vis-decode-slider/assets/help.md",
         "logoPath": "revisitAssets/revisitLogoSquare.svg",
         "withProgressBar": true,
         "autoDownloadStudy": false,
-        "sidebar": false
+        "sidebar": false, 
+        "urlParticipantIdParam": "PROLIFIC_PID", 
+        "studyEndMsg": "**Thank you for completing the study. You may click this link and return to Prolific**: [https://app.prolific.com/submissions/complete?cc=C1O3ZUHV](https://app.prolific.com/submissions/complete?cc=C1O3ZUHV)"
     },
     "importedLibraries": [],
     "baseComponents": {
@@ -752,7 +754,7 @@
                 "location": "belowStimulus",
                 "type": "shortText",
                 "placeholder": "Prolific ID",
-                "paramCapture": "PROLIFIC_ID"
+                "paramCapture": "PROLIFIC_PID"
                 }
             ]
         },
