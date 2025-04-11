@@ -63,7 +63,6 @@ The risks associated with this study are minimal and similar to those you might 
     - You will have practice trials to help you get comfortable with the tasks
     - You can take breaks between trials
     - You can withdraw from the study at any time
-    - Economic risks: These are minimal since you will receive the base compensation ($5) for participating. While there are performance-based bonuses, they are designed to encourage effort without creating undue pressure.
 
 ## What happens if I do not want to be in this research, or I change my mind later?
 Participation in research is voluntary. You can decide to participate or not to participate.  If you do not want to be in this study or withdraw from the study at any point, your decision will not affect your relationship with Northwestern University/Northwestern Memorial Healthcare.  

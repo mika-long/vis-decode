@@ -20,7 +20,7 @@
         "autoDownloadStudy": false,
         "sidebar": false, 
         "urlParticipantIdParam": "PROLIFIC_PID", 
-        "studyEndMsg": "**Thank you for completing the study. \n\n You may click this link and return to Prolific**: [https://app.prolific.com/submissions/complete?cc=C1O3ZUHV](https://app.prolific.com/submissions/complete?cc=C1O3ZUHV)"
+        "studyEndMsg": "**Thank you for completing the study.** \n\n You may click this link and return to Prolific: [https://app.prolific.com/submissions/complete?cc=C1O3ZUHV](https://app.prolific.com/submissions/complete?cc=C1O3ZUHV)"
     },
     "importedLibraries": [],
     "baseComponents": {
@@ -872,19 +872,19 @@
         "task1_train_1": {
           "baseComponent": "PDF-Median-Train",
           "parameters": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
+            "params": {"mu": -1, "sigma": 1, "lambda": -0.5, "p": 3, "q": 10}
           }, 
           "meta": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0, "p": 2, "q": 10}
+            "params": {"mu": -1, "sigma": 1, "lambda": -0.5, "p": 3, "q": 10}
           }
         }, 
         "task1_train_2": {
           "baseComponent": "PDF-Median-Train",
           "parameters": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0.3, "p": 2, "q": 10}
+            "params": {"mu": 1.4, "sigma": 1.4, "lambda": 0.3, "p": 4, "q": 20}
           },  
           "meta": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0.3, "p": 2, "q": 10}
+            "params": {"mu": 1.4, "sigma": 1.4, "lambda": 0.3, "p": 4, "q": 20}
           }
         }, 
         "task2_train_1": {

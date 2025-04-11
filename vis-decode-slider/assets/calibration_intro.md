@@ -7,3 +7,5 @@ This involves **two** quick calibration steps. This will help us determine your 
 The calibration process takes **approximately one minute** and is essential for accurate results. 
 
 Please make sure you're sitting comfortably at your usual viewing distance from the screen, and follow the instructions carefully for each step.
+
+Please keep your browser **maximized (full screen)** for the entire duration of the trials.
