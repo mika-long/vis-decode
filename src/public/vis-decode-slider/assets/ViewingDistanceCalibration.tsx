@@ -167,13 +167,14 @@ export default function ViewingDistanceCalibration({ parameters, setAnswer }: St
   return (
     <Container size="md">
       <Stack gap="md">
-        <Text>Now we will quickly measure how far away you are sitting. </Text>
+        <Text>Now we will quickly measure how far away you are sitting from the screen. </Text>
         <Stack gap="xs">
           <List>
             <List.Item>Put your left hand on the <b>space bar</b>.</List.Item>
             <List.Item>Cover your right eye with your right hand.</List.Item>
             <List.Item>Using your left eye, focus on the black square. Keep your focus on the black square.</List.Item>
-            <List.Item>The <span style={{ color: 'red', fontWeight: 'bold' }}>red ball</span> will disappear as it moves from right to left. Press the space bar as soon as the ball disappears.</List.Item>
+            <List.Item>The <span style={{ color: 'red', fontWeight: 'bold' }}>red ball</span> will disappear from your view as it moves from right to left. Press the space bar as soon as the ball disappears.</List.Item>
+            <List.Item>If you forgot to press the space bar, the <span style={{ color: 'red', fontWeight: 'bold' }}>red ball</span> will simply return to its starting position on the right side, and you can try again. </List.Item>
           </List>
           <Text ta="center">
             {ballPositions.length >= 5
