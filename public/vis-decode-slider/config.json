@@ -872,19 +872,19 @@
         "task1_train_1": {
           "baseComponent": "PDF-Median-Train",
           "parameters": {
-            "params": {"mu": -1, "sigma": 1, "lambda": -0.5, "p": 3, "q": 10}
+            "params": {"mu": 0.8, "sigma": 1, "lambda": -0.5, "p": 3, "q": 10}
           }, 
           "meta": {
-            "params": {"mu": -1, "sigma": 1, "lambda": -0.5, "p": 3, "q": 10}
+            "params": {"mu": 0.8, "sigma": 1, "lambda": -0.5, "p": 3, "q": 10}
           }
         }, 
         "task1_train_2": {
           "baseComponent": "PDF-Median-Train",
           "parameters": {
-            "params": {"mu": 1.4, "sigma": 1.4, "lambda": 0.3, "p": 4, "q": 20}
+            "params": {"mu": -1.4, "sigma": 1.4, "lambda": 0.3, "p": 4, "q": 20}
           },  
           "meta": {
-            "params": {"mu": 1.4, "sigma": 1.4, "lambda": 0.3, "p": 4, "q": 20}
+            "params": {"mu": -1.4, "sigma": 1.4, "lambda": 0.3, "p": 4, "q": 20}
           }
         }, 
         "task2_train_1": {
@@ -899,10 +899,10 @@
         "task2_train_2": {
           "baseComponent": "PDF-Mode-Train",
           "parameters": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0.3, "p": 2, "q": 10}
+            "params": {"mu": -1, "sigma": 1, "lambda": 0.7, "p": 2, "q": 10}
           },  
           "meta": {
-            "params": {"mu": 0, "sigma": 1, "lambda": 0.3, "p": 2, "q": 10}
+            "params": {"mu": -1, "sigma": 1, "lambda": 0.7, "p": 2, "q": 10}
           }
         },
         "task3_train_1": {
@@ -917,10 +917,10 @@
         "task3_train_2": {
           "baseComponent": "CDF-Median-Train",
           "parameters": {
-            "params": {"mu": 1.5, "sigma": 1.5, "lambda": 0, "p": 2, "q": 10}
+            "params": {"mu": -0.5, "sigma": 0.5, "lambda": 0, "p": 3, "q": 9}
           },  
           "meta": {
-            "params": {"mu": 1.5, "sigma": 1.5, "lambda": 0, "p": 2, "q": 10}
+            "params": {"mu": -0.5, "sigma": 0.5, "lambda": 0, "p": 3, "q": 9}
           }
         }, 
         "task4_train_1": {
