@@ -1,8 +1,7 @@
-/* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState, useRef, useEffect } from 'react';
 import {
-  Slider, Button, Container, Stack, Text,
+  Slider, Button, Container, Stack, Text, Alert,
 } from '@mantine/core';
 import { StimulusParams } from '../../../store/types';
 import cardImage from './costco_card.png';
@@ -21,9 +20,12 @@ export default function VirtualChinrestCalibration({
 }: VirtualChinrestCalibrationProps) {
   // Set states
   const [itemWidthPx, setItemWidthPx] = useState(300);
+  const [initialWidthPx] = useState(300); // Store the initial width to check if it changed
   const [pixelsPerMM, setPixelsPerMM] = useState<number | null>(null);
   const [isCalibrationComplete, setIsCalibrationComplete] = useState(false);
   const [sliderRange, setSliderRange] = useState({ min: 100, max: 500 });
+  const [sliderAdjusted, setSliderAdjusted] = useState(false);
+  const [showValidationError, setShowValidationError] = useState(false);
   const { taskid } = parameters;
   // Set references
   const containerRef = useRef<HTMLDivElement>(null);
@@ -54,10 +56,22 @@ export default function VirtualChinrestCalibration({
   // Handle a change in the slider
   const handleSliderChange = (value: number) => {
     setItemWidthPx(value);
+
+    // Check if the slider has been adjusted from its initial position
+    if (value !== initialWidthPx) {
+      setSliderAdjusted(true);
+      setShowValidationError(false);
+    }
   };
 
   const handleCalibrationComplete = () => {
     if (!containerRef.current) return;
+
+    // Validate that the slider has been adjusted
+    if (!sliderAdjusted) {
+      setShowValidationError(true);
+      return;
+    }
 
     const pxPerMM = convertPixelsToMM(itemWidthPx);
     setPixelsPerMM(pxPerMM);
@@ -77,17 +91,18 @@ export default function VirtualChinrestCalibration({
     // Container component from Mantine that centers content and provides max-width
     <Container size="md">
       <Stack gap="lg">
+        <Text size="md" fw={700}>Please calibrate the card size accurately</Text>
         <Text size="md"> Drag the slider until the image is the same size as a credit card held up to the screen.</Text>
         <Text size="md"> You can use any card this is the same size as a credit card, like a membership card or driver's license.</Text>
         <Text size="md"> If you do not have access to a real card, you can use a ruler to measure the image width to 3.37 inches or 85.6mm. </Text>
         <Text size="md"> Once you are finished, click 'Confirm Size' and then 'Next'. </Text>
-        <Button
-          onClick={handleCalibrationComplete}
-          size="lg"
-          variant="transparent"
-        >
-          Confirm Size
-        </Button>
+
+        {showValidationError && (
+          <Alert color="red" title="Adjustment Required">
+            Please adjust the slider to match the size of a physical credit card. The initial size is just a starting point.
+          </Alert>
+        )}
+
         <Slider
           min={sliderRange.min}
           max={sliderRange.max}
@@ -101,6 +116,15 @@ export default function VirtualChinrestCalibration({
             bar: { cursor: 'pointer' }, // Changes cursor on filled bar
           }}
         />
+
+        <Button
+          onClick={handleCalibrationComplete}
+          size="lg"
+          color={sliderAdjusted ? 'blue' : 'gray'}
+        >
+          Confirm Size
+        </Button>
+
         <div
           ref={containerRef}
           style={{
@@ -122,9 +146,11 @@ export default function VirtualChinrestCalibration({
         </div>
         {isCalibrationComplete && (
           <div style={{ textAlign: 'center', color: 'green' }}>
-            Calibration Complete - Pixels per MM: { pixelsPerMM?.toFixed(2) }
+            Calibration Complete - Pixels per MM:
+            {
+              pixelsPerMM?.toFixed(2)
+            }
           </div>
-          // //
         )}
       </Stack>
     </Container>
