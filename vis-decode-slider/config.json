@@ -854,8 +854,14 @@
               "type": "numerical"
             },
             {
-              "id": "feedback",
-              "prompt": "(Optional) Were any of the instructions unclear?",
+              "id": "feedback", 
+              "prompt": "Were any of the instructions unclear?",
+              "type": "radio",
+              "options": ["Yes", "No"]
+            },
+            {
+              "id": "feedback-text",
+              "prompt": "(Optional) If so, which instructions were unclear?",
               "location": "belowStimulus",
               "type": "longText",
               "required": false
