@@ -46,8 +46,8 @@ If you agree to be in this research study, here’s what will happen:
     - You will have unlimited time for each judgment, with brief breaks provided throughout the trial. 
     - You will complete **60** trials in total across all tasks, of which 10 are training trials. 
     - The study will automatically record your responses and how long you take to make each judgment. No personally identifying information will be collected. 
-    <!-- - You will receive a base payment of **$5** for completing the study, plus the opportunity to earn additional bonues of up to $0.25 per accurate response (up to $10 to $15 in total bonues)  -->
-    - You will receive a payment of **$5** for completing the study. 
+    - You will receive a base payment of **$3.5** for completing the study, plus the opportunity to earn additional bonues of up to **$1.5**. 
+    <!-- - You will receive a payment of **$5** for completing the study.  -->
 
 ## Will being in this study help me in any way?
 We cannot promise any benefits to you or others from your taking part in this research. However, possible benefits include increased awareness of techniques for reading statistical properties from charts through participating in these visual perception tasks. The main benefit of this research will be to the broader scientific community. Your participation will help us: 
@@ -98,10 +98,9 @@ De-identified data from this study may be shared with the research community, wi
 The results of this study could be shared in articles and presentations, but will not include any information that identifies you unless you give permission for use of information that identifies you in articles and presentations. 
 
 ## Will I be paid or given anything for taking part in this study?
-You will receive a payment of **$5** for your participation in this study. 
-<!-- There will be an additional bonus of $0.25 per correct response, with “correct” defined as within an acceptable margin of error from the true value, resulting in a maximum potential bonus of $10-$15.  -->
-The payment will bre released through Prolific within 24 hours of study completion.
-<!-- , and the performance bonuses will be calculated and distributed within 48 hours of study completion.  -->
+You will receive a payment of **$3.5** for your participation in this study. 
+There will be an additional bonus of $0.03 per correct response, with “correct” defined as within an acceptable margin of error from the true value, resulting in a maximum potential bonus of **$1.5**. 
+The payment will bre released through Prolific within 24 hours of study completion, and the performance bonuses will be calculated and distributed within 48 hours of study completion. 
 All payments are handled through Prolific’s secure payment system.    
 Participants who withdraw before completing all trials will not receive any payment. 
 
