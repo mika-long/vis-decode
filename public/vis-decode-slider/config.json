@@ -69,6 +69,13 @@
             "required": false, 
             "type": "iframe", 
             "hidden": true
+          }, 
+          {
+            "id": "square-position",
+            "prompt": "Position of the black square in pixels",
+            "required": false, 
+            "type": "iframe", 
+            "hidden": true
           }
         ]
       },

@@ -25,6 +25,7 @@ export default function ViewingDistanceCalibration({ parameters, setAnswer }: St
   const [ballPositions, setBallPositions] = useState<number[]>([]);
   const [isTracking, setIsTracking] = useState(false);
   const [viewingDistance, setViewingDistance] = useState<number | null>(null);
+  const [squarePos, setSquarePos] = useState<number | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [clickCount, setClickCount] = useState<number>(5);
 
@@ -34,11 +35,12 @@ export default function ViewingDistanceCalibration({ parameters, setAnswer }: St
 
     const avgBallPos = positions.reduce((a, b) => a + b, 0) / positions.length;
     const squareRect = squareRef.current.getBoundingClientRect();
-    const squarePos = squareRect.left;
-    const ballSquareDistance = Math.abs(avgBallPos - squarePos) / pixelsPerMM;
+    const sqPos = squareRect.left;
+    const ballSquareDistance = Math.abs(avgBallPos - sqPos) / pixelsPerMM;
     const viewDistance = ballSquareDistance / Math.tan(degToRadians(blindspotAngle));
 
     setViewingDistance(viewDistance);
+    setSquarePos(sqPos);
     setIsTracking(false);
   }, [blindspotAngle, pixelsPerMM]);
 
@@ -103,10 +105,11 @@ export default function ViewingDistanceCalibration({ parameters, setAnswer }: St
           'dist-calibration-MM': viewingDistance,
           'dist-calibration-CM': viewingDistance / 10,
           'ball-positions': JSON.stringify(ballPositions),
+          'square-position': squarePos,
         },
       });
     }
-  }, [viewingDistance, ballPositions, setAnswer]);
+  }, [viewingDistance, ballPositions, squarePos, setAnswer]);
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
