@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.0.0-rc3/src/parser/StudyConfigSchema.json",
+  "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.2.0/src/parser/StudyConfigSchema.json",
   "studyMetadata": {
     "title": "HTML with Trrack library",
     "version": "pilot",
@@ -20,7 +20,7 @@
     "logoPath": "revisitAssets/revisitLogoSquare.svg",
     "withProgressBar": true,
     "autoDownloadStudy": false,
-    "sidebar": true,
+    "withSidebar": true,
     "windowEventDebounceTime": 200
   },
   "components": {
@@ -43,7 +43,7 @@
           "id": "circlesCount",
           "prompt": "Answer:",
           "location": "sidebar",
-          "type": "iframe",
+          "type": "reactive",
           "hidden": false
         }
       ]
@@ -62,7 +62,7 @@
           "id": "circlesCount",
           "prompt": "Answer:",
           "location": "sidebar",
-          "type": "iframe",
+          "type": "reactive",
           "hidden": false
         }
       ]

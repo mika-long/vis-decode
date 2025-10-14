@@ -25,10 +25,14 @@ test('test', async ({ page }) => {
 
     await page.getByRole('main').getByRole('img').click();
 
+    // Sleep for 100ms to allow the answer to register
+    await page.waitForTimeout(100);
+
     const oneAnswer = await page.getByRole('listitem');
     await expect(await oneAnswer.count()).toEqual(1);
 
     await page.getByRole('button', { name: 'Next', exact: true }).click();
+    await page.waitForTimeout(100);
   }
   // Check that the thank you message is displayed
   await page.getByText('Please wait while your answers are uploaded.').click();

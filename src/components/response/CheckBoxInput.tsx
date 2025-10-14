@@ -1,57 +1,98 @@
 import {
-  Box, Checkbox, Flex, Group,
+  Box, Checkbox, Input,
 } from '@mantine/core';
-import { CheckboxResponse } from '../../parser/types';
+import { useMemo, useState } from 'react';
+import { CheckboxResponse, StringOption } from '../../parser/types';
 import { generateErrorMessage } from './utils';
-import ReactMarkdownWrapper from '../ReactMarkdownWrapper';
+import { HorizontalHandler } from './HorizontalHandler';
+import classes from './css/Checkbox.module.css';
+import inputClasses from './css/Input.module.css';
+import { useStoredAnswer } from '../../store/hooks/useStoredAnswer';
+import { InputLabel } from './InputLabel';
 
-export default function CheckBoxInput({
+export function CheckBoxInput({
   response,
   disabled,
   answer,
   index,
   enumerateQuestions,
+  otherValue,
 }: {
   response: CheckboxResponse;
   disabled: boolean;
   answer: object;
   index: number;
   enumerateQuestions: boolean;
+  otherValue?: object;
 }) {
   const {
     prompt,
     required,
-    options,
     secondaryText,
+    horizontal,
+    withOther,
+    options,
   } = response;
 
-  const optionsAsStringOptions = options.map((option) => (typeof option === 'string' ? { value: option, label: option } : option));
+  const storedAnswer = useStoredAnswer();
+  const optionOrders: Record<string, StringOption[]> = useMemo(() => (storedAnswer ? storedAnswer.optionOrders : {}), [storedAnswer]);
+
+  const orderedOptions = useMemo(() => optionOrders[response.id] || options.map((option) => (typeof (option) === 'string' ? { label: option, value: option } : option)), [optionOrders, options, response.id]);
+
+  const [otherSelected, setOtherSelected] = useState(false);
+
+  const error = useMemo(() => generateErrorMessage(response, answer, orderedOptions), [response, answer, orderedOptions]);
 
   return (
     <Checkbox.Group
-      label={(
-        <Flex direction="row" wrap="nowrap" gap={4}>
-          {enumerateQuestions && <Box style={{ minWidth: 'fit-content' }}>{`${index}. `}</Box>}
-          <Box style={{ display: 'block' }} className="no-last-child-bottom-padding">
-            <ReactMarkdownWrapper text={prompt} required={required} />
-          </Box>
-        </Flex>
-      )}
+      label={prompt.length > 0 && <InputLabel prompt={prompt} required={required} index={index} enumerateQuestions={enumerateQuestions} />}
       description={secondaryText}
       {...answer}
-      error={generateErrorMessage(response, answer, optionsAsStringOptions)}
+      error={error}
       style={{ '--input-description-size': 'calc(var(--mantine-font-size-md) - calc(0.125rem * var(--mantine-scale)))' }}
     >
-      <Group mt="xs">
-        {optionsAsStringOptions.map((option) => (
-          <Checkbox
-            key={option.value}
-            disabled={disabled}
-            value={option.value}
-            label={option.label}
-          />
-        ))}
-      </Group>
+      <Box mt="xs">
+        <HorizontalHandler horizontal={!!horizontal} style={{ flexGrow: 1 }}>
+          {orderedOptions.map((option) => (
+            <Checkbox
+              key={option.value}
+              disabled={disabled}
+              value={option.value}
+              label={option.label}
+              classNames={{ input: classes.fixDisabled, label: classes.fixDisabledLabel, icon: classes.fixDisabledIcon }}
+            />
+          ))}
+          {withOther && (
+            <Checkbox
+              key="__other"
+              disabled={disabled}
+              value="__other"
+              checked={otherSelected}
+              onClick={(event) => setOtherSelected(event.currentTarget.checked)}
+              label={horizontal ? 'Other' : (
+                <Input
+                  mt={-8}
+                  placeholder="Other"
+                  disabled={!otherSelected}
+                  {...otherValue}
+                  classNames={{ input: inputClasses.fixDisabled }}
+                />
+              )}
+              classNames={{ input: classes.fixDisabled, label: classes.fixDisabledLabel, icon: classes.fixDisabledIcon }}
+            />
+          )}
+        </HorizontalHandler>
+      </Box>
+      {horizontal && withOther && (
+        <Input
+          mt="sm"
+          placeholder="Other"
+          disabled={!otherSelected}
+          {...otherValue}
+          w={216}
+          classNames={{ input: inputClasses.fixDisabled }}
+        />
+      )}
     </Checkbox.Group>
   );
 }

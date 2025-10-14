@@ -37,7 +37,7 @@ test('test', async ({ page }) => {
 
   // Select a response and click next
   await page.getByLabel('No').check();
-  await page.getByRole('button', { name: 'Next', exact: true }).click();
+  await page.keyboard.press('Enter');
 
   // Check the page contains the question
   const question3Text = await page.getByText('Will you issue blankets to the alpacas?');
@@ -49,6 +49,13 @@ test('test', async ({ page }) => {
 
   // Select a response and click next
   await page.getByLabel('Yes').check();
+  await page.getByRole('button', { name: 'Next', exact: true }).click();
+
+  // Check the page contains the visualization
+  const img4 = await page.getByRole('main').getByRole('img');
+  await expect(img4).toBeVisible();
+
+  // Select a response and click next
   await page.getByRole('button', { name: 'Next', exact: true }).click();
 
   // Check that the end of study text renders

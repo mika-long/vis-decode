@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router';
 import { ModalsProvider } from '@mantine/modals';
 import { AppShell } from '@mantine/core';
 import { ConfigSwitcher } from './components/ConfigSwitcher';
@@ -15,12 +15,12 @@ import { Login } from './Login';
 import { AuthProvider } from './store/hooks/useAuth';
 import { GlobalSettings } from './components/settings/GlobalSettings';
 import { NavigateWithParams } from './utils/NavigateWithParams';
-import AppHeader from './analysis/interface/AppHeader';
+import { AppHeader } from './analysis/interface/AppHeader';
 import { fetchStudyConfigs } from './utils/fetchConfig';
 import { initializeStorageEngine } from './storage/initialize';
 import { useStorageEngine } from './storage/storageEngineHooks';
-import { FirebaseStorageEngine } from './storage/engines/FirebaseStorageEngine';
-import PageTitle from './utils/PageTitle';
+import { PageTitle } from './utils/PageTitle';
+import { isCloudStorageEngine } from './storage/engines/utils';
 
 async function fetchGlobalConfigArray() {
   const globalFile = await fetch(`${PREFIX}global.json`);
@@ -62,7 +62,7 @@ export function GlobalConfigParser() {
   }, [setStorageEngine, storageEngine]);
 
   const analysisProtectedCallback = async (studyId:string) => {
-    if (storageEngine instanceof FirebaseStorageEngine) {
+    if (storageEngine && isCloudStorageEngine(storageEngine)) {
       const modes = await storageEngine.getModes(studyId);
       if (modes.analyticsInterfacePubliclyAccessible) {
         // If accessible, disable
@@ -107,7 +107,7 @@ export function GlobalConfigParser() {
                 )}
             />
             <Route
-              path="/analysis/stats/:studyId/:tab/:trialId?"
+              path="/analysis/stats/:studyId/:analysisTab/:trialId?"
               element={(
                 <>
                   <PageTitle title="ReVISit | Analysis" />
@@ -126,7 +126,7 @@ export function GlobalConfigParser() {
             />
             <Route
               path="/analysis/stats/:studyId"
-              element={<NavigateWithParams to="./table" replace />}
+              element={<NavigateWithParams to="./summary" replace />}
             />
             <Route
               path="/settings"

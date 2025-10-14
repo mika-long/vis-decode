@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.0.0-rc3/src/parser/StudyConfigSchema.json",
+  "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.2.0/src/parser/StudyConfigSchema.json",
   "studyMetadata": {
     "title": "Dynamic React Stimuli and Provenance Tracking",
     "version": "pilot",
@@ -20,7 +20,7 @@
     "logoPath": "revisitAssets/revisitLogoSquare.svg",
     "withProgressBar": true,
     "autoDownloadStudy": false,
-    "sidebar": true
+    "withSidebar": true
   },
   "baseComponents": {
     "trial": {
@@ -34,7 +34,7 @@
           "id": "accuracy",
           "prompt": "Your click distance to circle center",
           "location": "sidebar",
-          "type": "iframe"
+          "type": "reactive"
         }
       ]
     }

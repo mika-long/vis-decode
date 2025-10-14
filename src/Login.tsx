@@ -6,16 +6,16 @@ import {
   getAuth, signInWithPopup, GoogleAuthProvider, browserPopupRedirectResolver,
 } from '@firebase/auth';
 import { IconBrandGoogleFilled } from '@tabler/icons-react';
-import { Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router';
 import { PREFIX } from './utils/Prefix';
 import { useAuth } from './store/hooks/useAuth';
 import { useStorageEngine } from './storage/storageEngineHooks';
-import { FirebaseStorageEngine } from './storage/engines/FirebaseStorageEngine';
-import { StorageEngine } from './storage/engines/StorageEngine';
+import { StorageEngine } from './storage/engines/types';
 import { showNotification } from './utils/notifications';
+import { isCloudStorageEngine } from './storage/engines/utils';
 
 export async function signInWithGoogle(storageEngine: StorageEngine | undefined, setLoading: (val: boolean) => void) {
-  if (storageEngine instanceof FirebaseStorageEngine) {
+  if (storageEngine && isCloudStorageEngine(storageEngine)) {
     setLoading(true);
     const provider = new GoogleAuthProvider();
     const auth = getAuth();

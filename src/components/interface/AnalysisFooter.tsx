@@ -1,35 +1,31 @@
-/* eslint-disable no-nested-ternary */
 import {
-  ActionIcon,
-  AppShell, Box, Button, Center, Group, LoadingOverlay, Select, Text,
+  ActionIcon, AppShell, Box, Button, Flex, Group, Select, Text, Tooltip,
 } from '@mantine/core';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useMemo, useState } from 'react';
+import { useNavigate, useParams, useSearchParams } from 'react-router';
 import {
-  IconArrowLeft, IconArrowRight, IconPlayerPauseFilled, IconPlayerPlayFilled, IconUser,
+  useMemo, useState, useEffect, useCallback,
+} from 'react';
+import {
+  IconArrowLeft, IconArrowRight, IconPlayerPauseFilled, IconPlayerPlayFilled, IconUser, IconMusicDown,
 } from '@tabler/icons-react';
 import { useAsync } from '../../store/hooks/useAsync';
 
 import { useStorageEngine } from '../../storage/storageEngineHooks';
-import { StorageEngine } from '../../storage/engines/StorageEngine';
-import { useCurrentComponent, useCurrentStep } from '../../routes/utils';
-import { encryptIndex } from '../../utils/encryptDecryptIndex';
+import { StorageEngine } from '../../storage/engines/types';
+import { useCurrentComponent, useCurrentStep, useCurrentIdentifier } from '../../routes/utils';
+import { encryptIndex, decryptIndex } from '../../utils/encryptDecryptIndex';
 import {
   useStoreActions, useStoreDispatch, useStoreSelector,
 } from '../../store/store';
+import { AudioProvenanceVis } from '../audioAnalysis/AudioProvenanceVis';
+import { useStudyConfig } from '../../store/hooks/useStudyConfig';
 import { getSequenceFlatMap } from '../../utils/getSequenceFlatMap';
-import { AnalysisPopout } from '../audioAnalysis/AudioProvenanceVis';
+import { handleTaskAudio } from '../../utils/handleDownloadAudio';
+import { ParticipantRejectModal } from '../../analysis/individualStudy/ParticipantRejectModal';
 
-function getParticipantData(trrackId: string | undefined, storageEngine: StorageEngine | undefined) {
+function getAllParticipantsNames(storageEngine: StorageEngine | undefined) {
   if (storageEngine) {
-    return storageEngine.getParticipantData(trrackId);
-  }
-  return null;
-}
-
-function getAllParticipantsData(storageEngine: StorageEngine | undefined) {
-  if (storageEngine) {
-    return storageEngine.getAllParticipantsData();
+    return storageEngine.getAllParticipantIds();
   }
   return null;
 }
@@ -41,89 +37,152 @@ export function AnalysisFooter() {
 
   const currentComponent = useCurrentComponent();
   const currentStep = useCurrentStep();
+  const { funcIndex } = useParams();
   const navigate = useNavigate();
+  const studyConfig = useStudyConfig();
 
   const { setAnalysisIsPlaying } = useStoreActions();
   const storeDispatch = useStoreDispatch();
 
   const analysisIsPlaying = useStoreSelector((state) => state.analysisIsPlaying);
+  const answers = useStoreSelector((state) => state.answers);
 
   const { storageEngine } = useStorageEngine();
 
-  const { value: participant, status: loadingPartStatus } = useAsync(getParticipantData, [participantId, storageEngine]);
-  const { value: allParticipants } = useAsync(getAllParticipantsData, [storageEngine]);
+  const { value: allParticipants } = useAsync(getAllParticipantsNames, [storageEngine]);
 
   const [nextParticipantNameAndIndex, prevParticipantNameAndIndex]: [[string, number], [string, number]] = useMemo(() => {
-    if (allParticipants && participant && participantId && currentComponent) {
-      const filteredParticipants = allParticipants.filter((part) => part.participantConfigHash === participant.participantConfigHash);
-      const index = filteredParticipants.findIndex((part) => part.participantId === participantId);
-      const nextPart = index < filteredParticipants.length - 1 ? filteredParticipants[index + 1] : filteredParticipants[0];
-      const prevPart = index > 0 ? filteredParticipants[index - 1] : filteredParticipants[filteredParticipants.length - 1];
+    if (allParticipants && participantId && currentComponent) {
+      const index = allParticipants.findIndex((part) => part === participantId);
+      const nextPart = index < allParticipants.length - 1 ? allParticipants[index + 1] : allParticipants[0];
+      const prevPart = index > 0 ? allParticipants[index - 1] : allParticipants[allParticipants.length - 1];
 
-      return [[nextPart.participantId, getSequenceFlatMap(nextPart.sequence).indexOf(currentComponent)], [prevPart.participantId, getSequenceFlatMap(prevPart.sequence).indexOf(currentComponent)]];
+      return [[nextPart, currentStep as number], [prevPart, currentStep as number]];
     }
     return [['', 0], ['', 0]];
-  }, [allParticipants, currentComponent, participant, participantId]);
-
-  const selectData = useMemo(() => {
-    const configHashMap: Record<string, Set<string>> = {};
-    allParticipants?.forEach((part) => {
-      if (!configHashMap[part.participantConfigHash]) {
-        configHashMap[part.participantConfigHash] = new Set();
-      }
-      configHashMap[part.participantConfigHash].add(part.participantId);
-    });
-
-    return Object.keys(configHashMap).sort((groupA, groupB) => (groupA === participant?.participantConfigHash ? -1 : groupB === participant?.participantConfigHash ? 1 : 0)).map((key) => ({
-      group: `Config version: ${key}`,
-      items: [...configHashMap[key]].map((k) => ({ value: k, label: k, disabled: key !== participant?.participantConfigHash })),
-    }));
-  }, [allParticipants, participant?.participantConfigHash]);
+  }, [allParticipants, currentComponent, currentStep, participantId]);
 
   const [timeString, setTimeString] = useState<string>('');
+
+  const flatSequence = useMemo(() => getSequenceFlatMap(studyConfig.sequence), [studyConfig.sequence]);
+
+  const isStart = useMemo(() => currentStep === 0, [currentStep]);
+  const isEnd = useMemo(() => currentStep === flatSequence.length, [currentStep, flatSequence.length]);
+  const identifier = useCurrentIdentifier();
+  const [audioUrl, setAudioUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchAudioUrl() {
+      if (!storageEngine || !participantId || !identifier) {
+        setAudioUrl(null);
+        return;
+      }
+
+      try {
+        const url = await storageEngine.getAudioUrl(identifier, participantId);
+        setAudioUrl(url);
+      } catch {
+        setAudioUrl(null);
+      }
+    }
+
+    fetchAudioUrl();
+  }, [storageEngine, participantId, identifier]);
+
+  const handleDownloadAudio = useCallback(async () => {
+    if (!storageEngine || !participantId || !identifier) {
+      return;
+    }
+
+    await handleTaskAudio({
+      storageEngine,
+      participantId,
+      identifier,
+      audioUrl,
+    });
+  }, [storageEngine, participantId, identifier, audioUrl]);
 
   return (
     <AppShell.Footer zIndex={101} withBorder={false}>
       <Box style={{ backgroundColor: 'var(--mantine-color-blue-1)', height: '150px' }}>
-        <LoadingOverlay visible={loadingPartStatus !== 'success'} overlayProps={{ backgroundOpacity: 0.4 }} />
 
-        <AnalysisPopout setTimeString={setTimeString} />
-        <Center>
+        <AudioProvenanceVis setTimeString={setTimeString} />
+        <Flex justify="space-between" align="center" px="md">
+          {/* Placeholder box for Show Legend button */}
+          <Box />
           <Group gap="xs" style={{ height: '50px' }}>
             <Text size="sm" ff="monospace">
               {timeString}
             </Text>
+
             <ActionIcon variant="filled" size={30} onClick={() => storeDispatch(setAnalysisIsPlaying(!analysisIsPlaying))}>
               {analysisIsPlaying ? <IconPlayerPauseFilled /> : <IconPlayerPlayFilled />}
             </ActionIcon>
-
             <Text mx="0">
               Participant:
             </Text>
             <Select
               style={{ width: '300px' }}
-              value={participant?.participantId || ''}
+              value={participantId || ''}
               onChange={(e) => {
-                navigate(`./${encryptIndex(0)}?participantId=${e}`, { relative: 'path' });
+                navigate(`./../${encryptIndex(0)}?participantId=${e}`);
               }}
-              data={selectData}
+              data={allParticipants || []}
             />
-            <Button onClick={() => navigate(`./${encryptIndex(+currentStep - 1)}?participantId=${participantId}`, { relative: 'path' })}>
+            <Button
+              disabled={isStart}
+              onClick={() => {
+                if (funcIndex) {
+                  if (decryptIndex(funcIndex) > 0) {
+                    navigate(`../${encryptIndex(decryptIndex(funcIndex) - 1)}?participantId=${participantId}`, { relative: 'path' });
+                  } else {
+                    navigate(`../../${encryptIndex(+currentStep - 1)}?participantId=${participantId}`, { relative: 'path' });
+                  }
+                } else {
+                  navigate(`../${encryptIndex(+currentStep - 1)}?participantId=${participantId}`, { relative: 'path' });
+                }
+              }}
+            >
               <IconArrowLeft />
             </Button>
-            <Button onClick={() => navigate(`./${encryptIndex(+currentStep + 1)}?participantId=${participantId}`, { relative: 'path' })}>
+            <Button
+              disabled={isEnd}
+              onClick={() => {
+                if (funcIndex) {
+                  const currentComponentId = flatSequence[currentStep as number];
+                  const dynamicBlockAnswers = Object.keys(answers).filter((key) => key.startsWith(`${currentComponentId}_${currentStep}_`));
+                  if (decryptIndex(funcIndex) >= dynamicBlockAnswers.length) {
+                    navigate(`../../${encryptIndex(+currentStep + 1)}?participantId=${participantId}`, { relative: 'path' });
+                  } else {
+                    navigate(`../${encryptIndex(decryptIndex(funcIndex) + 1)}?participantId=${participantId}`, { relative: 'path' });
+                  }
+                } else {
+                  navigate(`../${encryptIndex(+currentStep + 1)}?participantId=${participantId}`, { relative: 'path' });
+                }
+              }}
+            >
               <IconArrowRight />
             </Button>
-            <Button px="xs" disabled={!participant || nextParticipantNameAndIndex[0] === participant.participantId} onClick={() => navigate(`./${encryptIndex(prevParticipantNameAndIndex[1])}?participantId=${prevParticipantNameAndIndex[0]}`)}>
+            <Button px="xs" disabled={prevParticipantNameAndIndex[0] === participantId} onClick={() => navigate(`./../${encryptIndex(funcIndex ? 0 : prevParticipantNameAndIndex[1])}?participantId=${prevParticipantNameAndIndex[0]}`)}>
               <IconArrowLeft />
               <IconUser />
             </Button>
-            <Button px="xs" disabled={!participant || nextParticipantNameAndIndex[0] === participant.participantId} onClick={() => navigate(`./${encryptIndex(nextParticipantNameAndIndex[1])}?participantId=${nextParticipantNameAndIndex[0]}`)}>
+            <Button px="xs" disabled={nextParticipantNameAndIndex[0] === participantId} onClick={() => navigate(`./../${encryptIndex(funcIndex ? 0 : nextParticipantNameAndIndex[1])}?participantId=${nextParticipantNameAndIndex[0]}`)}>
               <IconUser />
               <IconArrowRight />
             </Button>
           </Group>
-        </Center>
+          <Group>
+            {audioUrl && (
+            <Tooltip label="Download audio">
+              <ActionIcon variant="filled" size={30} onClick={handleDownloadAudio}>
+                <IconMusicDown />
+              </ActionIcon>
+            </Tooltip>
+            )}
+            <ParticipantRejectModal selectedParticipants={[]} />
+          </Group>
+        </Flex>
       </Box>
     </AppShell.Footer>
   );

@@ -1,10 +1,15 @@
 import {
-  Box, Flex, Radio, Text, Checkbox,
+  Box, Radio, Text, Checkbox,
 } from '@mantine/core';
-import { ChangeEvent } from 'react';
+import {
+  ChangeEvent, useMemo,
+} from 'react';
 import { MatrixResponse, StringOption } from '../../parser/types';
-import ReactMarkdownWrapper from '../ReactMarkdownWrapper';
 import { useStoreDispatch, useStoreActions } from '../../store/store';
+import checkboxClasses from './css/Checkbox.module.css';
+import radioClasses from './css/Radio.module.css';
+import { useStoredAnswer } from '../../store/hooks/useStoredAnswer';
+import { InputLabel } from './InputLabel';
 
 function CheckboxComponent({
   _choices,
@@ -18,7 +23,7 @@ function CheckboxComponent({
   _choices: StringOption[],
   _n: number,
   idx: number,
-  question: StringOption,
+  question: string,
   answer: { value: Record<string, string> },
   onChange: (event: ChangeEvent<HTMLInputElement>, questionKey: string, option: StringOption) => void
   disabled: boolean
@@ -36,9 +41,10 @@ function CheckboxComponent({
         <Checkbox
           disabled={disabled}
           key={`${checkbox.label}-${idx}`}
-          checked={answer.value[question.label].split('|').includes(checkbox.value)}
-          onChange={(event) => onChange(event, question.label, checkbox)}
+          checked={answer.value[question].split('|').includes(checkbox.value)}
+          onChange={(event) => onChange(event, question, checkbox)}
           value={checkbox.value}
+          classNames={{ input: checkboxClasses.fixDisabled, icon: checkboxClasses.fixDisabledIcon }}
         />
       ))}
     </div>
@@ -57,7 +63,7 @@ function RadioGroupComponent({
   _choices: StringOption[],
   _n: number,
   idx: number,
-  question: StringOption,
+  question: string,
   response: MatrixResponse,
   answer: { value: Record<string, string> },
   onChange: (val: string, questionKey: string) => void,
@@ -72,8 +78,8 @@ function RadioGroupComponent({
         '--input-description-size': 'calc(var(--mantine-font-size-md) - calc(0.125rem * var(--mantine-scale)))',
         flex: 1,
       }}
-      onChange={(val) => onChange(val, question.label)}
-      value={answer.value[question.label]}
+      onChange={(val) => onChange(val, question)}
+      value={answer.value[question]}
     >
       <div
         style={{
@@ -88,6 +94,7 @@ function RadioGroupComponent({
             disabled={disabled}
             value={radio.value}
             key={`${radio.label}-${idx}`}
+            classNames={{ radio: radioClasses.fixDisabled, icon: radioClasses.fixDisabledIcon }}
           />
         ))}
       </div>
@@ -95,7 +102,7 @@ function RadioGroupComponent({
   );
 }
 
-export default function MatrixInput({
+export function MatrixInput({
   response,
   answer,
   index,
@@ -113,8 +120,8 @@ export default function MatrixInput({
 
   const {
     answerOptions,
-    questionOptions,
     prompt,
+    secondaryText,
     required,
   } = response;
 
@@ -126,7 +133,9 @@ export default function MatrixInput({
   };
 
   const _choices = typeof answerOptions === 'string' ? _choiceStringToColumns[answerOptions].map((entry) => ({ value: entry, label: entry })) : answerOptions.map((option) => (typeof option === 'string' ? { value: option, label: option } : option));
-  const _questions = questionOptions.map((option) => (typeof option === 'string' ? { value: option, label: option } : option));
+
+  const { questionOrders } = useStoredAnswer();
+  const orderedQuestions = useMemo(() => questionOrders[response.id], [questionOrders, response.id]);
 
   // Re-define on change functions. Dispatch answers to store.
   const onChangeRadio = (val: string, questionKey: string) => {
@@ -153,22 +162,19 @@ export default function MatrixInput({
   };
 
   const _n = _choices.length;
-  const _m = _questions.length;
+  const _m = orderedQuestions.length;
   return (
     <>
-      <Flex direction="row" wrap="nowrap" gap={0}>
-        {enumerateQuestions && <Box style={{ minWidth: 'fit-content' }}>{`${index}. `}</Box>}
-        <Box style={{ display: 'block' }} className="no-last-child-bottom-padding">
-          <ReactMarkdownWrapper text={prompt} required={required} />
-        </Box>
-      </Flex>
-      <div
+      {prompt.length > 0 && <InputLabel prompt={prompt} required={required} index={index} enumerateQuestions={enumerateQuestions} />}
+      <Text c="dimmed" size="sm" mt={0}>{secondaryText}</Text>
+      <Box
         style={{
           display: 'grid',
           gridTemplateColumns: 'auto 1fr',
           gridTemplateRows: 'auto 1fr',
-          margin: '40px 100px 100px 100px',
         }}
+        m="md"
+        mt="xs"
       >
 
         {/* Empty Square */}
@@ -213,19 +219,25 @@ export default function MatrixInput({
             gridTemplateRows: `repeat(${_m}, 1fr)`,
           }}
         >
-          {_questions.map((entry, idx) => (
+          {orderedQuestions.map((entry, idx) => (
             <Text
               key={`question-${idx}-label`}
               style={{
-                height: '60px',
+                height: '80px',
+                width: '100%',
                 display: 'flex',
-                alignItems: 'center',
+                alignItems: 'safe center',
+                justifyContent: 'end',
                 borderRight: '1px solid var(--mantine-color-dark-0)',
                 backgroundColor: `${(idx + 1) % 2 === 0 ? 'var(--mantine-color-gray-2)' : 'white'}`,
-                paddingLeft: '10px',
+                overflowY: 'auto',
               }}
+              ta="right"
+              p="sm"
+              miw={140}
+              maw={400}
             >
-              {entry.label}
+              {entry}
             </Text>
           ))}
         </div>
@@ -237,7 +249,7 @@ export default function MatrixInput({
             gridTemplateRows: `repeat(${_m},1fr)`,
           }}
         >
-          {_questions.map((question, idx) => (
+          {orderedQuestions.map((question, idx) => (
             <div
               key={`question-${idx}`}
               style={{
@@ -274,7 +286,7 @@ export default function MatrixInput({
             </div>
           ))}
         </div>
-      </div>
+      </Box>
     </>
   );
 }

@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 import {
   ActionIcon,
   Alert,
@@ -8,7 +7,6 @@ import {
   Group,
   LoadingOverlay,
   Modal,
-  MultiSelect,
   Space,
   Table,
   Text,
@@ -17,18 +15,14 @@ import {
   IconBrandPython, IconLayoutColumns, IconTableExport, IconX,
 } from '@tabler/icons-react';
 import { useCallback, useMemo, useState } from 'react';
-import merge from 'lodash.merge';
 import { ParticipantData } from '../../storage/types';
-import {
-  Answer, IndividualComponent, Prettify, StudyConfig,
-} from '../../parser/types';
-import { isInheritedComponent } from '../../parser/utils';
-import { getSequenceFlatMap } from '../../utils/getSequenceFlatMap';
-import { StorageEngine } from '../../storage/engines/StorageEngine';
+import { Prettify, StudyConfig } from '../../parser/types';
+import { StorageEngine } from '../../storage/engines/types';
 import { useStorageEngine } from '../../storage/storageEngineHooks';
 import { useAsync } from '../../store/hooks/useAsync';
 import { getCleanedDuration } from '../../utils/getCleanedDuration';
 import { showNotification } from '../../utils/notifications';
+import { studyComponentToIndividualComponent } from '../../utils/handleComponentInheritance';
 
 export const OPTIONAL_COMMON_PROPS = [
   'status',
@@ -40,13 +34,13 @@ export const OPTIONAL_COMMON_PROPS = [
   'responsePrompt',
   'answer',
   'correctAnswer',
-  'responseMin',
-  'responseMax',
-  'startTime',
-  'endTime',
   'duration',
   'cleanedDuration',
   'meta',
+  'startTime',
+  'endTime',
+  'responseMin',
+  'responseMax',
   'configHash',
 ] as const;
 
@@ -64,7 +58,7 @@ type MetaProperty = `meta-${string}`;
 export type Property = OptionalProperty | RequiredProperty | MetaProperty;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type TidyRow = Prettify<Record<RequiredProperty, any> & Partial<Record<OptionalProperty | MetaProperty, any>>>;
+export type TidyRow = Prettify<Record<RequiredProperty, any> & Partial<Record<OptionalProperty | MetaProperty, any>>> & Record<string, number | string[] | boolean | string | null>;
 
 export function download(graph: string, filename: string) {
   const dataStr = `data:text/json;charset=utf-8,${encodeURIComponent(graph)}`;
@@ -76,9 +70,11 @@ export function download(graph: string, filename: string) {
   downloadAnchorNode.remove();
 }
 
-function participantDataToRows(participant: ParticipantData, properties: Property[], studyConfig: StudyConfig): TidyRow[] {
-  const percentComplete = ((Object.entries(participant.answers).filter(([_, entry]) => entry.endTime !== -1).length / (getSequenceFlatMap(participant.sequence).length - 1)) * 100).toFixed(2);
-  return [
+function participantDataToRows(participant: ParticipantData, properties: Property[], studyConfig: StudyConfig): [TidyRow[], string[]] {
+  const percentComplete = ((Object.entries(participant.answers).filter(([_, entry]) => entry.endTime !== -1).length / (Object.entries(participant.answers).length)) * 100).toFixed(2);
+  const newHeaders = new Set<string>();
+
+  return [[
     {
       participantId: participant.participantId,
       trialId: 'participantTags',
@@ -86,19 +82,18 @@ function participantDataToRows(participant: ParticipantData, properties: Propert
       responseId: 'participantTags',
       answer: JSON.stringify(participant.participantTags),
     },
-    ...Object.entries(participant.answers).map(([trialIdentifier, trialAnswer]) => {
+    ...Object.values(participant.answers).map((trialAnswer) => {
       // Get the whole component, including the base component if there is inheritance
-      const trialId = trialIdentifier.split('_').slice(0, -1).join('_');
-      const trialOrder = parseInt(`${trialIdentifier.split('_').at(-1)}`, 10);
+      const trialId = trialAnswer.componentName;
+      const { trialOrder } = trialAnswer;
       const trialConfig = studyConfig.components[trialId];
-      const completeComponent: IndividualComponent = isInheritedComponent(trialConfig) && trialConfig.baseComponent && studyConfig.baseComponents
-        ? merge({}, studyConfig.baseComponents[trialConfig.baseComponent], trialConfig)
-        : trialConfig;
+      const completeComponent = studyComponentToIndividualComponent(trialConfig, studyConfig);
 
       const duration = trialAnswer.endTime === -1 ? undefined : trialAnswer.endTime - trialAnswer.startTime;
       const cleanedDuration = getCleanedDuration(trialAnswer);
 
-      const rows = Object.entries(trialAnswer.answer).map(([key, value]) => {
+      const answersToLoopOver = Object.keys(trialAnswer.answer).length === 0 ? { '': undefined } : trialAnswer.answer;
+      const rows = Object.entries(answersToLoopOver).map(([key, value]) => {
         const tidyRow: TidyRow = {
           participantId: participant.participantId,
           trialId,
@@ -106,9 +101,13 @@ function participantDataToRows(participant: ParticipantData, properties: Propert
           responseId: key,
         };
 
+        Object.entries(trialAnswer.parameters).forEach(([_key, _value]) => {
+          tidyRow[`parameters_${_key}`] = _value;
+          newHeaders.add(`parameters_${_key}`);
+        });
+
         const response = completeComponent.response.find((resp) => resp.id === key);
         if (properties.includes('status')) {
-          // eslint-disable-next-line no-nested-ternary
           tidyRow.status = participant.rejected ? 'rejected' : (participant.completed ? 'completed' : 'in progress');
         }
         if (properties.includes('rejectReason')) {
@@ -118,7 +117,6 @@ function participantDataToRows(participant: ParticipantData, properties: Propert
           tidyRow.rejectTime = participant.rejected ? new Date(participant.rejected.timestamp).toISOString() : undefined;
         }
         if (properties.includes('configHash')) {
-          // eslint-disable-next-line no-nested-ternary
           tidyRow.configHash = participant.participantConfigHash;
         }
         if (properties.includes('percentComplete')) {
@@ -134,18 +132,15 @@ function participantDataToRows(participant: ParticipantData, properties: Propert
           tidyRow.responsePrompt = response?.prompt;
         }
         if (properties.includes('answer')) {
-          tidyRow.answer = value;
+          tidyRow.answer = typeof value === 'object' ? JSON.stringify(value) : value;
         }
         if (properties.includes('correctAnswer')) {
-          const correctAnswer = (completeComponent.correctAnswer as Answer[])?.find((ans) => ans.id === key)?.answer;
+          const configCorrectAnswer = completeComponent.correctAnswer?.find((ans) => ans.id === key)?.answer;
+          const answerCorrectAnswer = trialAnswer.correctAnswer.find((ans) => ans.id === key)?.answer;
+          const correctAnswer = answerCorrectAnswer || configCorrectAnswer;
           tidyRow.correctAnswer = typeof correctAnswer === 'object' ? JSON.stringify(correctAnswer) : correctAnswer;
         }
-        if (properties.includes('responseMin')) {
-          tidyRow.responseMin = response?.type === 'numerical' ? response.min : undefined;
-        }
-        if (properties.includes('responseMax')) {
-          tidyRow.responseMax = response?.type === 'numerical' ? response.max : undefined;
-        }
+
         if (properties.includes('startTime')) {
           tidyRow.startTime = new Date(trialAnswer.startTime).toISOString();
         }
@@ -161,12 +156,40 @@ function participantDataToRows(participant: ParticipantData, properties: Propert
         if (properties.includes('meta')) {
           tidyRow.meta = JSON.stringify(completeComponent.meta, null, 2);
         }
+        if (properties.includes('responseMin')) {
+          tidyRow.responseMin = response?.type === 'numerical' ? response.min : undefined;
+        }
+        if (properties.includes('responseMax')) {
+          tidyRow.responseMax = response?.type === 'numerical' ? response.max : undefined;
+        }
 
         return tidyRow;
       }).flat();
 
+      const windowEventsCount = {
+        focus: trialAnswer.windowEvents.filter((event) => event[1] === 'focus').length,
+        input: trialAnswer.windowEvents.filter((event) => event[1] === 'input').length,
+        keydown: trialAnswer.windowEvents.filter((event) => event[1] === 'keydown').length,
+        keyup: trialAnswer.windowEvents.filter((event) => event[1] === 'keyup').length,
+        mousemove: trialAnswer.windowEvents.filter((event) => event[1] === 'mousemove').length,
+        mousedown: trialAnswer.windowEvents.filter((event) => event[1] === 'mousedown').length,
+        mouseup: trialAnswer.windowEvents.filter((event) => event[1] === 'mouseup').length,
+        resize: trialAnswer.windowEvents.filter((event) => event[1] === 'resize').length,
+        scroll: trialAnswer.windowEvents.filter((event) => event[1] === 'scroll').length,
+        visibility: trialAnswer.windowEvents.filter((event) => event[1] === 'visibility').length,
+      };
+
+      // Add a window events count row for each component
+      rows.push({
+        participantId: participant.participantId,
+        trialId,
+        trialOrder,
+        responseId: 'windowEvents',
+        answer: JSON.stringify(windowEventsCount),
+      } as TidyRow);
+
       return rows;
-    }).flat()];
+    }).flat()], Array.from(newHeaders)];
 }
 
 async function getTableData(selectedProperties: Property[], data: ParticipantData[], storageEngine: StorageEngine | undefined, studyId: string) {
@@ -180,15 +203,18 @@ async function getTableData(selectedProperties: Property[], data: ParticipantDat
   const allConfigs = await storageEngine.getAllConfigsFromHash(allConfigHashes, studyId);
 
   const header = combinedProperties;
-  const rows = await Promise.all(data.map(async (participant) => {
+  const allData = await Promise.all(data.map(async (participant) => {
     const partDataToRows = await participantDataToRows(participant, combinedProperties, allConfigs[participant.participantConfigHash]);
 
     return partDataToRows;
   }));
 
+  const rows = allData.map((partData) => partData[0]);
+  const newHeaders = new Set(allData.map((partData) => partData[1]).flat());
+
   const flatRows = rows.flat().sort((a, b) => (a !== b ? a.participantId.localeCompare(b.participantId) : a.trialOrder - b.trialOrder));
 
-  return { header, rows: flatRows };
+  return { header: [...header, ...newHeaders], rows: flatRows };
 }
 
 export function DownloadTidy({
@@ -204,7 +230,19 @@ export function DownloadTidy({
   data: ParticipantData[];
   studyId: string;
 }) {
-  const [selectedProperties, setSelectedProperties] = useState<Array<OptionalProperty>>([...OPTIONAL_COMMON_PROPS].filter((prop) => prop !== 'meta'));
+  const [selectedProperties, setSelectedProperties] = useState<Array<OptionalProperty>>([
+    'status',
+    'rejectReason',
+    'description',
+    'rejectTime',
+    'percentComplete',
+    'instruction',
+    'responsePrompt',
+    'answer',
+    'correctAnswer',
+    'duration',
+    'cleanedDuration',
+  ]);
 
   const storageEngine = useStorageEngine();
   const { value: tableData, status: tableDataStatus, error: tableError } = useAsync(getTableData, [selectedProperties, data, storageEngine.storageEngine, studyId]);
@@ -254,20 +292,51 @@ export function DownloadTidy({
       centered
       withCloseButton={false}
     >
-      <MultiSelect
-        searchable
-        nothingFoundMessage="Property not found"
-        data={[...OPTIONAL_COMMON_PROPS]}
-        value={selectedProperties}
-        onChange={(values: string[]) => setSelectedProperties(values as OptionalProperty[])}
-        label="Included optional columns:"
-        leftSection={<IconLayoutColumns />}
-        variant="filled"
-      />
+      <Box>
+        <Text size="sm" fw={500} mb="xs">
+          <Flex align="center" gap="xs">
+            <IconLayoutColumns size={16} />
+            Optional columns:
+          </Flex>
+        </Text>
+        <Flex wrap="wrap" gap="4px">
+          {OPTIONAL_COMMON_PROPS.map((prop) => {
+            const isSelected = selectedProperties.includes(prop);
+
+            const button = (
+              <Button
+                key={prop}
+                variant={isSelected ? 'light' : 'white'}
+                color={isSelected ? 'blue' : 'gray'}
+                size="xs"
+                onClick={() => {
+                  if (isSelected) {
+                    setSelectedProperties(selectedProperties.filter((p) => p !== prop));
+                  } else {
+                    setSelectedProperties([...selectedProperties, prop]);
+                  }
+                }}
+                styles={{
+                  root: {
+                    fontSize: '14px',
+                    height: 'auto',
+                    padding: '4px 8px',
+                    borderRadius: '6px',
+                  },
+                }}
+              >
+                {prop}
+              </Button>
+            );
+
+            return button;
+          })}
+        </Flex>
+      </Box>
 
       <Space h="md" />
 
-      <Box mih={300} style={{ width: '100%', overflow: 'scroll' }}>
+      <Box h={400} style={{ width: '100%', overflow: 'scroll' }}>
         {tableDataStatus === 'success' && tableData
           ? (
             <Table striped captionSide="bottom" withTableBorder>

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.0.0-rc3/src/parser/StudyConfigSchema.json",
+  "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.2.0/src/parser/StudyConfigSchema.json",
   "studyMetadata": {
       "title": "Using audio recording",
       "version": "pilot",
@@ -20,11 +20,11 @@
     "logoPath": "revisitAssets/revisitLogoSquare.svg",
     "withProgressBar": true,
     "autoDownloadStudy": false,
-    "sidebar": true,
-    "studyEndMsg": "**Thank you for completing the study. You may click this link and return to Prolific**: [https://app.prolific.com/submissions/complete?cc=C1MXB7XQ](https://app.prolific.com/submissions/complete?cc=C1MXB7XQ)",
-    "urlParticipantIdParam": "PROLIFIC_PID"
+    "withSidebar": true,
+    "studyEndMsg": "Thank you for completing the study. You may click this link and return to Prolific: [https://app.prolific.com/submissions/complete?cc=CE96X7ST&PROLIFIC_ID={PARTICIPANT_ID}](https://app.prolific.com/submissions/complete?cc=CE96X7ST&PROLIFIC_ID={PARTICIPANT_ID})",
+    "urlParticipantIdParam": "PROLIFIC_PID",
+    "recordAudio": true
   },
-  "recordStudyAudio": true,
   "baseComponents": {
     "scatterPlot": {
       "description": "A scatterplot and accompanying bar chart.",
@@ -78,7 +78,6 @@
     "tutorial": {
       "type": "markdown",
       "path": "example-brush-interactions/assets/tutorial.md",
-      "nextButtonText": "",
       "response": []
     },
     "rectangleBrush_q1": {

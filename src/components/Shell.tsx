@@ -5,7 +5,7 @@ import {
   useMemo,
 } from 'react';
 import { Provider } from 'react-redux';
-import { RouteObject, useRoutes, useSearchParams } from 'react-router-dom';
+import { RouteObject, useRoutes, useSearchParams } from 'react-router';
 import { LoadingOverlay, Title } from '@mantine/core';
 import {
   GlobalConfig,
@@ -20,7 +20,7 @@ import {
   studyStoreCreator,
 } from '../store/store';
 
-import ComponentController from '../controllers/ComponentController';
+import { ComponentController } from '../controllers/ComponentController';
 import { NavigateWithParams } from '../utils/NavigateWithParams';
 import { StepRenderer } from './StepRenderer';
 import { useStorageEngine } from '../storage/storageEngineHooks';
@@ -28,9 +28,10 @@ import { generateSequenceArray } from '../utils/handleRandomSequences';
 import { getStudyConfig } from '../utils/fetchConfig';
 import { ParticipantMetadata } from '../store/types';
 import { ErrorLoadingConfig } from './ErrorLoadingConfig';
-import ResourceNotFound from '../ResourceNotFound';
+import { ResourceNotFound } from '../ResourceNotFound';
 import { encryptIndex } from '../utils/encryptDecryptIndex';
 import { parseStudyConfig } from '../parser/parser';
+import { hash } from '../storage/engines/utils';
 
 export function Shell({ globalConfig }: { globalConfig: GlobalConfig }) {
   // Pull study config
@@ -80,7 +81,9 @@ export function Shell({ globalConfig }: { globalConfig: GlobalConfig }) {
       if (!storageEngine || !activeConfig || !studyId) return;
 
       // Make sure that we have a study database and that the study database has a sequence array
-      await storageEngine.initializeStudyDb(studyId, activeConfig);
+      await storageEngine.initializeStudyDb(studyId);
+      await storageEngine.saveConfig(activeConfig);
+
       const sequenceArray = await storageEngine.getSequenceArray();
       if (!sequenceArray) {
         await storageEngine.setSequenceArray(
@@ -116,7 +119,6 @@ export function Shell({ globalConfig }: { globalConfig: GlobalConfig }) {
       };
 
       const participantSession = await storageEngine.initializeParticipantSession(
-        studyId,
         searchParamsObject,
         activeConfig,
         metadata,
@@ -124,11 +126,18 @@ export function Shell({ globalConfig }: { globalConfig: GlobalConfig }) {
       );
 
       const modes = await storageEngine.getModes(studyId);
+      const activeHash = await hash(JSON.stringify(activeConfig));
+
+      let participantConfig = activeConfig;
+
+      if (participantSession.participantConfigHash !== activeHash) {
+        participantConfig = (await storageEngine.getAllConfigsFromHash([participantSession.participantConfigHash], studyId))[participantSession.participantConfigHash] as ParsedConfig<StudyConfig>;
+      }
 
       // Initialize the redux stores
       const newStore = await studyStoreCreator(
         studyId,
-        activeConfig,
+        participantConfig,
         participantSession.sequence,
         metadata,
         participantSession.answers,
@@ -147,7 +156,7 @@ export function Shell({ globalConfig }: { globalConfig: GlobalConfig }) {
               element: <NavigateWithParams to={encryptIndex(0)} replace />,
             },
             {
-              path: '/:index',
+              path: '/:index/:funcIndex?',
               element:
                 activeConfig.errors.length > 0 ? (
                   <>

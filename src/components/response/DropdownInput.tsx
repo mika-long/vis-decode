@@ -1,11 +1,10 @@
-import {
-  Box, Flex, Select,
-} from '@mantine/core';
+import { Select } from '@mantine/core';
 import { DropdownResponse } from '../../parser/types';
 import { generateErrorMessage } from './utils';
-import ReactMarkdownWrapper from '../ReactMarkdownWrapper';
+import classes from './css/Input.module.css';
+import { InputLabel } from './InputLabel';
 
-export default function DropdownInput({
+export function DropdownInput({
   response,
   disabled,
   answer,
@@ -14,7 +13,7 @@ export default function DropdownInput({
 }: {
   response: DropdownResponse;
   disabled: boolean;
-  answer: object;
+  answer: { value: string };
   index: number;
   enumerateQuestions: boolean;
 }) {
@@ -31,21 +30,16 @@ export default function DropdownInput({
   return (
     <Select
       disabled={disabled}
-      label={(
-        <Flex direction="row" wrap="nowrap" gap={4}>
-          {enumerateQuestions && <Box style={{ minWidth: 'fit-content' }}>{`${index}. `}</Box>}
-          <Box style={{ display: 'block' }} className="no-last-child-bottom-padding">
-            <ReactMarkdownWrapper text={prompt} required={required} />
-          </Box>
-        </Flex>
-      )}
+      label={prompt.length > 0 && <InputLabel prompt={prompt} required={required} index={index} enumerateQuestions={enumerateQuestions} />}
       description={secondaryText}
       placeholder={placeholder}
       data={optionsAsStringOptions}
       radius="md"
       size="md"
       {...answer}
+      value={answer.value === '' ? null : answer.value}
       error={generateErrorMessage(response, answer, optionsAsStringOptions)}
+      classNames={{ input: classes.fixDisabled }}
     />
   );
 }

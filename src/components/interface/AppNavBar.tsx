@@ -1,16 +1,13 @@
 import { AppShell, Text } from '@mantine/core';
 import { useMemo } from 'react';
-import ReactMarkdownWrapper from '../ReactMarkdownWrapper';
+import { ReactMarkdownWrapper } from '../ReactMarkdownWrapper';
 import { useStudyConfig } from '../../store/hooks/useStudyConfig';
 import { useStoredAnswer } from '../../store/hooks/useStoredAnswer';
-import ResponseBlock from '../response/ResponseBlock';
+import { ResponseBlock } from '../response/ResponseBlock';
 import { useCurrentComponent } from '../../routes/utils';
 import { studyComponentToIndividualComponent } from '../../utils/handleComponentInheritance';
 
-export default function AppNavBar() {
-  const trialHasSideBar = useStudyConfig()?.uiConfig.sidebar;
-  const trialHasSideBarResponses = true;
-
+export function AppNavBar() {
   // Get the config for the current step
   const studyConfig = useStudyConfig();
   const currentComponent = useCurrentComponent();
@@ -25,24 +22,24 @@ export default function AppNavBar() {
   }, [stepConfig, studyConfig]);
 
   const status = useStoredAnswer();
-  const instruction = currentConfig?.instruction || '';
+  const trialHasSideBar = currentConfig?.withSidebar ?? studyConfig.uiConfig.withSidebar;
+  const trialHasSideBarResponses = true;
 
-  const instructionInSideBar = currentConfig?.instructionLocation === 'sidebar'
-    || currentConfig?.instructionLocation === undefined;
+  const instruction = currentConfig?.instruction || '';
+  const instructionLocation = useMemo(() => currentConfig?.instructionLocation ?? studyConfig.uiConfig.instructionLocation ?? 'sidebar', [currentConfig, studyConfig]);
+  const instructionInSideBar = instructionLocation === 'sidebar';
 
   return trialHasSideBar && currentConfig ? (
-    <AppShell.Navbar bg="gray.1" display="block" style={{ zIndex: 0, overflowY: 'scroll' }}>
+    <AppShell.Navbar className="sidebar" bg="gray.1" display="block" style={{ zIndex: 0, overflowY: 'scroll' }}>
       {instructionInSideBar && instruction !== '' && (
         <AppShell.Section
           bg="gray.3"
           p="md"
         >
-          <Text c="gray.9">
-            <Text span c="orange.8" fw={700} inherit>
-              Task:
-            </Text>
-            <ReactMarkdownWrapper text={instruction} />
+          <Text span c="orange.8" fw={700} inherit>
+            Task:
           </Text>
+          <ReactMarkdownWrapper text={instruction} />
         </AppShell.Section>
       )}
 

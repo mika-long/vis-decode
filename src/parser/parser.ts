@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { parse as hjsonParse } from 'hjson';
 import Ajv from 'ajv';
+import { parseDocument } from 'yaml';
 import configSchema from './StudyConfigSchema.json';
 import globalSchema from './GlobalConfigSchema.json';
 import {
@@ -8,13 +7,13 @@ import {
 } from './types';
 import { getSequenceFlatMapWithInterruptions } from '../utils/getSequenceFlatMap';
 import { expandLibrarySequences, loadLibrariesParseNamespace, verifyLibraryUsage } from './libraryParser';
-import { isInheritedComponent } from './utils';
+import { isDynamicBlock, isInheritedComponent } from './utils';
 
-const ajv1 = new Ajv();
+const ajv1 = new Ajv({ allowUnionTypes: true });
 ajv1.addSchema(globalSchema);
 const globalValidate = ajv1.getSchema<GlobalConfig>('#/definitions/GlobalConfig')!;
 
-const ajv2 = new Ajv();
+const ajv2 = new Ajv({ allowUnionTypes: true });
 ajv2.addSchema(configSchema);
 const studyValidate = ajv2.getSchema<StudyConfig>('#/definitions/StudyConfig')!;
 
@@ -33,7 +32,7 @@ function verifyGlobalConfig(data: GlobalConfig) {
 }
 
 export function parseGlobalConfig(fileData: string) {
-  const data = hjsonParse(fileData);
+  const data = JSON.parse(fileData);
 
   const validatedData = globalValidate(data) as boolean;
   const extraValidation = verifyGlobalConfig(data);
@@ -54,6 +53,10 @@ function verifyStudySkip(
   skipTargets: string[],
   errors: { message: string, instancePath: string, params: { 'action': string } }[] = [],
 ) {
+  if (isDynamicBlock(sequence)) {
+    return;
+  }
+
   // Base case: empty sequence
   if (sequence.components.length === 0) {
     // Push an error for an empty components array
@@ -160,7 +163,7 @@ function verifyStudyConfig(studyConfig: StudyConfig, importedLibrariesData: Reco
     ))
     .forEach((componentName) => {
       warnings.push({
-        message: `Component \`${componentName}\` is defined in components object but not used in the sequence`,
+        message: `Component \`${componentName}\` is defined in components object but not used deterministically in the sequence`,
         instancePath: '/components/',
         params: { action: 'remove the component from the components object or add it to the sequence' },
       });
@@ -185,10 +188,18 @@ export async function parseStudyConfig(fileData: string): Promise<ParsedConfig<S
   let data: StudyConfig | undefined;
 
   try {
-    data = hjsonParse(fileData);
+    // Try JSON parse first
+    data = JSON.parse(fileData);
     validatedData = studyValidate(data) as boolean;
   } catch {
-    validatedData = false;
+    // Try yaml parse
+    try {
+      data = parseDocument(fileData).toJSON() as StudyConfig;
+      validatedData = studyValidate(data) as boolean;
+    } catch (e) {
+      console.error('Error parsing study config file:', e);
+      validatedData = false;
+    }
   }
 
   let errors: Required<ParsedConfig<StudyConfig>>['errors'] = studyValidate.errors || [];

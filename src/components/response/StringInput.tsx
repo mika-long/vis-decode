@@ -1,9 +1,10 @@
-import { Box, Flex, TextInput } from '@mantine/core';
+import { TextInput } from '@mantine/core';
 import { ShortTextResponse } from '../../parser/types';
 import { generateErrorMessage } from './utils';
-import ReactMarkdownWrapper from '../ReactMarkdownWrapper';
+import classes from './css/Input.module.css';
+import { InputLabel } from './InputLabel';
 
-export default function StringInput({
+export function StringInput({
   response,
   disabled,
   answer,
@@ -27,14 +28,7 @@ export default function StringInput({
     <TextInput
       disabled={disabled}
       placeholder={placeholder}
-      label={(
-        <Flex direction="row" wrap="nowrap" gap={4}>
-          {enumerateQuestions && <Box style={{ minWidth: 'fit-content' }}>{`${index}. `}</Box>}
-          <Box style={{ display: 'block' }} className="no-last-child-bottom-padding">
-            <ReactMarkdownWrapper text={prompt} required={required} />
-          </Box>
-        </Flex>
-      )}
+      label={prompt.length > 0 && <InputLabel prompt={prompt} required={required} index={index} enumerateQuestions={enumerateQuestions} />}
       description={secondaryText}
       radius="md"
       size="md"
@@ -42,6 +36,7 @@ export default function StringInput({
         // This is necessary so the component doesnt switch from uncontrolled to controlled, which can cause issues.
       value={answer.value || ''}
       error={generateErrorMessage(response, answer)}
+      classNames={{ input: classes.fixDisabled }}
     />
   );
 }

@@ -2,7 +2,7 @@ import {
   ReactNode, createContext, useContext, useMemo, useState,
 } from 'react';
 
-import { StorageEngine } from './engines/StorageEngine';
+import { StorageEngine } from './engines/types';
 
 interface StorageContextValue {
   storageEngine: StorageEngine | undefined;
@@ -11,7 +11,6 @@ interface StorageContextValue {
 
 const StorageEngineContext = createContext<StorageContextValue>({
   storageEngine: undefined,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   setStorageEngine: () => {},
 });
 
