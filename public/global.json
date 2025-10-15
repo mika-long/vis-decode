@@ -3,6 +3,7 @@
   "configsList": [
     "basic-questionnaire-study",
     "vis-decode-slider",
+    "vis-decode-retrieve-value",
     "tutorial",
     "demo-html",
     "demo-html-input",
@@ -53,6 +54,9 @@
   "configs": {
     "basic-questionnaire-study": {
       "path": "basic-questionnaire-study/config.json"
+    },
+    "vis-decode-retrieve-value": {
+      "path": "vis-decode-retrieve-value/config.json"
     },
     "vis-decode-slider": {
       "path": "vis-decode-slider/config.json"
