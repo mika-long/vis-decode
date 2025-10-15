@@ -1,0 +1,88 @@
+{
+    "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.2.0/src/parser/LibraryConfigSchema.json",
+    "description": "A library for visual calibration tasks including virtual chinrest (card size) and viewing distance calibration using blindspot tracking.",
+    "reference": "Custom calibration library for visual perception studies",
+    "components": {
+      "virtual-chinrest": {
+        "type": "react-component",
+        "path": "libraries/virtual-chinrest/assets/VirtualChinrestCalibration.tsx",
+        "nextButtonLocation": "belowStimulus",
+        "parameters": {
+          "taskid": "pixelsPerMM",
+          "itemWidthMM": 85.6,
+          "itemHeightMM": 53.98
+        },
+        "response": [
+          {
+            "id": "pixelsPerMM",
+            "prompt": "Calibration results",
+            "required": true,
+            "type": "numerical",
+            "hidden": true
+          }
+        ]
+      },
+      "viewing-distance": {
+        "type": "react-component",
+        "path": "libraries/virtual-chinrest/assets/ViewingDistanceCalibration.tsx",
+        "nextButtonLocation": "belowStimulus",
+        "parameters": {
+          "blindspotAngle": 13.5
+        },
+        "response": [
+          {
+            "id": "dist-calibration-MM",
+            "prompt": "Distance Calibration results in MM",
+            "required": true,
+            "type": "numerical",
+            "hidden": true
+          },
+          {
+            "id": "dist-calibration-CM",
+            "prompt": "Distance Calibration results in CM",
+            "required": false,
+            "type": "numerical",
+            "hidden": true
+          },
+          {
+            "id": "ball-positions",
+            "prompt": "Position of balls in pixels",
+            "required": false,
+            "type": "numerical",
+            "hidden": true
+          },
+          {
+            "id": "square-position",
+            "prompt": "Position of the black square in pixels",
+            "required": false,
+            "type": "numerical",
+            "hidden": true
+          }
+        ]
+      }
+    },
+    "sequences": {
+      "full-calibration": {
+        "id": "calibration-sequence",
+        "order": "fixed",
+        "components": [
+          "virtual-chinrest",
+          "viewing-distance"
+        ]
+      },
+      "chinrest-only": {
+        "id": "chinrest-only",
+        "order": "fixed",
+        "components": [
+          "virtual-chinrest"
+        ]
+      },
+      "distance-only": {
+        "id": "distance-only",
+        "order": "fixed",
+        "components": [
+          "viewing-distance"
+        ]
+      }
+    }
+  }
