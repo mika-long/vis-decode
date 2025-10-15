@@ -18,7 +18,7 @@
         "logoPath": "revisitAssets/revisitLogoSquare.svg",
         "withProgressBar": true,
         "autoDownloadStudy": false,
-        "sidebar": false, 
+        "withSidebar": false,
         "urlParticipantIdParam": "PROLIFIC_PID", 
         "studyEndMsg": "**Thank you for completing the study.** \n\n You may click this link and return to Prolific: [https://app.prolific.com/submissions/complete?cc=C1O3ZUHV](https://app.prolific.com/submissions/complete?cc=C1O3ZUHV)"
     },
@@ -36,7 +36,7 @@
             "id": "pixelsPerMM", 
             "prompt": "Calibration results",
             "required": true, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }
         ]
@@ -53,28 +53,28 @@
             "id": "dist-calibration-MM",
             "prompt": "Distance Calibration results in MM",
             "required": true, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "dist-calibration-CM",
             "prompt": "Distance Calibration results in CM",
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "ball-positions",
             "prompt": "Position of balls in pixels",
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "square-position",
             "prompt": "Position of the black square in pixels",
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }
         ]
@@ -96,63 +96,63 @@
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "pixel-x", 
             "prompt": "The Pixel x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "pixel-y", 
             "prompt": "The y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "param-mu", 
             "prompt": "parameter mu", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "param-sigma", 
             "prompt": "parameter sigma", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "param-lambda", 
             "prompt": "parameter lambda", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "param-p", 
             "prompt": "parameter p", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "param-q", 
             "prompt": "parameter q", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }
         ]
@@ -174,63 +174,63 @@
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "pixel-x", 
             "prompt": "The Pixel x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "pixel-y", 
             "prompt": "The y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "param-mu", 
             "prompt": "parameter mu", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "param-sigma", 
             "prompt": "parameter sigma", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "param-lambda", 
             "prompt": "parameter lambda", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "param-p", 
             "prompt": "parameter p", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "param-q", 
             "prompt": "parameter q", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }
         ]
@@ -252,63 +252,63 @@
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "pixel-x", 
             "prompt": "The Pixel x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "pixel-y", 
             "prompt": "The y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "param-mu", 
             "prompt": "parameter mu", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "param-sigma", 
             "prompt": "parameter sigma", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "param-lambda", 
             "prompt": "parameter lambda", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "param-p", 
             "prompt": "parameter p", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "param-q", 
             "prompt": "parameter q", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }
         ]
@@ -330,63 +330,63 @@
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "pixel-x", 
             "prompt": "The Pixel x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "pixel-y", 
             "prompt": "The y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "param-mu", 
             "prompt": "parameter mu", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "param-sigma", 
             "prompt": "parameter sigma", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "param-lambda", 
             "prompt": "parameter lambda", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "param-p", 
             "prompt": "parameter p", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "param-q", 
             "prompt": "parameter q", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }
         ]
@@ -409,63 +409,63 @@
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
             "required": true, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "pixel-x", 
             "prompt": "The Pixel x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "pixel-y", 
             "prompt": "The y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "param-mu", 
             "prompt": "parameter mu", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "param-sigma", 
             "prompt": "parameter sigma", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "param-lambda", 
             "prompt": "parameter lambda", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "param-p", 
             "prompt": "parameter p", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "param-q", 
             "prompt": "parameter q", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }
         ]
@@ -488,63 +488,63 @@
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "pixel-x", 
             "prompt": "The Pixel x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "pixel-y", 
             "prompt": "The y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "param-mu", 
             "prompt": "parameter mu", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "param-sigma", 
             "prompt": "parameter sigma", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "param-lambda", 
             "prompt": "parameter lambda", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "param-p", 
             "prompt": "parameter p", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "param-q", 
             "prompt": "parameter q", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }
         ]
@@ -567,63 +567,63 @@
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "pixel-x", 
             "prompt": "The Pixel x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "pixel-y", 
             "prompt": "The y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "param-mu", 
             "prompt": "parameter mu", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "param-sigma", 
             "prompt": "parameter sigma", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "param-lambda", 
             "prompt": "parameter lambda", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "param-p", 
             "prompt": "parameter p", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "param-q", 
             "prompt": "parameter q", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }
         ]
@@ -646,63 +646,63 @@
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "pixel-x", 
             "prompt": "The Pixel x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "pixel-y", 
             "prompt": "The y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "param-mu", 
             "prompt": "parameter mu", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "param-sigma", 
             "prompt": "parameter sigma", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "param-lambda", 
             "prompt": "parameter lambda", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "param-p", 
             "prompt": "parameter p", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "param-q", 
             "prompt": "parameter q", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }
         ]
@@ -722,28 +722,28 @@
             "id": "slider-x", 
             "prompt": "The x-axis location of your slider", 
             "required": true, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "slider-y", 
             "prompt": "The y-axis location of your slider", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }, 
           {
             "id": "location-x", 
             "prompt": "The x-axis location of your slider", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           },
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your slider", 
             "required": false, 
-            "type": "iframe", 
+            "type": "numerical", 
             "hidden": true
           }
         ]
