@@ -19,7 +19,7 @@
           "id": "pixelsPerMM",
           "prompt": "Calibration results",
           "required": true,
-          "type": "numerical",
+          "type": "reactive",
           "hidden": true
         }
       ]
@@ -36,28 +36,28 @@
           "id": "dist-calibration-MM",
           "prompt": "Distance Calibration results in MM",
           "required": true,
-          "type": "numerical",
+          "type": "reactive",
           "hidden": true
         },
         {
           "id": "dist-calibration-CM",
           "prompt": "Distance Calibration results in CM",
           "required": false,
-          "type": "numerical",
+          "type": "reactive",
           "hidden": true
         },
         {
           "id": "ball-positions",
           "prompt": "Position of balls in pixels",
           "required": false,
-          "type": "numerical",
+          "type": "reactive",
           "hidden": true
         },
         {
           "id": "square-position",
           "prompt": "Position of the black square in pixels",
           "required": false,
-          "type": "numerical",
+          "type": "reactive",
           "hidden": true
         }
       ]
