@@ -5,7 +5,7 @@
   "doi": "10.1038/s41598-019-57204-1",
   "externalLink": "https://github.com/QishengLi/virtual_chinrest",
   "components": {
-    "virtual-chinrest": {
+    "card-size": {
       "type": "react-component",
       "path": "libraries/virtual-chinrest/assets/VirtualChinrestCalibration.tsx",
       "parameters": {
@@ -24,7 +24,7 @@
         }
       ]
     },
-    "viewing-distance": {
+    "blindspot-distance": {
       "type": "react-component",
       "path": "libraries/virtual-chinrest/assets/ViewingDistanceCalibration.tsx",
       "nextButtonLocation": "belowStimulus",
@@ -68,8 +68,8 @@
       "id": "virtual-chinrest",
       "order": "fixed",
       "components": [
-        "virtual-chinrest",
-        "viewing-distance"
+        "card-size",
+        "blindspot-distance"
       ]
     }
   }

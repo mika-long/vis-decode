@@ -21,7 +21,8 @@ export default function ViewingDistanceCalibration({ parameters, setAnswer }: St
   const { blindspotAngle } = parameters;
 
   const ans = useStoreSelector((state) => state.answers);
-  const pixelsPerMM = Number(ans.calibration_3.answer?.pixelsPerMM);
+  const cardSizeAnswer = Object.values(ans).find((answer) => answer.componentName === '$virtual-chinrest.components.card-size');
+  const pixelsPerMM = Number(cardSizeAnswer?.answer?.pixelsPerMM);
 
   // States
   const [ballPositions, setBallPositions] = useState<number[]>([]);
