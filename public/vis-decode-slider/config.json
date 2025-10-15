@@ -22,63 +22,10 @@
         "urlParticipantIdParam": "PROLIFIC_PID", 
         "studyEndMsg": "**Thank you for completing the study.** \n\n You may click this link and return to Prolific: [https://app.prolific.com/submissions/complete?cc=C1O3ZUHV](https://app.prolific.com/submissions/complete?cc=C1O3ZUHV)"
     },
-    "importedLibraries": [],
+    "importedLibraries": [
+      "virtual-chinrest"
+    ],
     "baseComponents": {
-      "card": {
-        "type": "react-component", 
-        "path": "vis-decode-slider/assets/VirtualChinrestCalibration.tsx", 
-        "nextButtonLocation": "belowStimulus", 
-        "parameters": {
-          "taskid": "pixelsPerMM"
-        },
-        "response": [
-          {
-            "id": "pixelsPerMM", 
-            "prompt": "Calibration results",
-            "required": true, 
-            "type": "numerical", 
-            "hidden": true
-          }
-        ]
-      },
-      "ball": {
-        "type": "react-component",
-        "path": "vis-decode-slider/assets/ViewingDistanceCalibration.tsx",
-        "nextButtonLocation": "belowStimulus", 
-        "parameters": {
-          "blindspotAngle": 13.5
-        }, 
-        "response": [
-          {
-            "id": "dist-calibration-MM",
-            "prompt": "Distance Calibration results in MM",
-            "required": true, 
-            "type": "numerical", 
-            "hidden": true
-          }, 
-          {
-            "id": "dist-calibration-CM",
-            "prompt": "Distance Calibration results in CM",
-            "required": false, 
-            "type": "numerical", 
-            "hidden": true
-          },
-          {
-            "id": "ball-positions",
-            "prompt": "Position of balls in pixels",
-            "required": false, 
-            "type": "numerical", 
-            "hidden": true
-          }, 
-          {
-            "id": "square-position",
-            "prompt": "Position of the black square in pixels",
-            "required": false, 
-            "type": "numerical", 
-            "hidden": true
-          }
-        ]
-      },
       "PDF-Median-Test": {
         "type": "react-component", 
         "path": "vis-decode-slider/assets/Stimuli.tsx", 
@@ -788,12 +735,6 @@
           "path": "vis-decode-slider/assets/calibration_intro.md", 
           "response": []
         },
-        "calibration": {
-          "baseComponent": "card"
-        },
-        "distance calibration": {
-          "baseComponent": "ball"
-        },
         "general_instruction":{
           "type": "markdown",
           "path": "vis-decode-slider/assets/general_instruction.md",
@@ -1284,8 +1225,7 @@
               "order": "fixed"
             }, 
             "calibration-intro", 
-            "calibration", 
-            "distance calibration",
+            "$virtual-chinrest.se.full",
             "general_instruction",
             {
               "order": "random",

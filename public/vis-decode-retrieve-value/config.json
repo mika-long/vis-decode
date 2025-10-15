@@ -68,7 +68,8 @@
     },
     "importedLibraries": [
         "vlat",
-        "mic-check"
+        "mic-check", 
+        "virtual-chinrest"
     ],
     "sequence": {
         "order": "fixed",
@@ -76,6 +77,7 @@
             "introduction",
             "$vlat.se.full",
             "$mic-check.co.audioTest",
+            "$virtual-chinrest.se.full",
             "first-question-set",
             "second-question-set"
         ]
