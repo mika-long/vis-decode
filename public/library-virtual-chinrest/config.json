@@ -26,7 +26,8 @@
       "introduction": {
         "type": "markdown",
         "path": "library-virtual-chinrest/assets/introduction.md",
-        "response": []
+        "response": [],
+        "nextButtonLocation": "belowStimulus"
       }
     },
     "sequence": {
