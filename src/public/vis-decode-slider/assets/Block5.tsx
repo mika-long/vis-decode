@@ -25,7 +25,7 @@ const chartSettings = {
 };
 
 interface Block5Props {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   setAnswer: (answer: {status: boolean; answers: Record<string, any> }) => void,
   axisLabels?: {
     x?: string;
@@ -223,9 +223,7 @@ function Block5Visualization({
   );
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function Block5({ parameters, setAnswer }: StimulusParams<any>) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   // const { trial_id: trialId, taskid } = parameters;
   const { params } = parameters;
   const trialId = params.trial_id;

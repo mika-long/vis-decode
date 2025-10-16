@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 import { useEffect, useMemo, useRef } from 'react';
 import * as d3 from 'd3';
 import { useScales } from './chartComponents/ScalesContext';

@@ -1,17 +1,15 @@
 {
     "$schema": "https://raw.githubusercontent.com/revisit-studies/study/main/src/parser/StudyConfigSchema.json",
     "studyMetadata": {
-        "title": "Basic Questionnaire Study",
+        "title": "Vis Decode Retrieve Value",
         "version": "pilot",
         "authors": [
-            "The reVISit Team"
+            "Sheng Long"
         ],
-        "date": "2024-03-19",
-        "description": "A simple questionnaire study",
+        "date": "2025-10-16",
+        "description": "A study to decode the retrieve value of a stimulus",
         "organizations": [
-            "University of Utah",
-            "WPI",
-            "University of Toronto"
+            "Northwestern University"
         ]
     },
     "uiConfig": {
@@ -64,22 +62,38 @@
                     "numItems": 5
                 }
             ]
+        },
+        "vega-demo": {
+            "meta": {
+                "metadata": 3
+            }, 
+            "description": "Using Vega with an external file", 
+            "instruction": "Do something lol", 
+            "type": "vega", 
+            "path": "vis-decode-retrieve-value/specs/0.json", 
+            "nextButtonLocation": "belowStimulus", 
+            "response": [
+                {
+                    "id": "vegaResponse1", 
+                    "prompt": "Your input", 
+                    "location": "belowStimulus", 
+                    "type": "numerical"
+                }
+            ]
+
         }
     },
     "importedLibraries": [
-        "vlat",
-        "mic-check", 
         "virtual-chinrest"
     ],
     "sequence": {
         "order": "fixed",
         "components": [
             "introduction",
-            "$vlat.se.full",
-            "$mic-check.co.audioTest",
             "$virtual-chinrest.se.full",
             "first-question-set",
-            "second-question-set"
+            "second-question-set", 
+            "vega-demo"
         ]
     }
 }

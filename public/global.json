@@ -1,7 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.2.0/src/parser/GlobalConfigSchema.json",
   "configsList": [
-    "basic-questionnaire-study",
     "vis-decode-slider",
     "vis-decode-retrieve-value",
     "tutorial",
@@ -53,9 +52,6 @@
     "test-step-logic"
   ],
   "configs": {
-    "basic-questionnaire-study": {
-      "path": "basic-questionnaire-study/config.json"
-    },
     "vis-decode-retrieve-value": {
       "path": "vis-decode-retrieve-value/config.json"
     },
