@@ -34,7 +34,7 @@
             "id": "pixelsPerMM", 
             "prompt": "Calibration results",
             "required": true, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }
         ]
@@ -51,21 +51,21 @@
             "id": "dist-calibration-MM",
             "prompt": "Distance Calibration results in MM",
             "required": true, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "dist-calibration-CM",
             "prompt": "Distance Calibration results in CM",
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           },
           {
             "id": "ball-positions",
             "prompt": "Position of balls in pixels",
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }
         ]
@@ -87,56 +87,56 @@
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           },
           {
             "id": "pixel-x", 
             "prompt": "The pixel x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "pixel-y", 
             "prompt": "The pixel y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           },
           {
             "id": "param-xi", 
             "prompt": "The xi parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "param-omega", 
             "prompt": "The omega parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           },
           {
             "id": "param-nu", 
             "prompt": "The nu parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "param-alpha", 
             "prompt": "The alpha parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }
         ]
@@ -158,56 +158,56 @@
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           },
           {
             "id": "pixel-x", 
             "prompt": "The pixel x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "pixel-y", 
             "prompt": "The pixel y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           },
           {
             "id": "param-xi", 
             "prompt": "The xi parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "param-omega", 
             "prompt": "The omega parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           },
           {
             "id": "param-nu", 
             "prompt": "The nu parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "param-alpha", 
             "prompt": "The alpha parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }
         ]
@@ -229,56 +229,56 @@
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           },
           {
             "id": "pixel-x", 
             "prompt": "The pixel x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "pixel-y", 
             "prompt": "The pixel y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           },
           {
             "id": "param-xi", 
             "prompt": "The xi parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "param-omega", 
             "prompt": "The omega parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           },
           {
             "id": "param-nu", 
             "prompt": "The nu parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "param-alpha", 
             "prompt": "The alpha parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }
         ]
@@ -300,56 +300,56 @@
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           },
           {
             "id": "pixel-x", 
             "prompt": "The pixel x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "pixel-y", 
             "prompt": "The pixel y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           },
           {
             "id": "param-xi", 
             "prompt": "The xi parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "param-omega", 
             "prompt": "The omega parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           },
           {
             "id": "param-nu", 
             "prompt": "The nu parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "param-alpha", 
             "prompt": "The alpha parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }
         ]
@@ -372,56 +372,56 @@
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           },
           {
             "id": "pixel-x", 
             "prompt": "The pixel x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "pixel-y", 
             "prompt": "The pixel y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           },
           {
             "id": "param-xi", 
             "prompt": "The xi parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "param-omega", 
             "prompt": "The omega parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           },
           {
             "id": "param-nu", 
             "prompt": "The nu parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "param-alpha", 
             "prompt": "The alpha parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }
         ]
@@ -444,14 +444,14 @@
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           },
           {
@@ -459,42 +459,42 @@
             "prompt": "The pixel x-axis location of your click", 
             "required": false, 
             "location": "belowStimulus",
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "pixel-y", 
             "prompt": "The pixel y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           },
           {
             "id": "param-xi", 
             "prompt": "The xi parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "param-omega", 
             "prompt": "The omega parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           },
           {
             "id": "param-nu", 
             "prompt": "The nu parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "param-alpha", 
             "prompt": "The alpha parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }
         ]
@@ -517,56 +517,56 @@
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           },
           {
             "id": "pixel-x", 
             "prompt": "The pixel x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "pixel-y", 
             "prompt": "The pixel y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           },
           {
             "id": "param-xi", 
             "prompt": "The xi parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "param-omega", 
             "prompt": "The omega parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           },
           {
             "id": "param-nu", 
             "prompt": "The nu parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "param-alpha", 
             "prompt": "The alpha parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }
         ]
@@ -589,14 +589,14 @@
             "id": "location-x", 
             "prompt": "The x-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "location-y", 
             "prompt": "The y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           },
           {
@@ -604,42 +604,42 @@
             "prompt": "The pixel x-axis location of your click", 
             "required": false, 
             "location": "belowStimulus",
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "pixel-y", 
             "prompt": "The pixel y-axis location of your click", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           },
           {
             "id": "param-xi", 
             "prompt": "The xi parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "param-omega", 
             "prompt": "The omega parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           },
           {
             "id": "param-nu", 
             "prompt": "The nu parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }, 
           {
             "id": "param-alpha", 
             "prompt": "The alpha parameter", 
             "required": false, 
-            "type": "iframe", 
+            "type": "reactive", 
             "hidden": true
           }
         ]
