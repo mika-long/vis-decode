@@ -1,0 +1,10 @@
+[project]
+name = "study"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "ipykernel>=7.0.1",
+    "revisitpy>=2.2.1",
+]

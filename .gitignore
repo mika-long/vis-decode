@@ -40,3 +40,4 @@ supabase/volumes/db/data
 
 # stop tracking .env once it's set to use firebase
 .env 
+.ipynb_checkpoints/*
