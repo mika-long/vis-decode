@@ -1,99 +1,200 @@
 {
-    "$schema": "https://raw.githubusercontent.com/revisit-studies/study/main/src/parser/StudyConfigSchema.json",
-    "studyMetadata": {
-        "title": "Vis Decode Retrieve Value",
-        "version": "pilot",
-        "authors": [
-            "Sheng Long"
-        ],
-        "date": "2025-10-16",
-        "description": "A study to decode the retrieve value of a stimulus",
-        "organizations": [
-            "Northwestern University"
-        ]
-    },
-    "uiConfig": {
-        "contactEmail": "contact@revisit.dev",
-        "helpTextPath": "basic-questionnaire-study/assets/help.md",
-        "logoPath": "revisitAssets/revisitLogoSquare.svg",
-        "withProgressBar": true,
-        "autoDownloadStudy": false,
-        "withSidebar": true
-    },
+    "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.0.0/src/parser/StudyConfigSchema.json",
     "components": {
-        "introduction": {
-            "type": "markdown",
-            "path": "basic-questionnaire-study/assets/introduction.md",
-            "response": []
-        },
-        "first-question-set": {
-            "type": "questionnaire",
+        "retrieve_value_10": {
+            "instruction": "Enter the answer to the question",
+            "instructionLocation": "belowStimulus",
+            "path": "vis-decode-retrieve-value/specs/10.json",
             "response": [
                 {
-                    "id": "q1-name",
-                    "prompt": "What is your first name?",
+                    "id": "retrieve_value",
+                    "location": "belowStimulus",
+                    "prompt": "Your selected answer",
                     "required": true,
-                    "location": "aboveStimulus",
-                    "type": "longText",
-                    "placeholder": "Please enter your first name"
-                },
-                {
-                    "id": "q2-color",
-                    "prompt": "What is your favorite color?",
-                    "required": true,
-                    "location": "aboveStimulus",
-                    "type": "dropdown",
-                    "placeholder": "Please choose your favorite color",
-                    "options": ["Red", "Blue", "My favorite color is not shown here."]
-                }
-            ]
-        },
-        "second-question-set": {
-            "type": "questionnaire",
-            "response": [
-                {
-                    "id": "q3-satisfaction",
-                    "prompt": "Rate your satisfaction with this survey from 1 (not enjoyable) to 5 (very enjoyable).",
-                    "required": true,
-                    "location": "aboveStimulus",
-                    "type": "likert",
-                    "leftLabel": "Not Enjoyable",
-                    "rightLabel": "Very Enjoyable",
-                    "numItems": 5
-                }
-            ]
-        },
-        "vega-demo": {
-            "meta": {
-                "metadata": 3
-            }, 
-            "description": "Using Vega with an external file", 
-            "instruction": "Do something lol", 
-            "type": "vega", 
-            "path": "vis-decode-retrieve-value/specs/0.json", 
-            "nextButtonLocation": "belowStimulus", 
-            "response": [
-                {
-                    "id": "vegaResponse1", 
-                    "prompt": "Your input", 
-                    "location": "belowStimulus", 
                     "type": "numerical"
                 }
-            ]
-
+            ],
+            "type": "vega",
+            "withSidebar": false
+        },
+        "retrieve_value_9": {
+            "instruction": "Enter the answer to the question",
+            "instructionLocation": "belowStimulus",
+            "path": "vis-decode-retrieve-value/specs/9.json",
+            "response": [
+                {
+                    "id": "retrieve_value",
+                    "location": "belowStimulus",
+                    "prompt": "Your selected answer",
+                    "required": true,
+                    "type": "numerical"
+                }
+            ],
+            "type": "vega",
+            "withSidebar": false
+        },
+        "retrieve_value_8": {
+            "instruction": "Enter the answer to the question",
+            "instructionLocation": "belowStimulus",
+            "path": "vis-decode-retrieve-value/specs/8.json",
+            "response": [
+                {
+                    "id": "retrieve_value",
+                    "location": "belowStimulus",
+                    "prompt": "Your selected answer",
+                    "required": true,
+                    "type": "numerical"
+                }
+            ],
+            "type": "vega",
+            "withSidebar": false
+        },
+        "retrieve_value_7": {
+            "instruction": "Enter the answer to the question",
+            "instructionLocation": "belowStimulus",
+            "path": "vis-decode-retrieve-value/specs/7.json",
+            "response": [
+                {
+                    "id": "retrieve_value",
+                    "location": "belowStimulus",
+                    "prompt": "Your selected answer",
+                    "required": true,
+                    "type": "numerical"
+                }
+            ],
+            "type": "vega",
+            "withSidebar": false
+        },
+        "retrieve_value_6": {
+            "instruction": "Enter the answer to the question",
+            "instructionLocation": "belowStimulus",
+            "path": "vis-decode-retrieve-value/specs/6.json",
+            "response": [
+                {
+                    "id": "retrieve_value",
+                    "location": "belowStimulus",
+                    "prompt": "Your selected answer",
+                    "required": true,
+                    "type": "numerical"
+                }
+            ],
+            "type": "vega",
+            "withSidebar": false
+        },
+        "retrieve_value_5": {
+            "instruction": "Enter the answer to the question",
+            "instructionLocation": "belowStimulus",
+            "path": "vis-decode-retrieve-value/specs/5.json",
+            "response": [
+                {
+                    "id": "retrieve_value",
+                    "location": "belowStimulus",
+                    "prompt": "Your selected answer",
+                    "required": true,
+                    "type": "numerical"
+                }
+            ],
+            "type": "vega",
+            "withSidebar": false
+        },
+        "retrieve_value_4": {
+            "instruction": "Enter the answer to the question",
+            "instructionLocation": "belowStimulus",
+            "path": "vis-decode-retrieve-value/specs/4.json",
+            "response": [
+                {
+                    "id": "retrieve_value",
+                    "location": "belowStimulus",
+                    "prompt": "Your selected answer",
+                    "required": true,
+                    "type": "numerical"
+                }
+            ],
+            "type": "vega",
+            "withSidebar": false
+        },
+        "retrieve_value_3": {
+            "instruction": "Enter the answer to the question",
+            "instructionLocation": "belowStimulus",
+            "path": "vis-decode-retrieve-value/specs/3.json",
+            "response": [
+                {
+                    "id": "retrieve_value",
+                    "location": "belowStimulus",
+                    "prompt": "Your selected answer",
+                    "required": true,
+                    "type": "numerical"
+                }
+            ],
+            "type": "vega",
+            "withSidebar": false
+        },
+        "retrieve_value_2": {
+            "instruction": "Enter the answer to the question",
+            "instructionLocation": "belowStimulus",
+            "path": "vis-decode-retrieve-value/specs/2.json",
+            "response": [
+                {
+                    "id": "retrieve_value",
+                    "location": "belowStimulus",
+                    "prompt": "Your selected answer",
+                    "required": true,
+                    "type": "numerical"
+                }
+            ],
+            "type": "vega",
+            "withSidebar": false
+        },
+        "retrieve_value_1": {
+            "instruction": "Enter the answer to the question",
+            "instructionLocation": "belowStimulus",
+            "path": "vis-decode-retrieve-value/specs/1.json",
+            "response": [
+                {
+                    "id": "retrieve_value",
+                    "location": "belowStimulus",
+                    "prompt": "Your selected answer",
+                    "required": true,
+                    "type": "numerical"
+                }
+            ],
+            "type": "vega",
+            "withSidebar": false
         }
     },
-    "importedLibraries": [
-        "virtual-chinrest"
-    ],
     "sequence": {
-        "order": "fixed",
         "components": [
-            "introduction",
-            "$virtual-chinrest.se.full",
-            "first-question-set",
-            "second-question-set", 
-            "vega-demo"
-        ]
+            "retrieve_value_10",
+            "retrieve_value_9",
+            "retrieve_value_8",
+            "retrieve_value_7",
+            "retrieve_value_6",
+            "retrieve_value_5",
+            "retrieve_value_4",
+            "retrieve_value_3",
+            "retrieve_value_2",
+            "retrieve_value_1"
+        ],
+        "numSamples": 5.0,
+        "order": "random"
+    },
+    "studyMetadata": {
+        "authors": [
+            "Brian Bollen"
+        ],
+        "date": "2025-01-13",
+        "description": "",
+        "organizations": [
+            "Visualization Design Lab"
+        ],
+        "title": "Vis Decode Retrieve Value",
+        "version": "1.0"
+    },
+    "uiConfig": {
+        "contactEmail": "briancbollen@gmail.com",
+        "logoPath": "./assets/revisitLogoSquare.svg",
+        "nextOnEnter": true,
+        "withProgressBar": false,
+        "withSidebar": true
     }
 }

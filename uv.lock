@@ -792,6 +792,15 @@ wheels = [
 ]
 
 [[package]]
+name = "revisitpy-server"
+version = "1.10.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/41/93/f813e9c417eb789c1af53916e800746fc7eddfda983db345d8921f062d4c/revisitpy_server-1.10.0.tar.gz", hash = "sha256:15ce55c42d2514a21f31ec6ebeedb1f64ad4806cd5021193315d50163119d662", size = 68495332, upload-time = "2025-09-23T20:49:35.681Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/5b/44/d0c848c829b141035ece2dff45f91ab49fe2a2e940583c8d466407458f3a/revisitpy_server-1.10.0-py2.py3-none-any.whl", hash = "sha256:4c50eccec3af6172c73988af6a48ac25e9717936e7d9a832251e6d2123e07297", size = 68726142, upload-time = "2025-09-23T20:49:32.218Z" },
+]
+
+[[package]]
 name = "six"
 version = "1.17.0"
 source = { registry = "https://pypi.org/simple" }
@@ -821,12 +830,14 @@ source = { virtual = "." }
 dependencies = [
     { name = "ipykernel" },
     { name = "revisitpy" },
+    { name = "revisitpy-server" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "ipykernel", specifier = ">=7.0.1" },
     { name = "revisitpy", specifier = ">=2.2.1" },
+    { name = "revisitpy-server", specifier = ">=1.10.0" },
 ]
 
 [[package]]
