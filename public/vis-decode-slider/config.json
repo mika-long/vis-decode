@@ -19,6 +19,8 @@
         "withProgressBar": true,
         "autoDownloadStudy": false,
         "withSidebar": false,
+        "minHeightSize": 800, 
+        "minWidthSize": 800, 
         "urlParticipantIdParam": "PROLIFIC_PID", 
         "studyEndMsg": "**Thank you for completing the study.** \n\n You may click this link and return to Prolific: [https://app.prolific.com/submissions/complete?cc=C1O3ZUHV](https://app.prolific.com/submissions/complete?cc=C1O3ZUHV)"
     },
