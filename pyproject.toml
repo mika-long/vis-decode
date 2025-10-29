@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "ipykernel>=7.0.1",
+    "polars>=1.34.0",
     "revisitpy>=2.2.1",
     "revisitpy-server>=1.10.0",
 ]
