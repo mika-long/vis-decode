@@ -250,17 +250,18 @@ export default function Block5({ parameters, setAnswer }: StimulusParams<any>) {
       status: answerData.status,
       answers: {
         ...answerData.answers,
-        'location-x': point.x, // Include the point's x value
-        'location-y': point.y, // Include the point's y value
+        // Only include location values if they're not null
+        ...(point.x !== null && { 'location-x': point.x }),
+        ...(point.y !== null && { 'location-y': point.y }),
       },
     };
 
     // Only override with slider values if point values are null
-    if (point.x === null && answerData.answers['slider-x'] !== null) {
+    if (point.x === null && answerData.answers['slider-x'] !== undefined) {
       combinedAnswer.answers['location-x'] = answerData.answers['slider-x'];
     }
 
-    if (point.y === null && answerData.answers['slider-y'] !== null) {
+    if (point.y === null && answerData.answers['slider-y'] !== undefined) {
       combinedAnswer.answers['location-y'] = answerData.answers['slider-y'];
     }
 

@@ -202,10 +202,10 @@ export default function Stimuli({ parameters, setAnswer }: StimulusParams<any>) 
     setAnswer({
       status: false, // Start with status false until user makes a selection
       answers: {
-        'location-x': null,
-        'location-y': null,
-        'pixel-x': null,
-        'pixel-y': null,
+        'location-x': 0,
+        'location-y': 0,
+        'pixel-x': 0,
+        'pixel-y': 0,
         'param-mu': adjustedParam.mu,
         'param-sigma': adjustedParam.sigma,
         'param-lambda': adjustedParam.lambda,
