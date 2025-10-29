@@ -1,0 +1,108 @@
+{
+    "config": {
+        "view": {
+            "continuousWidth": 300,
+            "continuousHeight": 300
+        },
+        "axis": {
+            "grid": false
+        },
+        "bar": {
+            "color": "gray"
+        }
+    },
+    "data": {
+        "name": "data-dac0dbb88cf4d0f1720d05af3158f495"
+    },
+    "mark": {
+        "type": "point",
+        "color": "gray",
+        "filled": true,
+        "size": 300
+    },
+    "encoding": {
+        "x": {
+            "axis": {
+                "labelAngle": 0,
+                "title": null
+            },
+            "field": "cat",
+            "type": "nominal"
+        },
+        "y": {
+            "aggregate": "mean",
+            "axis": {
+                "title": "Var"
+            },
+            "field": "var1",
+            "type": "quantitative"
+        }
+    },
+    "height": 400,
+    "width": 400,
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.17.0.json",
+    "datasets": {
+        "data-dac0dbb88cf4d0f1720d05af3158f495": [
+            {
+                "cat": "C",
+                "var1": 53.950479066263284,
+                "var2": 59.93058716642813
+            },
+            {
+                "cat": "E",
+                "var1": 39.08074299543894,
+                "var2": 59.09170949463088
+            },
+            {
+                "cat": "D",
+                "var1": 52.515625802296015,
+                "var2": 47.891069629919485
+            },
+            {
+                "cat": "C",
+                "var1": 48.00711981766518,
+                "var2": 51.75923008909395
+            },
+            {
+                "cat": "C",
+                "var1": 54.25526621036459,
+                "var2": 54.27101472755838
+            },
+            {
+                "cat": "D",
+                "var1": 53.61831298715339,
+                "var2": 42.50024565163554
+            },
+            {
+                "cat": "E",
+                "var1": 63.563027462004875,
+                "var2": 57.01178642124583
+            },
+            {
+                "cat": "A",
+                "var1": 44.09594478499433,
+                "var2": 48.5148788480048
+            },
+            {
+                "cat": "E",
+                "var1": 45.429710000008214,
+                "var2": 57.01357436227425
+            },
+            {
+                "cat": "C",
+                "var1": 48.25907108636508,
+                "var2": 42.80600159994011
+            },
+            {
+                "cat": "B",
+                "var1": 35.68557548487446,
+                "var2": 46.05764984465708
+            },
+            {
+                "cat": "D",
+                "var1": 64.52089579562698,
+                "var2": 49.95113912183763
+            }
+        ]
+    }
+}

@@ -1,0 +1,200 @@
+{
+    "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.0.0/src/parser/StudyConfigSchema.json",
+    "components": {
+        "retrieve_value_10": {
+            "instruction": "Enter the answer to the question",
+            "instructionLocation": "belowStimulus",
+            "path": "vis-decode-retrieve-value/specs/10.json",
+            "response": [
+                {
+                    "id": "retrieve_value",
+                    "location": "belowStimulus",
+                    "prompt": "Your selected answer",
+                    "required": true,
+                    "type": "numerical"
+                }
+            ],
+            "type": "vega",
+            "withSidebar": false
+        },
+        "retrieve_value_9": {
+            "instruction": "Enter the answer to the question",
+            "instructionLocation": "belowStimulus",
+            "path": "vis-decode-retrieve-value/specs/9.json",
+            "response": [
+                {
+                    "id": "retrieve_value",
+                    "location": "belowStimulus",
+                    "prompt": "Your selected answer",
+                    "required": true,
+                    "type": "numerical"
+                }
+            ],
+            "type": "vega",
+            "withSidebar": false
+        },
+        "retrieve_value_8": {
+            "instruction": "Enter the answer to the question",
+            "instructionLocation": "belowStimulus",
+            "path": "vis-decode-retrieve-value/specs/8.json",
+            "response": [
+                {
+                    "id": "retrieve_value",
+                    "location": "belowStimulus",
+                    "prompt": "Your selected answer",
+                    "required": true,
+                    "type": "numerical"
+                }
+            ],
+            "type": "vega",
+            "withSidebar": false
+        },
+        "retrieve_value_7": {
+            "instruction": "Enter the answer to the question",
+            "instructionLocation": "belowStimulus",
+            "path": "vis-decode-retrieve-value/specs/7.json",
+            "response": [
+                {
+                    "id": "retrieve_value",
+                    "location": "belowStimulus",
+                    "prompt": "Your selected answer",
+                    "required": true,
+                    "type": "numerical"
+                }
+            ],
+            "type": "vega",
+            "withSidebar": false
+        },
+        "retrieve_value_6": {
+            "instruction": "Enter the answer to the question",
+            "instructionLocation": "belowStimulus",
+            "path": "vis-decode-retrieve-value/specs/6.json",
+            "response": [
+                {
+                    "id": "retrieve_value",
+                    "location": "belowStimulus",
+                    "prompt": "Your selected answer",
+                    "required": true,
+                    "type": "numerical"
+                }
+            ],
+            "type": "vega",
+            "withSidebar": false
+        },
+        "retrieve_value_5": {
+            "instruction": "Enter the answer to the question",
+            "instructionLocation": "belowStimulus",
+            "path": "vis-decode-retrieve-value/specs/5.json",
+            "response": [
+                {
+                    "id": "retrieve_value",
+                    "location": "belowStimulus",
+                    "prompt": "Your selected answer",
+                    "required": true,
+                    "type": "numerical"
+                }
+            ],
+            "type": "vega",
+            "withSidebar": false
+        },
+        "retrieve_value_4": {
+            "instruction": "Enter the answer to the question",
+            "instructionLocation": "belowStimulus",
+            "path": "vis-decode-retrieve-value/specs/4.json",
+            "response": [
+                {
+                    "id": "retrieve_value",
+                    "location": "belowStimulus",
+                    "prompt": "Your selected answer",
+                    "required": true,
+                    "type": "numerical"
+                }
+            ],
+            "type": "vega",
+            "withSidebar": false
+        },
+        "retrieve_value_3": {
+            "instruction": "Enter the answer to the question",
+            "instructionLocation": "belowStimulus",
+            "path": "vis-decode-retrieve-value/specs/3.json",
+            "response": [
+                {
+                    "id": "retrieve_value",
+                    "location": "belowStimulus",
+                    "prompt": "Your selected answer",
+                    "required": true,
+                    "type": "numerical"
+                }
+            ],
+            "type": "vega",
+            "withSidebar": false
+        },
+        "retrieve_value_2": {
+            "instruction": "Enter the answer to the question",
+            "instructionLocation": "belowStimulus",
+            "path": "vis-decode-retrieve-value/specs/2.json",
+            "response": [
+                {
+                    "id": "retrieve_value",
+                    "location": "belowStimulus",
+                    "prompt": "Your selected answer",
+                    "required": true,
+                    "type": "numerical"
+                }
+            ],
+            "type": "vega",
+            "withSidebar": false
+        },
+        "retrieve_value_1": {
+            "instruction": "Enter the answer to the question",
+            "instructionLocation": "belowStimulus",
+            "path": "vis-decode-retrieve-value/specs/1.json",
+            "response": [
+                {
+                    "id": "retrieve_value",
+                    "location": "belowStimulus",
+                    "prompt": "Your selected answer",
+                    "required": true,
+                    "type": "numerical"
+                }
+            ],
+            "type": "vega",
+            "withSidebar": false
+        }
+    },
+    "sequence": {
+        "components": [
+            "retrieve_value_10",
+            "retrieve_value_9",
+            "retrieve_value_8",
+            "retrieve_value_7",
+            "retrieve_value_6",
+            "retrieve_value_5",
+            "retrieve_value_4",
+            "retrieve_value_3",
+            "retrieve_value_2",
+            "retrieve_value_1"
+        ],
+        "numSamples": 5.0,
+        "order": "random"
+    },
+    "studyMetadata": {
+        "authors": [
+            "Brian Bollen"
+        ],
+        "date": "2025-01-13",
+        "description": "",
+        "organizations": [
+            "Visualization Design Lab"
+        ],
+        "title": "Vis Decode Retrieve Value",
+        "version": "1.0"
+    },
+    "uiConfig": {
+        "contactEmail": "briancbollen@gmail.com",
+        "logoPath": "./assets/revisitLogoSquare.svg",
+        "nextOnEnter": true,
+        "withProgressBar": false,
+        "withSidebar": true
+    }
+}

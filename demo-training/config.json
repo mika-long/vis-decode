@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.0.0-rc3/src/parser/StudyConfigSchema.json",
+  "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.3.1/src/parser/StudyConfigSchema.json",
   "studyMetadata": {
     "title": "How To Do Training Demo",
     "version": "pilot",
@@ -19,7 +19,7 @@
     "logoPath": "revisitAssets/revisitLogoSquare.svg",
     "withProgressBar": true,
     "autoDownloadStudy": false,
-    "sidebar": true
+    "withSidebar": true
   },
   "components": {
     "simple-dropbox": {
@@ -27,11 +27,11 @@
       "nextButtonLocation": "sidebar",
       "response": [
         {
-          "id": "q1",
+          "id": "q-mark-type",
+          "type": "dropdown",
           "prompt": "What is the most efficient visual mark?",
           "secondaryText": "Hint: it's not round.",
           "location": "sidebar",
-          "type": "dropdown",
           "placeholder": "Choose mark",
           "options": [
             "Bar",
@@ -43,12 +43,12 @@
       ],
       "correctAnswer": [
         {
-          "id": "q1",
+          "id": "q-mark-type",
           "answer": "Bar"
         }
       ],
       "provideFeedback": true,
-      "allowFailedTraining": false,
+      "allowFailedTraining": true,
       "trainingAttempts": 4
     },
     "slider-range": {
@@ -79,6 +79,37 @@
           "answer": 25,
           "acceptableLow": 22,
           "acceptableHigh": 28
+        }
+      ],
+      "provideFeedback": true,
+      "allowFailedTraining": false,
+      "trainingAttempts": 4
+    },
+    "multiSelectCheckbox": {
+      "type": "questionnaire",
+      "nextButtonLocation": "sidebar",
+      "response": [
+        {
+          "id": "quiz",
+          "prompt": "Select A, D, F",
+          "required": true,
+          "location": "sidebar",
+          "type": "checkbox",
+          "options": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G"
+          ]
+        }
+      ],
+      "correctAnswer": [
+        {
+          "id": "quiz",
+          "answer": ["A","D","F"]
         }
       ],
       "provideFeedback": true,
@@ -126,6 +157,7 @@
     "components": [
       "simple-dropbox",
       "slider-range",
+      "multiSelectCheckbox",
       "main-page-text-field"
     ]
   }
