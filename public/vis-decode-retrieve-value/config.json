@@ -1,10 +1,10 @@
 {
-    "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.0.0/src/parser/StudyConfigSchema.json",
+    "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.3.1/src/parser/StudyConfigSchema.json",
     "components": {
         "retrieve_value_10": {
             "instruction": "Enter the answer to the question",
             "instructionLocation": "belowStimulus",
-            "path": "vis-decode-retrieve-value/specs/10.json",
+            "path": "public/vis-decode-retrieve-value/specs/10.json",
             "response": [
                 {
                     "id": "retrieve_value",
@@ -20,7 +20,7 @@
         "retrieve_value_9": {
             "instruction": "Enter the answer to the question",
             "instructionLocation": "belowStimulus",
-            "path": "vis-decode-retrieve-value/specs/9.json",
+            "path": "public/vis-decode-retrieve-value/specs/9.json",
             "response": [
                 {
                     "id": "retrieve_value",
@@ -36,7 +36,7 @@
         "retrieve_value_8": {
             "instruction": "Enter the answer to the question",
             "instructionLocation": "belowStimulus",
-            "path": "vis-decode-retrieve-value/specs/8.json",
+            "path": "public/vis-decode-retrieve-value/specs/8.json",
             "response": [
                 {
                     "id": "retrieve_value",
@@ -52,7 +52,7 @@
         "retrieve_value_7": {
             "instruction": "Enter the answer to the question",
             "instructionLocation": "belowStimulus",
-            "path": "vis-decode-retrieve-value/specs/7.json",
+            "path": "public/vis-decode-retrieve-value/specs/7.json",
             "response": [
                 {
                     "id": "retrieve_value",
@@ -68,7 +68,7 @@
         "retrieve_value_6": {
             "instruction": "Enter the answer to the question",
             "instructionLocation": "belowStimulus",
-            "path": "vis-decode-retrieve-value/specs/6.json",
+            "path": "public/vis-decode-retrieve-value/specs/6.json",
             "response": [
                 {
                     "id": "retrieve_value",
@@ -84,7 +84,7 @@
         "retrieve_value_5": {
             "instruction": "Enter the answer to the question",
             "instructionLocation": "belowStimulus",
-            "path": "vis-decode-retrieve-value/specs/5.json",
+            "path": "public/vis-decode-retrieve-value/specs/5.json",
             "response": [
                 {
                     "id": "retrieve_value",
@@ -100,7 +100,7 @@
         "retrieve_value_4": {
             "instruction": "Enter the answer to the question",
             "instructionLocation": "belowStimulus",
-            "path": "vis-decode-retrieve-value/specs/4.json",
+            "path": "public/vis-decode-retrieve-value/specs/4.json",
             "response": [
                 {
                     "id": "retrieve_value",
@@ -116,7 +116,7 @@
         "retrieve_value_3": {
             "instruction": "Enter the answer to the question",
             "instructionLocation": "belowStimulus",
-            "path": "vis-decode-retrieve-value/specs/3.json",
+            "path": "public/vis-decode-retrieve-value/specs/3.json",
             "response": [
                 {
                     "id": "retrieve_value",
@@ -132,7 +132,7 @@
         "retrieve_value_2": {
             "instruction": "Enter the answer to the question",
             "instructionLocation": "belowStimulus",
-            "path": "vis-decode-retrieve-value/specs/2.json",
+            "path": "public/vis-decode-retrieve-value/specs/2.json",
             "response": [
                 {
                     "id": "retrieve_value",
@@ -148,7 +148,7 @@
         "retrieve_value_1": {
             "instruction": "Enter the answer to the question",
             "instructionLocation": "belowStimulus",
-            "path": "vis-decode-retrieve-value/specs/1.json",
+            "path": "public/vis-decode-retrieve-value/specs/1.json",
             "response": [
                 {
                     "id": "retrieve_value",
@@ -180,19 +180,21 @@
     },
     "studyMetadata": {
         "authors": [
-            "Brian Bollen"
+            "Sheng Long"
         ],
-        "date": "2025-01-13",
+        "date": "2025-10-29",
         "description": "",
         "organizations": [
-            "Visualization Design Lab"
+            "Northwestern University"
         ],
-        "title": "Vis Decode Retrieve Value",
+        "title": "Correlation Judgment Study",
         "version": "1.0"
     },
     "uiConfig": {
-        "contactEmail": "briancbollen@gmail.com",
+        "contactEmail": "shenglong@u.northwestern.edu",
         "logoPath": "./assets/revisitLogoSquare.svg",
+        "minHeightSize": 800.0,
+        "minWidthSize": 800.0,
         "nextOnEnter": true,
         "withProgressBar": false,
         "withSidebar": true
