@@ -2,9 +2,115 @@
     "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.3.1/src/parser/StudyConfigSchema.json",
     "components": {
         "retrieve_value_10": {
-            "instruction": "Enter the answer to the question",
+            "config": {
+                "config": {
+                    "view": {
+                        "continuousWidth": 300,
+                        "continuousHeight": 300
+                    },
+                    "axis": {
+                        "grid": false
+                    },
+                    "bar": {
+                        "color": "gray"
+                    }
+                },
+                "data": {
+                    "name": "data-750e2a88890a003b3554831f4cb67345"
+                },
+                "mark": {
+                    "type": "point",
+                    "color": "gray",
+                    "filled": true,
+                    "size": 300
+                },
+                "encoding": {
+                    "x": {
+                        "aggregate": "mean",
+                        "axis": {
+                            "title": "Var"
+                        },
+                        "field": "var1",
+                        "type": "quantitative"
+                    },
+                    "y": {
+                        "axis": {
+                            "title": null
+                        },
+                        "field": "cat",
+                        "type": "nominal"
+                    }
+                },
+                "height": 400,
+                "width": 400,
+                "$schema": "https://vega.github.io/schema/vega-lite/v5.17.0.json",
+                "datasets": {
+                    "data-750e2a88890a003b3554831f4cb67345": [
+                        {
+                            "cat": "B",
+                            "var1": 119.19377453012149,
+                            "var2": 51.425626181251786
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 24.526268514212823,
+                            "var2": 52.481705115238235
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 23.026539720253542,
+                            "var2": 45.041347860941585
+                        },
+                        {
+                            "cat": "A",
+                            "var1": 56.59891044356943,
+                            "var2": 39.30876925207038
+                        },
+                        {
+                            "cat": "A",
+                            "var1": 51.00070265955314,
+                            "var2": 61.65453601303884
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 42.29078694036072,
+                            "var2": 57.488405224555436
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 65.9959191189492,
+                            "var2": 43.4598528774998
+                        },
+                        {
+                            "cat": "C",
+                            "var1": 35.36931842538243,
+                            "var2": 50.15608186929189
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 48.90677894429551,
+                            "var2": 35.74095126711977
+                        },
+                        {
+                            "cat": "A",
+                            "var1": 40.17938060256881,
+                            "var2": 35.277862411018816
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 61.62472763616299,
+                            "var2": 60.24160227512531
+                        },
+                        {
+                            "cat": "C",
+                            "var1": 65.49419573828833,
+                            "var2": 35.19617413348836
+                        }
+                    ]
+                }
+            },
+            "instruction": "What is the value of Var at B?",
             "instructionLocation": "belowStimulus",
-            "path": "public/vis-decode-retrieve-value/specs/10.json",
             "response": [
                 {
                     "id": "retrieve_value",
@@ -18,9 +124,116 @@
             "withSidebar": false
         },
         "retrieve_value_9": {
-            "instruction": "Enter the answer to the question",
+            "config": {
+                "config": {
+                    "view": {
+                        "continuousWidth": 300,
+                        "continuousHeight": 300
+                    },
+                    "axis": {
+                        "grid": false
+                    },
+                    "bar": {
+                        "color": "gray"
+                    }
+                },
+                "data": {
+                    "name": "data-750e2a88890a003b3554831f4cb67345"
+                },
+                "mark": {
+                    "type": "point",
+                    "color": "gray",
+                    "filled": true,
+                    "size": 300
+                },
+                "encoding": {
+                    "x": {
+                        "axis": {
+                            "labelAngle": 0,
+                            "title": null
+                        },
+                        "field": "cat",
+                        "type": "nominal"
+                    },
+                    "y": {
+                        "aggregate": "mean",
+                        "axis": {
+                            "title": "Var"
+                        },
+                        "field": "var1",
+                        "type": "quantitative"
+                    }
+                },
+                "height": 400,
+                "width": 400,
+                "$schema": "https://vega.github.io/schema/vega-lite/v5.17.0.json",
+                "datasets": {
+                    "data-750e2a88890a003b3554831f4cb67345": [
+                        {
+                            "cat": "B",
+                            "var1": 119.19377453012149,
+                            "var2": 51.425626181251786
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 24.526268514212823,
+                            "var2": 52.481705115238235
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 23.026539720253542,
+                            "var2": 45.041347860941585
+                        },
+                        {
+                            "cat": "A",
+                            "var1": 56.59891044356943,
+                            "var2": 39.30876925207038
+                        },
+                        {
+                            "cat": "A",
+                            "var1": 51.00070265955314,
+                            "var2": 61.65453601303884
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 42.29078694036072,
+                            "var2": 57.488405224555436
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 65.9959191189492,
+                            "var2": 43.4598528774998
+                        },
+                        {
+                            "cat": "C",
+                            "var1": 35.36931842538243,
+                            "var2": 50.15608186929189
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 48.90677894429551,
+                            "var2": 35.74095126711977
+                        },
+                        {
+                            "cat": "A",
+                            "var1": 40.17938060256881,
+                            "var2": 35.277862411018816
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 61.62472763616299,
+                            "var2": 60.24160227512531
+                        },
+                        {
+                            "cat": "C",
+                            "var1": 65.49419573828833,
+                            "var2": 35.19617413348836
+                        }
+                    ]
+                }
+            },
+            "instruction": "What is the value of Var at C?",
             "instructionLocation": "belowStimulus",
-            "path": "public/vis-decode-retrieve-value/specs/9.json",
             "response": [
                 {
                     "id": "retrieve_value",
@@ -34,9 +247,115 @@
             "withSidebar": false
         },
         "retrieve_value_8": {
-            "instruction": "Enter the answer to the question",
+            "config": {
+                "config": {
+                    "view": {
+                        "continuousWidth": 300,
+                        "continuousHeight": 300
+                    },
+                    "axis": {
+                        "grid": false
+                    },
+                    "bar": {
+                        "color": "gray"
+                    }
+                },
+                "data": {
+                    "name": "data-b8718304d8f2358f06e6d52d9fcbd2f2"
+                },
+                "mark": {
+                    "type": "point",
+                    "color": "gray",
+                    "filled": true,
+                    "size": 300
+                },
+                "encoding": {
+                    "x": {
+                        "aggregate": "mean",
+                        "axis": {
+                            "title": "Var"
+                        },
+                        "field": "var1",
+                        "type": "quantitative"
+                    },
+                    "y": {
+                        "axis": {
+                            "title": null
+                        },
+                        "field": "cat",
+                        "type": "nominal"
+                    }
+                },
+                "height": 400,
+                "width": 400,
+                "$schema": "https://vega.github.io/schema/vega-lite/v5.17.0.json",
+                "datasets": {
+                    "data-b8718304d8f2358f06e6d52d9fcbd2f2": [
+                        {
+                            "cat": "C",
+                            "var1": 41.3682233992959,
+                            "var2": 51.09788674122616
+                        },
+                        {
+                            "cat": "A",
+                            "var1": 52.520447658260444,
+                            "var2": 53.41770259670491
+                        },
+                        {
+                            "cat": "B",
+                            "var1": 63.80177758643789,
+                            "var2": 54.903351387552675
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 120.03035187816045,
+                            "var2": 47.39838571356933
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 23.247616585437747,
+                            "var2": 60.22189398968967
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 21.022615546753723,
+                            "var2": 39.750224945473306
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 25.194220943808823,
+                            "var2": 45.3873533386821
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 27.149066686850382,
+                            "var2": 62.51465084223436
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 98.78481594684425,
+                            "var2": 34.269535006920776
+                        },
+                        {
+                            "cat": "B",
+                            "var1": 34.980903916179884,
+                            "var2": 45.34628462806407
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 19.166870590116215,
+                            "var2": 59.62558140811844
+                        },
+                        {
+                            "cat": "C",
+                            "var1": 61.653494360234035,
+                            "var2": 37.423321096143496
+                        }
+                    ]
+                }
+            },
+            "instruction": "What is the value of Var at B?",
             "instructionLocation": "belowStimulus",
-            "path": "public/vis-decode-retrieve-value/specs/8.json",
             "response": [
                 {
                     "id": "retrieve_value",
@@ -50,9 +369,116 @@
             "withSidebar": false
         },
         "retrieve_value_7": {
-            "instruction": "Enter the answer to the question",
+            "config": {
+                "config": {
+                    "view": {
+                        "continuousWidth": 300,
+                        "continuousHeight": 300
+                    },
+                    "axis": {
+                        "grid": false
+                    },
+                    "bar": {
+                        "color": "gray"
+                    }
+                },
+                "data": {
+                    "name": "data-b8718304d8f2358f06e6d52d9fcbd2f2"
+                },
+                "mark": {
+                    "type": "point",
+                    "color": "gray",
+                    "filled": true,
+                    "size": 300
+                },
+                "encoding": {
+                    "x": {
+                        "axis": {
+                            "labelAngle": 0,
+                            "title": null
+                        },
+                        "field": "cat",
+                        "type": "nominal"
+                    },
+                    "y": {
+                        "aggregate": "mean",
+                        "axis": {
+                            "title": "Var"
+                        },
+                        "field": "var1",
+                        "type": "quantitative"
+                    }
+                },
+                "height": 400,
+                "width": 400,
+                "$schema": "https://vega.github.io/schema/vega-lite/v5.17.0.json",
+                "datasets": {
+                    "data-b8718304d8f2358f06e6d52d9fcbd2f2": [
+                        {
+                            "cat": "C",
+                            "var1": 41.3682233992959,
+                            "var2": 51.09788674122616
+                        },
+                        {
+                            "cat": "A",
+                            "var1": 52.520447658260444,
+                            "var2": 53.41770259670491
+                        },
+                        {
+                            "cat": "B",
+                            "var1": 63.80177758643789,
+                            "var2": 54.903351387552675
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 120.03035187816045,
+                            "var2": 47.39838571356933
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 23.247616585437747,
+                            "var2": 60.22189398968967
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 21.022615546753723,
+                            "var2": 39.750224945473306
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 25.194220943808823,
+                            "var2": 45.3873533386821
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 27.149066686850382,
+                            "var2": 62.51465084223436
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 98.78481594684425,
+                            "var2": 34.269535006920776
+                        },
+                        {
+                            "cat": "B",
+                            "var1": 34.980903916179884,
+                            "var2": 45.34628462806407
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 19.166870590116215,
+                            "var2": 59.62558140811844
+                        },
+                        {
+                            "cat": "C",
+                            "var1": 61.653494360234035,
+                            "var2": 37.423321096143496
+                        }
+                    ]
+                }
+            },
+            "instruction": "What is the value of Var at A?",
             "instructionLocation": "belowStimulus",
-            "path": "public/vis-decode-retrieve-value/specs/7.json",
             "response": [
                 {
                     "id": "retrieve_value",
@@ -66,9 +492,115 @@
             "withSidebar": false
         },
         "retrieve_value_6": {
-            "instruction": "Enter the answer to the question",
+            "config": {
+                "config": {
+                    "view": {
+                        "continuousWidth": 300,
+                        "continuousHeight": 300
+                    },
+                    "axis": {
+                        "grid": false
+                    },
+                    "bar": {
+                        "color": "gray"
+                    }
+                },
+                "data": {
+                    "name": "data-df60f004ea423c1b52d42614132162ca"
+                },
+                "mark": {
+                    "type": "point",
+                    "color": "gray",
+                    "filled": true,
+                    "size": 300
+                },
+                "encoding": {
+                    "x": {
+                        "aggregate": "mean",
+                        "axis": {
+                            "title": "Var"
+                        },
+                        "field": "var1",
+                        "type": "quantitative"
+                    },
+                    "y": {
+                        "axis": {
+                            "title": null
+                        },
+                        "field": "cat",
+                        "type": "nominal"
+                    }
+                },
+                "height": 400,
+                "width": 400,
+                "$schema": "https://vega.github.io/schema/vega-lite/v5.17.0.json",
+                "datasets": {
+                    "data-df60f004ea423c1b52d42614132162ca": [
+                        {
+                            "cat": "B",
+                            "var1": 52.029248737080216,
+                            "var2": 52.24527325935213
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 49.93727630190572,
+                            "var2": 43.18183399779119
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 35.34046117096791,
+                            "var2": 52.916962531806824
+                        },
+                        {
+                            "cat": "A",
+                            "var1": 44.2661024458406,
+                            "var2": 49.7981912590114
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 43.57899849433514,
+                            "var2": 59.42483860521197
+                        },
+                        {
+                            "cat": "B",
+                            "var1": 42.74362180154374,
+                            "var2": 34.11664753671046
+                        },
+                        {
+                            "cat": "B",
+                            "var1": 45.6866468648437,
+                            "var2": 69.30717365353954
+                        },
+                        {
+                            "cat": "C",
+                            "var1": 60.56168154497229,
+                            "var2": 50.78802262724688
+                        },
+                        {
+                            "cat": "B",
+                            "var1": 61.44609064109911,
+                            "var2": 40.25949481584982
+                        },
+                        {
+                            "cat": "C",
+                            "var1": 56.0153738857866,
+                            "var2": 63.35123048122034
+                        },
+                        {
+                            "cat": "B",
+                            "var1": 30.583742826957494,
+                            "var2": 44.57531128339914
+                        },
+                        {
+                            "cat": "A",
+                            "var1": 54.89549809725152,
+                            "var2": 32.46144200400047
+                        }
+                    ]
+                }
+            },
+            "instruction": "What is the value of Var at E?",
             "instructionLocation": "belowStimulus",
-            "path": "public/vis-decode-retrieve-value/specs/6.json",
             "response": [
                 {
                     "id": "retrieve_value",
@@ -82,9 +614,116 @@
             "withSidebar": false
         },
         "retrieve_value_5": {
-            "instruction": "Enter the answer to the question",
+            "config": {
+                "config": {
+                    "view": {
+                        "continuousWidth": 300,
+                        "continuousHeight": 300
+                    },
+                    "axis": {
+                        "grid": false
+                    },
+                    "bar": {
+                        "color": "gray"
+                    }
+                },
+                "data": {
+                    "name": "data-df60f004ea423c1b52d42614132162ca"
+                },
+                "mark": {
+                    "type": "point",
+                    "color": "gray",
+                    "filled": true,
+                    "size": 300
+                },
+                "encoding": {
+                    "x": {
+                        "axis": {
+                            "labelAngle": 0,
+                            "title": null
+                        },
+                        "field": "cat",
+                        "type": "nominal"
+                    },
+                    "y": {
+                        "aggregate": "mean",
+                        "axis": {
+                            "title": "Var"
+                        },
+                        "field": "var1",
+                        "type": "quantitative"
+                    }
+                },
+                "height": 400,
+                "width": 400,
+                "$schema": "https://vega.github.io/schema/vega-lite/v5.17.0.json",
+                "datasets": {
+                    "data-df60f004ea423c1b52d42614132162ca": [
+                        {
+                            "cat": "B",
+                            "var1": 52.029248737080216,
+                            "var2": 52.24527325935213
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 49.93727630190572,
+                            "var2": 43.18183399779119
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 35.34046117096791,
+                            "var2": 52.916962531806824
+                        },
+                        {
+                            "cat": "A",
+                            "var1": 44.2661024458406,
+                            "var2": 49.7981912590114
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 43.57899849433514,
+                            "var2": 59.42483860521197
+                        },
+                        {
+                            "cat": "B",
+                            "var1": 42.74362180154374,
+                            "var2": 34.11664753671046
+                        },
+                        {
+                            "cat": "B",
+                            "var1": 45.6866468648437,
+                            "var2": 69.30717365353954
+                        },
+                        {
+                            "cat": "C",
+                            "var1": 60.56168154497229,
+                            "var2": 50.78802262724688
+                        },
+                        {
+                            "cat": "B",
+                            "var1": 61.44609064109911,
+                            "var2": 40.25949481584982
+                        },
+                        {
+                            "cat": "C",
+                            "var1": 56.0153738857866,
+                            "var2": 63.35123048122034
+                        },
+                        {
+                            "cat": "B",
+                            "var1": 30.583742826957494,
+                            "var2": 44.57531128339914
+                        },
+                        {
+                            "cat": "A",
+                            "var1": 54.89549809725152,
+                            "var2": 32.46144200400047
+                        }
+                    ]
+                }
+            },
+            "instruction": "What is the value of Var at B?",
             "instructionLocation": "belowStimulus",
-            "path": "public/vis-decode-retrieve-value/specs/5.json",
             "response": [
                 {
                     "id": "retrieve_value",
@@ -98,9 +737,115 @@
             "withSidebar": false
         },
         "retrieve_value_4": {
-            "instruction": "Enter the answer to the question",
+            "config": {
+                "config": {
+                    "view": {
+                        "continuousWidth": 300,
+                        "continuousHeight": 300
+                    },
+                    "axis": {
+                        "grid": false
+                    },
+                    "bar": {
+                        "color": "gray"
+                    }
+                },
+                "data": {
+                    "name": "data-33babfc4ef7d9b9bc2cf14648382addf"
+                },
+                "mark": {
+                    "type": "point",
+                    "color": "gray",
+                    "filled": true,
+                    "size": 300
+                },
+                "encoding": {
+                    "x": {
+                        "aggregate": "mean",
+                        "axis": {
+                            "title": "Var"
+                        },
+                        "field": "var1",
+                        "type": "quantitative"
+                    },
+                    "y": {
+                        "axis": {
+                            "title": null
+                        },
+                        "field": "cat",
+                        "type": "nominal"
+                    }
+                },
+                "height": 400,
+                "width": 400,
+                "$schema": "https://vega.github.io/schema/vega-lite/v5.17.0.json",
+                "datasets": {
+                    "data-33babfc4ef7d9b9bc2cf14648382addf": [
+                        {
+                            "cat": "E",
+                            "var1": 38.07892641920117,
+                            "var2": 50.794232974794994
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 51.34800819996292,
+                            "var2": 50.65563887998604
+                        },
+                        {
+                            "cat": "B",
+                            "var1": 51.47610332537791,
+                            "var2": 59.82092010272037
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 48.750842795904866,
+                            "var2": 43.05354595181416
+                        },
+                        {
+                            "cat": "B",
+                            "var1": 60.72754448977048,
+                            "var2": 57.04049766050659
+                        },
+                        {
+                            "cat": "C",
+                            "var1": 121.8870684625936,
+                            "var2": 40.267664073924905
+                        },
+                        {
+                            "cat": "B",
+                            "var1": 45.9801400304941,
+                            "var2": 67.56048058908607
+                        },
+                        {
+                            "cat": "A",
+                            "var1": 53.07712102666655,
+                            "var2": 35.891764175738494
+                        },
+                        {
+                            "cat": "C",
+                            "var1": 119.97934302341467,
+                            "var2": 48.39727385017207
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 43.622918431153934,
+                            "var2": 57.81377039295873
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 37.7497404142691,
+                            "var2": 35.14431421515319
+                        },
+                        {
+                            "cat": "B",
+                            "var1": 36.59619178112584,
+                            "var2": 66.07912929015063
+                        }
+                    ]
+                }
+            },
+            "instruction": "What is the value of Var at C?",
             "instructionLocation": "belowStimulus",
-            "path": "public/vis-decode-retrieve-value/specs/4.json",
             "response": [
                 {
                     "id": "retrieve_value",
@@ -114,9 +859,116 @@
             "withSidebar": false
         },
         "retrieve_value_3": {
-            "instruction": "Enter the answer to the question",
+            "config": {
+                "config": {
+                    "view": {
+                        "continuousWidth": 300,
+                        "continuousHeight": 300
+                    },
+                    "axis": {
+                        "grid": false
+                    },
+                    "bar": {
+                        "color": "gray"
+                    }
+                },
+                "data": {
+                    "name": "data-33babfc4ef7d9b9bc2cf14648382addf"
+                },
+                "mark": {
+                    "type": "point",
+                    "color": "gray",
+                    "filled": true,
+                    "size": 300
+                },
+                "encoding": {
+                    "x": {
+                        "axis": {
+                            "labelAngle": 0,
+                            "title": null
+                        },
+                        "field": "cat",
+                        "type": "nominal"
+                    },
+                    "y": {
+                        "aggregate": "mean",
+                        "axis": {
+                            "title": "Var"
+                        },
+                        "field": "var1",
+                        "type": "quantitative"
+                    }
+                },
+                "height": 400,
+                "width": 400,
+                "$schema": "https://vega.github.io/schema/vega-lite/v5.17.0.json",
+                "datasets": {
+                    "data-33babfc4ef7d9b9bc2cf14648382addf": [
+                        {
+                            "cat": "E",
+                            "var1": 38.07892641920117,
+                            "var2": 50.794232974794994
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 51.34800819996292,
+                            "var2": 50.65563887998604
+                        },
+                        {
+                            "cat": "B",
+                            "var1": 51.47610332537791,
+                            "var2": 59.82092010272037
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 48.750842795904866,
+                            "var2": 43.05354595181416
+                        },
+                        {
+                            "cat": "B",
+                            "var1": 60.72754448977048,
+                            "var2": 57.04049766050659
+                        },
+                        {
+                            "cat": "C",
+                            "var1": 121.8870684625936,
+                            "var2": 40.267664073924905
+                        },
+                        {
+                            "cat": "B",
+                            "var1": 45.9801400304941,
+                            "var2": 67.56048058908607
+                        },
+                        {
+                            "cat": "A",
+                            "var1": 53.07712102666655,
+                            "var2": 35.891764175738494
+                        },
+                        {
+                            "cat": "C",
+                            "var1": 119.97934302341467,
+                            "var2": 48.39727385017207
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 43.622918431153934,
+                            "var2": 57.81377039295873
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 37.7497404142691,
+                            "var2": 35.14431421515319
+                        },
+                        {
+                            "cat": "B",
+                            "var1": 36.59619178112584,
+                            "var2": 66.07912929015063
+                        }
+                    ]
+                }
+            },
+            "instruction": "What is the value of Var at C?",
             "instructionLocation": "belowStimulus",
-            "path": "public/vis-decode-retrieve-value/specs/3.json",
             "response": [
                 {
                     "id": "retrieve_value",
@@ -130,9 +982,115 @@
             "withSidebar": false
         },
         "retrieve_value_2": {
-            "instruction": "Enter the answer to the question",
+            "config": {
+                "config": {
+                    "view": {
+                        "continuousWidth": 300,
+                        "continuousHeight": 300
+                    },
+                    "axis": {
+                        "grid": false
+                    },
+                    "bar": {
+                        "color": "gray"
+                    }
+                },
+                "data": {
+                    "name": "data-9a1c73a21da12f2e668e101efeeb1bbd"
+                },
+                "mark": {
+                    "type": "point",
+                    "color": "gray",
+                    "filled": true,
+                    "size": 300
+                },
+                "encoding": {
+                    "x": {
+                        "aggregate": "mean",
+                        "axis": {
+                            "title": "Var"
+                        },
+                        "field": "var1",
+                        "type": "quantitative"
+                    },
+                    "y": {
+                        "axis": {
+                            "title": null
+                        },
+                        "field": "cat",
+                        "type": "nominal"
+                    }
+                },
+                "height": 400,
+                "width": 400,
+                "$schema": "https://vega.github.io/schema/vega-lite/v5.17.0.json",
+                "datasets": {
+                    "data-9a1c73a21da12f2e668e101efeeb1bbd": [
+                        {
+                            "cat": "C",
+                            "var1": 94.53337893746139,
+                            "var2": 45.7573094474521
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 65.92327500197413,
+                            "var2": 53.03417406992416
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 52.33420881465709,
+                            "var2": 54.67417687172758
+                        },
+                        {
+                            "cat": "B",
+                            "var1": 56.60850125771311,
+                            "var2": 43.262914732152254
+                        },
+                        {
+                            "cat": "A",
+                            "var1": 40.84536899383492,
+                            "var2": 56.02464150248745
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 49.95558389337083,
+                            "var2": 35.43351547937645
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 52.912346173468165,
+                            "var2": 63.49398579818428
+                        },
+                        {
+                            "cat": "A",
+                            "var1": 36.91884425053939,
+                            "var2": 47.258938146751305
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 44.71182256904458,
+                            "var2": 68.9206415747566
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 41.49288141207039,
+                            "var2": 31.950164235519324
+                        },
+                        {
+                            "cat": "C",
+                            "var1": 133.0037989125809,
+                            "var2": 45.04560687621044
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 60.13552437783782,
+                            "var2": 59.1945800139903
+                        }
+                    ]
+                }
+            },
+            "instruction": "What is the value of Var at E?",
             "instructionLocation": "belowStimulus",
-            "path": "public/vis-decode-retrieve-value/specs/2.json",
             "response": [
                 {
                     "id": "retrieve_value",
@@ -146,9 +1104,116 @@
             "withSidebar": false
         },
         "retrieve_value_1": {
-            "instruction": "Enter the answer to the question",
+            "config": {
+                "config": {
+                    "view": {
+                        "continuousWidth": 300,
+                        "continuousHeight": 300
+                    },
+                    "axis": {
+                        "grid": false
+                    },
+                    "bar": {
+                        "color": "gray"
+                    }
+                },
+                "data": {
+                    "name": "data-9a1c73a21da12f2e668e101efeeb1bbd"
+                },
+                "mark": {
+                    "type": "point",
+                    "color": "gray",
+                    "filled": true,
+                    "size": 300
+                },
+                "encoding": {
+                    "x": {
+                        "axis": {
+                            "labelAngle": 0,
+                            "title": null
+                        },
+                        "field": "cat",
+                        "type": "nominal"
+                    },
+                    "y": {
+                        "aggregate": "mean",
+                        "axis": {
+                            "title": "Var"
+                        },
+                        "field": "var1",
+                        "type": "quantitative"
+                    }
+                },
+                "height": 400,
+                "width": 400,
+                "$schema": "https://vega.github.io/schema/vega-lite/v5.17.0.json",
+                "datasets": {
+                    "data-9a1c73a21da12f2e668e101efeeb1bbd": [
+                        {
+                            "cat": "C",
+                            "var1": 94.53337893746139,
+                            "var2": 45.7573094474521
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 65.92327500197413,
+                            "var2": 53.03417406992416
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 52.33420881465709,
+                            "var2": 54.67417687172758
+                        },
+                        {
+                            "cat": "B",
+                            "var1": 56.60850125771311,
+                            "var2": 43.262914732152254
+                        },
+                        {
+                            "cat": "A",
+                            "var1": 40.84536899383492,
+                            "var2": 56.02464150248745
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 49.95558389337083,
+                            "var2": 35.43351547937645
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 52.912346173468165,
+                            "var2": 63.49398579818428
+                        },
+                        {
+                            "cat": "A",
+                            "var1": 36.91884425053939,
+                            "var2": 47.258938146751305
+                        },
+                        {
+                            "cat": "E",
+                            "var1": 44.71182256904458,
+                            "var2": 68.9206415747566
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 41.49288141207039,
+                            "var2": 31.950164235519324
+                        },
+                        {
+                            "cat": "C",
+                            "var1": 133.0037989125809,
+                            "var2": 45.04560687621044
+                        },
+                        {
+                            "cat": "D",
+                            "var1": 60.13552437783782,
+                            "var2": 59.1945800139903
+                        }
+                    ]
+                }
+            },
+            "instruction": "What is the value of Var at A?",
             "instructionLocation": "belowStimulus",
-            "path": "public/vis-decode-retrieve-value/specs/1.json",
             "response": [
                 {
                     "id": "retrieve_value",
@@ -175,14 +1240,14 @@
             "retrieve_value_2",
             "retrieve_value_1"
         ],
-        "numSamples": 5.0,
+        "numSamples": 10.0,
         "order": "random"
     },
     "studyMetadata": {
         "authors": [
             "Sheng Long"
         ],
-        "date": "2025-10-29",
+        "date": "2025-11-04",
         "description": "",
         "organizations": [
             "Northwestern University"
