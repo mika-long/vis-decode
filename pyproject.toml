@@ -11,4 +11,5 @@ dependencies = [
     "revisitpy>=2.2.1",
     "revisitpy-server>=1.10.0",
     "scipy>=1.16.3",
+    "vl-convert-python>=1.8.0",
 ]
