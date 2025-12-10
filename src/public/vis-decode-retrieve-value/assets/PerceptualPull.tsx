@@ -61,7 +61,7 @@ function generateData(
  */
 function generateSpec(data: { x: number; y: number }[], chartType: 'line' | 'bar', bottom: boolean): VisualizationSpec {
   return {
-    $schema: 'https://vega.github.io/schema/vega-lite/v6.1.0.json',
+    $schema: 'https://vega.github.io/schema/vega-lite/v5.23.0.json',
     data: { name: 'data', values: data },
     mark: { type: chartType, color: 'black', point: { fill: 'black' } },
     encoding: {
@@ -113,21 +113,35 @@ function generateSpec(data: { x: number; y: number }[], chartType: 'line' | 'bar
 // }
 
 interface PerceptualPullProps {
-  level: 'H' | 'M' | 'L';
-  chartType: 'line' | 'bar';
-  bottom: boolean;
+  taskid: string;
+  taskType: string;
+  params: {
+    level: 'H' | 'M' | 'L';
+    chartType: 'line' | 'bar';
+    bottom: boolean;
+  }
 }
 
 export default function PerceptualPull({ parameters }: StimulusParams<PerceptualPullProps>) {
-  const { level, chartType, bottom } = parameters;
+  const { params: { chartType, bottom, level } } = parameters;
+  // console.log(parameters);
   const data = generateData(level);
+  // console.log(data);
   const spec = generateSpec(data, chartType, bottom);
   return (
-    <VegaEmbed
-      spec={spec}
-      renderer="svg"
-      width={518}
-      height={140}
-    />
+    <div style={{ width: '100%', height: '100%' }}>
+      <VegaEmbed
+        spec={spec}
+        renderer="svg"
+        width={518}
+        height={140}
+        padding={{
+          left: 10,
+          right: 10,
+          bottom: 10,
+          top: 10,
+        }}
+      />
+    </div>
   );
 }

@@ -74,19 +74,19 @@
         "task1": {
             "baseComponent": "PerceptualPull",
             "parameters": {
-                "params": {"chartType": "bar", "bottom": true, "level": "T"}
+                "params": {"chartType": "bar", "bottom": true, "level": "H"}
             }
         },
         "task2": {
             "baseComponent": "PerceptualPull",
             "parameters": {
-                "params": {"chartType": "line", "bottom": false, "level": "T"}
+                "params": {"chartType": "line", "bottom": false, "level": "M"}
             }
         },
         "task3": {
             "baseComponent": "PerceptualPull",
             "parameters": {
-                "params": {"chartType": "bar", "bottom": true, "level": "T"}
+                "params": {"chartType": "bar", "bottom": true, "level": "L"}
             }
         }
     }, 
