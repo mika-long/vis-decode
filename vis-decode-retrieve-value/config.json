@@ -1,350 +1,15 @@
 {
     "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.3.1/src/parser/StudyConfigSchema.json",
-<<<<<<< Updated upstream
-=======
-    "components": {
-        "introduction": {
-            "path": "vis-decode-retrieve-value/assets/introduction.md",
-            "response": [],
-            "type": "markdown"
-        },
-        "$virtual-chinrest.se.full": {
-            "path": "",
-            "response": [],
-            "type": "markdown"
-        },
-        "dots_1": {
-            "config": {
-                "$schema": "https://vega.github.io/schema/vega/v5.json",
-                "background": "white",
-                "padding": 5,
-                "width": 500,
-                "height": 500,
-                "style": "cell",
-                "data": [
-                    {
-                        "name": "data-a16921ef1c8c2e104af0010e9d6a4359",
-                        "values": [
-                            {
-                                "column_0": 190.29346578230167,
-                                "column_1": 118.42802515066172
-                            },
-                            {
-                                "column_0": 173.00354501313222,
-                                "column_1": 78.4569884573304
-                            },
-                            {
-                                "column_0": 233.04150076231116,
-                                "column_1": 121.9380615289337
-                            },
-                            {
-                                "column_0": 103.097658833125,
-                                "column_1": 131.62361850428005
-                            },
-                            {
-                                "column_0": 248.4191454610673,
-                                "column_1": 207.71299033778217
-                            },
-                            {
-                                "column_0": 251.5051995989429,
-                                "column_1": 80.58321113890194
-                            },
-                            {
-                                "column_0": 184.64340123536897,
-                                "column_1": 170.8072831255641
-                            },
-                            {
-                                "column_0": 181.9171225054476,
-                                "column_1": 33.33733967504283
-                            },
-                            {
-                                "column_0": 217.22422301174004,
-                                "column_1": 39.65036774312937
-                            },
-                            {
-                                "column_0": 133.88516019571162,
-                                "column_1": 62.45464306882007
-                            },
-                            {
-                                "column_0": 265.8423064749527,
-                                "column_1": 43.76865105807458
-                            },
-                            {
-                                "column_0": 268.8082513162687,
-                                "column_1": 134.05282859611714
-                            },
-                            {
-                                "column_0": 289.7314466070291,
-                                "column_1": 90.42301525402227
-                            },
-                            {
-                                "column_0": 210.78315907560565,
-                                "column_1": 82.83104353762678
-                            },
-                            {
-                                "column_0": 206.37717522123896,
-                                "column_1": 339.40179956621853
-                            },
-                            {
-                                "column_0": 297.4516756918858,
-                                "column_1": 181.1048720519708
-                            },
-                            {
-                                "column_0": 204.77430326671677,
-                                "column_1": 298.38925720221533
-                            },
-                            {
-                                "column_0": 295.25419771793975,
-                                "column_1": 315.9160149318693
-                            },
-                            {
-                                "column_0": 79.08464885197395,
-                                "column_1": 183.10347228368516
-                            },
-                            {
-                                "column_0": 102.70062177114244,
-                                "column_1": 210.10094318441463
-                            },
-                            {
-                                "column_0": 124.61849922018546,
-                                "column_1": 279.9334259942832
-                            },
-                            {
-                                "column_0": 359.27183639459327,
-                                "column_1": 170.2007226303987
-                            },
-                            {
-                                "column_0": 330.9621336851563,
-                                "column_1": 272.1100459369775
-                            },
-                            {
-                                "column_0": 338.0953982497543,
-                                "column_1": 115.18156456032182
-                            },
-                            {
-                                "column_0": 355.5534164417711,
-                                "column_1": 110.12102213949264
-                            },
-                            {
-                                "column_0": 341.52801657049787,
-                                "column_1": 90.14853787747052
-                            },
-                            {
-                                "column_0": 390.02868063197354,
-                                "column_1": 255.38521781311573
-                            },
-                            {
-                                "column_0": 400.419404829685,
-                                "column_1": 307.39404549155495
-                            },
-                            {
-                                "column_0": 129.60987789161703,
-                                "column_1": 69.5217884899046
-                            },
-                            {
-                                "column_0": 13.976334289589818,
-                                "column_1": 180.8800956028772
-                            }
-                        ]
-                    },
-                    {
-                        "name": "data_0",
-                        "source": "data-a16921ef1c8c2e104af0010e9d6a4359",
-                        "transform": [
-                            {
-                                "type": "filter",
-                                "expr": "isValid(datum[\"column_0\"]) && isFinite(+datum[\"column_0\"]) && isValid(datum[\"column_1\"]) && isFinite(+datum[\"column_1\"])"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "clicked_points",
-                        "values": [],
-                        "on": [
-                            {
-                                "trigger": "revisitAnswer",
-                                "remove": true
-                            },
-                            {
-                                "trigger": "revisitAnswer",
-                                "insert": "revisitAnswer"
-                            }
-                        ]
-                    }
-                ],
-                "marks": [
-                    {
-                        "name": "marks",
-                        "type": "symbol",
-                        "style": [
-                            "point"
-                        ],
-                        "from": {
-                            "data": "data_0"
-                        },
-                        "encode": {
-                            "update": {
-                                "opacity": {
-                                    "value": 0.7
-                                },
-                                "size": {
-                                    "value": 490.8738521234052
-                                },
-                                "fill": {
-                                    "value": "gray"
-                                },
-                                "ariaRoleDescription": {
-                                    "value": "point"
-                                },
-                                "description": {
-                                    "signal": "\"column_0: \" + (format(datum[\"column_0\"], \"\")) + \"; column_1: \" + (format(datum[\"column_1\"], \"\"))"
-                                },
-                                "x": {
-                                    "scale": "x",
-                                    "field": "column_0"
-                                },
-                                "y": {
-                                    "scale": "y",
-                                    "field": "column_1"
-                                }
-                            }
-                        }
-                    },
-                    {
-                        "type": "symbol",
-                        "from": {
-                            "data": "clicked_points"
-                        },
-                        "encode": {
-                            "enter": {
-                                "x": {
-                                    "field": "clickX"
-                                },
-                                "y": {
-                                    "field": "clickY"
-                                },
-                                "fill": {
-                                    "value": "red"
-                                },
-                                "size": {
-                                    "value": 144
-                                }
-                            }
-                        }
-                    }
-                ],
-                "scales": [
-                    {
-                        "name": "x",
-                        "type": "linear",
-                        "domain": [
-                            0,
-                            500
-                        ],
-                        "range": [
-                            0,
-                            {
-                                "signal": "width"
-                            }
-                        ],
-                        "zero": true
-                    },
-                    {
-                        "name": "y",
-                        "type": "linear",
-                        "domain": [
-                            0,
-                            500
-                        ],
-                        "range": [
-                            {
-                                "signal": "height"
-                            },
-                            0
-                        ],
-                        "zero": true
-                    }
-                ],
-                "axes": [
-                    {
-                        "scale": "x",
-                        "orient": "bottom",
-                        "grid": false,
-                        "labels": false,
-                        "labelFlush": true,
-                        "labelOverlap": true,
-                        "tickCount": {
-                            "signal": "ceil(width/40)"
-                        },
-                        "zindex": 0
-                    },
-                    {
-                        "scale": "y",
-                        "orient": "left",
-                        "grid": false,
-                        "labels": false,
-                        "labelOverlap": true,
-                        "tickCount": {
-                            "signal": "ceil(height/40)"
-                        },
-                        "zindex": 0
-                    }
-                ],
-                "signals": [
-                    {
-                        "name": "revisitAnswer",
-                        "value": {},
-                        "on": [
-                            {
-                                "events": "click",
-                                "update": "{responseId: 'vegaResponse1', response: x(), clickX: x(), clickY: y(), timestamp: now() }"
-                            }
-                        ]
-                    }
-                ]
-            },
-            "response": [
-                {
-                    "id": "vegaResponse1",
-                    "location": "belowStimulus",
-                    "prompt": "You Selected:",
-                    "type": "reactive"
-                }
-            ],
-            "type": "vega"
-        }
-    },
-    "importedLibraries": [
-        "virtual-chinrest"
-    ],
-    "sequence": {
-        "components": [
-            "introduction",
-            "$virtual-chinrest.se.full",
-            {
-                "components": [
-                    "dots_1"
-                ],
-                "numSamples": 1.0,
-                "order": "random"
-            }
-        ],
-        "order": "fixed"
-    },
->>>>>>> Stashed changes
     "studyMetadata": {
         "title": "Visual Decoding Operators (Retrieve Value)",
         "version": "pilot",
         "authors": [
             "Sheng Long "
         ],
-<<<<<<< Updated upstream
+
         "date": "2025-12-10",
         "description": "A study designed to elicit responses from participants",
-=======
-        "date": "2025-11-18",
-        "description": "",
->>>>>>> Stashed changes
+
         "organizations": [
             "Northwestern University"
         ]
@@ -405,6 +70,24 @@
                 "paramCapture": "PROLIFIC_PID"
                 }
             ]
+        }, 
+        "task1": {
+            "baseComponent": "PerceptualPull",
+            "parameters": {
+                "params": {"chartType": "bar", "bottom": true, "level": "H"}
+            }
+        },
+        "task2": {
+            "baseComponent": "PerceptualPull",
+            "parameters": {
+                "params": {"chartType": "line", "bottom": false, "level": "M"}
+            }
+        },
+        "task3": {
+            "baseComponent": "PerceptualPull",
+            "parameters": {
+                "params": {"chartType": "bar", "bottom": true, "level": "L"}
+            }
         }
     }, 
     "sequence": {
@@ -412,7 +95,9 @@
         "components": [
             "introduction",
             "$virtual-chinrest.se.full",
-            "PerceptualPull"
+            "task1",
+            "task2",
+            "task3"
         ]
     }
 }
