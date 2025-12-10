@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react';
-// import * as d3 from 'd3';
+import { useState, useCallback, useMemo } from 'react';
+import * as d3 from 'd3';
 import VegaEmbed from 'react-vega/lib/VegaEmbed';
 import { VisualizationSpec } from 'react-vega';
 // https://github.com/stdlib-js/random-base-normal
@@ -75,6 +75,7 @@ function generateSpec(data: { x: number; y: number }[], chartType: 'line' | 'bar
         },
         field: 'x',
         type: 'ordinal',
+        scale: { paddingInner: chartType === 'bar' ? 0 : undefined },
       },
       y: {
         axis: {
@@ -103,23 +104,32 @@ interface PerceptualPullProps {
   }
 }
 
-export default function PerceptualPull({ parameters }: StimulusParams<PerceptualPullProps>) {
+const padding = {
+  left: 10,
+  right: 10,
+  bottom: 10,
+  top: 10,
+};
+
+export default function PerceptualPull({ parameters, setAnswer }: StimulusParams<PerceptualPullProps>) {
   const { params: { chartType, bottom, level } } = parameters;
   const [sliderValue, setSliderValue] = useState<number | null>(null);
   const [hasInteracted, setHasInteracted] = useState<boolean>(false);
 
-  const data = generateData(level);
-  const spec = generateSpec(data, chartType, bottom);
+  const data = useMemo(() => generateData(level), [level]);
+  const spec = useMemo(() => generateSpec(data, chartType, bottom), [data, chartType, bottom]);
+
   // Chart dimensions (matching your VegaEmbed props)
   const chartWidth = 518;
   const chartHeight = 140;
-  const padding = {
-    left: 10,
-    right: 10,
-    bottom: 10,
-    top: 10,
-  };
-  const yPosition = bottom ? padding.bottom : chartHeight - padding.top;
+
+  // Create D3 scale to map slider value to y-position
+  const yScale = useMemo(() => (d3.scaleLinear()
+    .domain([0, 140])
+    .range([padding.top, chartHeight - padding.bottom])), [chartHeight]);
+
+  // Calculate y-position from slider value
+  const yPosition = sliderValue !== null ? yScale(sliderValue) : null;
 
   const handleSliderChange = useCallback((value: number) => {
     setSliderValue(value);
@@ -129,11 +139,17 @@ export default function PerceptualPull({ parameters }: StimulusParams<Perceptual
   const handleSliderChangeEnd = useCallback((value: number) => {
     setSliderValue(value);
     setHasInteracted(true);
-  }, []);
+    setAnswer({
+      status: true,
+      answers: {
+        'perceptualPull-value': value,
+      },
+    });
+  }, [setAnswer]);
 
   return (
     <>
-      <div style={{ width: '100%', height: '100%' }}>
+      <div style={{ width: '100%', height: '100%', position: 'relative' }}>
         <VegaEmbed
           spec={spec}
           renderer="svg"
@@ -161,10 +177,10 @@ export default function PerceptualPull({ parameters }: StimulusParams<Perceptual
           >
             <line
               x1={padding.left}
-              y1={yPosition}
+              y1={yPosition!}
               x2={chartWidth - padding.right}
-              y2={yPosition}
-              stroke="#666"
+              y2={yPosition!}
+              stroke="#FF0000"
               strokeWidth={2}
               strokeDasharray="4"
             />

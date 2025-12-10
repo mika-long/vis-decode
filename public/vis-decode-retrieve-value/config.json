@@ -80,13 +80,67 @@
         "task2": {
             "baseComponent": "PerceptualPull",
             "parameters": {
-                "params": {"chartType": "line", "bottom": false, "level": "M"}
+                "params": {"chartType": "bar", "bottom": true, "level": "M"}
             }
         },
         "task3": {
             "baseComponent": "PerceptualPull",
             "parameters": {
                 "params": {"chartType": "bar", "bottom": true, "level": "L"}
+            }
+        }, 
+        "task4": {
+            "baseComponent": "PerceptualPull",
+            "parameters": {
+                "params": {"chartType": "line", "bottom": true, "level": "H"}
+            }
+        },
+        "task5": {
+            "baseComponent": "PerceptualPull",
+            "parameters": {
+                "params": {"chartType": "line", "bottom": true, "level": "M"}
+            }
+        },
+        "task6": {
+            "baseComponent": "PerceptualPull",
+            "parameters": {
+                "params": {"chartType": "line", "bottom": true, "level": "L"}
+            }
+        }, 
+        "task7": {
+            "baseComponent": "PerceptualPull",
+            "parameters": {
+                "params": {"chartType": "line", "bottom": false, "level": "H"}
+            }
+        },
+        "task8": {
+            "baseComponent": "PerceptualPull",
+            "parameters": {
+                "params": {"chartType": "line", "bottom": false, "level": "M"}
+            }
+        },
+        "task9": {
+            "baseComponent": "PerceptualPull",
+            "parameters": {
+                "params": {"chartType": "line", "bottom": false, "level": "L"}
+            }
+        },
+        "task10": {
+            "baseComponent": "PerceptualPull",
+            "parameters": {
+                "params": {"chartType": "bar", "bottom": false, "level": "H"}
+            }
+        },
+        "task11": {
+            "baseComponent": "PerceptualPull",
+            "parameters": {
+                "params": {"chartType": "bar", "bottom": false, "level": "M"}
+            }
+        },
+        "task12": {
+            "baseComponent": "PerceptualPull",
+            "parameters": {
+                "params": {"chartType": "bar", "bottom": false, "level": "L"}
             }
         }
     }, 
@@ -97,7 +151,16 @@
             "$virtual-chinrest.se.full",
             "task1",
             "task2",
-            "task3"
+            "task3",
+            "task4",
+            "task5",
+            "task6", 
+            "task7",
+            "task8",
+            "task9", 
+            "task10",
+            "task11",
+            "task12"
         ]
     }
 }
