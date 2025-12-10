@@ -187,22 +187,25 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
           </svg>
         )}
       </div>
-      <Slider
-        value={sliderValue ?? 0}
-        onChange={handleSliderChange}
-        onChangeEnd={handleSliderChangeEnd}
-        min={0}
-        max={140}
-        step={1}
-        label={(val) => val.toFixed(2)}
-        styles={{
-          root: { width: '100%' },
-          track: { width: '100%', backgroundColor: '#e9ecef' },
-          bar: { backgroundColor: '#e9ecef' },
-          thumb: { display: sliderValue !== null ? 'block' : 'none' },
-        }}
-        data-source="perceptual-pull-slider"
-      />
+      {/* Slider for perceptual pull */}
+      <div style={{ width: '140px' }}>
+        <Slider
+          value={sliderValue ?? 0}
+          onChange={handleSliderChange}
+          onChangeEnd={handleSliderChangeEnd}
+          min={0}
+          max={140}
+          step={1}
+          label={(val) => val.toFixed(2)}
+          styles={{
+            root: { width: '100%' },
+            track: { width: '100%', backgroundColor: '#e9ecef' },
+            bar: { backgroundColor: '#e9ecef' },
+            thumb: { display: sliderValue !== null ? 'block' : 'none' },
+          }}
+          data-source="perceptual-pull-slider"
+        />
+      </div>
     </>
   );
 }
