@@ -1,9 +1,10 @@
-// import { useEffect, useRef, useMemo } from 'react';
+import { useState, useCallback } from 'react';
 // import * as d3 from 'd3';
 import VegaEmbed from 'react-vega/lib/VegaEmbed';
 import { VisualizationSpec } from 'react-vega';
 // https://github.com/stdlib-js/random-base-normal
 import normal from '@stdlib/random-base-normal';
+import { Slider } from '@mantine/core';
 import { StimulusParams } from '../../../store/types';
 
 /**
@@ -92,26 +93,6 @@ function generateSpec(data: { x: number; y: number }[], chartType: 'line' | 'bar
     },
   };
 }
-
-// export default function PerceptualPull({ level, chartType, bottom }: { level: 'H' | 'M' | 'L', chartType: 'line' | 'bar', bottom: boolean }) {
-//   const data = generateData(level);
-//   const spec = generateSpec(data, chartType, bottom);
-//   return (
-//     <VegaEmbed
-//       spec={spec}
-//       renderer="svg"
-//       width={518}
-//       height={140}
-//       padding={{
-//         left: 10,
-//         right: 10,
-//         bottom: 10,
-//         top: 10,
-//       }}
-//     />
-//   );
-// }
-
 interface PerceptualPullProps {
   taskid: string;
   taskType: string;
@@ -124,24 +105,88 @@ interface PerceptualPullProps {
 
 export default function PerceptualPull({ parameters }: StimulusParams<PerceptualPullProps>) {
   const { params: { chartType, bottom, level } } = parameters;
-  // console.log(parameters);
+  const [sliderValue, setSliderValue] = useState<number | null>(null);
+  const [hasInteracted, setHasInteracted] = useState<boolean>(false);
+
   const data = generateData(level);
-  // console.log(data);
   const spec = generateSpec(data, chartType, bottom);
+  // Chart dimensions (matching your VegaEmbed props)
+  const chartWidth = 518;
+  const chartHeight = 140;
+  const padding = {
+    left: 10,
+    right: 10,
+    bottom: 10,
+    top: 10,
+  };
+  const yPosition = bottom ? padding.bottom : chartHeight - padding.top;
+
+  const handleSliderChange = useCallback((value: number) => {
+    setSliderValue(value);
+    setHasInteracted(true);
+  }, []);
+
+  const handleSliderChangeEnd = useCallback((value: number) => {
+    setSliderValue(value);
+    setHasInteracted(true);
+  }, []);
+
   return (
-    <div style={{ width: '100%', height: '100%' }}>
-      <VegaEmbed
-        spec={spec}
-        renderer="svg"
-        width={518}
-        height={140}
-        padding={{
-          left: 10,
-          right: 10,
-          bottom: 10,
-          top: 10,
+    <>
+      <div style={{ width: '100%', height: '100%' }}>
+        <VegaEmbed
+          spec={spec}
+          renderer="svg"
+          width={chartWidth}
+          height={chartHeight}
+          padding={{
+            left: padding.left,
+            right: padding.right,
+            bottom: padding.bottom,
+            top: padding.top,
+          }}
+          actions={false}
+        />
+        {/* D3-drawn Horizontal Line Overlay */}
+        {hasInteracted && (
+          <svg
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: chartWidth,
+              height: chartHeight,
+              pointerEvents: 'none',
+            }}
+          >
+            <line
+              x1={padding.left}
+              y1={yPosition}
+              x2={chartWidth - padding.right}
+              y2={yPosition}
+              stroke="#666"
+              strokeWidth={2}
+              strokeDasharray="4"
+            />
+          </svg>
+        )}
+      </div>
+      <Slider
+        value={sliderValue ?? 0}
+        onChange={handleSliderChange}
+        onChangeEnd={handleSliderChangeEnd}
+        min={0}
+        max={140}
+        step={1}
+        label={(val) => val.toFixed(2)}
+        styles={{
+          root: { width: '100%' },
+          track: { width: '100%', backgroundColor: '#e9ecef' },
+          bar: { backgroundColor: '#e9ecef' },
+          thumb: { display: sliderValue !== null ? 'block' : 'none' },
         }}
+        data-source="perceptual-pull-slider"
       />
-    </div>
+    </>
   );
 }
