@@ -4,6 +4,7 @@ import VegaEmbed from 'react-vega/lib/VegaEmbed';
 import { VisualizationSpec } from 'react-vega';
 // https://github.com/stdlib-js/random-base-normal
 import normal from '@stdlib/random-base-normal';
+import { StimulusParams } from '../../../store/types';
 
 /**
  * Generates data points for perceptual pull visualization with configurable difficulty levels.
@@ -92,7 +93,33 @@ function generateSpec(data: { x: number; y: number }[], chartType: 'line' | 'bar
   };
 }
 
-export default function PerceptualPull({ level, chartType, bottom }: { level: 'H' | 'M' | 'L', chartType: 'line' | 'bar', bottom: boolean }) {
+// export default function PerceptualPull({ level, chartType, bottom }: { level: 'H' | 'M' | 'L', chartType: 'line' | 'bar', bottom: boolean }) {
+//   const data = generateData(level);
+//   const spec = generateSpec(data, chartType, bottom);
+//   return (
+//     <VegaEmbed
+//       spec={spec}
+//       renderer="svg"
+//       width={518}
+//       height={140}
+//       padding={{
+//         left: 10,
+//         right: 10,
+//         bottom: 10,
+//         top: 10,
+//       }}
+//     />
+//   );
+// }
+
+interface PerceptualPullProps {
+  level: 'H' | 'M' | 'L';
+  chartType: 'line' | 'bar';
+  bottom: boolean;
+}
+
+export default function PerceptualPull({ parameters }: StimulusParams<PerceptualPullProps>) {
+  const { level, chartType, bottom } = parameters;
   const data = generateData(level);
   const spec = generateSpec(data, chartType, bottom);
   return (
@@ -101,12 +128,6 @@ export default function PerceptualPull({ level, chartType, bottom }: { level: 'H
       renderer="svg"
       width={518}
       height={140}
-      padding={{
-        left: 10,
-        right: 10,
-        bottom: 10,
-        top: 10,
-      }}
     />
   );
 }
