@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { Slider } from '@mantine/core';
 import VegaEmbed from 'react-vega/lib/VegaEmbed';
 import { VisualizationSpec } from 'react-vega';
+// https://github.com/kchapelier/poisson-disk-sampling
 import PoissonDiskSampling from 'poisson-disk-sampling';
 import { StimulusParams } from '../../../store/types';
 

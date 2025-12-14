@@ -1,4 +1,6 @@
-import { useState, useCallback, useMemo } from 'react';
+import {
+  useState, useCallback, useMemo, useEffect,
+} from 'react';
 import * as d3 from 'd3';
 import VegaEmbed from 'react-vega/lib/VegaEmbed';
 import { VisualizationSpec } from 'react-vega';
@@ -94,6 +96,7 @@ function generateSpec(data: { x: number; y: number }[], chartType: 'line' | 'bar
     },
   };
 }
+
 interface PerceptualPullProps {
   taskid: string;
   taskType: string;
@@ -132,20 +135,38 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
   const yPosition = sliderValue !== null ? yScale(sliderValue) : null;
 
   const handleSliderChange = useCallback((value: number) => {
+    if (!hasInteracted) {
+      setHasInteracted(true);
+    }
     setSliderValue(value);
-    setHasInteracted(true);
-  }, []);
+  }, [hasInteracted]);
 
   const handleSliderChangeEnd = useCallback((value: number) => {
     setSliderValue(value);
     setHasInteracted(true);
+  }, []);
+
+  // set initial answer with status = false
+  useEffect(() => {
     setAnswer({
-      status: true,
+      status: false,
       answers: {
-        'perceptualPull-value': value,
+        slider: '',
       },
     });
   }, [setAnswer]);
+
+  // update answer when slider has value
+  useEffect(() => {
+    if (hasInteracted && sliderValue !== null) {
+      setAnswer({
+        status: true,
+        answers: {
+          slider: sliderValue,
+        },
+      });
+    }
+  });
 
   return (
     <>
