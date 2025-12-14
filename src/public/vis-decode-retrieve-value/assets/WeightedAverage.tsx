@@ -78,10 +78,12 @@ export default function WeightedAverage({ parameters, setAnswer }: StimulusParam
   const { params: { n } } = parameters;
   const data = useMemo(() => generateData(n), [n]);
   const spec = useMemo(() => generateSpec(data, 500, 500), [data]);
+  console.log(data);
+  console.log(spec);
 
   return (
     <>
-      <div style={{ width: '100%', height: '100%' }}>
+      <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center' }}>
         <VegaEmbed
           spec={spec}
           renderer="svg"
