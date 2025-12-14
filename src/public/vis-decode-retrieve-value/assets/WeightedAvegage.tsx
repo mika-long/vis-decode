@@ -7,11 +7,18 @@ import { VisualizationSpec } from 'react-vega';
 import PoissonDiskSampling from 'poisson-disk-sampling';
 import { StimulusParams } from '../../../store/types';
 
+/**
+ * 
+ * @param n : number of dots 
+ * @param width : width of the svg 
+ * @param height : height of the svg 
+ * @returns an array
+ */
 function generateData(n: number = 30, width: number = 500, height: number = 500) {
   const p = new PoissonDiskSampling({
     shape: [width, height],
     minDistance: 20,
-    maxDistance: 30,
+    maxDistance: height - 20,
     tries: n,
   });
 
@@ -22,6 +29,13 @@ function generateData(n: number = 30, width: number = 500, height: number = 500)
   });
 }
 
+/**
+ * 
+ * @param data 
+ * @param width 
+ * @param height 
+ * @returns 
+ */
 function generateSpec(data: {x: number, y: number}[], width: number = 500, height: number = 500): VisualizationSpec {
   return {
     $schema: 'https://vega.github.io/schema/vega-lite/v5.23.0.json',
