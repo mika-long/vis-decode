@@ -10,8 +10,8 @@ import { StimulusParams } from '../../../store/types';
 /**
  * 
  * @param n : number of dots 
- * @param width : width of the svg 
- * @param height : height of the svg 
+ * @param width : width of the svg; default 15 px  
+ * @param height : height of the svg; default 15 px  
  * @returns an array
  */
 function generateData(n: number = 30, width: number = 500, height: number = 500) {
@@ -40,7 +40,10 @@ function generateSpec(data: {x: number, y: number}[], width: number = 500, heigh
   return {
     $schema: 'https://vega.github.io/schema/vega-lite/v5.23.0.json',
     data: { name: 'data', values: data },
-    mark: { type: 'point', color: 'black', point: { fill: 'black' } },
+    mark: { type: 'point', color: 'black',
+            fill: 'black', filled: true, 
+            size: 15 ** 2 * Math.PI
+          },
     encoding: {
       x: {
         axis: {
@@ -65,6 +68,7 @@ function generateSpec(data: {x: number, y: number}[], width: number = 500, heigh
         scale: { domain: [0, height] },
       },
     },
+    padding: 5,
   };
 }
 
