@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { useMemo } from 'react';
-import { Slider } from '@mantine/core';
+import { Slider, Text } from '@mantine/core';
 import VegaEmbed from 'react-vega/lib/VegaEmbed';
 import { VisualizationSpec } from 'react-vega';
 // https://github.com/kchapelier/poisson-disk-sampling
@@ -17,7 +17,7 @@ import { StimulusParams } from '../../../store/types';
 function generateData(n: number = 30, width: number = 500, height: number = 500) {
   const p = new PoissonDiskSampling({
     shape: [width, height],
-    minDistance: 20,
+    minDistance: 35,
     maxDistance: height - 20,
     tries: n,
   });
@@ -30,7 +30,7 @@ function generateData(n: number = 30, width: number = 500, height: number = 500)
 }
 
 /**
- * 
+ * Generate vega spec given data, width, and height 
  * @param data 
  * @param width 
  * @param height 
@@ -42,7 +42,7 @@ function generateSpec(data: {x: number, y: number}[], width: number = 500, heigh
     data: { name: 'data', values: data },
     mark: { type: 'point', color: 'black',
             fill: 'black', filled: true, 
-            size: 15 ** 2 * Math.PI
+            size: 15 ** 2 * Math.PI // r = 15 px 
           },
     encoding: {
       x: {
@@ -82,8 +82,6 @@ export default function WeightedAverage({ parameters, setAnswer }: StimulusParam
   const { params: { n } } = parameters;
   const data = useMemo(() => generateData(n), [n]);
   const spec = useMemo(() => generateSpec(data, 500, 500), [data]);
-  console.log(data);
-  console.log(spec);
 
   return (
     <>
@@ -102,6 +100,16 @@ export default function WeightedAverage({ parameters, setAnswer }: StimulusParam
           actions={false}
         />
       </div>
+      <Text size='md'>Slider to control x position: </Text>
+      <Slider
+        value={0}
+        onChange={() => {}}
+        onChangeEnd={() => {}}
+        min={0}
+        max={1}
+        step={0.01}
+      />
+      <Text size='md'>Slider to control y position: </Text>
       <Slider
         value={0}
         onChange={() => {}}
