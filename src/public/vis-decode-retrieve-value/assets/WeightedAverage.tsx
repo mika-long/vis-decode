@@ -92,41 +92,41 @@ const padding = {
 const chartHeight = 500;
 const chartWidth = 500;
 
+type Phase = 'stimulus' | 'mask' | 'response';
+
 export default function WeightedAverage({ parameters, setAnswer }: StimulusParams<WeightedAverageProps>) {
   const { params: { n, visibilityDuration = 1000, maskDuration = 500 } } = parameters;
-  const [isVisible, setIsVisible] = useState<boolean>(true);
-  const [showMask, setShowMask] = useState<boolean>(false); 
+  const [phase, setPhase] = useState<Phase>('stimulus');
   
   const data = useMemo(() => generateData(n), [n]);
-  const spec = useMemo(() => generateSpec(data, 500, 500), [data]);
+  const spec = useMemo(() => {
+    const dataToShow = phase === 'stimulus' ? data : [];
+    return generateSpec(dataToShow, chartWidth, chartHeight);
+  }, [data, phase]);
 
-  // Hide chart, show mask
+  // Change Phase 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(false);
-      setShowMask(true);
+    if (phase === 'stimulus') {
+      const timer = setTimeout(() => {
+        setPhase('mask');
     }, visibilityDuration);
-    
-    // cleanup 
-    return () => clearTimeout(timer);
-  }, [visibilityDuration]);
-
-  // Hide mask 
-  useEffect(() => {
-    if (!showMask) return undefined; 
-
-    const timer = setTimeout(() => {
-      setShowMask(false);
-    }, maskDuration); 
-
-    // cleanup
-    return () => clearTimeout(timer);
-  }, [showMask, maskDuration]); 
+      // cleanup 
+      return () => clearTimeout(timer);
+    }
+    if (phase === 'mask') {
+      const timer = setTimeout(() => {
+        setPhase('response');
+    }, maskDuration);
+      // cleanup 
+      return () => clearTimeout(timer);
+  }
+    if (phase === 'response') return undefined;
+  }, [phase, visibilityDuration, maskDuration]);
 
   return (
     <>
       <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', lineHeight: 0 }}>
-        {isVisible ? (
+        {phase !== 'mask' ? (
           <VegaEmbed
             spec={spec}
             renderer="svg"

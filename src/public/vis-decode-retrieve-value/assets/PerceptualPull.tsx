@@ -97,10 +97,15 @@ function generateSpec(data: { x: number; y: number }[], chartType: 'line' | 'bar
   };
 }
 
+/**
+ * Props for PerceptualPull component
+ */
 interface PerceptualPullProps {
   taskid: string;
   taskType: string;
+  /** Parameters for the perceptual pull task */
   params: {
+    /** Difficulty level: 'H' (high), 'M' (medium), or 'L' (low) */
     level: 'H' | 'M' | 'L';
     chartType: 'line' | 'bar';
     bottom: boolean;
@@ -116,6 +121,8 @@ const padding = {
   top: 0,
 };
 
+type Phase = 'stimulus' | 'mask' | 'response';
+
 export default function PerceptualPull({ parameters, setAnswer }: StimulusParams<PerceptualPullProps>) {
   const {
     params: {
@@ -124,19 +131,21 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
   } = parameters;
   const [sliderValue, setSliderValue] = useState<number | null>(null);
   const [hasInteracted, setHasInteracted] = useState<boolean>(false);
-  const [isVisible, setIsVisible] = useState<boolean>(true);
-  const [showMask, setShowMask] = useState<boolean>(false);
+  const [phase, setPhase] = useState<Phase>('stimulus');
 
   const data = useMemo(() => generateData(level), [level]);
-  const spec = useMemo(() => generateSpec(data, chartType, bottom), [data, chartType, bottom]);
+  const spec = useMemo(() => {
+    const dataToShow = phase === 'stimulus' ? data : [];
+    return generateSpec(dataToShow, chartType, bottom);
+  }, [data, chartType, bottom, phase]);
 
-  // Chart dimensions (matching your VegaEmbed props)
+  // Chart dimensions
   const chartWidth = 518;
   const chartHeight = 140;
 
   // Create D3 scale to map slider value to y-position
   const yScale = useMemo(() => (d3.scaleLinear()
-    .domain([0, 140])
+    .domain([0, chartHeight])
     .range([padding.top, chartHeight - padding.bottom])), [chartHeight]);
 
   // Calculate y-position from slider value
@@ -176,30 +185,24 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
     }
   }, [hasInteracted, sliderValue, setAnswer]);
 
-  // Hide chart, show mask
+  // Phase transitions
   useEffect(() => {
-    // set up the timer
-    const timer = setTimeout(() => {
-      setIsVisible(false);
-      setShowMask(true);
-    }, visibilityDuration);
+    if (phase === 'stimulus') {
+      const stimulusTimer = setTimeout(() => {
+        setPhase('mask');
+      }, visibilityDuration);
+      return () => clearTimeout(stimulusTimer);
+    }
 
-    // clean up function
-    return () => clearTimeout(timer);
-  }, [visibilityDuration]);
+    if (phase === 'mask') {
+      const maskTimer = setTimeout(() => {
+        setPhase('response');
+      }, maskDuration);
+      return () => clearTimeout(maskTimer);
+    }
 
-  // Hide mask
-  useEffect(() => {
-    if (!showMask) return undefined;
-
-    const timer = setTimeout(() => {
-      setShowMask(false);
-    }, maskDuration);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [showMask, maskDuration]);
+    return undefined;
+  }, [phase, visibilityDuration, maskDuration]);
 
   return (
     <>
@@ -212,7 +215,7 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
         display: 'flex',
       }}
       >
-        {isVisible ? (
+        {phase !== 'mask' && (
           <VegaEmbed
             spec={spec}
             renderer="svg"
@@ -221,7 +224,8 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
             padding={padding}
             actions={false}
           />
-        ) : (
+        )}
+        {phase === 'mask' && (
           <NoiseMask width={chartWidth} height={chartHeight} padding={padding} />
         )}
         {/* D3-drawn Horizontal Line Overlay */}
