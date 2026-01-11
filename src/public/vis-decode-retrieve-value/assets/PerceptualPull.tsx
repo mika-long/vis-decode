@@ -204,7 +204,12 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
   return (
     <>
       <div style={{
-        width: '100%', height: '100%', position: 'relative', lineHeight: 0,
+        width: '100%',
+        height: '100%',
+        position: 'relative',
+        lineHeight: 0,
+        justifyContent: 'center',
+        display: 'flex',
       }}
       >
         {isVisible ? (

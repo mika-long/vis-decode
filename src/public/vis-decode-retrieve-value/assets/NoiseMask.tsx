@@ -2,14 +2,30 @@ import { useEffect, useRef } from 'react';
 import uniform from '@stdlib/random-base-uniform';
 import normal from '@stdlib/random-base-normal';
 
+/**
+ * Props for NoiseMask component
+ */
 interface NoiseMaskProps {
   width: number;
   height: number;
-  seed?: number; // Optional seed for reproducibility
-  dist?: 'uniform' | 'normal'; // underlying distribution for generating noise
-  padding?: {top: number; right: number; bottom: number; left: number; }; // optional padding
+  /** Optional seed for reproducibility */
+  seed?: number;
+  /** Underlying distribution for generating noise; default is normal */
+  dist?: 'uniform' | 'normal';
+  /** Optional padding around the canvas */
+  padding?: {top: number; right: number; bottom: number; left: number; };
 }
 
+/**
+ * Generates a canvas element filled with white noise.
+ *
+ * @param width - Width of the canvas in pixels
+ * @param height - Height of the canvas in pixels
+ * @param seed - Optional seed for reproducible random number generation
+ * @param dist - Distribution type for noise generation ('uniform' or 'normal')
+ * @param padding - Optional padding around the canvas
+ * @returns A canvas element displaying white noise
+ */
 export function NoiseMask({
   width, height, seed, dist = 'normal', padding,
 }: NoiseMaskProps) {

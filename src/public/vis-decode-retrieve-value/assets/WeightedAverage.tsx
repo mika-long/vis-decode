@@ -1,11 +1,11 @@
 /* eslint-disable */
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { Slider, Text } from '@mantine/core';
 import VegaEmbed from 'react-vega/lib/VegaEmbed';
 import { VisualizationSpec } from 'react-vega';
-// https://github.com/kchapelier/poisson-disk-sampling
-import PoissonDiskSampling from 'poisson-disk-sampling';
+import PoissonDiskSampling from 'poisson-disk-sampling'; // https://github.com/kchapelier/poisson-disk-sampling
 import { StimulusParams } from '../../../store/types';
+import { NoiseMask } from './NoiseMask';
 
 /**
  * 
@@ -73,51 +73,97 @@ function generateSpec(data: {x: number, y: number}[], width: number = 500, heigh
 }
 
 interface WeightedAverageProps {
+  taskid: string;
+  taskType: string; 
   params: {
     n: number;
+    visibilityDuration?: number; 
+    maskDuration?: number; 
   }
 }
 
+const padding = {
+  left: 0, 
+  right: 0, 
+  bottom: 0, 
+  top: 0,
+}
+
+const chartHeight = 500;
+const chartWidth = 500;
+
 export default function WeightedAverage({ parameters, setAnswer }: StimulusParams<WeightedAverageProps>) {
-  const { params: { n } } = parameters;
+  const { params: { n, visibilityDuration = 1000, maskDuration = 500 } } = parameters;
+  const [isVisible, setIsVisible] = useState<boolean>(true);
+  const [showMask, setShowMask] = useState<boolean>(false); 
+  
   const data = useMemo(() => generateData(n), [n]);
   const spec = useMemo(() => generateSpec(data, 500, 500), [data]);
 
+  // Hide chart, show mask
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(false);
+      setShowMask(true);
+    }, visibilityDuration);
+    
+    // cleanup 
+    return () => clearTimeout(timer);
+  }, [visibilityDuration]);
+
+  // Hide mask 
+  useEffect(() => {
+    if (!showMask) return undefined; 
+
+    const timer = setTimeout(() => {
+      setShowMask(false);
+    }, maskDuration); 
+
+    // cleanup
+    return () => clearTimeout(timer);
+  }, [showMask, maskDuration]); 
+
   return (
     <>
-      <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center' }}>
-        <VegaEmbed
-          spec={spec}
-          renderer="svg"
-          width={500}
-          height={500}
-          padding={{
-            left: 0,
-            right: 0,
-            bottom: 0,
-            top: 0,
-          }}
-          actions={false}
+      <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', lineHeight: 0 }}>
+        {isVisible ? (
+          <VegaEmbed
+            spec={spec}
+            renderer="svg"
+            width={chartWidth}
+            height={chartHeight}
+            padding={padding}
+            actions={false}
+          />
+        ) : (
+          <NoiseMask width={chartWidth} height={chartHeight} padding={padding} />
+        )}
+      </div>
+      <div style={{width: chartWidth}}>
+        <Text size='md'>Slider to control x position: </Text>
+        {/* TODO */}
+        <Slider
+          value={0}
+          onChange={() => {}}
+          onChangeEnd={() => {}}
+          min={0}
+          max={1}
+          step={0.01}
         />
       </div>
-      <Text size='md'>Slider to control x position: </Text>
-      <Slider
-        value={0}
-        onChange={() => {}}
-        onChangeEnd={() => {}}
-        min={0}
-        max={1}
-        step={0.01}
-      />
-      <Text size='md'>Slider to control y position: </Text>
-      <Slider
-        value={0}
-        onChange={() => {}}
-        onChangeEnd={() => {}}
-        min={0}
-        max={1}
-        step={0.01}
-      />
+      <div style={{width: chartWidth}}>
+        <Text size='md'>Slider to control y position: </Text>
+        {/* TODO */}
+        <Slider
+          value={0}
+          onChange={() => {}}
+          onChangeEnd={() => {}}
+          min={0}
+          max={1}
+          step={0.01}
+        />
+      </div>
+
     </>
   );
 }
