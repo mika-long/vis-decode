@@ -6,11 +6,12 @@ interface NoiseMaskProps {
   width: number;
   height: number;
   seed?: number; // Optional seed for reproducibility
-  dist?: 'uniform' | 'normal'; // Future extension for different noise types
+  dist?: 'uniform' | 'normal'; // underlying distribution for generating noise
+  padding?: {top: number; right: number; bottom: number; left: number; }; // optional padding
 }
 
 export function NoiseMask({
-  width, height, seed, dist = 'normal',
+  width, height, seed, dist = 'normal', padding,
 }: NoiseMaskProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
@@ -52,7 +53,7 @@ export function NoiseMask({
       ref={canvasRef}
       width={width}
       height={height}
-      style={{ display: 'block' }}
+      style={{ display: 'block', padding: padding ? `${padding.top}px ${padding.right}px ${padding.bottom}px ${padding.left}px` : undefined }}
     />
   );
 }

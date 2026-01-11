@@ -110,10 +110,10 @@ interface PerceptualPullProps {
 }
 
 const padding = {
-  left: 10,
-  right: 10,
-  bottom: 10,
-  top: 10,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  top: 0,
 };
 
 export default function PerceptualPull({ parameters, setAnswer }: StimulusParams<PerceptualPullProps>) {
@@ -203,23 +203,21 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
 
   return (
     <>
-      <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+      <div style={{
+        width: '100%', height: '100%', position: 'relative', lineHeight: 0,
+      }}
+      >
         {isVisible ? (
           <VegaEmbed
             spec={spec}
             renderer="svg"
             width={chartWidth}
             height={chartHeight}
-            padding={{
-              left: padding.left,
-              right: padding.right,
-              bottom: padding.bottom,
-              top: padding.top,
-            }}
+            padding={padding}
             actions={false}
           />
         ) : (
-          <NoiseMask width={chartWidth} height={chartHeight} seed={51} />
+          <NoiseMask width={chartWidth} height={chartHeight} padding={padding} />
         )}
         {/* D3-drawn Horizontal Line Overlay */}
         {hasInteracted && (
@@ -253,7 +251,7 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
           onChangeEnd={handleSliderChangeEnd}
           min={0}
           max={140}
-          step={1}
+          step={0.1}
           label={(val) => val.toFixed(2)}
           styles={{
             root: { width: '100%' },
