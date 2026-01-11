@@ -4,10 +4,10 @@ import {
 import * as d3 from 'd3';
 import VegaEmbed from 'react-vega/lib/VegaEmbed';
 import { VisualizationSpec } from 'react-vega';
-// https://github.com/stdlib-js/random-base-normal
-import normal from '@stdlib/random-base-normal';
+import normal from '@stdlib/random-base-normal'; // https://github.com/stdlib-js/random-base-normal
 import { Slider } from '@mantine/core';
 import { StimulusParams } from '../../../store/types';
+import { NoiseMask } from './NoiseMask';
 
 /**
  * Generates data points for perceptual pull visualization with configurable difficulty levels.
@@ -19,7 +19,7 @@ import { StimulusParams } from '../../../store/types';
  * @returns Array of {x, y} coordinate pairs
  *
  * @example
- * ```t s
+ * ```ts
  * const data = generateData('H', 12, 4, 42);
  * // Returns: [{x: 0, y: 48.23}, {x: 1, y: 47.89}, ...]
  * ```
@@ -104,6 +104,8 @@ interface PerceptualPullProps {
     level: 'H' | 'M' | 'L';
     chartType: 'line' | 'bar';
     bottom: boolean;
+    visibilityDuration?: number;
+    maskDuration?: number;
   }
 }
 
@@ -115,9 +117,15 @@ const padding = {
 };
 
 export default function PerceptualPull({ parameters, setAnswer }: StimulusParams<PerceptualPullProps>) {
-  const { params: { chartType, bottom, level } } = parameters;
+  const {
+    params: {
+      chartType, bottom, level, visibilityDuration = 1000, maskDuration = 500,
+    },
+  } = parameters;
   const [sliderValue, setSliderValue] = useState<number | null>(null);
   const [hasInteracted, setHasInteracted] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(true);
+  const [showMask, setShowMask] = useState<boolean>(false);
 
   const data = useMemo(() => generateData(level), [level]);
   const spec = useMemo(() => generateSpec(data, chartType, bottom), [data, chartType, bottom]);
@@ -166,24 +174,53 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
         },
       });
     }
-  });
+  }, [hasInteracted, sliderValue, setAnswer]);
+
+  // Hide chart, show mask
+  useEffect(() => {
+    // set up the timer
+    const timer = setTimeout(() => {
+      setIsVisible(false);
+      setShowMask(true);
+    }, visibilityDuration);
+
+    // clean up function
+    return () => clearTimeout(timer);
+  }, [visibilityDuration]);
+
+  // Hide mask
+  useEffect(() => {
+    if (!showMask) return undefined;
+
+    const timer = setTimeout(() => {
+      setShowMask(false);
+    }, maskDuration);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [showMask, maskDuration]);
 
   return (
     <>
       <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-        <VegaEmbed
-          spec={spec}
-          renderer="svg"
-          width={chartWidth}
-          height={chartHeight}
-          padding={{
-            left: padding.left,
-            right: padding.right,
-            bottom: padding.bottom,
-            top: padding.top,
-          }}
-          actions={false}
-        />
+        {isVisible ? (
+          <VegaEmbed
+            spec={spec}
+            renderer="svg"
+            width={chartWidth}
+            height={chartHeight}
+            padding={{
+              left: padding.left,
+              right: padding.right,
+              bottom: padding.bottom,
+              top: padding.top,
+            }}
+            actions={false}
+          />
+        ) : (
+          <NoiseMask width={chartWidth} height={chartHeight} />
+        )}
         {/* D3-drawn Horizontal Line Overlay */}
         {hasInteracted && (
           <svg
