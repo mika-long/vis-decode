@@ -2211,7 +2211,7 @@
   dependencies:
     "@stdlib/utils-native-class" "^0.2.1"
 
-"@stdlib/assert-is-int32array@^0.2.2":
+"@stdlib/assert-is-int32array@^0.2.1", "@stdlib/assert-is-int32array@^0.2.2":
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/@stdlib/assert-is-int32array/-/assert-is-int32array-0.2.2.tgz#64a948b9b23b0943c39930d4e59f55e2917715c4"
   integrity sha512-YomgTwoJD/ci8K9mWNCyqSDtkYfHNplMYw+B9rmcxrjX//1LVZkrzgwWEc6dC3RlY0Ou+uDHJpKeKL9G2fj4GQ==
@@ -3912,6 +3912,54 @@
     "@stdlib/utils-define-nonenumerable-read-write-accessor" "^0.2.1"
     "@stdlib/utils-noop" "^0.2.1"
 
+"@stdlib/random-base-minstd-shuffle@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@stdlib/random-base-minstd-shuffle/-/random-base-minstd-shuffle-0.2.1.tgz#8f81fe543dd0d2a70d78153b17ad3bf012142a4f"
+  integrity sha512-IzPPMNXLiXaxKfIb2Dsxo0zeJ+24UQutWd2FcMF44LeQQmEbZBWfO+PnbtEC7GE5Y/DmCUIM+xmNyknGf6oAFQ==
+  dependencies:
+    "@stdlib/array-int32" "^0.2.1"
+    "@stdlib/array-to-json" "^0.2.1"
+    "@stdlib/assert-has-own-property" "^0.2.1"
+    "@stdlib/assert-is-boolean" "^0.2.1"
+    "@stdlib/assert-is-collection" "^0.2.1"
+    "@stdlib/assert-is-int32array" "^0.2.1"
+    "@stdlib/assert-is-plain-object" "^0.2.1"
+    "@stdlib/assert-is-positive-integer" "^0.2.1"
+    "@stdlib/blas-base-gcopy" "^0.2.0"
+    "@stdlib/constants-int32-max" "^0.2.1"
+    "@stdlib/error-tools-fmtprodmsg" "^0.2.1"
+    "@stdlib/math-base-assert-is-nan" "^0.2.1"
+    "@stdlib/math-base-special-floor" "^0.2.1"
+    "@stdlib/random-base-minstd" "^0.2.1"
+    "@stdlib/random-base-shared" "^0.1.0"
+    "@stdlib/string-format" "^0.2.1"
+    "@stdlib/utils-define-nonenumerable-read-only-accessor" "^0.2.2"
+    "@stdlib/utils-define-nonenumerable-read-only-property" "^0.2.1"
+    "@stdlib/utils-define-nonenumerable-read-write-accessor" "^0.2.1"
+
+"@stdlib/random-base-minstd@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@stdlib/random-base-minstd/-/random-base-minstd-0.2.1.tgz#5102c8b1b5dea408a42767698177fad7c8a04706"
+  integrity sha512-BcOp6+RceZOeFTYaNWNfogIPsreKXlMky8yGIquTnOffNyYrj6djx6QF0ugN8OlO0fr5U0c15btNCWUE3bWBqQ==
+  dependencies:
+    "@stdlib/array-int32" "^0.2.1"
+    "@stdlib/array-to-json" "^0.2.1"
+    "@stdlib/assert-has-own-property" "^0.2.1"
+    "@stdlib/assert-is-boolean" "^0.2.1"
+    "@stdlib/assert-is-collection" "^0.2.1"
+    "@stdlib/assert-is-int32array" "^0.2.1"
+    "@stdlib/assert-is-plain-object" "^0.2.1"
+    "@stdlib/assert-is-positive-integer" "^0.2.1"
+    "@stdlib/blas-base-gcopy" "^0.2.0"
+    "@stdlib/constants-int32-max" "^0.2.1"
+    "@stdlib/error-tools-fmtprodmsg" "^0.2.1"
+    "@stdlib/math-base-special-floor" "^0.2.1"
+    "@stdlib/random-base-shared" "^0.1.0"
+    "@stdlib/string-format" "^0.2.1"
+    "@stdlib/utils-define-nonenumerable-read-only-accessor" "^0.2.2"
+    "@stdlib/utils-define-nonenumerable-read-only-property" "^0.2.1"
+    "@stdlib/utils-define-nonenumerable-read-write-accessor" "^0.2.1"
+
 "@stdlib/random-base-mt19937@^0.2.1":
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/@stdlib/random-base-mt19937/-/random-base-mt19937-0.2.1.tgz#6b5839567764f4e7c53802e13b2ae03bbf513e7d"
@@ -3960,10 +4008,52 @@
     "@stdlib/utils-define-nonenumerable-read-write-accessor" "^0.2.1"
     "@stdlib/utils-noop" "^0.2.1"
 
+"@stdlib/random-base-randu@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@stdlib/random-base-randu/-/random-base-randu-0.2.1.tgz#415850d5349c1dc4a670c23c70fe367488da5821"
+  integrity sha512-sjMrdq6Y2fh6oxpDOBZtO5MQAqsYeubZnHE/8RL4YhMPDoVKXiJddyvfULhAEkIonMKbilfTaj6y1pXyMe1/4A==
+  dependencies:
+    "@stdlib/array-to-json" "^0.2.1"
+    "@stdlib/assert-has-own-property" "^0.2.1"
+    "@stdlib/assert-is-boolean" "^0.2.1"
+    "@stdlib/assert-is-plain-object" "^0.2.1"
+    "@stdlib/error-tools-fmtprodmsg" "^0.2.1"
+    "@stdlib/random-base-minstd" "^0.2.1"
+    "@stdlib/random-base-minstd-shuffle" "^0.2.1"
+    "@stdlib/random-base-mt19937" "^0.2.1"
+    "@stdlib/random-base-shared" "^0.1.0"
+    "@stdlib/string-format" "^0.2.1"
+    "@stdlib/utils-define-nonenumerable-read-only-accessor" "^0.2.2"
+    "@stdlib/utils-define-nonenumerable-read-only-property" "^0.2.1"
+    "@stdlib/utils-define-nonenumerable-read-write-accessor" "^0.2.1"
+
 "@stdlib/random-base-shared@^0.1.0":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@stdlib/random-base-shared/-/random-base-shared-0.1.1.tgz#405322599d8dfdf4cd22097d571187f080d5c5e2"
   integrity sha512-G0tLkWZviO2zfiTwTPI4r/nEjvpw+5fTrqEd15iAVT9rJG8H14sqbZJli1w+Kbuqb3ZrBJJNR9+N0FDUZwJrWg==
+
+"@stdlib/random-base-uniform@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@stdlib/random-base-uniform/-/random-base-uniform-0.2.1.tgz#62b57245f1ec81d239ea5d561e8a812054a1ec07"
+  integrity sha512-ZaxMt5lzvqKv+lLLjeqzcRvwRq8SwUvmRia8KaJK/31OZqs0sTXGLHYIAP0bAjpOtJFUL6G8aOA9MN/JXH/1NQ==
+  dependencies:
+    "@stdlib/array-to-json" "^0.2.1"
+    "@stdlib/assert-has-own-property" "^0.2.1"
+    "@stdlib/assert-is-function" "^0.2.1"
+    "@stdlib/assert-is-nan" "^0.2.1"
+    "@stdlib/assert-is-number" "^0.2.1"
+    "@stdlib/assert-is-plain-object" "^0.2.1"
+    "@stdlib/error-tools-fmtprodmsg" "^0.2.1"
+    "@stdlib/math-base-assert-is-nan" "^0.2.1"
+    "@stdlib/random-base-mt19937" "^0.2.1"
+    "@stdlib/random-base-randu" "^0.2.1"
+    "@stdlib/random-base-shared" "^0.1.0"
+    "@stdlib/string-format" "^0.2.1"
+    "@stdlib/utils-constant-function" "^0.2.1"
+    "@stdlib/utils-define-nonenumerable-read-only-accessor" "^0.2.2"
+    "@stdlib/utils-define-nonenumerable-read-only-property" "^0.2.1"
+    "@stdlib/utils-define-nonenumerable-read-write-accessor" "^0.2.1"
+    "@stdlib/utils-noop" "^0.2.1"
 
 "@stdlib/regexp-extended-length-path@^0.2.2":
   version "0.2.2"

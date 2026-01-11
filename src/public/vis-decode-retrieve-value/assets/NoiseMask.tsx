@@ -1,11 +1,17 @@
 import { useEffect, useRef } from 'react';
+import uniform from '@stdlib/random-base-uniform';
+import normal from '@stdlib/random-base-normal';
 
 interface NoiseMaskProps {
   width: number;
   height: number;
+  seed?: number; // Optional seed for reproducibility
+  dist?: 'uniform' | 'normal'; // Future extension for different noise types
 }
 
-export function NoiseMask({ width, height }: NoiseMaskProps) {
+export function NoiseMask({
+  width, height, seed, dist = 'normal',
+}: NoiseMaskProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -18,15 +24,28 @@ export function NoiseMask({ width, height }: NoiseMaskProps) {
     const imageData = ctx.createImageData(width, height);
     const { data } = imageData;
 
+    // Construct random number generator
+    let rand: () => number;
+    if (dist === 'uniform') {
+      rand = seed !== undefined
+        ? uniform.factory(0, 255, { seed })
+        : () => Math.random() * 255;
+    } else {
+      // Gaussian with mean 127.5 and stddev 40
+      const gaussianRand = seed !== undefined
+        ? normal.factory(127.5, 40, { seed })
+        : normal.factory(127.5, 40);
+      rand = () => Math.max(0, Math.min(255, gaussianRand()));
+    }
+
     for (let i = 0; i < data.length; i += 4) {
-      const gray = Math.random() * 255;
-      data[i] = gray; // Red
-      data[i + 1] = gray; // Green
-      data[i + 2] = gray; // Blue
+      data[i] = rand(); // Red
+      data[i + 1] = rand(); // Green
+      data[i + 2] = rand(); // Blue
       data[i + 3] = 255; // Alpha
     }
     ctx.putImageData(imageData, 0, 0);
-  }, [width, height]);
+  }, [width, height, seed, dist]);
 
   return (
     <canvas

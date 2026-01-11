@@ -219,7 +219,7 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
             actions={false}
           />
         ) : (
-          <NoiseMask width={chartWidth} height={chartHeight} />
+          <NoiseMask width={chartWidth} height={chartHeight} seed={51} />
         )}
         {/* D3-drawn Horizontal Line Overlay */}
         {hasInteracted && (

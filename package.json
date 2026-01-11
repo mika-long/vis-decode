@@ -36,6 +36,7 @@
     "@stdlib/math-base-special-beta": "^0.3.0",
     "@stdlib/math-base-special-betainc": "^0.2.2",
     "@stdlib/random-base-normal": "^0.2.1",
+    "@stdlib/random-base-uniform": "^0.2.1",
     "@stdlib/stats-base-dists-t": "^0.2.2",
     "@supabase/supabase-js": "^2.57.4",
     "@tabler/icons-react": "^3.35.0",
