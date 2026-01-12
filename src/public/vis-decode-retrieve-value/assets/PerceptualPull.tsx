@@ -215,7 +215,7 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
         display: 'flex',
       }}
       >
-        {phase !== 'mask' && (
+        {phase !== 'mask' ? (
           <VegaEmbed
             spec={spec}
             renderer="svg"
@@ -224,10 +224,10 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
             padding={padding}
             actions={false}
           />
-        )}
-        {phase === 'mask' && (
+        ) : (
           <NoiseMask width={chartWidth} height={chartHeight} padding={padding} />
         )}
+
         {/* D3-drawn Horizontal Line Overlay */}
         {hasInteracted && (
           <svg
@@ -253,7 +253,7 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
         )}
       </div>
       {/* Slider for perceptual pull */}
-      <div style={{ width: '140px' }}>
+      <div style={{ width: '140px', paddingTop: '20px' }}>
         <Slider
           value={sliderValue ?? 0}
           onChange={handleSliderChange}

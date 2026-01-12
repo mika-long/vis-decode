@@ -138,6 +138,7 @@ export default function WeightedAverage({ parameters, setAnswer }: StimulusParam
         ) : (
           <NoiseMask width={chartWidth} height={chartHeight} padding={padding} />
         )}
+        {/* TODO: some overlaying component that indicates selection */}
       </div>
       <div style={{width: chartWidth}}>
         <Text size='md'>Slider to control x position: </Text>
