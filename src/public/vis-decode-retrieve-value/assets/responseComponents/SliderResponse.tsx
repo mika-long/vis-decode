@@ -11,6 +11,7 @@ type SliderResponseProps = {
   onChange: (value: number, committed?: boolean) => void;
   initialValue?: number;
   stepSize?: number;
+  disabled?: boolean;
 };
 
 export default function SliderResponse({
@@ -22,6 +23,7 @@ export default function SliderResponse({
   minValue,
   maxValue,
   stepSize = 0.1,
+  disabled = false,
 }: SliderResponseProps) {
   const [value, setValue] = useState<number>(0);
   const [hasInteracted, setHasInteracted] = useState<boolean>(false);
@@ -88,6 +90,7 @@ export default function SliderResponse({
         min={minValue}
         max={maxValue}
         step={stepSize}
+        disabled={disabled}
         label={(val) => val.toFixed(2)}
         styles={{
           root: { width: '100%' },

@@ -7,7 +7,8 @@ import { VisualizationSpec } from 'react-vega';
 import normal from '@stdlib/random-base-normal'; // https://github.com/stdlib-js/random-base-normal
 import { StimulusParams } from '../../../store/types';
 import { NoiseMask } from './NoiseMask';
-import DragHandleResponse from './responseComponents/DragHandleResponse';
+// import DragHandleResponse from './responseComponents/DragHandleResponse';
+import SliderResponse from './responseComponents/SliderResponse';
 
 /**
  * Generates data points for perceptual pull visualization with configurable difficulty levels.
@@ -230,7 +231,7 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
         )}
 
         {/* Response component overlay - positioned absolutely over the chart */}
-        {phase === 'response' && (
+        {/* {phase === 'response' && (
           <div style={{
             justifyContent: 'center',
             display: 'flex',
@@ -244,7 +245,17 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
               initialValue={10}
             />
           </div>
-        )}
+        )} */}
+
+        <SliderResponse
+          chartWidth={chartWidth}
+          chartHeight={chartHeight}
+          padding={padding}
+          minValue={0}
+          maxValue={140}
+          onChange={handleResponseChange}
+          disabled={phase !== 'response'}
+        />
       </div>
     </div>
   );
