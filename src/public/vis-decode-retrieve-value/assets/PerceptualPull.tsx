@@ -1,13 +1,13 @@
 import {
   useState, useCallback, useMemo, useEffect,
 } from 'react';
-import * as d3 from 'd3';
+// import * as d3 from 'd3';
 import VegaEmbed from 'react-vega/lib/VegaEmbed';
 import { VisualizationSpec } from 'react-vega';
 import normal from '@stdlib/random-base-normal'; // https://github.com/stdlib-js/random-base-normal
 import { StimulusParams } from '../../../store/types';
 import { NoiseMask } from './NoiseMask';
-import SliderResponse from './responseComponents/SliderResponse';
+import DragHandleResponse from './responseComponents/DragHandleResponse';
 
 /**
  * Generates data points for perceptual pull visualization with configurable difficulty levels.
@@ -144,14 +144,14 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
   const chartHeight = 140;
 
   // Create D3 scale to map slider value to y-position
-  const yScale = useMemo(() => (d3.scaleLinear()
-    .domain([0, chartHeight])
-    .range([padding.top, chartHeight - padding.bottom])), [chartHeight]);
+  // const yScale = useMemo(() => (d3.scaleLinear()
+  //   .domain([0, chartHeight])
+  //   .range([padding.top, chartHeight - padding.bottom])), [chartHeight]);
 
   // Calculate y-position from slider value
-  const yPosition = sliderValue !== null ? yScale(sliderValue) : null;
+  // const yPosition = sliderValue !== null ? yScale(sliderValue) : null;
 
-  const handleSliderChange = useCallback((value: number) => {
+  const handleResponseChange = useCallback((value: number) => {
     if (!hasInteracted) {
       setHasInteracted(true);
     }
@@ -200,7 +200,13 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
   }, [phase, visibilityDuration, maskDuration]);
 
   return (
-    <>
+    <div style={{
+      width: '100%',
+      height: '100%',
+      position: 'relative',
+    }}
+    >
+      {/* Chart container */}
       <div style={{
         width: '100%',
         height: '100%',
@@ -223,42 +229,23 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
           <NoiseMask width={chartWidth} height={chartHeight} padding={padding} />
         )}
 
-        {/* D3-drawn Horizontal Line Overlay */}
-        {hasInteracted && (
-          <svg
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: chartWidth,
-              height: chartHeight,
-              pointerEvents: 'none',
-            }}
+        {/* Response component overlay - positioned absolutely over the chart */}
+        {phase === 'response' && (
+          <div style={{
+            justifyContent: 'center',
+            display: 'flex',
+          }}
           >
-            <line
-              x1={padding.left}
-              y1={yPosition!}
-              x2={chartWidth - padding.right}
-              y2={yPosition!}
-              stroke="#FF0000"
-              strokeWidth={2}
-              strokeDasharray="4"
+            <DragHandleResponse
+              chartWidth={chartWidth}
+              chartHeight={chartHeight}
+              padding={padding}
+              onChange={handleResponseChange}
+              initialValue={10}
             />
-          </svg>
+          </div>
         )}
       </div>
-      {/* Slider for perceptual pull */}
-      <div style={{ width: '200px', paddingTop: '20px' }}>
-        <SliderResponse
-          chartWidth={chartWidth}
-          chartHeight={chartHeight}
-          padding={padding}
-          minValue={0}
-          maxValue={140}
-          onChange={handleSliderChange}
-          initialValue={undefined}
-        />
-      </div>
-    </>
+    </div>
   );
 }
