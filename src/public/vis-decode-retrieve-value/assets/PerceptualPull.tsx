@@ -5,9 +5,9 @@ import * as d3 from 'd3';
 import VegaEmbed from 'react-vega/lib/VegaEmbed';
 import { VisualizationSpec } from 'react-vega';
 import normal from '@stdlib/random-base-normal'; // https://github.com/stdlib-js/random-base-normal
-import { Slider } from '@mantine/core';
 import { StimulusParams } from '../../../store/types';
 import { NoiseMask } from './NoiseMask';
+import SliderResponse from './responseComponents/SliderResponse';
 
 /**
  * Generates data points for perceptual pull visualization with configurable difficulty levels.
@@ -158,11 +158,6 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
     setSliderValue(value);
   }, [hasInteracted]);
 
-  const handleSliderChangeEnd = useCallback((value: number) => {
-    setSliderValue(value);
-    setHasInteracted(true);
-  }, []);
-
   // set initial answer with status = false
   useEffect(() => {
     setAnswer({
@@ -253,22 +248,15 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
         )}
       </div>
       {/* Slider for perceptual pull */}
-      <div style={{ width: '140px', paddingTop: '20px' }}>
-        <Slider
-          value={sliderValue ?? 0}
+      <div style={{ width: '200px', paddingTop: '20px' }}>
+        <SliderResponse
+          chartWidth={chartWidth}
+          chartHeight={chartHeight}
+          padding={padding}
+          minValue={0}
+          maxValue={140}
           onChange={handleSliderChange}
-          onChangeEnd={handleSliderChangeEnd}
-          min={0}
-          max={140}
-          step={0.1}
-          label={(val) => val.toFixed(2)}
-          styles={{
-            root: { width: '100%' },
-            track: { width: '100%', backgroundColor: '#e9ecef' },
-            bar: { backgroundColor: '#e9ecef' },
-            thumb: { display: sliderValue !== null ? 'block' : 'none' },
-          }}
-          data-source="perceptual-pull-slider"
+          initialValue={undefined}
         />
       </div>
     </>

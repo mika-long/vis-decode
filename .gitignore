@@ -42,3 +42,6 @@ supabase/volumes/db/data
 .env 
 .ipynb_checkpoints/*
 .virtual_documents/*
+
+# editor config 
+.editorconfig
