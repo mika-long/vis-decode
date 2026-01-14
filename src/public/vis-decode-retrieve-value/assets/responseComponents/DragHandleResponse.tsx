@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useChartOverlay } from './useChartOverlay';
 
 type DragHandleResponseProps = {
   chartWidth: number;
@@ -17,6 +18,17 @@ export default function DragHandleResponse({
   initialValue,
   width = 50, // 50 pixels
 }: DragHandleResponseProps) {
+  // Use shared chart overlay hook for positioning
+  // Note: DragHandle works in pixel coordinates (y-position), not values
+  // So we use the hook mainly for consistent overlay props
+  const { overlayProps } = useChartOverlay({
+    chartWidth,
+    chartHeight,
+    padding,
+    minValue: 0,
+    maxValue: chartHeight, // Not really used for drag handle, but required by hook
+  });
+
   // Store the y position of the top of the bar (in SVG coords)
   // If initialValue is undefined, bar starts collapsed at bottom
   const [topY, setTopY] = useState<number>(initialValue ?? chartHeight - padding.bottom);
@@ -66,8 +78,11 @@ export default function DragHandleResponse({
   return (
     <svg
       ref={svgRef}
-      width={chartWidth}
-      height={chartHeight}
+      {...overlayProps}
+      style={{
+        ...overlayProps.style,
+        pointerEvents: 'auto', // Override to allow interaction
+      }}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
     >

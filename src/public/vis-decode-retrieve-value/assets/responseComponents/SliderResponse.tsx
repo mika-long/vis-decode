@@ -1,6 +1,6 @@
-import { useState, useEffect, useMemo } from 'react';
-import * as d3 from 'd3';
+import { useState, useEffect, ReactNode } from 'react';
 import { Slider } from '@mantine/core';
+import { useChartOverlay } from './useChartOverlay';
 
 type SliderResponseProps = {
   chartWidth: number;
@@ -14,26 +14,35 @@ type SliderResponseProps = {
   disabled?: boolean;
 };
 
+type SliderResponseReturn = {
+  overlay: ReactNode;
+  control: ReactNode;
+};
+
 export default function SliderResponse({
-  chartWidth: _chartWidth,
-  chartHeight: _chartHeight,
-  padding: _padding,
+  chartWidth,
+  chartHeight,
+  padding,
   onChange,
   initialValue,
   minValue,
   maxValue,
   stepSize = 0.1,
   disabled = false,
-}: SliderResponseProps) {
+}: SliderResponseProps): SliderResponseReturn {
   const [value, setValue] = useState<number>(0);
   const [hasInteracted, setHasInteracted] = useState<boolean>(false);
 
-  // Create D3 scale to map slider value to y-position
-  const yScale = useMemo(() => (d3.scaleLinear()
-    .domain([minValue, maxValue])
-    .range([_chartHeight - _padding.bottom, _padding.top])), [minValue, maxValue, _chartHeight, _padding]);
+  // Use shared chart overlay hook for scale and positioning
+  const { valueToY, overlayProps } = useChartOverlay({
+    chartWidth,
+    chartHeight,
+    padding,
+    minValue,
+    maxValue,
+  });
 
-  const yPosition = value !== null ? yScale(value) : null;
+  const yPosition = valueToY(value);
 
   // Keep local state in sync if parent provides a new initial value.
   useEffect(() => {
@@ -58,31 +67,24 @@ export default function SliderResponse({
     onChange(next, true);
   };
 
-  return (
-    <>
-      {/* D3-drawn Horizontal Line Overlay */}
-      {hasInteracted && (
-        <svg
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: _chartWidth,
-            height: _chartHeight,
-            pointerEvents: 'none',
-          }}
-        >
-          <line
-            x1={_padding.left}
-            y1={yPosition!}
-            x2={_chartWidth - _padding.right}
-            y2={yPosition!}
-            stroke="#FF0000"
-            strokeWidth={2}
-            strokeDasharray="4"
-          />
-        </svg>
-      )}
+  return {
+    // Overlay: Visual indicator (red dashed line) - rendered over the chart
+    overlay: hasInteracted ? (
+      <svg {...overlayProps}>
+        <line
+          x1={padding.left}
+          y1={yPosition}
+          x2={chartWidth - padding.right}
+          y2={yPosition}
+          stroke="#FF0000"
+          strokeWidth={2}
+          strokeDasharray="4"
+        />
+      </svg>
+    ) : null,
+
+    // Control: Slider UI - rendered below the chart
+    control: (
       <Slider
         value={value}
         onChange={handleSliderChange}
@@ -100,6 +102,6 @@ export default function SliderResponse({
         }}
         data-source="perceptual-pull-slider"
       />
-    </>
-  );
+    ),
+  };
 }

@@ -144,20 +144,26 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
   const chartWidth = 518;
   const chartHeight = 140;
 
-  // Create D3 scale to map slider value to y-position
-  // const yScale = useMemo(() => (d3.scaleLinear()
-  //   .domain([0, chartHeight])
-  //   .range([padding.top, chartHeight - padding.bottom])), [chartHeight]);
-
-  // Calculate y-position from slider value
-  // const yPosition = sliderValue !== null ? yScale(sliderValue) : null;
-
   const handleResponseChange = useCallback((value: number) => {
     if (!hasInteracted) {
       setHasInteracted(true);
     }
     setSliderValue(value);
   }, [hasInteracted]);
+
+  // Get slider response components (overlay + control)
+  const sliderResponse = useMemo(
+    () => SliderResponse({
+      chartWidth,
+      chartHeight,
+      padding,
+      minValue: 0,
+      maxValue: 140,
+      onChange: handleResponseChange,
+      disabled: phase !== 'response',
+    }),
+    [chartWidth, chartHeight, handleResponseChange, phase],
+  );
 
   // set initial answer with status = false
   useEffect(() => {
@@ -205,12 +211,13 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
       width: '100%',
       height: '100%',
       position: 'relative',
+      display: 'flex',
+      flexDirection: 'column',
     }}
     >
-      {/* Chart container */}
+      {/* Chart container with overlays */}
       <div style={{
         width: '100%',
-        height: '100%',
         position: 'relative',
         lineHeight: 0,
         justifyContent: 'center',
@@ -230,32 +237,24 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
           <NoiseMask width={chartWidth} height={chartHeight} padding={padding} />
         )}
 
-        {/* Response component overlay - positioned absolutely over the chart */}
-        {/* {phase === 'response' && (
-          <div style={{
-            justifyContent: 'center',
-            display: 'flex',
-          }}
-          >
-            <DragHandleResponse
-              chartWidth={chartWidth}
-              chartHeight={chartHeight}
-              padding={padding}
-              onChange={handleResponseChange}
-              initialValue={10}
-            />
-          </div>
-        )} */}
+        {/* Visual overlay - red dashed line positioned absolutely over the chart */}
+        {sliderResponse.overlay}
 
-        <SliderResponse
-          chartWidth={chartWidth}
-          chartHeight={chartHeight}
-          padding={padding}
-          minValue={0}
-          maxValue={140}
-          onChange={handleResponseChange}
-          disabled={phase !== 'response'}
-        />
+        {/* DragHandleResponse alternative (commented out) */}
+        {/* {phase === 'response' && (
+          <DragHandleResponse
+            chartWidth={chartWidth}
+            chartHeight={chartHeight}
+            padding={padding}
+            onChange={handleResponseChange}
+            initialValue={10}
+          />
+        )} */}
+      </div>
+
+      {/* Slider control positioned below the chart */}
+      <div style={{ marginTop: '20px', width: '100%' }}>
+        {sliderResponse.control}
       </div>
     </div>
   );
