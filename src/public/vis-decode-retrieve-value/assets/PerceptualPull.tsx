@@ -151,20 +151,6 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
     setSliderValue(value);
   }, [hasInteracted]);
 
-  // // Get slider response components (overlay + control)
-  // const sliderResponse = useMemo(
-  //   () => SliderResponse({
-  //     chartWidth,
-  //     chartHeight,
-  //     padding,
-  //     minValue: 0,
-  //     maxValue: 140,
-  //     onChange: handleResponseChange,
-  //     disabled: phase !== 'response',
-  //   }),
-  //   [chartWidth, chartHeight, handleResponseChange, phase],
-  // );
-
   // set initial answer with status = false
   useEffect(() => {
     setAnswer({
@@ -222,6 +208,7 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
         lineHeight: 0,
         justifyContent: 'center',
         display: 'flex',
+        flexDirection: 'column',
       }}
       >
         {phase !== 'mask' ? (

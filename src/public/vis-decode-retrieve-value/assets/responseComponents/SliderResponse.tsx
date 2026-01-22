@@ -87,7 +87,12 @@ export default function SliderResponse({
         disabled={disabled}
         label={(val) => val.toFixed(2)}
         styles={{
-          root: { width: '100%' },
+          root: {
+            width: '100%',
+            marginTop: 50,
+            maxWidth: chartWidth + 20,
+            marginLeft: 20,
+          },
           track: { width: '100%', backgroundColor: '#e9ecef' },
           bar: { backgroundColor: '#e9ecef' },
           thumb: { display: hasInteracted ? 'block' : 'none' },
