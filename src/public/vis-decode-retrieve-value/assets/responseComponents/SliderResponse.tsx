@@ -1,4 +1,4 @@
-import { useState, useEffect, ReactNode } from 'react';
+import { useState, useEffect } from 'react';
 import { Slider } from '@mantine/core';
 import { useChartOverlay } from './useChartOverlay';
 
@@ -14,11 +14,6 @@ type SliderResponseProps = {
   disabled?: boolean;
 };
 
-type SliderResponseReturn = {
-  overlay: ReactNode;
-  control: ReactNode;
-};
-
 export default function SliderResponse({
   chartWidth,
   chartHeight,
@@ -29,7 +24,7 @@ export default function SliderResponse({
   maxValue,
   stepSize = 0.1,
   disabled = false,
-}: SliderResponseProps): SliderResponseReturn {
+}: SliderResponseProps) {
   const [value, setValue] = useState<number>(0);
   const [hasInteracted, setHasInteracted] = useState<boolean>(false);
 
@@ -67,24 +62,21 @@ export default function SliderResponse({
     onChange(next, true);
   };
 
-  return {
-    // Overlay: Visual indicator (red dashed line) - rendered over the chart
-    overlay: hasInteracted ? (
-      <svg {...overlayProps}>
-        <line
-          x1={padding.left}
-          y1={yPosition}
-          x2={chartWidth - padding.right}
-          y2={yPosition}
-          stroke="#FF0000"
-          strokeWidth={2}
-          strokeDasharray="4"
-        />
-      </svg>
-    ) : null,
-
-    // Control: Slider UI - rendered below the chart
-    control: (
+  return (
+    <>
+      { hasInteracted && (
+        <svg {...overlayProps}>
+          <line
+            x1={padding.left}
+            y1={yPosition}
+            x2={chartWidth - padding.right}
+            y2={yPosition}
+            stroke="#FF0000"
+            strokeWidth={2}
+            strokeDasharray="4"
+          />
+        </svg>
+      )}
       <Slider
         value={value}
         onChange={handleSliderChange}
@@ -102,6 +94,6 @@ export default function SliderResponse({
         }}
         data-source="perceptual-pull-slider"
       />
-    ),
-  };
+    </>
+  );
 }

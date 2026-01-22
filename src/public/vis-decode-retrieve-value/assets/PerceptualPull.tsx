@@ -151,19 +151,19 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
     setSliderValue(value);
   }, [hasInteracted]);
 
-  // Get slider response components (overlay + control)
-  const sliderResponse = useMemo(
-    () => SliderResponse({
-      chartWidth,
-      chartHeight,
-      padding,
-      minValue: 0,
-      maxValue: 140,
-      onChange: handleResponseChange,
-      disabled: phase !== 'response',
-    }),
-    [chartWidth, chartHeight, handleResponseChange, phase],
-  );
+  // // Get slider response components (overlay + control)
+  // const sliderResponse = useMemo(
+  //   () => SliderResponse({
+  //     chartWidth,
+  //     chartHeight,
+  //     padding,
+  //     minValue: 0,
+  //     maxValue: 140,
+  //     onChange: handleResponseChange,
+  //     disabled: phase !== 'response',
+  //   }),
+  //   [chartWidth, chartHeight, handleResponseChange, phase],
+  // );
 
   // set initial answer with status = false
   useEffect(() => {
@@ -237,8 +237,16 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
           <NoiseMask width={chartWidth} height={chartHeight} padding={padding} />
         )}
 
-        {/* Visual overlay - red dashed line positioned absolutely over the chart */}
-        {sliderResponse.overlay}
+        { phase === 'response' && (
+          <SliderResponse
+            chartWidth={chartWidth}
+            chartHeight={chartHeight}
+            padding={padding}
+            onChange={handleResponseChange}
+            minValue={0}
+            maxValue={140}
+          />
+        )}
 
         {/* DragHandleResponse alternative (commented out) */}
         {/* {phase === 'response' && (
@@ -253,9 +261,9 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
       </div>
 
       {/* Slider control positioned below the chart */}
-      <div style={{ marginTop: '20px', width: '100%' }}>
+      {/* <div style={{ marginTop: '20px', width: '100%' }}>
         {sliderResponse.control}
-      </div>
+      </div> */}
     </div>
   );
 }
