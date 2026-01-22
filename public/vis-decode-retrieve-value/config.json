@@ -49,7 +49,7 @@
             "response": [{
                 "id": "perceptualPull-value",
                 "prompt": "The value of the perceptual pull",
-                "required": true,
+                "required": false,
                 "type": "numerical",
                 "hidden": true
             }]
@@ -68,7 +68,7 @@
             "response": [{
                 "id": "weightedAverage-value",
                 "prompt": "The value of response",
-                "required": true,
+                "required": false,
                 "type": "numerical",
                 "hidden": true
             }]

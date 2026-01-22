@@ -7,7 +7,7 @@ import { VisualizationSpec } from 'react-vega';
 import normal from '@stdlib/random-base-normal'; // https://github.com/stdlib-js/random-base-normal
 import { StimulusParams } from '../../../store/types';
 import { NoiseMask } from './NoiseMask';
-// import DragHandleResponse from './responseComponents/DragHandleResponse';
+import DragHandleResponse from './responseComponents/DragHandleResponse';
 import SliderResponse from './responseComponents/SliderResponse';
 
 /**
@@ -112,10 +112,11 @@ interface PerceptualPullProps {
     bottom: boolean;
     visibilityDuration?: number;
     maskDuration?: number;
+    respnseType?: 'slider' | 'drag-handle';
   }
 }
 
-const padding = {
+const PADDING = {
   left: 0,
   right: 0,
   bottom: 0,
@@ -124,13 +125,53 @@ const padding = {
 
 type Phase = 'stimulus' | 'mask' | 'response';
 
+const renderResponseComponent = (
+  respnseType: 'slider' | 'drag-handle',
+  chartWidth: number,
+  chartHeight: number,
+  padding: { left: number; right: number; top: number; bottom: number },
+  handleResponseChange: (value: number) => void,
+  handleResponseCommit: (value: number) => void,
+) => {
+  switch (respnseType) {
+    case 'slider':
+      return (
+        <SliderResponse
+          chartWidth={chartWidth}
+          chartHeight={chartHeight}
+          padding={PADDING}
+          onChange={(value, committed) => {
+            handleResponseChange(value);
+            if (committed) handleResponseCommit(value);
+          }}
+          minValue={0}
+          maxValue={140}
+        />
+      );
+    case 'drag-handle':
+      return (
+        <DragHandleResponse
+          chartWidth={chartWidth}
+          chartHeight={chartHeight}
+          padding={PADDING}
+          onChange={(value, committed) => {
+            handleResponseChange(value);
+            if (committed) handleResponseCommit(value);
+          }}
+          initialValue={10}
+        />
+      );
+    default:
+      return null;
+  }
+};
+
 export default function PerceptualPull({ parameters, setAnswer }: StimulusParams<PerceptualPullProps>) {
   const {
     params: {
-      chartType, bottom, level, visibilityDuration = 1000, maskDuration = 500,
+      chartType, bottom, level, visibilityDuration = 1000, maskDuration = 500, respnseType = 'slider',
     },
   } = parameters;
-  const [sliderValue, setSliderValue] = useState<number | null>(null);
   const [hasInteracted, setHasInteracted] = useState<boolean>(false);
   const [phase, setPhase] = useState<Phase>('stimulus');
 
@@ -144,34 +185,32 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
   const chartWidth = 518;
   const chartHeight = 140;
 
-  const handleResponseChange = useCallback((value: number) => {
+  const handleResponseChange = useCallback((_value: number) => {
+    // Only used to record that the participant interacted; value is handled on commit
     if (!hasInteracted) {
       setHasInteracted(true);
     }
-    setSliderValue(value);
   }, [hasInteracted]);
 
-  // set initial answer with status = false
-  useEffect(() => {
+  const handleResponseCommit = useCallback((value: number) => {
+    // Submit answer only when interaction is complete
     setAnswer({
-      status: false,
+      status: true,
       answers: {
-        slider: '',
+        response: value,
       },
     });
   }, [setAnswer]);
 
-  // update answer when slider has value
+  // Initialize/reset answer when params change (mirrors Stimuli.tsx pattern)
   useEffect(() => {
-    if (hasInteracted && sliderValue !== null) {
-      setAnswer({
-        status: true,
-        answers: {
-          slider: sliderValue,
-        },
-      });
-    }
-  }, [hasInteracted, sliderValue, setAnswer]);
+    setAnswer({
+      status: false,
+      answers: {
+        response: 0,
+      },
+    });
+  }, [setAnswer, level, chartType, bottom, respnseType]);
 
   // Phase transitions
   useEffect(() => {
@@ -217,40 +256,22 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
             renderer="svg"
             width={chartWidth}
             height={chartHeight}
-            padding={padding}
+            padding={PADDING}
             actions={false}
           />
         ) : (
-          <NoiseMask width={chartWidth} height={chartHeight} padding={padding} />
+          <NoiseMask width={chartWidth} height={chartHeight} padding={PADDING} />
         )}
 
-        { phase === 'response' && (
-          <SliderResponse
-            chartWidth={chartWidth}
-            chartHeight={chartHeight}
-            padding={padding}
-            onChange={handleResponseChange}
-            minValue={0}
-            maxValue={140}
-          />
+        {phase === 'response' && renderResponseComponent(
+          respnseType,
+          chartWidth,
+          chartHeight,
+          PADDING,
+          handleResponseChange,
+          handleResponseCommit,
         )}
-
-        {/* DragHandleResponse alternative (commented out) */}
-        {/* {phase === 'response' && (
-          <DragHandleResponse
-            chartWidth={chartWidth}
-            chartHeight={chartHeight}
-            padding={padding}
-            onChange={handleResponseChange}
-            initialValue={10}
-          />
-        )} */}
       </div>
-
-      {/* Slider control positioned below the chart */}
-      {/* <div style={{ marginTop: '20px', width: '100%' }}>
-        {sliderResponse.control}
-      </div> */}
     </div>
   );
 }

@@ -37,6 +37,14 @@ export function NoiseMask({
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    // Lock the CSS size and scale the drawing buffer for device pixel ratio to avoid apparent scaling
+    const dpr = window.devicePixelRatio || 1;
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    ctx.scale(dpr, dpr);
+
     // Generate white noise
     const imageData = ctx.createImageData(width, height);
     const { data } = imageData;
