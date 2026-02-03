@@ -1,11 +1,13 @@
 /* eslint-disable */
-import { useMemo } from 'react';
-import { StimulusParams } from '../../../store/types';
+import {
+  useMemo, useState, useCallback, useEffect,
+} from 'react';
 import VegaEmbed from 'react-vega/lib/VegaEmbed';
 import { VisualizationSpec } from 'react-vega';
 import exp2Data from './data/exp2-stimuli.json';
 import SliderResponse from './responseComponents/SliderResponse';
 import DragHandleResponse from './responseComponents/DragHandleResponse';
+import { StimulusParams } from '../../../store/types';
 
 /**
  * 
@@ -53,20 +55,44 @@ interface MoritzProps {
   taskid: string;
   taskType: string;
   params: {
-    index: number; // the index inside of the original data 
+    index: number; // the index inside of the original data
     responseType?: 'slider' | 'drag-handle';
   }
 }
 
 export default function Moritz({ parameters, setAnswer }: StimulusParams<MoritzProps>) {
   const { params: { index, responseType = 'slider' } } = parameters;
-  
-  // use the index to get the correct stimulus data 
-  const chartData = useMemo(() => {
-    return exp2Data[index].data;
-  }, [index]);
-  // ... and generate the spec 
+  const [hasInteracted, setHasInteracted] = useState<boolean>(false);
+
+  // use the index to get the correct stimulus data
+  const chartData = useMemo(() => exp2Data[index].data, [index]);
+  // ... and generate the spec
   const spec = useMemo(() => generateSpec(chartData), [chartData]);
+
+  const handleResponseChange = useCallback((_value: number) => {
+    if (!hasInteracted) {
+      setHasInteracted(true);
+    }
+  }, [hasInteracted]);
+
+  const handleResponseCommit = useCallback((value: number) => {
+    setAnswer({
+      status: true,
+      answers: {
+        response: value,
+      },
+    });
+  }, [setAnswer]);
+
+  // initialize / reset response when params change
+  useEffect(() => {
+    setAnswer({
+      status: false,
+      answers: {
+        response: 0,
+      },
+    });
+  }, [setAnswer]);
 
   return (
     <div style={{
@@ -75,7 +101,8 @@ export default function Moritz({ parameters, setAnswer }: StimulusParams<MoritzP
       position: 'relative',
       display: 'flex',
       flexDirection: 'column',
-    }}>
+    }}
+    >
       {/* Chart */}
       <div style={{
         width: '100%',
@@ -83,32 +110,46 @@ export default function Moritz({ parameters, setAnswer }: StimulusParams<MoritzP
         lineHeight: 0,
         justifyContent: 'center',
         display: 'flex',
-        flexDirection: 'column'
-      }}>
-        <VegaEmbed 
+        flexDirection: 'column',
+      }}
+      >
+        <VegaEmbed
           spec={spec}
-          renderer='svg'
+          renderer="svg"
           actions={false}
         />
       </div>
       {/* Response Component */}
-      { responseType === 'slider' ? 
-        <SliderResponse 
-          chartHeight={200}
-          chartWidth={500}
-          padding={{left: 0, right: 0, top: 0, bottom: 0}}
-          onChange={() => {}}
-          minValue={0}
-          maxValue={1}
-          numberOfSteps={100}
-        /> : 
-        <DragHandleResponse 
-          chartHeight={200}
-          chartWidth={500}
-          padding={{left: 0, right: 0, top: 0, bottom: 0}}
-          onChange={() => {}}
-        />
-    }
+      { responseType === 'slider'
+        ? (
+          <SliderResponse
+            chartHeight={200}
+            chartWidth={500}
+            padding={{
+              left: 0, right: 0, top: 0, bottom: 0,
+            }}
+            onChange={(value, committed) => {
+              handleResponseChange(value);
+              if (committed) handleResponseCommit(value);
+            }}
+            minValue={0}
+            maxValue={1}
+            numberOfSteps={100}
+          />
+        )
+        : (
+          <DragHandleResponse
+            chartHeight={200}
+            chartWidth={500}
+            padding={{
+              left: 0, right: 0, top: 0, bottom: 0,
+            }}
+            onChange={(value, committed) => {
+              handleResponseChange(value);
+              if (committed) handleResponseCommit(value);
+            }}
+          />
+        )}
     </div>
-  )
+  );
 }

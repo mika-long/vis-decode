@@ -202,7 +202,7 @@ export default function PerceptualPull({ parameters, setAnswer }: StimulusParams
     });
   }, [setAnswer]);
 
-  // Initialize/reset answer when params change (mirrors Stimuli.tsx pattern)
+  // Initialize/reset answer when params change
   useEffect(() => {
     setAnswer({
       status: false,
