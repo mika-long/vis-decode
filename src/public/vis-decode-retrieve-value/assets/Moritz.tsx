@@ -20,7 +20,8 @@ function generateSpec(data: {x: number, y: number}[]): VisualizationSpec {
     height: 200,
     padding: 5,
     autosize: 'none',
-    mark: { type: 'point', color: 'black', point: { fill: 'black' } },
+    // mark: { type: 'point', color: 'black', point: { fill: 'black' } },
+    mark: { type: 'circle', color: 'black' },
     encoding: {
       x: {
         axis: {
@@ -40,7 +41,8 @@ function generateSpec(data: {x: number, y: number}[]): VisualizationSpec {
           tickSize: 0,
         },
         field: 'y',
-        type: 'quantitative'
+        type: 'quantitative', 
+        scale: {domain: [0, 1]}
       },
     },
   };

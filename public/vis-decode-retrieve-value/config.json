@@ -72,6 +72,24 @@
                 "type": "numerical",
                 "hidden": true
             }]
+        },
+        "Moritz": {
+            "type": "react-component",
+            "path": "vis-decode-retrieve-value/assets/Moritz.tsx", 
+            "instruction": "Drag the slider to where the values are on average; imagine that this is some stock prices",
+            "instructionLocation": "aboveStimulus",
+            "nextButtonLocation": "belowStimulus",
+            "parameters": {
+                "taskid": "Mortiz",
+                "taskType": "mortiz"
+            }, 
+            "response": [{
+                "id": "weightedAverage-value",
+                "prompt": "The value of response",
+                "required": false,
+                "type": "numerical",
+                "hidden": true
+            }]
         }
     }, 
     "components": {
@@ -94,6 +112,12 @@
             "baseComponent": "WeightedAverage",
             "parameters": {
                 "params": {"n": 30}
+            }
+        },
+        "task0-1": {
+            "baseComponent": "Moritz",
+            "parameters": {
+                "params": {"index": 4}
             }
         },
         "task1": {
@@ -175,6 +199,7 @@
             "introduction",
             "$virtual-chinrest.se.full",
             "task0",
+            "task0-1",
             "task1",
             "task2",
             "task3",
