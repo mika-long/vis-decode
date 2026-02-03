@@ -5,6 +5,7 @@ import VegaEmbed from 'react-vega/lib/VegaEmbed';
 import { VisualizationSpec } from 'react-vega';
 import exp2Data from './data/exp2-stimuli.json';
 import SliderResponse from './responseComponents/SliderResponse';
+import DragHandleResponse from './responseComponents/DragHandleResponse';
 
 /**
  * 
@@ -91,14 +92,22 @@ export default function Moritz({ parameters, setAnswer }: StimulusParams<MoritzP
         />
       </div>
       {/* Response Component */}
-      <SliderResponse 
-        chartHeight={200}
-        chartWidth={500}
-        padding={{left: 0, right: 0, top: 0, bottom: 0}}
-        onChange={() => {}}
-        minValue={0}
-        maxValue={1}
-      />
+      { responseType === 'slider' ? 
+        <SliderResponse 
+          chartHeight={200}
+          chartWidth={500}
+          padding={{left: 0, right: 0, top: 0, bottom: 0}}
+          onChange={() => {}}
+          minValue={0}
+          maxValue={1}
+        /> : 
+        <DragHandleResponse 
+          chartHeight={200}
+          chartWidth={500}
+          padding={{left: 0, right: 0, top: 0, bottom: 0}}
+          onChange={() => {}}
+        />
+    }
     </div>
   )
 }
