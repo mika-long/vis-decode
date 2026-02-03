@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { StimulusParams } from '../../../store/types';
 import VegaEmbed from 'react-vega/lib/VegaEmbed';
 import { VisualizationSpec } from 'react-vega';
+import exp2Data from './data/exp2-stimuli.json';
 
 /**
  * 
@@ -49,12 +50,12 @@ interface MoritzProps {
   taskid: string;
   taskType: string;
   params: {
-    data: {x:number, y:number}[];
+    index: number; // the index inside of the original data 
     responseType?: 'slider' | 'drag-handle';
   }
 }
 
 export default function Moritz({ parameters, setAnswer }: StimulusParams<MoritzProps>) {
-  const { params: { data, responseType = 'slider' } } = parameters;
+  const { params: { index, responseType = 'slider' } } = parameters;
   
 }
