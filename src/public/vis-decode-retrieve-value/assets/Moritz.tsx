@@ -100,6 +100,7 @@ export default function Moritz({ parameters, setAnswer }: StimulusParams<MoritzP
           onChange={() => {}}
           minValue={0}
           maxValue={1}
+          numberOfSteps={100}
         /> : 
         <DragHandleResponse 
           chartHeight={200}

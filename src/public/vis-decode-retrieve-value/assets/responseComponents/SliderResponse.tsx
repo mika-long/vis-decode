@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Slider } from '@mantine/core';
+import { Slider, SliderProps } from '@mantine/core';
 import { useChartOverlay } from './useChartOverlay';
 
 type SliderResponseProps = {
@@ -11,8 +11,9 @@ type SliderResponseProps = {
   onChange: (value: number, committed?: boolean) => void;
   initialValue?: number;
   stepSize?: number;
+  numberOfSteps?: number; // Alternative to stepSize
   disabled?: boolean;
-};
+} & Omit<SliderProps, 'value' | 'onChange' | 'min' | 'max' | 'step'>;
 
 export default function SliderResponse({
   chartWidth,
@@ -22,9 +23,16 @@ export default function SliderResponse({
   initialValue,
   minValue,
   maxValue,
-  stepSize = 0.1,
+  stepSize,
+  numberOfSteps,
   disabled = false,
+  ...sliderProps // captures all remaining slider props
 }: SliderResponseProps) {
+  // Calculate step size from numberOfSteps if provided, otherwise use stepSize or default
+  const calculatedStep = numberOfSteps
+    ? (maxValue - minValue) / numberOfSteps
+    : stepSize ?? 0.1;
+
   const [value, setValue] = useState<number>(0);
   const [hasInteracted, setHasInteracted] = useState<boolean>(false);
 
@@ -83,8 +91,9 @@ export default function SliderResponse({
         onChangeEnd={handleSliderChangeEnd}
         min={minValue}
         max={maxValue}
-        step={stepSize}
+        step={calculatedStep}
         disabled={disabled}
+        {...sliderProps}
         label={(val) => val.toFixed(2)}
         styles={{
           root: {
