@@ -1,0 +1,321 @@
+{
+    "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.3.1/src/parser/StudyConfigSchema.json",
+    "components": {
+        "introduction": {
+            "path": "vis-decode-retrieve-value/assets/introduction.md",
+            "response": [],
+            "type": "markdown"
+        },
+        "$virtual-chinrest.se.full": {
+            "path": "",
+            "response": [],
+            "type": "markdown"
+        },
+        "PerceptualPull_1": {
+            "instruction": "Drag the slider to indicate mean value.",
+            "instructionLocation": "aboveStimulus",
+            "nextButtonLocation": "belowStimulus",
+            "parameters": {
+                "chartType": "line",
+                "level": "H",
+                "bottom": true,
+                "maskDuration": 500
+            },
+            "path": "vis-decode-retrieve-value/components/PerceptualPull.tsx",
+            "response": [],
+            "type": "react-component"
+        },
+        "PerceptualPull_2": {
+            "instruction": "Drag the slider to indicate mean value.",
+            "instructionLocation": "aboveStimulus",
+            "nextButtonLocation": "belowStimulus",
+            "parameters": {
+                "chartType": "line",
+                "level": "H",
+                "bottom": true,
+                "maskDuration": 1000
+            },
+            "path": "vis-decode-retrieve-value/components/PerceptualPull.tsx",
+            "response": [],
+            "type": "react-component"
+        },
+        "PerceptualPull_3": {
+            "instruction": "Drag the slider to indicate mean value.",
+            "instructionLocation": "aboveStimulus",
+            "nextButtonLocation": "belowStimulus",
+            "parameters": {
+                "chartType": "line",
+                "level": "H",
+                "bottom": true,
+                "maskDuration": 1500
+            },
+            "path": "vis-decode-retrieve-value/components/PerceptualPull.tsx",
+            "response": [],
+            "type": "react-component"
+        },
+        "PerceptualPull_4": {
+            "instruction": "Drag the slider to indicate mean value.",
+            "instructionLocation": "aboveStimulus",
+            "nextButtonLocation": "belowStimulus",
+            "parameters": {
+                "chartType": "line",
+                "level": "H",
+                "bottom": false,
+                "maskDuration": 500
+            },
+            "path": "vis-decode-retrieve-value/components/PerceptualPull.tsx",
+            "response": [],
+            "type": "react-component"
+        },
+        "PerceptualPull_5": {
+            "instruction": "Drag the slider to indicate mean value.",
+            "instructionLocation": "aboveStimulus",
+            "nextButtonLocation": "belowStimulus",
+            "parameters": {
+                "chartType": "line",
+                "level": "H",
+                "bottom": false,
+                "maskDuration": 1000
+            },
+            "path": "vis-decode-retrieve-value/components/PerceptualPull.tsx",
+            "response": [],
+            "type": "react-component"
+        },
+        "PerceptualPull_6": {
+            "instruction": "Drag the slider to indicate mean value.",
+            "instructionLocation": "aboveStimulus",
+            "nextButtonLocation": "belowStimulus",
+            "parameters": {
+                "chartType": "line",
+                "level": "H",
+                "bottom": false,
+                "maskDuration": 1500
+            },
+            "path": "vis-decode-retrieve-value/components/PerceptualPull.tsx",
+            "response": [],
+            "type": "react-component"
+        },
+        "PerceptualPull_7": {
+            "instruction": "Drag the slider to indicate mean value.",
+            "instructionLocation": "aboveStimulus",
+            "nextButtonLocation": "belowStimulus",
+            "parameters": {
+                "chartType": "line",
+                "level": "M",
+                "bottom": true,
+                "maskDuration": 500
+            },
+            "path": "vis-decode-retrieve-value/components/PerceptualPull.tsx",
+            "response": [],
+            "type": "react-component"
+        },
+        "PerceptualPull_8": {
+            "instruction": "Drag the slider to indicate mean value.",
+            "instructionLocation": "aboveStimulus",
+            "nextButtonLocation": "belowStimulus",
+            "parameters": {
+                "chartType": "line",
+                "level": "M",
+                "bottom": true,
+                "maskDuration": 1000
+            },
+            "path": "vis-decode-retrieve-value/components/PerceptualPull.tsx",
+            "response": [],
+            "type": "react-component"
+        },
+        "PerceptualPull_9": {
+            "instruction": "Drag the slider to indicate mean value.",
+            "instructionLocation": "aboveStimulus",
+            "nextButtonLocation": "belowStimulus",
+            "parameters": {
+                "chartType": "line",
+                "level": "M",
+                "bottom": true,
+                "maskDuration": 1500
+            },
+            "path": "vis-decode-retrieve-value/components/PerceptualPull.tsx",
+            "response": [],
+            "type": "react-component"
+        },
+        "PerceptualPull_10": {
+            "instruction": "Drag the slider to indicate mean value.",
+            "instructionLocation": "aboveStimulus",
+            "nextButtonLocation": "belowStimulus",
+            "parameters": {
+                "chartType": "line",
+                "level": "M",
+                "bottom": false,
+                "maskDuration": 500
+            },
+            "path": "vis-decode-retrieve-value/components/PerceptualPull.tsx",
+            "response": [],
+            "type": "react-component"
+        },
+        "PerceptualPull_11": {
+            "instruction": "Drag the slider to indicate mean value.",
+            "instructionLocation": "aboveStimulus",
+            "nextButtonLocation": "belowStimulus",
+            "parameters": {
+                "chartType": "line",
+                "level": "M",
+                "bottom": false,
+                "maskDuration": 1000
+            },
+            "path": "vis-decode-retrieve-value/components/PerceptualPull.tsx",
+            "response": [],
+            "type": "react-component"
+        },
+        "PerceptualPull_12": {
+            "instruction": "Drag the slider to indicate mean value.",
+            "instructionLocation": "aboveStimulus",
+            "nextButtonLocation": "belowStimulus",
+            "parameters": {
+                "chartType": "line",
+                "level": "M",
+                "bottom": false,
+                "maskDuration": 1500
+            },
+            "path": "vis-decode-retrieve-value/components/PerceptualPull.tsx",
+            "response": [],
+            "type": "react-component"
+        },
+        "PerceptualPull_13": {
+            "instruction": "Drag the slider to indicate mean value.",
+            "instructionLocation": "aboveStimulus",
+            "nextButtonLocation": "belowStimulus",
+            "parameters": {
+                "chartType": "line",
+                "level": "L",
+                "bottom": true,
+                "maskDuration": 500
+            },
+            "path": "vis-decode-retrieve-value/components/PerceptualPull.tsx",
+            "response": [],
+            "type": "react-component"
+        },
+        "PerceptualPull_14": {
+            "instruction": "Drag the slider to indicate mean value.",
+            "instructionLocation": "aboveStimulus",
+            "nextButtonLocation": "belowStimulus",
+            "parameters": {
+                "chartType": "line",
+                "level": "L",
+                "bottom": true,
+                "maskDuration": 1000
+            },
+            "path": "vis-decode-retrieve-value/components/PerceptualPull.tsx",
+            "response": [],
+            "type": "react-component"
+        },
+        "PerceptualPull_15": {
+            "instruction": "Drag the slider to indicate mean value.",
+            "instructionLocation": "aboveStimulus",
+            "nextButtonLocation": "belowStimulus",
+            "parameters": {
+                "chartType": "line",
+                "level": "L",
+                "bottom": true,
+                "maskDuration": 1500
+            },
+            "path": "vis-decode-retrieve-value/components/PerceptualPull.tsx",
+            "response": [],
+            "type": "react-component"
+        },
+        "PerceptualPull_16": {
+            "instruction": "Drag the slider to indicate mean value.",
+            "instructionLocation": "aboveStimulus",
+            "nextButtonLocation": "belowStimulus",
+            "parameters": {
+                "chartType": "line",
+                "level": "L",
+                "bottom": false,
+                "maskDuration": 500
+            },
+            "path": "vis-decode-retrieve-value/components/PerceptualPull.tsx",
+            "response": [],
+            "type": "react-component"
+        },
+        "PerceptualPull_17": {
+            "instruction": "Drag the slider to indicate mean value.",
+            "instructionLocation": "aboveStimulus",
+            "nextButtonLocation": "belowStimulus",
+            "parameters": {
+                "chartType": "line",
+                "level": "L",
+                "bottom": false,
+                "maskDuration": 1000
+            },
+            "path": "vis-decode-retrieve-value/components/PerceptualPull.tsx",
+            "response": [],
+            "type": "react-component"
+        },
+        "PerceptualPull_18": {
+            "instruction": "Drag the slider to indicate mean value.",
+            "instructionLocation": "aboveStimulus",
+            "nextButtonLocation": "belowStimulus",
+            "parameters": {
+                "chartType": "line",
+                "level": "L",
+                "bottom": false,
+                "maskDuration": 1500
+            },
+            "path": "vis-decode-retrieve-value/components/PerceptualPull.tsx",
+            "response": [],
+            "type": "react-component"
+        }
+    },
+    "importedLibraries": [
+        "virtual-chinrest"
+    ],
+    "sequence": {
+        "components": [
+            "introduction",
+            "$virtual-chinrest.se.full",
+            {
+                "components": [
+                    "PerceptualPull_1",
+                    "PerceptualPull_2",
+                    "PerceptualPull_3",
+                    "PerceptualPull_4",
+                    "PerceptualPull_5",
+                    "PerceptualPull_6",
+                    "PerceptualPull_7",
+                    "PerceptualPull_8",
+                    "PerceptualPull_9",
+                    "PerceptualPull_10",
+                    "PerceptualPull_11",
+                    "PerceptualPull_12",
+                    "PerceptualPull_13",
+                    "PerceptualPull_14",
+                    "PerceptualPull_15",
+                    "PerceptualPull_16",
+                    "PerceptualPull_17",
+                    "PerceptualPull_18"
+                ],
+                "order": "random"
+            }
+        ],
+        "order": "fixed"
+    },
+    "studyMetadata": {
+        "authors": [
+            "Sheng Long"
+        ],
+        "date": "2026-01-22",
+        "description": "",
+        "organizations": [
+            "Northwestern University"
+        ],
+        "title": "Retrieve Value Judgment Study",
+        "version": "1.0"
+    },
+    "uiConfig": {
+        "contactEmail": "shenglong@u.northwestern.edu",
+        "logoPath": "assets/revisitLogoSquare.svg",
+        "minHeightSize": 400.0,
+        "minWidthSize": 400.0,
+        "nextOnEnter": false,
+        "withProgressBar": true,
+        "withSidebar": false
+    }
+}
