@@ -55,7 +55,7 @@
   ],
   "configs": {
     "vis-decode-retrieve-value": {
-      "path": "vis-decode-retrieve-value/config.json"
+      "path": "vis-decode-retrieve-value/config-r.json"
     },
     "vis-decode-slider": {
       "path": "vis-decode-slider/config.json"
