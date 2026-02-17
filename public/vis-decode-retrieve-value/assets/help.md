@@ -1,3 +1,3 @@
-# TODO 
+# Help 
 
-This is the `help.md` file. To be filled out. 
+To ask for help, please contact Sheng Long at shenglong\[at\]u.northwestern.edu.
