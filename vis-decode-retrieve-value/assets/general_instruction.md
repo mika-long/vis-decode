@@ -2,9 +2,10 @@
 
 Here's what to expect:
 
-This experiment consists of **5 blocks of trials**. Each trial has two parts:
+This experiment consists of **2 parts**.
 
-1. **Training Part**: You'll complete **2** practice trials to help you familiarize yourself with the task and experiment interface. 
-2. **Testing Part**: You'll complete **10** trials where you'll apply your understanding of the interface from the training part. Your performance during this part will impact your bonus.   
+1. In the first part, you will complete a **virtual chinrest** task. This is a quick calibration procedure that estimates how far you are sitting from your screen — it takes about 1 minute and helps us interpret your responses accurately.
 
-You will complete all trials within each block before moving to the next block. The experiment will guide you through each stage automatically.
+2. In the second part, you will complete **4 practice trials** followed by **48 test trials**. 
+   - The practice trials are meant to familiarize you with the task and interface: you will see a graph and use a **slider** to position a horizontal line at what you think the **average value** of the data is. 
+   - The test trials follow the same format and count toward your **performance bonus**.
