@@ -1,10 +1,8 @@
-# TODO 
-
 # Consent 
 
 Before we begin, please read the following consent form carefully and thereafter complete the section below.
 
-**Title of Research Study**: Visual Decoding Operators 
+**Title of Research Study**: Visual Decoding Operators -- Stock Price 
 
 **Principal Investigator**: Matthew Kay 
 
