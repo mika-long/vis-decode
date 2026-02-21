@@ -82,17 +82,20 @@
     "calibration_intro": {
       "type": "markdown",
       "path": "vis-decode-retrieve-value/assets/calibration_intro.md",
-      "response": []
+      "response": [],
+      "nextButtonEnableTime": 3000
     },
     "training_intro": {
       "type": "markdown",
       "path": "vis-decode-retrieve-value/assets/training_intro.md",
-      "response": []
+      "response": [],
+      "nextButtonEnableTime": 3000
     },
     "testing_intro": {
       "type": "markdown",
       "path": "vis-decode-retrieve-value/assets/testing_intro.md",
-      "response": []
+      "response": [],
+      "nextButtonEnableTime": 3000
     },
     "point_task_1": {
       "baseComponent": "Moritz",
@@ -964,7 +967,7 @@
           },
           {
             "order": "random",
-            "components": ["pointArc_task_1", "pointArc_task_2", "pointArc_task_3", "pointArc_task_4", "pointArc_task_5", "pointArc_task_6", "pointArc_task_7", "pointArc_task_8", "pointArc_task_9", "pointArc_task_10", "pointArc_task_11", "pointArc_task_12", "pointArc_task_13", "pointArc_task_14", "pointArc_task_15", "pointArc_task_16", "pointArc_task_17", "pointArc_task_18", "pointArc_task_19", "pointArc_task_20", "pointArc_task_21", "pointArc_task_22", "pointArc_task_23", "pointArc_task_24", "pointArc_task_25", "pointArc_task_26", "pointArc_task_27", "pointArc_task_28", "pointArc_task_29", "pointArc_task_30", "pointArc_task_31", "pointArc_task_32", "pointArc_task_33", "pointArc_task_34", "pointArc_task_35", "pointArc_task_36", "pointArc_task_37", "pointArc_task_38", "pointArc_task_39", "pointArc_task_40", "pointArc_task_41", "pointArc_task_42", "pointArc_task_43", "pointArc_task_44", "pointArc_task_45", "pointArc_task_46", "pointArc_task_47", "pointArc_task_48"], 
+            "components": ["pointArc_task_1", "pointArc_task_2", "pointArc_task_3", "pointArc_task_4", "pointArc_task_5", "pointArc_task_6", "pointArc_task_7", "pointArc_task_8", "pointArc_task_9", "pointArc_task_10", "pointArc_task_11", "pointArc_task_12", "pointArc_task_13", "pointArc_task_14", "pointArc_task_15", "pointArc_task_16", "pointArc_task_17", "pointArc_task_18", "pointArc_task_19", "pointArc_task_20", "pointArc_task_21", "pointArc_task_22", "pointArc_task_23", "pointArc_task_24", "pointArc_task_25", "pointArc_task_26", "pointArc_task_27", "pointArc_task_28", "pointArc_task_29", "pointArc_task_30", "pointArc_task_31", "pointArc_task_32", "pointArc_task_33", "pointArc_task_34", "pointArc_task_35", "pointArc_task_36", "pointArc_task_37", "pointArc_task_38", "pointArc_task_39", "pointArc_task_40", "pointArc_task_41", "pointArc_task_42", "pointArc_task_43", "pointArc_task_44", "pointArc_task_45", "pointArc_task_46", "pointArc_task_47", "pointArc_task_48"],
             "interruptions": [
               {
                 "spacing": "random",

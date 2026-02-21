@@ -9,6 +9,8 @@ import SliderResponse from './responseComponents/SliderResponse';
 import DragHandleResponse from './responseComponents/DragHandleResponse';
 import { StimulusParams } from '../../../store/types';
 
+const VEGA_PADDING = 5;
+
 /**
  * 
  * See https://vega.github.io/vega-lite/docs/size.html for details on defaults.
@@ -21,7 +23,7 @@ function generateSpec(data: {x: number, y: number}[]): VisualizationSpec {
     data: { name: 'data', values: data },
     width: 500,
     height: 200,
-    padding: 5,
+    padding: VEGA_PADDING, // this needs to be changed the same with the overlaid padding stuff below ... 
     autosize: 'none',
     // mark: { type: 'point', color: 'black', point: { fill: 'black' } },
     mark: { type: 'circle', color: 'black' },
@@ -125,8 +127,8 @@ export default function Moritz({ parameters, setAnswer }: StimulusParams<MoritzP
           <SliderResponse
             chartHeight={200}
             chartWidth={500}
-            padding={{
-              left: 0, right: 0, top: 0, bottom: 0,
+            chartPadding={{
+              left: VEGA_PADDING, right: VEGA_PADDING, top: VEGA_PADDING, bottom: VEGA_PADDING,
             }}
             onChange={(value, committed) => {
               handleResponseChange(value);

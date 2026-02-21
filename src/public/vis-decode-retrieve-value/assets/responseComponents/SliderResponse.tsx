@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Slider, SliderProps } from '@mantine/core';
+import { Slider, SliderProps, Text } from '@mantine/core';
 import { useChartOverlay } from './useChartOverlay';
 
 type SliderResponseProps = {
   chartWidth: number;
   chartHeight: number;
-  padding: { left: number; right: number; top: number; bottom: number; };
+  chartPadding: { left: number; right: number; top: number; bottom: number; };
   minValue: number;
   maxValue: number;
   onChange: (value: number, committed?: boolean) => void;
@@ -18,7 +18,7 @@ type SliderResponseProps = {
 export default function SliderResponse({
   chartWidth,
   chartHeight,
-  padding,
+  chartPadding,
   onChange,
   initialValue,
   minValue,
@@ -40,7 +40,7 @@ export default function SliderResponse({
   const { valueToY, overlayProps } = useChartOverlay({
     chartWidth,
     chartHeight,
-    padding,
+    chartPadding,
     minValue,
     maxValue,
   });
@@ -73,11 +73,11 @@ export default function SliderResponse({
   return (
     <>
       { hasInteracted && (
-        <svg {...overlayProps}>
+        <svg {...overlayProps} data-source="overlay-svg">
           <line
-            x1={padding.left}
+            x1={chartPadding.left}
             y1={yPosition}
-            x2={chartWidth - padding.right}
+            x2={chartWidth + chartPadding.right}
             y2={yPosition}
             stroke="#FF0000"
             strokeWidth={2}
@@ -85,6 +85,13 @@ export default function SliderResponse({
           />
         </svg>
       )}
+      <Text style={{
+        marginTop: 50,
+        marginLeft: 20,
+      }}
+      >
+        Click on the slider below to initialize:
+      </Text>
       <Slider
         value={value}
         onChange={handleSliderChange}
@@ -95,10 +102,11 @@ export default function SliderResponse({
         disabled={disabled}
         {...sliderProps}
         label={(val) => val.toFixed(2)}
+        thumbSize={22}
         styles={{
           root: {
             width: '100%',
-            marginTop: 50,
+            marginTop: 0,
             maxWidth: chartWidth + 20,
             marginLeft: 20,
           },
@@ -106,7 +114,7 @@ export default function SliderResponse({
           bar: { backgroundColor: '#e9ecef' },
           thumb: { display: hasInteracted ? 'block' : 'none' },
         }}
-        data-source="perceptual-pull-slider"
+        data-source="click-then-init-slider"
       />
     </>
   );

@@ -4,7 +4,7 @@ import * as d3 from 'd3';
 type UseChartOverlayProps = {
   chartWidth: number;
   chartHeight: number;
-  padding: { left: number; right: number; top: number; bottom: number };
+  chartPadding: { left: number; right: number; top: number; bottom: number };
   minValue: number;
   maxValue: number;
 };
@@ -23,7 +23,7 @@ type UseChartOverlayProps = {
 export function useChartOverlay({
   chartWidth,
   chartHeight,
-  padding,
+  chartPadding,
   minValue,
   maxValue,
 }: UseChartOverlayProps) {
@@ -32,8 +32,8 @@ export function useChartOverlay({
   const scale = useMemo(
     () => d3.scaleLinear()
       .domain([minValue, maxValue])
-      .range([chartHeight - padding.bottom, padding.top]),
-    [minValue, maxValue, chartHeight, padding],
+      .range([chartPadding.top + chartHeight, chartPadding.top]),
+    [minValue, maxValue, chartHeight, chartPadding],
   );
 
   // Convenience function to convert a value to y-position
@@ -42,8 +42,8 @@ export function useChartOverlay({
   // Common SVG props for absolutely positioned overlays
   const overlayProps = useMemo(
     () => ({
-      width: chartWidth,
-      height: chartHeight,
+      width: chartWidth + chartPadding.left + chartPadding.right, // now handling padding
+      height: chartHeight + chartPadding.top + chartPadding.bottom, // no handling padding
       style: {
         position: 'absolute' as const,
         top: 0,
@@ -51,7 +51,7 @@ export function useChartOverlay({
         pointerEvents: 'none' as const,
       },
     }),
-    [chartWidth, chartHeight],
+    [chartWidth, chartHeight, chartPadding],
   );
 
   return {
@@ -60,6 +60,6 @@ export function useChartOverlay({
     overlayProps,
     chartWidth,
     chartHeight,
-    padding,
+    chartPadding,
   };
 }
