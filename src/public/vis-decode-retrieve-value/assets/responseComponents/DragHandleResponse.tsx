@@ -4,7 +4,7 @@ import { useChartOverlay } from './useChartOverlay';
 type DragHandleResponseProps = {
   chartWidth: number;
   chartHeight: number;
-  padding: { left: number; right: number; top: number; bottom: number };
+  chartPadding: { left: number; right: number; top: number; bottom: number };
   onChange: (value: number, committed?: boolean) => void;
   initialValue?: number;
   width?: number;
@@ -13,7 +13,7 @@ type DragHandleResponseProps = {
 export default function DragHandleResponse({
   chartWidth,
   chartHeight,
-  padding,
+  chartPadding,
   onChange,
   initialValue,
   width = 50, // 50 pixels
@@ -24,26 +24,26 @@ export default function DragHandleResponse({
   const { overlayProps } = useChartOverlay({
     chartWidth,
     chartHeight,
-    padding,
+    chartPadding,
     minValue: 0,
     maxValue: chartHeight, // Not really used for drag handle, but required by hook
   });
 
   // Store the y position of the top of the bar (in SVG coords)
   // If initialValue is undefined, bar starts collapsed at bottom
-  const [topY, setTopY] = useState<number>(initialValue ?? chartHeight - padding.bottom);
+  const [topY, setTopY] = useState<number>(initialValue ?? chartHeight - chartPadding.bottom);
   const dragging = useRef(false);
 
   useEffect(() => {
     if (initialValue !== undefined) setTopY(initialValue);
   }, [initialValue]);
 
-  const bottomY = chartHeight - padding.bottom; // base of bar
+  const bottomY = chartHeight - chartPadding.bottom; // base of bar
   const barHeight = Math.max(0, bottomY - topY); // height from top to base
 
   const clampY = (clientY: number, svgTop: number) => {
     const raw = clientY - svgTop;
-    return Math.max(padding.top, Math.min(chartHeight - padding.bottom, raw));
+    return Math.max(chartPadding.top, Math.min(chartHeight - chartPadding.bottom, raw));
   };
 
   const svgRef = useRef<SVGSVGElement>(null);
@@ -88,7 +88,7 @@ export default function DragHandleResponse({
     >
       {/* Full-width bar from bottom to topY */}
       <rect
-        x={padding.left}
+        x={chartPadding.left}
         y={topY}
         // width={chartWidth - padding.left - padding.right}
         width={width}
@@ -97,7 +97,7 @@ export default function DragHandleResponse({
       />
       {/* Draggable handle at the top of the bar */}
       <rect
-        x={padding.left}
+        x={chartPadding.left}
         y={topY - 10}
         // width={chartWidth - padding.left - padding.right}
         width={width}

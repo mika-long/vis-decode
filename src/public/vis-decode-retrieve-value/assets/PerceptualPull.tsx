@@ -129,7 +129,7 @@ const renderResponseComponent = (
   respnseType: 'slider' | 'drag-handle',
   chartWidth: number,
   chartHeight: number,
-  padding: { left: number; right: number; top: number; bottom: number },
+  chartPadding: { left: number; right: number; top: number; bottom: number },
   handleResponseChange: (value: number) => void,
   handleResponseCommit: (value: number) => void,
 ) => {
@@ -139,7 +139,7 @@ const renderResponseComponent = (
         <SliderResponse
           chartWidth={chartWidth}
           chartHeight={chartHeight}
-          padding={PADDING}
+          chartPadding={PADDING}
           onChange={(value, committed) => {
             handleResponseChange(value);
             if (committed) handleResponseCommit(value);
@@ -153,7 +153,7 @@ const renderResponseComponent = (
         <DragHandleResponse
           chartWidth={chartWidth}
           chartHeight={chartHeight}
-          padding={PADDING}
+          chartPadding={PADDING}
           onChange={(value, committed) => {
             handleResponseChange(value);
             if (committed) handleResponseCommit(value);
