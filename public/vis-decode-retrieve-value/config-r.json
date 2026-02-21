@@ -40,8 +40,15 @@
       },
       "response": [
         {
-          "id": "weightedAverage-value",
-          "prompt": "The value of response",
+          "id": "numericResponse",
+          "prompt": "Numeric response of slider to Mortiz question",
+          "required": false,
+          "type": "numerical",
+          "hidden": true
+        },
+        {
+          "id": "pixelResponse",
+          "prompt": "Numeric response of slider to Mortiz question",
           "required": false,
           "type": "numerical",
           "hidden": true

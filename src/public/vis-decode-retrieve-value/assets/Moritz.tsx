@@ -5,7 +5,7 @@ import VegaEmbed from 'react-vega/lib/VegaEmbed';
 import { VisualizationSpec } from 'react-vega';
 import exp2Data from './data/exp2-stimuli.json';
 import SliderResponse from './responseComponents/SliderResponse';
-import DragHandleResponse from './responseComponents/DragHandleResponse';
+// import DragHandleResponse from './responseComponents/DragHandleResponse';
 import { StimulusParams } from '../../../store/types';
 
 const VEGA_PADDING = 5;
@@ -62,6 +62,7 @@ interface MoritzProps {
 }
 
 export default function Moritz({ parameters, setAnswer }: StimulusParams<MoritzProps>) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { params: { index, responseType = 'slider' } } = parameters;
   const [hasInteracted, setHasInteracted] = useState<boolean>(false);
 
@@ -76,11 +77,12 @@ export default function Moritz({ parameters, setAnswer }: StimulusParams<MoritzP
     }
   }, [hasInteracted]);
 
-  const handleResponseCommit = useCallback((value: number) => {
+  const handleResponseCommit = useCallback((value: number, pixelY: number) => {
     setAnswer({
       status: true,
       answers: {
-        response: value,
+        numericResponse: value,
+        pixelResponse: pixelY,
       },
     });
   }, [setAnswer]);
@@ -90,7 +92,8 @@ export default function Moritz({ parameters, setAnswer }: StimulusParams<MoritzP
     setAnswer({
       status: false,
       answers: {
-        response: 0,
+        numericResponse: 0,
+        pixelResponse: 0,
       },
     });
   }, [setAnswer]);
@@ -121,7 +124,21 @@ export default function Moritz({ parameters, setAnswer }: StimulusParams<MoritzP
         />
       </div>
       {/* Response Component */}
-      { responseType === 'slider'
+      <SliderResponse
+        chartHeight={200}
+        chartWidth={500}
+        chartPadding={{
+          left: VEGA_PADDING, right: VEGA_PADDING, top: VEGA_PADDING, bottom: VEGA_PADDING,
+        }}
+        onChange={(value, pixelY, committed) => {
+          handleResponseChange(value);
+          if (committed) handleResponseCommit(value, pixelY);
+        }}
+        minValue={0}
+        maxValue={1}
+        numberOfSteps={100}
+      />
+      {/* { responseType === 'slider'
         ? (
           <SliderResponse
             chartHeight={200}
@@ -129,9 +146,9 @@ export default function Moritz({ parameters, setAnswer }: StimulusParams<MoritzP
             chartPadding={{
               left: VEGA_PADDING, right: VEGA_PADDING, top: VEGA_PADDING, bottom: VEGA_PADDING,
             }}
-            onChange={(value, committed) => {
+            onChange={(value, pixelY, committed) => {
               handleResponseChange(value);
-              if (committed) handleResponseCommit(value);
+              if (committed) handleResponseCommit(value, pixelY);
             }}
             minValue={0}
             maxValue={1}
@@ -150,7 +167,7 @@ export default function Moritz({ parameters, setAnswer }: StimulusParams<MoritzP
               if (committed) handleResponseCommit(value);
             }}
           />
-        )}
+        )} */}
     </div>
   );
 }

@@ -8,7 +8,7 @@ type SliderResponseProps = {
   chartPadding: { left: number; right: number; top: number; bottom: number; };
   minValue: number;
   maxValue: number;
-  onChange: (value: number, committed?: boolean) => void;
+  onChange: (value: number, pixelY: number, committed?: boolean) => void;
   initialValue?: number;
   stepSize?: number;
   numberOfSteps?: number; // Alternative to stepSize
@@ -59,7 +59,7 @@ export default function SliderResponse({
     if (!hasInteracted) {
       setHasInteracted(true);
     }
-    onChange(next, false);
+    onChange(next, valueToY(next), false);
   };
 
   const handleSliderChangeEnd = (next: number) => {
@@ -67,7 +67,7 @@ export default function SliderResponse({
     if (!hasInteracted) {
       setHasInteracted(true);
     }
-    onChange(next, true);
+    onChange(next, valueToY(next), true);
   };
 
   return (
