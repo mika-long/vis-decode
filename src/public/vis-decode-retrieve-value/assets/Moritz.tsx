@@ -1,4 +1,3 @@
-/* eslint-disable */
 import {
   useMemo, useState, useCallback, useEffect,
 } from 'react';
@@ -12,10 +11,10 @@ import { StimulusParams } from '../../../store/types';
 const VEGA_PADDING = 5;
 
 /**
- * 
+ *
  * See https://vega.github.io/vega-lite/docs/size.html for details on defaults.
- * @param data 
- * @returns 
+ * @param data
+ * @returns
  */
 function generateSpec(data: {x: number, y: number}[]): VisualizationSpec {
   return {
@@ -23,7 +22,7 @@ function generateSpec(data: {x: number, y: number}[]): VisualizationSpec {
     data: { name: 'data', values: data },
     width: 500,
     height: 200,
-    padding: VEGA_PADDING, // this needs to be changed the same with the overlaid padding stuff below ... 
+    padding: VEGA_PADDING, // this needs to be changed the same with the overlaid padding stuff below ...
     autosize: 'none',
     // mark: { type: 'point', color: 'black', point: { fill: 'black' } },
     mark: { type: 'circle', color: 'black' },
@@ -46,8 +45,8 @@ function generateSpec(data: {x: number, y: number}[]): VisualizationSpec {
           tickSize: 0,
         },
         field: 'y',
-        type: 'quantitative', 
-        scale: {domain: [0, 1]}
+        type: 'quantitative',
+        scale: { domain: [0, 1] },
       },
     },
   };
