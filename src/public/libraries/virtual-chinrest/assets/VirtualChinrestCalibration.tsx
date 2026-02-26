@@ -150,6 +150,7 @@ export default function VirtualChinrestCalibration({
         onClick={handleCalibrationComplete}
         size="lg"
         variant="transparent"
+        disabled={!hasMovedSlider}
       >
         Confirm Size
       </Button>
