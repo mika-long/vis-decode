@@ -29,11 +29,21 @@ export function useChartOverlay({
 }: UseChartOverlayProps) {
   // Create D3 scale to map values to y-positions
   // Higher values map to lower y-coordinates (top of chart)
+  // const scale = useMemo(
+  //   () => d3.scaleLinear()
+  //     .domain([minValue, maxValue])
+  //     .range([chartPadding.top + chartHeight, chartPadding.top]),
+  //   [minValue, maxValue, chartHeight, chartPadding],
+  // );
+  /* using this version because we want thigns to
+  be able to map nicely, from [0, 1] on the numerical scale
+  to [pixelHeight of y-axis, 0] on the pixel scale
+  */
   const scale = useMemo(
     () => d3.scaleLinear()
       .domain([minValue, maxValue])
-      .range([chartPadding.top + chartHeight, chartPadding.top]),
-    [minValue, maxValue, chartHeight, chartPadding],
+      .range([chartHeight, 0]),
+    [minValue, maxValue, chartHeight],
   );
 
   // Convenience function to convert a value to y-position
