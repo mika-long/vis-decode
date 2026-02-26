@@ -59,7 +59,7 @@ export default function SliderResponse({
     if (!hasInteracted) {
       setHasInteracted(true);
     }
-    onChange(next, valueToY(next), false);
+    onChange(next, valueToY(next) - chartPadding.top, false);
   };
 
   const handleSliderChangeEnd = (next: number) => {
@@ -67,7 +67,7 @@ export default function SliderResponse({
     if (!hasInteracted) {
       setHasInteracted(true);
     }
-    onChange(next, valueToY(next), true);
+    onChange(next, valueToY(next) - chartPadding.top, true);
   };
 
   return (
