@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.3.1/src/parser/StudyConfigSchema.json",
+  "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.4.0/src/parser/StudyConfigSchema.json",
   "studyMetadata": {
     "title": "Visual Decoding Operators — Average Estimation in Line Graphs",
     "version": "pilot",
@@ -21,6 +21,35 @@
     "withSidebar": false,
     "urlParticipantIdParam": "PROLIFIC_PID",
     "studyEndMsg": "**Thank you for completing the study.** \n\n You may click this link and return to Prolific: [https://app.prolific.com/submissions/complete?cc=C1O3ZUHV](https://app.prolific.com/submissions/complete?cc=C1O3ZUHV)"
+  },
+  "studyRules": {
+    "display": {
+      "minHeight": 400,
+      "minWidth": 935
+    },
+    "browsers": {
+      "allowed": [
+        {
+          "name": "chrome",
+          "minVersion": 100
+        },
+        {
+          "name": "firefox",
+          "minVersion": 100
+        },
+        {
+          "name": "safari",
+          "minVersion": 10
+        }
+      ],
+      "blockedMessage": "You must be on a relatively modern browser, Chrome > 100, Firefox > 100, Safari > 10."
+    },
+    "devices": {
+      "allowed": [
+        "desktop"
+      ],
+      "blockedMessage": "This study requires a desktop device."
+    }
   },
   "importedLibraries": [
     "virtual-chinrest"
@@ -94,13 +123,21 @@
       "type": "markdown",
       "path": "vis-decode-retrieve-value/assets/training_intro.md",
       "response": [],
-      "nextButtonEnableTime": 3000
+      "nextButtonEnableTime": 3000,
+      "style": {
+        "margin": "0 auto",
+        "width": "50%"
+      }
     },
     "testing_intro": {
       "type": "markdown",
       "path": "vis-decode-retrieve-value/assets/testing_intro.md",
       "response": [],
-      "nextButtonEnableTime": 3000
+      "nextButtonEnableTime": 3000,
+      "style": {
+        "margin": "0 auto",
+        "width": "50%"
+      }
     },
     "point_task_1": {
       "baseComponent": "Moritz",
