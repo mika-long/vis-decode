@@ -1,10 +1,8 @@
-# Introduction 
+# Virtual Chinrest Calibration
 
-This is an example of the library `virtual-chinrest`. 
+This is an example of the library `virtual-chinrest` implemented in reVISit. 
 
-The GitHub implementation is here: https://github.com/QishengLi/virtual_chinrest. 
-
-The `jsPsych` plugin documentation is here: https://www.jspsych.org/v7/plugins/virtual-chinrest/. 
+It is based on the [`jsPsych` plugin](https://github.com/QishengLi/virtual_chinrest) (also see the [documentation](https://www.jspsych.org/v7/plugins/virtual-chinrest/)). 
 
 ## References 
 
