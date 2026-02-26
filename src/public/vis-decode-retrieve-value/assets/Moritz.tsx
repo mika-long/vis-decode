@@ -53,21 +53,25 @@ function generateSpec(data: {x: number, y: number}[]): VisualizationSpec {
 }
 
 interface MoritzProps {
-  taskid: string;
-  taskType: string;
-  params: {
-    index: number; // the index inside of the original data
-    responseType?: 'slider' | 'drag-handle';
-  }
+  // taskid: string;
+  // taskType: string;
+  // params: {
+  //   index: number; // the index inside of the original data
+  //   responseType?: 'slider' | 'drag-handle';
+  // }
+  taskIndex: number; /* the index used in the original study */
+  taskType: string; /* the graph type, could be either "point" or "pointArc" */
+  responseType?: 'slider' | 'drag-handle'; /* optional for specifying what type of response format */
 }
 
 export default function Moritz({ parameters, setAnswer }: StimulusParams<MoritzProps>) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { params: { index, responseType = 'slider' } } = parameters;
+  const { taskIndex, taskType, responseType = 'slider' } = parameters;
+  // const { params: { index, responseType = 'slider' } } = parameters;
   const [hasInteracted, setHasInteracted] = useState<boolean>(false);
 
   // use the index to get the correct stimulus data
-  const chartData = useMemo(() => exp2Data[index].data, [index]);
+  const chartData = useMemo(() => exp2Data[taskIndex].data, [taskIndex]);
   // ... and generate the spec
   const spec = useMemo(() => generateSpec(chartData), [chartData]);
 
