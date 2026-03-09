@@ -4,16 +4,16 @@
     "title": "Visual Decoding Operators — Average Estimation in Line Graphs",
     "version": "pilot",
     "authors": [
-      "Sheng Long"
+      "Anonymous"
     ],
     "date": "2025-12-10",
     "description": "A study designed to elicit resposnes from participants",
     "organizations": [
-      "Northwestern University"
+      "Some University"
     ]
   },
   "uiConfig": {
-    "contactEmail": "shenglong@u.northwestern.edu",
+    "contactEmail": "",
     "helpTextPath": "vis-decode-retrieve-value/assets/help.md",
     "logoPath": "revisitAssets/revisitLogoSquare.svg",
     "withProgressBar": true,
