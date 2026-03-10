@@ -8,9 +8,7 @@ import { VideoComponent } from '../parser/types';
 import { PREFIX } from '../utils/Prefix';
 import { getStaticAssetByPath } from '../utils/getStaticAsset';
 import { ResourceNotFound } from '../ResourceNotFound';
-// import 'plyr-react/dist/plyr.css';
 import 'plyr-react/plyr.css';
-// import 'plyr/plyr.css';
 import { useStoreActions, useStoreDispatch } from '../store/store';
 import { useCurrentComponent, useCurrentStep } from '../routes/utils';
 // eslint-disable-next-line import/order
