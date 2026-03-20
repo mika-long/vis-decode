@@ -161,7 +161,11 @@
       "type": "markdown",
       "path": "vis-decode-retrieve-value/assets/chinrest_intro.md",
       "response": [],
-      "nextButtonEnableTime": 3000
+      "nextButtonEnableTime": 3000, 
+      "style": {
+        "margin": "0 auto",
+        "width": "50%"
+      }
     },
     "study_overview": {
       "type": "markdown",

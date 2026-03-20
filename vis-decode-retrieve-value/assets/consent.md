@@ -16,7 +16,7 @@ Before we begin, please read the following consent form carefully and thereafter
 The following is a short summary of this study to help you decide whether to be a part of this study. Information that is more detailed is explained later on in this form.
 - The purpose of this study is to understand how people visually estimate and retrieve values from statistical graphs.
 - You will be asked to complete two types of visual perception tasks where you make judgments about graphs using an interactive interface.
-- We expect that you will be in this research study for approximately **15 – 20 minutes total**.
+- We expect that you will be in this research study for approximately **12 – 20 minutes total**.
 - The primary potential risk of participation is minor temporary eye strain from viewing a computer screen.
 - The main benefit of being in this study is contributing to improved design of statistical visualizations for better public understanding.
 
@@ -36,7 +36,7 @@ We expect about 20 – 40 people will be in this research study.
 ## What happens if I say, "Yes, I want to be in this research"?
 If you agree to be in this research study, here's what will happen:
 - You will complete a series of visual perception tasks on your computer through a web-based platform. **You must use a desktop or laptop computer with a modern web browser (mobile devices are not allowed).**
-- The study will take approximately **15 – 20 minutes total**, including instructions, training, and the tasks themselves.
+- The study will take approximately **12 – 20 minutes total**, including instructions, training, and the tasks themselves.
 - You will complete **two tasks**:
     - **Task 1:** You will be shown a graph with a single data point. Your goal is to use two sliders to indicate the location of that point along the X and Y axes.
     - **Task 2:** You will be shown line graphs displaying a series of data points. Your goal is to estimate the **average (mean)** value of the data shown using a slider.
