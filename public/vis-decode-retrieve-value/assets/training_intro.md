@@ -1,6 +1,6 @@
-# Training
+# Task 2 --- Training
 
-Before the main trials begin, you will complete **4 practice trials** to get familiar with the task and interface.
+Before the main trials for task 2 begin, you will complete **4 practice trials** to get familiar with the task and interface.
 
 On each trial, you will see a **line graph** displaying a series of data points. Your goal is to 
 estimate the **average (mean)** value of the data shown.

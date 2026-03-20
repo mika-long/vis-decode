@@ -84,7 +84,7 @@ function Block5Visualization({
         'location-y': null,
       },
     });
-  }, [setAnswer]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Update answer whenever both sliders have values
   useEffect(() => {

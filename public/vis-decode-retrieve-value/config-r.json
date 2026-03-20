@@ -95,28 +95,28 @@
       "response": [
         {
           "id": "slider-x",
-          "prompt": "Numeric response of slider to Block5",
+          "prompt": "",
           "required": false,
           "type": "numerical",
-          "hidden": true
+          "location": "sidebar"
         },
         {
           "id": "location-x",
-          "prompt": "Numeric response of slider to Block5",
+          "prompt": "",
           "required": false,
           "type": "numerical",
           "hidden": true
         },
         {
           "id": "slider-y",
-          "prompt": "Numeric response of slider to Block5",
+          "prompt": "",
           "required": false,
           "type": "numerical",
-          "hidden": true
+          "location": "sidebar"
         },
         {
           "id": "location-y",
-          "prompt": "Numeric response of slider to Block5",
+          "prompt": "",
           "required": false,
           "type": "numerical",
           "hidden": true
@@ -532,11 +532,11 @@
       "correctAnswer": [
         {
           "id": "slider-x",
-          "answer": "0.2"
+          "answer": 0.2
         },
         {
           "id": "slider-y",
-          "answer": "0.75"
+          "answer": 0.75
         }
       ],
       "provideFeedback": true,
@@ -553,11 +553,11 @@
       "correctAnswer": [
         {
           "id": "slider-x",
-          "answer": "-1.5"
+          "answer": -1.5
         },
         {
           "id": "slider-y",
-          "answer": "0.4"
+          "answer": 0.4
         }
       ],
       "provideFeedback": true,
