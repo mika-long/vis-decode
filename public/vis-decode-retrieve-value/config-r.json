@@ -4,16 +4,16 @@
     "title": "Visual Decoding Operators — Average Estimation in Line Graphs",
     "version": "pilot",
     "authors": [
-      "Anonymous"
+      "Sheng Long"
     ],
     "date": "2025-12-10",
     "description": "A study designed to elicit resposnes from participants",
     "organizations": [
-      "Some University"
+      "Northwestern University"
     ]
   },
   "uiConfig": {
-    "contactEmail": "",
+    "contactEmail": "shenglong@u.northwestern.edu",
     "helpTextPath": "vis-decode-retrieve-value/assets/help.md",
     "logoPath": "revisitAssets/revisitLogoSquare.svg",
     "withProgressBar": true,
@@ -516,9 +516,11 @@
         "taskType": "point"
       }
     },
-    "type": "markdown",
-    "path": "vis-decode-retrieve-value/assets/training-task5.md",
-    "response": [],
+    "train-video-5": {
+      "type": "markdown",
+      "path": "vis-decode-retrieve-value/assets/training-task5.md",
+      "response": []
+    },
     "block5_train_1": {
       "baseComponent": "Block5",
       "parameters": {
@@ -1019,10 +1021,10 @@
         "order": "fixed",
         "components": [
           "train-video-5",
-          "task5_train_1",
-          "task5_train_2",
+          "block5_train_1",
+          "block5_train_2",
           {
-            "components": ["task5_test_1", "task5_test_2", "task5_test_3", "task5_test_4", "task5_test_5", "task5_test_6", "task5_test_7", "task5_test_8", "task5_test_9", "task5_test_10"],
+            "components": ["block5_test_1", "block5_test_2", "block5_test_3", "block5_test_4", "block5_test_5", "block5_test_6", "block5_test_7", "block5_test_8", "block5_test_9", "block5_test_10"],
             "order": "random"
           }
         ]
