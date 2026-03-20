@@ -99,16 +99,16 @@ De-identified data from this study may be shared with the research community, wi
 The results of this study could be shared in articles and presentations, but will not include any information that identifies you unless you give permission for use of information that identifies you in articles and presentations.
 
 ## Will I be paid or given anything for taking part in this study?
-You will receive a payment of **$3.50** for your participation in this study.
-There will be an additional bonus of $0.03 per correct response, with "correct" defined as within an acceptable margin of error from the true value, resulting in a maximum potential bonus of **$1.50**.
+You will receive a payment of **$3.10** for your participation in this study.
+There will be an additional bonus of $0.05 per correct response, with "correct" defined as within an acceptable margin of error from the true value, resulting in a maximum potential bonus of **$2.90**.
 The payment will be released through Prolific within 24 hours of study completion, and the performance bonuses will be calculated and distributed within 48 hours of study completion.
 All payments are handled through Prolific's secure payment system.
 Participants who withdraw before completing all trials will not receive any payment.
 
 ## Who can I talk to?
-If you have questions, concerns, or complaints, you can contact the Principal Investigator, Matthew Kay, and Sheng Long (shenglong@u.northwestern.edu).
+If you have questions, concerns, or complaints, you can contact the Principal Investigator, Matthew Kay (matthew.kay@u.northwestern.edu), and Sheng Long (shenglong@u.northwestern.edu).
 
-This research has been reviewed and approved by an Institutional Review Board ("IRB") – an IRB is a committee that protects the rights of people who participate in research studies. You may contact the IRB by phone at XXX or by email at XXX if:
+This research has been reviewed and approved by an Institutional Review Board ("IRB") – an IRB is a committee that protects the rights of people who participate in research studies. You may contact the IRB by phone at (312) 503-1376 or by email at irbcompliance@northwestern.edu if:
 - Your questions, concerns, or complaints are not being answered by the research team.
 - You cannot reach the research team.
 - You want to talk to someone besides the research team.
