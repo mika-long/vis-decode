@@ -1,7 +1,9 @@
 import {
   forwardRef, RefObject, useCallback, useEffect, useMemo, useRef, useState,
 } from 'react';
-import { APITypes, PlyrProps, usePlyr } from 'plyr-react';
+import {
+  APITypes, PlyrProps, usePlyr, PlyrSource, PlyrOptions,
+} from 'plyr-react';
 import { VideoComponent } from '../parser/types';
 import { PREFIX } from '../utils/Prefix';
 import { getStaticAssetByPath } from '../utils/getStaticAsset';
@@ -45,23 +47,39 @@ const CustomPlyrInstance = forwardRef<APITypes, PlyrProps & { endedCallback:() =
     const raptorRef = usePlyr(ref, { options, source });
 
     useEffect(() => {
-      const plyr = (ref as RefObject<APITypes>).current?.plyr;
-      if (!plyr || typeof plyr.on !== 'function' || typeof plyr.off !== 'function') return undefined;
+      let animationFrameId: number | undefined;
+      let cleanup = () => {};
 
-      try {
-        // Make registration idempotent across StrictMode mount/unmount cycles.
-        plyr.off('ended', endedCallback);
-        plyr.on('ended', endedCallback);
-      } catch {
-        return undefined;
-      }
+      const registerEndedHandler = () => {
+        const plyr = (ref as RefObject<APITypes>).current?.plyr;
+        if (!plyr || typeof plyr.on !== 'function' || typeof plyr.off !== 'function') {
+          animationFrameId = window.requestAnimationFrame(registerEndedHandler);
+          return;
+        }
+
+        try {
+          // Make registration idempotent across StrictMode mount/unmount cycles.
+          plyr.off('ended', endedCallback);
+          plyr.on('ended', endedCallback);
+          cleanup = () => {
+            try {
+              plyr.off('ended', endedCallback);
+            } catch {
+              // Plyr instance can already be disposed during teardown.
+            }
+          };
+        } catch {
+          cleanup = () => {};
+        }
+      };
+
+      registerEndedHandler();
 
       return () => {
-        try {
-          plyr.off('ended', endedCallback);
-        } catch {
-          // Plyr instance can already be disposed during teardown.
+        if (animationFrameId !== undefined) {
+          window.cancelAnimationFrame(animationFrameId);
         }
+        cleanup();
       };
     }, [endedCallback, ref, source]);
 
@@ -69,6 +87,8 @@ const CustomPlyrInstance = forwardRef<APITypes, PlyrProps & { endedCallback:() =
       <video
         ref={raptorRef}
         className="plyr-react plyr"
+        // Ensure HTML5 videos still trigger completion even if Plyr event wiring fails.
+        onEnded={endedCallback}
       />
     );
   });
@@ -127,7 +147,7 @@ export function VideoController({ currentConfig }: { currentConfig: VideoCompone
     };
   }, [provider, url, validExternalUrl]);
 
-  const sources = useMemo<Plyr.Source[]>(() => {
+  const sources = useMemo<PlyrSource[]>(() => {
     if (provider === 'youtube') {
       if (!validExternalUrl) return [];
       return [
@@ -153,9 +173,9 @@ export function VideoController({ currentConfig }: { currentConfig: VideoCompone
       },
     ];
   }, [provider, url, validExternalUrl]);
-  const playerSource = useMemo<Plyr.SourceInfo>(() => ({ type: 'video', sources }), [sources]);
+  const playerSource = useMemo<PlyrSource>(() => ({ type: 'video', sources }), [sources]);
 
-  const options = useMemo<Plyr.Options>(() => ({
+  const options = useMemo<PlyrOptions>(() => ({
     controls: [
       currentConfig.forceCompletion !== false ? 'play-large' : 'play',
       'current-time',

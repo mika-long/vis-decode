@@ -7,9 +7,15 @@ import {
   Stack, Space, Text, Container,
 } from '@mantine/core';
 import { useGetAnswers } from '../../../store/hooks/useGetAnswers';
+<<<<<<< HEAD
 import { ScalesProvider, useScales } from './chartComponents/ScalesContext';
 import Block5Slider from './chartComponents/Block5Slider';
 import { StimulusParams } from '../../../store/types';
+=======
+import { StimulusParams } from '../../../store/types';
+import { ScalesProvider, useScales } from './chartComponents/ScalesContext';
+import Block5Slider from './chartComponents/Block5Slider';
+>>>>>>> 31702d04d0be65ff713ad59b1e7d32aa3a6eb396
 import ClickMarker from './chartComponents/ClickMarker';
 import GuideLines from './chartComponents/Guidelines';
 
