@@ -95,28 +95,30 @@
       "response": [
         {
           "id": "slider-x",
-          "prompt": "",
+          "prompt": "Numeric response of slider to Block5",
           "required": false,
           "type": "numerical",
+          "hidden": false,
           "location": "sidebar"
         },
         {
           "id": "location-x",
-          "prompt": "",
+          "prompt": "Numeric response of slider to Block5",
           "required": false,
           "type": "numerical",
           "hidden": true
         },
         {
           "id": "slider-y",
-          "prompt": "",
+          "prompt": "Numeric response of slider to Block5",
           "required": false,
           "type": "numerical",
+          "hidden": true,
           "location": "sidebar"
         },
         {
           "id": "location-y",
-          "prompt": "",
+          "prompt": "Numeric response of slider to Block5",
           "required": false,
           "type": "numerical",
           "hidden": true
@@ -540,7 +542,8 @@
         }
       ],
       "provideFeedback": true,
-      "allowFailedTraining": true
+      "allowFailedTraining": true,
+      "trainingAttempts": 1
     },
     "block5_train_2": {
       "baseComponent": "Block5",
@@ -561,7 +564,8 @@
         }
       ],
       "provideFeedback": true,
-      "allowFailedTraining": true
+      "allowFailedTraining": true,
+      "trainingAttempts": 1
     },
     "block5_test_1": {
       "baseComponent": "Block5",
