@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.4.0/src/parser/StudyConfigSchema.json",
+  "$schema": "https://raw.githubusercontent.com/revisit-studies/study/v2.4.1/src/parser/StudyConfigSchema.json",
   "studyMetadata": {
     "title": "Visual Decoding Operators - Average Estimation in Line Graphs",
     "version": "pilot",
@@ -173,9 +173,14 @@
         "width": "50%"
       }
     },
-    "task2_intro": {
+    "task1_intro": {
       "type": "markdown",
-      "path": "vis-decode-retrieve-value/assets/task2_intro.md",
+      "path": "vis-decode-retrieve-value/assets/task1_intro.md",
+      "response": []
+    },
+    "task1_test_intro": {
+      "type": "markdown",
+      "path": "vis-decode-retrieve-value/assets/task1_test_intro.md",
       "response": [],
       "nextButtonEnableTime": 3000,
       "style": {
@@ -183,9 +188,9 @@
         "width": "50%"
       }
     },
-    "task1_test_intro": {
+    "task2_intro": {
       "type": "markdown",
-      "path": "vis-decode-retrieve-value/assets/task1_test_intro.md",
+      "path": "vis-decode-retrieve-value/assets/task2_intro.md",
       "response": [],
       "nextButtonEnableTime": 3000,
       "style": {
@@ -202,11 +207,6 @@
         "margin": "0 auto",
         "width": "50%"
       }
-    },
-    "task1_intro": {
-      "type": "markdown",
-      "path": "vis-decode-retrieve-value/assets/task1_intro.md",
-      "response": []
     },
     "block5_train_1": {
       "baseComponent": "Block5",
