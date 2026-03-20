@@ -1,11 +1,23 @@
-# General Instructions
+# Study Overview
 
-Here's what to expect:
+Here's what to expect in this study:
 
-This experiment consists of **2 parts**.
+**Part 1 — Screen Calibration** (~ 1 minute)
 
-1. In the first part, you will complete a **virtual chinrest** task. This is a quick calibration procedure that estimates how far you are sitting from your screen — it takes about 1 minute and helps us interpret your responses accurately.
+You will complete a brief virtual chinrest procedure that estimates your viewing distance. This helps us interpret your responses accurately.
 
-2. In the second part, you will complete **4 practice trials** followed by **48 test trials**. 
-   - The practice trials are meant to familiarize you with the task and interface: you will see a graph and use a **slider** to position a horizontal line at what you think the **average value** of the data is. 
-   - The test trials follow the same format and count toward your **performance bonus**.
+**Part 2 — Task 1** (~ 5 minutes)
+
+You will complete **2 practice trials** followed by **10 test trials**. On each trial, you will use sliders to indicate the location of a point on a graph.
+
+- Practice trials are for getting familiar with the interface and **do not count** toward your bonus.
+- Test trials **count toward your performance bonus**.
+
+**Part 3 — Task 2** (~ 10 minutes)
+
+You will complete **2 practice trials** followed by **48 test trials**. On each trial, you will see a line graph and use a slider to estimate the **average (mean)** value of the data.
+
+- Practice trials **do not count** toward your bonus.
+- Test trials **count toward your performance bonus**.
+
+Click **Next** when you are ready to begin.
