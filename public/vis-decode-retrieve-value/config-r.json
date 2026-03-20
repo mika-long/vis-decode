@@ -1107,7 +1107,7 @@
       "response": [
         {
           "id": "attention_check",
-          "prompt": "During this study, you will be asked to look at graphs of _____ prices. \n\n What should _____ be?",
+          "prompt": "During this study, you will be asked to look at graphs of _____ prices. \n\n What should _____ be? (Hint: fill in a noun in the text box below)",
           "required": true,
           "location": "belowStimulus",
           "type": "shortText"
