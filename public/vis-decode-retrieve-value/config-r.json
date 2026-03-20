@@ -525,15 +525,43 @@
       "baseComponent": "Block5",
       "parameters": {
         "taskType": "Block5",
-        "training": true
-      }
+        "training": true,
+        "x": 0.2,
+        "y": 0.75
+      },
+      "correctAnswer": [
+        {
+          "id": "slider-x",
+          "answer": "0.2"
+        },
+        {
+          "id": "slider-y",
+          "answer": "0.75"
+        }
+      ],
+      "provideFeedback": true,
+      "allowFailedTraining": true
     },
     "block5_train_2": {
       "baseComponent": "Block5",
       "parameters": {
         "taskType": "Block5",
-        "training": true
-      }
+        "training": true,
+        "x": -1.5,
+        "y": 0.4
+      },
+      "correctAnswer": [
+        {
+          "id": "slider-x",
+          "answer": "-1.5"
+        },
+        {
+          "id": "slider-y",
+          "answer": "0.4"
+        }
+      ],
+      "provideFeedback": true,
+      "allowFailedTraining": true
     },
     "block5_test_1": {
       "baseComponent": "Block5",

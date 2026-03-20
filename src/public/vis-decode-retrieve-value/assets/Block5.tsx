@@ -6,7 +6,6 @@ import * as d3 from 'd3';
 import {
   Stack, Space, Text, Container,
 } from '@mantine/core';
-import { useGetAnswers } from '../../../store/hooks/useGetAnswers';
 import { ScalesProvider, useScales } from './chartComponents/ScalesContext';
 import Block5Slider from './chartComponents/Block5Slider';
 import { StimulusParams } from '../../../store/types';
@@ -224,48 +223,25 @@ function Block5Visualization({
 }
 
 export default function Block5({ parameters, setAnswer }: StimulusParams<any>) {
-  // const { trial_id: trialId, taskid } = parameters;
-  const { params } = parameters;
-  const trialId = params.trial_id;
-  const isTraining = params.training || false; // default to false
+  const { training, x: configX, y: configY } = parameters as any;
+  const isTraining = training || false;
 
-  const answers = useGetAnswers([trialId.toString()]);
-  const n = Object.keys(answers)[0];
-  const point = useMemo(() => {
-    let p = { x: null as number | null, y: null as number | null };
-    if (answers[n]) {
-      const answer = answers[n] as { 'location-x': number, 'location-y': number };
-      const xVal = answer['location-x'];
-      const yVal = answer['location-y'];
-      if (xVal && yVal) {
-        p = { x: xVal, y: yVal };
-      }
-    }
-    return p;
-  }, [answers, n]);
+  // Use fixed coordinates from config if provided (e.g. training), otherwise randomize
+  const point = useMemo(() => ({
+    x: configX !== undefined ? configX : Math.round((Math.random() * 10 - 5) * 100) / 100,
+    y: configY !== undefined ? configY : Math.round(Math.random() * 100) / 100,
+  }), [configX, configY]);
 
-  // Wrap the original setAnswer to include both slider and point values
+  // Wrap the original setAnswer to include the random point location
   const handleSetAnswer = useCallback((answerData: {status: boolean; answers: Record<string, any> }) => {
-    const combinedAnswer = {
+    setAnswer({
       status: answerData.status,
       answers: {
         ...answerData.answers,
-        // Only include location values if they're not null
-        ...(point.x !== null && { 'location-x': point.x }),
-        ...(point.y !== null && { 'location-y': point.y }),
+        'location-x': point.x, // true answer — must match config-r.json
+        'location-y': point.y, // true answer — must match config-r.json
       },
-    };
-
-    // Only override with slider values if point values are null
-    if (point.x === null && answerData.answers['slider-x'] !== undefined) {
-      combinedAnswer.answers['location-x'] = answerData.answers['slider-x'];
-    }
-
-    if (point.y === null && answerData.answers['slider-y'] !== undefined) {
-      combinedAnswer.answers['location-y'] = answerData.answers['slider-y'];
-    }
-
-    setAnswer(combinedAnswer);
+    });
   }, [point, setAnswer]);
 
   return (
