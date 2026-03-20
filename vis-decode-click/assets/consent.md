@@ -103,9 +103,10 @@ You will receive base payment of **$5** for your participation in this study. Th
 Participants who withdraw before completing all trials will not receive any payment. 
 
 ## Who can I talk to?
-If you have questions, concerns, or complaints, you can contact the Principal Investigator, XXX, and XXX. 
+If you have questions, concerns, or complaints, you can contact the Principal Investigator, Matthew Kay (matthew.kay@u.northwestern.edu) and Sheng Long (shenglong@u.northwestern.edu).
 
-This research has been reviewed and approved by an Institutional Review Board (“IRB”) – an IRB is a committee that protects the rights of people who participate in research studies. You may contact the IRB by phone at xxx or by email at XXX if: 
+This research has been reviewed and approved by an Institutional Review Board (“IRB”) – an IRB is a committee that protects the rights of people who participate in research studies. You may contact the IRB by phone at (312) 503-1376 or by email at irbcompliance@northwestern.edu if:
+
 - Your questions, concerns, or complaints are not being answered by the research team.
 - You cannot reach the research team.
 - You want to talk to someone besides the research team.
