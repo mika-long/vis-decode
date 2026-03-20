@@ -4,9 +4,9 @@ Before we begin, please read the following consent form carefully and thereafter
 
 **Title of Research Study**: Visual Decoding Operators — Average Estimation in Line Graphs
 
-**Principal Investigator**: Matthew Kay 
+**Principal Investigator**: XXX 
 
-**Student Investigator**: Sheng Long 
+**Student Investigator**: XXX
 
 **Supported By:** This research is supported by the Computer Science department at Northwestern University. 
 
@@ -104,9 +104,9 @@ All payments are handled through Prolific's secure payment system.
 Participants who withdraw before completing all trials will not receive any payment. 
 
 ## Who can I talk to?
-If you have questions, concerns, or complaints, you can contact the Principal Investigator, Matthew Kay ([matthew.kay@u.northwestern.edu](mailto:matthew.kay@u.northwestern.edu)) and Sheng Long ([shenglong@u.northwestern.edu](mailto:shenglong@u.northwestern.edu)). 
+If you have questions, concerns, or complaints, you can contact the Principal Investigator, XXX, and XXX. 
 
-This research has been reviewed and approved by an Institutional Review Board ("IRB") – an IRB is a committee that protects the rights of people who participate in research studies. You may contact the IRB by phone at (312) 503-1376 or by email at [irbcompliance@northwestern.edu](mailto:irbcompliance@northwestern.edu) if:
+This research has been reviewed and approved by an Institutional Review Board ("IRB") – an IRB is a committee that protects the rights of people who participate in research studies. You may contact the IRB by phone at XXX or by email at XXX if:
 - Your questions, concerns, or complaints are not being answered by the research team.
 - You cannot reach the research team.
 - You want to talk to someone besides the research team.
