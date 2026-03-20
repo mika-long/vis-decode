@@ -81,6 +81,47 @@
           "hidden": true
         }
       ]
+    },
+    "Block5": {
+      "type": "react-component",
+      "path": "vis-decode-retrieve-value/assets/Block5.tsx",
+      "instruction": "Click on the sliders to initialize your selection. \n\n Drag the sliders such that the two balls on the x-axis and y-axis match the red dot.",
+      "instructionLocation": "aboveStimulus",
+      "nextButtonLocation": "belowStimulus",
+      "parameters": {
+        "taskType": "Block5",
+        "training": ""
+      },
+      "response": [
+        {
+          "id": "slider-x",
+          "prompt": "Numeric response of slider to Block5",
+          "required": false,
+          "type": "numerical",
+          "hidden": true
+        },
+        {
+          "id": "location-x",
+          "prompt": "Numeric response of slider to Block5",
+          "required": false,
+          "type": "numerical",
+          "hidden": true
+        },
+        {
+          "id": "slider-y",
+          "prompt": "Numeric response of slider to Block5",
+          "required": false,
+          "type": "numerical",
+          "hidden": true
+        },
+        {
+          "id": "location-y",
+          "prompt": "Numeric response of slider to Block5",
+          "required": false,
+          "type": "numerical",
+          "hidden": true
+        }
+      ]
     }
   },
   "components": {
@@ -473,6 +514,93 @@
       "parameters": {
         "taskIndex": 139,
         "taskType": "point"
+      }
+    },
+    "type": "markdown",
+    "path": "vis-decode-retrieve-value/assets/training-task5.md",
+    "response": [],
+    "block5_train_1": {
+      "baseComponent": "Block5",
+      "parameters": {
+        "taskType": "Block5",
+        "training": true
+      }
+    },
+    "block5_train_2": {
+      "baseComponent": "Block5",
+      "parameters": {
+        "taskType": "Block5",
+        "training": true
+      }
+    },
+    "block5_test_1": {
+      "baseComponent": "Block5",
+      "parameters": {
+        "taskType": "Block5",
+        "training": false
+      }
+    },
+    "block5_test_2": {
+      "baseComponent": "Block5",
+      "parameters": {
+        "taskType": "Block5",
+        "training": false
+      }
+    },
+    "block5_test_3": {
+      "baseComponent": "Block5",
+      "parameters": {
+        "taskType": "Block5",
+        "training": false
+      }
+    },
+    "block5_test_4": {
+      "baseComponent": "Block5",
+      "parameters": {
+        "taskType": "Block5",
+        "training": false
+      }
+    },
+    "block5_test_5": {
+      "baseComponent": "Block5",
+      "parameters": {
+        "taskType": "Block5",
+        "training": false
+      }
+    },
+    "block5_test_6": {
+      "baseComponent": "Block5",
+      "parameters": {
+        "taskType": "Block5",
+        "training": false
+      }
+    },
+    "block5_test_7": {
+      "baseComponent": "Block5",
+      "parameters": {
+        "taskType": "Block5",
+        "training": false
+      }
+    },
+    "block5_test_8": {
+      "baseComponent": "Block5",
+      "parameters": {
+        "taskType": "Block5",
+        "training": false
+      }
+    },
+    "block5_test_9": {
+      "baseComponent": "Block5",
+      "parameters": {
+        "taskType": "Block5",
+        "training": false
+      }
+    },
+    "block5_test_10": {
+      "baseComponent": "Block5",
+      "parameters": {
+        "taskType": "Block5",
+        "training": false
       }
     },
     "pointArc_task_1": {
@@ -887,6 +1015,18 @@
       "calibration_intro",
       "$virtual-chinrest.se.full",
       "training_intro",
+      {
+        "order": "fixed",
+        "components": [
+          "train-video-5",
+          "task5_train_1",
+          "task5_train_2",
+          {
+            "components": ["task5_test_1", "task5_test_2", "task5_test_3", "task5_test_4", "task5_test_5", "task5_test_6", "task5_test_7", "task5_test_8", "task5_test_9", "task5_test_10"],
+            "order": "random"
+          }
+        ]
+      },
       "testing_intro",
       {
         "order": "latinSquare",
