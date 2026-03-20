@@ -154,7 +154,7 @@ function Block5Visualization({
 
   return (
     <>
-      <div style={{ width: width - margin.left - margin.right }}>
+      <div style={{ width: width - margin.left - margin.right, marginLeft: (-2) * margin.left }}>
         {/* X Slider */}
         <Text size="md"> X Slider </Text>
         <Block5Slider
