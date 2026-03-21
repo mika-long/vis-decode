@@ -6,4 +6,4 @@ and takes approximately **one minute**.
 Please make sure you are sitting at your **usual viewing distance** from the screen and follow 
 the instructions carefully.
 
-Keep your browser **maximized (full screen)** for the entire duration of the study.
+<span style="color: red"><strong>Please keep your browser maximized (full screen) for the entire duration of the study.</strong></span>
