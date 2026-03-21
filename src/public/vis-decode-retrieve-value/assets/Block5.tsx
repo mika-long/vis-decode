@@ -230,14 +230,23 @@ function Block5Visualization({
 }
 
 export default function Block5({ parameters, setAnswer }: StimulusParams<any>) {
-  const { training, x: configX, y: configY } = parameters as any;
+  const {
+    training, x: configX, y: configY, minDistFromAxis = 0.5,
+  } = parameters as any;
   const isTraining = training || false;
 
-  // Use fixed coordinates from config if provided (e.g. training), otherwise randomize
-  const point = useMemo(() => ({
-    x: configX !== undefined ? configX : Math.round((Math.random() * 10 - 5) * 100) / 100,
-    y: configY !== undefined ? configY : Math.round((Math.random() * 10) * 100) / 100,
-  }), [configX, configY]);
+  // Use fixed coordinates from config if provided (e.g. training), otherwise randomize.
+  // minDistFromAxis keeps the point at least that many units from the y-axis (x=-5) and x-axis (y=0).
+  const point = useMemo(() => {
+    if (configX !== undefined && configY !== undefined) {
+      return { x: configX, y: configY };
+    }
+    // x: sample from [-5 + minDistFromAxis, 5]
+    const x = Math.round((Math.random() * (10 - minDistFromAxis) + (-5 + minDistFromAxis)) * 100) / 100;
+    // y: sample from [minDistFromAxis, 10]
+    const y = Math.round((Math.random() * (10 - minDistFromAxis) + minDistFromAxis) * 100) / 100;
+    return { x, y };
+  }, [configX, configY, minDistFromAxis]);
 
   // Wrap the original setAnswer to include the random point location
   const handleSetAnswer = useCallback((answerData: {status: boolean; answers: Record<string, any> }) => {
