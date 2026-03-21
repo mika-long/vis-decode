@@ -24,7 +24,6 @@ const chartSettings = {
 };
 
 interface Block5Props {
-
   setAnswer: (answer: {status: boolean; answers: Record<string, any> }) => void,
   axisLabels?: {
     x?: string;
@@ -32,6 +31,7 @@ interface Block5Props {
   }
   children?: React.ReactNode;
   isTraining?: boolean;
+  point?: { x: number; y: number };
 }
 
 function Block5Visualization({
@@ -39,6 +39,7 @@ function Block5Visualization({
   axisLabels,
   children,
   isTraining = false,
+  point,
 }: Block5Props) {
   // Use the scales from context
   const {
@@ -94,10 +95,16 @@ function Block5Visualization({
         answers: {
           'slider-x': xSliderValue,
           'slider-y': ySliderValue,
+          'px-slider-x': xScale(xSliderValue),
+          'px-slider-y': yScale(ySliderValue),
+          ...(point !== undefined && {
+            'px-location-x': xScale(point.x),
+            'px-location-y': yScale(point.y),
+          }),
         },
       });
     }
-  }, [xSliderValue, ySliderValue, xHasInteracted, yHasInteracted, setAnswer]);
+  }, [xSliderValue, ySliderValue, xHasInteracted, yHasInteracted, xScale, yScale, point, setAnswer]);
 
   const handleXSliderChange = useCallback((value: number) => {
     if (!xHasInteracted) {
@@ -168,7 +175,7 @@ function Block5Visualization({
         <Text size="md"> Y Slider </Text>
         <Block5Slider
           min={0}
-          max={1}
+          max={10}
           value={ySliderValue ?? 0}
           onChange={handleYSliderChange}
           onChangeEnd={handleYSliderCommit}
@@ -229,7 +236,7 @@ export default function Block5({ parameters, setAnswer }: StimulusParams<any>) {
   // Use fixed coordinates from config if provided (e.g. training), otherwise randomize
   const point = useMemo(() => ({
     x: configX !== undefined ? configX : Math.round((Math.random() * 10 - 5) * 100) / 100,
-    y: configY !== undefined ? configY : Math.round(Math.random() * 100) / 100,
+    y: configY !== undefined ? configY : Math.round((Math.random() * 10) * 100) / 100,
   }), [configX, configY]);
 
   // Wrap the original setAnswer to include the random point location
@@ -253,12 +260,13 @@ export default function Block5({ parameters, setAnswer }: StimulusParams<any>) {
           height={chartSettings.height}
           margin={chartSettings.margin}
           xDomain={[-5, 5]}
-          yDomain={[0, 1]}
+          yDomain={[0, 10]}
         >
           <Block5Visualization
             setAnswer={handleSetAnswer}
             axisLabels={{ x: 'X Axis', y: 'Y Axis' }}
             isTraining={isTraining}
+            point={point}
           >
             <ClickMarker point={point} />
           </Block5Visualization>
