@@ -32,11 +32,11 @@ export function useChartOverlay({
   const scale = useMemo(
     () => d3.scaleLinear()
       .domain([minValue, maxValue])
-      .range([chartPadding.top + chartHeight, chartPadding.top]),
+      .range([chartPadding.top + chartHeight, chartPadding.top]), // KEEP THIS -- THIS GIVES THE RIGHT COORDINATE MAPPING
     [minValue, maxValue, chartHeight, chartPadding],
   );
 
-  // Convenience function to convert a value to y-position
+  // Convenience function to convert a numeric value to its pixel location
   const valueToY = useCallback((value: number) => scale(value), [scale]);
 
   // Common SVG props for absolutely positioned overlays

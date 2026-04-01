@@ -53,21 +53,21 @@ function generateSpec(data: {x: number, y: number}[]): VisualizationSpec {
 }
 
 interface MoritzProps {
-  taskid: string;
-  taskType: string;
-  params: {
-    index: number; // the index inside of the original data
-    responseType?: 'slider' | 'drag-handle';
-  }
+  taskIndex: number; /* the index used in the original study */
+  taskType: string; /* the graph type, could be either "point" or "pointArc" */
+  responseType?: 'slider' | 'drag-handle'; /* optional for specifying what type of response format */
 }
 
+const CHART_PADDING = {
+  left: VEGA_PADDING, right: VEGA_PADDING, top: VEGA_PADDING, bottom: VEGA_PADDING,
+};
+
 export default function Moritz({ parameters, setAnswer }: StimulusParams<MoritzProps>) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { params: { index, responseType = 'slider' } } = parameters;
+  const { taskIndex } = parameters;
   const [hasInteracted, setHasInteracted] = useState<boolean>(false);
 
   // use the index to get the correct stimulus data
-  const chartData = useMemo(() => exp2Data[index].data, [index]);
+  const chartData = useMemo(() => exp2Data[taskIndex].data, [taskIndex]);
   // ... and generate the spec
   const spec = useMemo(() => generateSpec(chartData), [chartData]);
 
@@ -127,12 +127,10 @@ export default function Moritz({ parameters, setAnswer }: StimulusParams<MoritzP
       <SliderResponse
         chartHeight={200}
         chartWidth={500}
-        chartPadding={{
-          left: VEGA_PADDING, right: VEGA_PADDING, top: VEGA_PADDING, bottom: VEGA_PADDING,
-        }}
-        onChange={(value, pixelY, committed) => {
+        chartPadding={CHART_PADDING}
+        onChange={(value, pixelY, isCommitted) => {
           handleResponseChange(value);
-          if (committed) handleResponseCommit(value, pixelY);
+          if (isCommitted) handleResponseCommit(value, pixelY);
         }}
         minValue={0}
         maxValue={1}
